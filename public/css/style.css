@@ -1,0 +1,330 @@
+
+.leftcol a:link {
+  color: white;
+}
+
+.leftcol a:visited {
+  color: white;
+}
+
+a:hover {
+  color: skyblue !important;
+}
+
+body{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/*a:active {
+    color: white;
+}*/
+
+
+#titleheading {
+  font-size: 34pt;
+  color:white;
+}
+
+#titleheading2 {
+  font-size: 28pt;
+  color:black;
+  margin-top: 20px;
+}
+
+#requestfeed {
+  height: 100%;
+  width: 100%;
+}
+
+#newrequest {
+  height: 100vh;
+  width: 100%;
+}
+
+#logomini {
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+}
+
+#profilepicmini {
+  width: 50px;
+  height: 50px;
+  margin: 10px 5px 10px 50px;
+}
+
+#note {
+  width: 100%;
+  margin: 0 2px 0 2px;
+}
+
+#note2 {
+  width: 100%;
+  margin: 0 2px 0 2px;
+}
+
+#notetext {
+  margin: 20px 0 0 15%;
+}
+
+.btn {
+  border-radius: 25px;
+}
+
+.round{
+  border-radius: 25px;
+  padding: 10px;
+  width: 445px;
+  margin: 10px;
+}
+
+.roundrequest{
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 90%;
+  height: 250px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.roundmediumbtn{
+  border-radius: 25px;
+  padding: 5px;
+  width: 200px;
+  margin: 5px;
+}
+
+.roundmediumbtn2{
+  border-radius: 25px;
+  padding: 10px;
+  width: 200px;
+  margin: 10px;
+}
+
+.roundsmallbtn{
+  border-radius: 25px;
+  padding: 5px;
+  width: 100px;
+  margin: 5px;
+}
+
+.roundminibtn{
+  border-radius: 25px;
+  padding: 10px;
+  width: 50px;
+  margin: 5px;
+}
+
+.roundsmalltext{
+  border-radius: 25px;
+  padding: 10px;
+  width: 200px;
+  margin: 5px;
+}
+
+.bio{
+  height:100px;
+  width:445px;
+}
+
+.checkmargin{
+  margin: 10px;
+}
+
+.absoluteCenter{
+  display:inline-block;
+  position:absolute;
+  text-align:center;
+  top:50%;
+  left:50%;
+  /*-ms-transform:translate(-50%,-50%);*/
+  /*-moz-transform:translate(-50%,-50%);*/
+  /*-webkit-transform:translate(-50%,-50%);*/
+  transform:translate(-50%,-50%);
+}
+
+.logo > .absoluteCenter{
+  width:250;
+  height:250;
+}
+
+/*img.profilepic > .absoluteCenter{
+  width:50;
+  height:50;
+}*/
+
+.leftroundbtn{
+  border-radius: 25px 0 0 25px;
+  padding: 10px;
+  margin: 10px 0px 40px;
+  width: 200px;
+}
+
+.rightroundbtn{
+  border-radius: 0 25px 25px 0;
+  padding: 10px;
+  margin: 10px 0px 40px;
+  width: 200px;
+}
+
+.leftsmallroundbtn{
+  border-radius: 25px 0 0 25px;
+  padding: 10px;
+  margin: 10px 0px 40px;
+  width: 100px;
+}
+
+.middlesmallroundbtn{
+  border-radius: 0;
+  padding: 10px;
+  margin: 10px 0px 40px;
+  width: 100px;
+}
+
+.rightsmallroundbtn{
+  border-radius: 0 25px 25px 0;
+  padding: 10px;
+  margin: 10px 0px 40px;
+  width: 100px;
+}
+
+.winebtn{
+  background-color: #760709;
+  color:white;
+}
+
+.greybtn{
+  background-color: dimgrey;
+  color:white;
+}
+
+.mainbtn{
+  margin-top: 40px;
+}
+
+.leftcol{
+  color:white;
+  /*padding-top: 150px;*/
+  background-color: dimgrey;
+  height: 100vh;
+}
+
+.bottom-row{
+  /*padding-top: 150px;*/
+  background-color: dimgrey;
+  width: 100vw;
+}
+
+.rightcol{
+  color: black;
+  background-color: white;
+  height: 100vh;
+  padding-top: 25px;
+}
+
+.top-row{
+  color: black;
+  background-color: white;
+  /*height: 100vh;*/
+  padding-top: 25px;
+  padding-left: 5px;
+}
+
+.rightcol-signup > .absoluteCenter{
+  color: black;
+  background-color: white;
+  height: 100vh;
+  /*width: 70vh;*/
+  padding-top: 25px;
+  /*overflow-y: scroll;*/
+  /*overflow-x: hidden;*/
+}
+
+.scroll{
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #404040;
+}
+
+.padding-top{
+  padding-top: 10px;
+}
+
+.margin-top{
+  margin-top: 15px;
+}
+
+.requestmargin{
+  margin: 2%;
+}
+.amount{
+  font-weight: bold;
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  margin-right: 20px;
+}
+
+.requestuser{
+  /*margin: 3% 10px 5px 20px;*/
+}
+
+.requestusername{
+  font-weight: bold;
+  font-size: 24px;
+  margin-left: 5%;
+}
+
+.requestmessage{
+  margin: 2% 5% 2% 5%;
+  /*margin-top: 0;*/
+}
+
+.tags{
+  margin-left: 10%;
+  margin-top: 2%;
+}
+
+.checkmark{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.roundgivebtn{
+  background-color: lightgrey;
+  border-color: dimgrey;
+  border-radius: 20px;
+  padding: 10px;
+  height: 65px;
+  width: 80px;
+  margin-bottom: 40%;
+}
+
+.givebtnicon{
+  width: 90%;
+  height: 100%;
+}
+
+.homebtn{
+  background-color: lightgrey;
+  border-radius: 0;
+  /*padding: 10px;*/
+  width: 100%;
+}
+
+.greybackground{
+  background-color: lightgrey;
+}
+
+.footer{
+  margin-top: 10%;
+  margin-bottom: 0;
+}

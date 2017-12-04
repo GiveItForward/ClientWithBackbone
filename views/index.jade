@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  #landingContainer.container
+    script.
+      console.log("hey there from index.jade");
+    .btn-group
+      a.input.leftroundbtn.winebtn#loginBtn(href='/index') Log In
+      a.input.rightroundbtn.greybtn#signupBtn(href='/signup') Sign Up
+    input#username.round(type='text', name='username', placeholder='username or email')
+    input#password.round(type='password', placeholder='password')
+    a.btn.round.winebtn.mainbtn#loginSubmitBtn(href='/requestFeed') Log In
+
+include ../public/js/entry/landingEntryPoint.js
