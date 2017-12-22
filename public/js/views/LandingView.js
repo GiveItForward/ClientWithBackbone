@@ -9,6 +9,7 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
+    var UserModel = require("models/UserModel")
     var HomeView = require("views/HomeView");
 
     //issues with jade plugin, using html for dynamic loads for now
@@ -23,6 +24,8 @@ define(function (require, exports, module) {
     var LandingView = Backbone.View.extend({
 
         el: '#rightCol',
+
+        model: new UserModel({}),
 
         events: {
             "click #signupBtn"          : "renderSignup",
@@ -65,9 +68,15 @@ define(function (require, exports, module) {
             console.log("logging in");
             console.log($("#username").val());
             console.log($("#password").val());
+            self.model = new UserModel({
+                email: $("#username").val(),
+                password: $("#password").val()
+            });
+            self.model.fetch();
+            console.log(self.model.attributes);
             //todo call to back end here
             //todo go to requestfeed
-            window.location.href = '/requestFeed';
+            // window.location.href = '/requestFeed';
             return this;
         },
 
@@ -149,8 +158,8 @@ define(function (require, exports, module) {
             var self = this;
 
             new HomeView();
-            // HomeView.render();
-            window.location.href = '/requestFeed';
+            HomeView.render();
+            // window.location.href = '/requestFeed';
             return this;
         }
 
