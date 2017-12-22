@@ -6,6 +6,14 @@ html(lang='en')
     link(href='/css/bootstrap.min.css', rel='stylesheet')
     link(href='/css/style.css', rel='stylesheet')
     link(rel='shortcut icon', href='/ico/favicon.png')
+    //script(type='text/javascript', src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    //script(type='text/javascript', src='/lib/underscore-min.js')
+    //script(type='text/javascript', src='/lib/backbone-min.js')
+    //script(type='text/javascript', src='/lib/bootbox.min.js')
+    //script(type='text/javascript', src='/lib/bootstrap.min.js')
+    //script(type='text/javascript', src='/js/views/LandingView.js')
+    script(type='text/javascript', src='/js/require.js', data-main='/js/main.js')
+
     block js
   body
     .container-fluid
@@ -14,10 +22,10 @@ html(lang='en')
           .absoluteCenter
             img.logo(src="/img/maroon_shadow.png")
             #titleheading Give It Forward
-            a(href="http://womenscenter.utah.edu/")
+            a(href="#")
               | contact us&nbsp;
             | |
-            a(href="http://womenscenter.utah.edu/")
+            a(href="#")
               |  about us
             //- .footer
             //-   hr

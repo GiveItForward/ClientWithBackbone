@@ -1,4 +1,3 @@
-
 .leftcol a:link {
   color: white;
 }
@@ -85,10 +84,10 @@ body{
   background-color: white;
   border-radius: 25px;
   padding: 5px;
-  width: 90%;
+  width: 80%;
   height: 275px;
-  margin-left: 30px;
-  margin-top: 10px;
+  margin: 2% 5% 0 5%;
+  /*margin-top: 10px;*/
 }
 
 .roundmediumbtn{
@@ -98,11 +97,11 @@ body{
   margin: 5px;
 }
 
-.roundmediumbtn2{
+.newrequestbtn{
   border-radius: 25px;
-  padding: 10px;
-  width: 200px;
-  margin: 10px;
+  padding: 2%;
+  width: 60%;
+  margin: 3%;
 }
 
 .roundsmallbtn{
@@ -171,6 +170,20 @@ body{
   width: 200px;
 }
 
+.navbtn{
+  border-radius: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /*margin: 10px 0px 40px;*/
+  width:100%;
+  margin-left:0;
+  margin-right:0;
+  padding-left:0;
+  padding-right:0;
+  display:block;
+  text-align:center;
+}
+
 .leftsmallroundbtn{
   border-radius: 25px 0 0 25px;
   padding: 10px;
@@ -202,8 +215,17 @@ body{
   color:white;
 }
 
+.selected {
+  color: white;
+  background: #760709;
+}
+
 .mainbtn{
   margin-top: 40px;
+}
+
+.btn-group-padding {
+  margin: 0;
 }
 
 .leftcol{
@@ -264,11 +286,18 @@ body{
 .requestmargin{
   margin: 2%;
 }
+
+.requesting{
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 0;
+  margin-left: 30%;
+}
+
 .amount{
   font-weight: bold;
   font-size: 36px;
-  margin-bottom: 0;
-  margin-left: 30%;
+  margin: 2%;
 }
 
 .requestuser{
@@ -278,17 +307,21 @@ body{
 .requestusername{
   font-weight: bold;
   font-size: 24px;
-  margin-left: 5%;
+}
+
+.requestimage {
+  width: 80%;
+  height: 80%;
+  margin-left: 30%;
 }
 
 .requestmessage{
-  margin: 2% 5% 2% 5%;
+  margin: 1%;
   /*margin-top: 0;*/
 }
 
 .tags{
-  margin-left: 10%;
-  margin-top: 9%;
+  margin: 1%;
 }
 
 .checkmark{
@@ -304,7 +337,7 @@ body{
   padding: 10px;
   height: 65px;
   width: 80px;
-  margin: 5% 5% 40% 30%;
+  margin: 30%;
 }
 
 .givebtnicon{

@@ -14,8 +14,13 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "jade": "~1.11.0",
+    "jade-html-loader": "0.0.3",
+    "jquery": "^3.2.1",
     "morgan": "~1.9.0",
     "popover": "^2.4.1",
+    "popper": "^1.0.1",
+    "require-jade": "0.0.1",
     "serve-favicon": "~2.4.5"
-  }
+  },
+  "devDependencies": {}
 }

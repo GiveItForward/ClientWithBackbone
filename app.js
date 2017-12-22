@@ -4,16 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// const css = require('./public/css/style.css');
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var signup = require('./routes/signup');
-var editProfile = require('./routes/editProfile');
+// var signup = require('./routes/signup');
+// var editProfile = require('./routes/editProfile');
 var requestFeed = require('./routes/requestFeed');
 var orgs = require('./routes/orgs');
 var myProfile = require('./routes/myProfile');
 var newRequest = require('./routes/newRequest');
 var paypal = require('./routes/paypal');
+
+console.log("hello from app.js");
 
 var app = express();
 
@@ -32,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/index', index);
 app.use('/users', users);
-app.use('/signup', signup);
-app.use('/editProfile', editProfile);
+// app.use('/signup', signup);
+// app.use('/editProfile', editProfile);
 app.use('/requestFeed', requestFeed);
 app.use('/orgs', orgs);
 app.use('/myProfile', myProfile);
@@ -58,5 +62,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
