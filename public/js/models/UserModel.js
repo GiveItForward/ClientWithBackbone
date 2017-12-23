@@ -22,6 +22,7 @@ define(function (require, exports, module) {
         // },
 
         initialize: function (options) {
+
             if(options.email) {
 
                 this.set("email", options.email);

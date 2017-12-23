@@ -7,9 +7,8 @@ require.config({
        bootstrap: '../lib/bootstrap.min',
        bootbox: '../lib/bootbox.min',
        templates: '../templates',
-       jadeViews: '../../views',
        signupView: '../../views/signup',
-       jade: '../lib/jade'
+       jade: './jade'
    },
     shim: {
         underscore: {

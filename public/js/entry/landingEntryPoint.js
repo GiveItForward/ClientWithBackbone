@@ -1,4 +1,4 @@
-require("../../css/style.css");
+// require("../../css/style.css");
 var $ = require("jquery");
 
 var LandingView = require("LandingView");

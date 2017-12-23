@@ -1,42 +1,25 @@
 extend layout2
 block content
-    .row
-        .col-sm-1.greybackground
-            a.btn.homebtn(href='/requestFeed')
-                img#logomini(src='/img/maroon_shadow.png')
-        .col-sm-6
-            #titleheading2 Welcome, CS_Nerd
-        .col-sm-5.padding-top
-            a.leftsmallroundbtn.btn.winebtn(href='/requestFeed') Home
-            a.middlesmallroundbtn.btn.greybtn.btn-secondary(href='/orgs') Orgs
-            a.middlesmallroundbtn.btn.greybtn.btn-secondary(href='#') Notes
-            a.rightsmallroundbtn.btn.greybtn(href='/myProfile') My Profile
     .row.bottom-row.padding-top
-        .col-sm-9
+        .col-sm-7
             .form-inline
                 input.round#searchForTags(type='text', placeholder='search for tags')
-                a.btn.roundminibtn.winebtn(href='/requestFeed') go
-        .col-sm-3
-            a.roundmediumbtn2.btn.winebtn(href='/newRequest') + new request
+                a.btn.roundminibtn.winebtn(href='#') go
+        .col-sm-5
+            a.newrequestbtn.btn.winebtn(href='/newRequest') + new request
     .row.bottom-row
         .col-md-12.scroll
             .row
-                .col-md-6
+                .col-md-12
                     .panel.roundrequest
                         .form-inline
                             .container
                                 .requestmargin
                                     .row
-                                        .col-md-9
+                                        .col-md-1
                                             img.requestuser(src='/img/anonUser.png')
+                                        .col-md-8
                                             a.requestusername(href='/myProfile') @singleMama
-                                        .col-md-3
-                                            .amount
-                                                | $40
-                                    .row.requestmessage
-                                        | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
-                                    .row
-                                        .col-md-9
                                             .form-inline.tags
                                                 | #singleParent
                                                 img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
@@ -44,46 +27,31 @@ block content
                                                 img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
                                                 | #threeKids
                                         .col-md-3
+                                            p
+                                                strong Requesting:
+                                                em.amount $40
+                                                br
+                                                | &nbsp&nbsp Jan, 19 2018
+                                    .row
+                                        .col-md-2
+                                            img.requestimage(src='/img/rent.jpeg')
+                                        .col-md-8
+                                            .requestmessage
+                                                | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                                        .col-md-2
                                             a.roundgivebtn.btn(href='/paypal')
                                                 img.givebtnicon(src='/img/maroon_shadow.png')
+            .row
+                .col-md-12
                     .panel.roundrequest
                         .form-inline
                             .container
                                 .requestmargin
                                     .row
-                                        .col-md-9
+                                        .col-md-1
                                             img.requestuser(src='/img/anonUser.png')
-                                            a.requestusername(href='#') @UofU_11
-                                        .col-md-3
-                                            .amount
-                                                | $35
-                                    .row.requestmessage
-                                        | Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni voluptatem sequi nesciunt.
-                                    .row
-                                        .col-md-9
-                                            .form-inline.tags
-                                                | #domesticViolenceSurvivor
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                                | #UofUStudent
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        .col-md-3
-                                            a.roundgivebtn.btn(href='#')
-                                                img.givebtnicon(src='/img/maroon_shadow.png')
-                    .panel.roundrequest
-                        .form-inline
-                            .container
-                                .requestmargin
-                                    .row
-                                        .col-md-9
-                                            img.requestuser(src='/img/anonUser.png')
-                                            a.requestusername(href='/myProfile') @student666
-                                        .col-md-3
-                                            .amount
-                                                | $40
-                                    .row.requestmessage
-                                        | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
-                                    .row
-                                        .col-md-9
+                                        .col-md-8
+                                            a.requestusername(href='/myProfile') @singleMama
                                             .form-inline.tags
                                                 | #singleParent
                                                 img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
@@ -91,75 +59,194 @@ block content
                                                 img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
                                                 | #threeKids
                                         .col-md-3
-                                            a.roundgivebtn.btn(href='#')
+                                            p
+                                                strong Requesting:
+                                                em.amount $20
+                                                br
+                                                | &nbsp&nbsp Dec, 28 2017
+                                    .row
+                                        .col-md-2
+                                            img.requestimage(src='/img/oldshoes.jpg')
+                                        .col-md-8
+                                            .requestmessage
+                                                | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                                        .col-md-2
+                                            a.roundgivebtn.btn(href='/paypal')
                                                 img.givebtnicon(src='/img/maroon_shadow.png')
-                .col-md-6
-                    .panel.roundrequest
-                        .form-inline
-                            .container
-                                .requestmargin
-                                    .row
-                                        .col-md-9
-                                            img.requestuser(src='/img/anonUser.png')
-                                            a.requestusername(href='#') @CS_Stud
-                                        .col-md-3
-                                            .amount
-                                                | $60
-                                    .row.requestmessage
-                                        | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                                    .row
-                                        .col-md-9
-                                            .form-inline.tags
-                                                | #veteran
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center" )
-                                                | #UofUStudent
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center")
-                                        .col-md-3
-                                            a.roundgivebtn.btn(href='#')
-                                                img.givebtnicon(src='/img/maroon_shadow.png')
-                    .panel.roundrequest
-                        .form-inline
-                            .container
-                                .requestmargin
-                                    .row
-                                        .col-md-9
-                                            img.requestuser(src='/img/anonUser.png')
-                                            a.requestusername(href='#') @wheelinDude
-                                        .col-md-3
-                                            .amount
-                                                | $25
-                                    .row.requestmessage
-                                        | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                    .row
-                                        .col-md-9
-                                            .form-inline.tags
-                                                | #diabled
-                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified By UofU Center fo Disability and Access')
-                                                | #UofUStudent
-                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified By UofU Center fo Disability and Access')
-                                        .col-md-3
-                                            a.roundgivebtn.btn(href='#')
-                                                img.givebtnicon(src='/img/maroon_shadow.png')
-                    .panel.roundrequest
-                        .form-inline
-                            .container
-                                .requestmargin
-                                    .row
-                                        .col-md-9
-                                            img.requestuser(src='/img/anonUser.png')
-                                            a.requestusername(href='#') @hungryStudent
-                                        .col-md-3
-                                            .amount
-                                                | $60
-                                    .row.requestmessage
-                                        | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
-                                    .row
-                                        .col-md-9
-                                            .form-inline.tags
-                                                | #veteran
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center" )
-                                                | #UofUStudent
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center")
-                                        .col-md-3
-                                            a.roundgivebtn.btn(href='#')
-                                                img.givebtnicon(src='/img/maroon_shadow.png')
+
+
+
+
+
+
+
+
+        //.row
+        //    .col-sm-1.greybackground
+        //        a.btn.homebtn(href='/requestFeed')
+        //            img#logomini(src='/img/maroon_shadow.png')
+        //    .col-sm-6
+        //        #titleheading2 Welcome, CS_Nerd
+        //    .col-sm-5.padding-top
+        //        a.leftsmallroundbtn.btn.winebtn(href='/requestFeed') Home
+        //        a.middlesmallroundbtn.btn.greybtn.btn-secondary(href='/orgs') Orgs
+        //        a.middlesmallroundbtn.btn.greybtn.btn-secondary#notes(href='#') Notes
+        //        a.rightsmallroundbtn.btn.greybtn(href='/myProfile') My Profile
+        //.row.bottom-row.padding-top
+        //    .col-sm-9
+        //        .form-inline
+        //            input.round#searchForTags(type='text', placeholder='search for tags')
+        //            a.btn.roundminibtn.winebtn(href='/requestFeed') go
+        //    .col-sm-3
+        //        a.roundmediumbtn2.btn.winebtn(href='/newRequest') + new request
+        //.row.bottom-row
+        //    .col-md-12.scroll
+        //        .row
+        //            .col-md-6
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='/myProfile') @singleMama
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $40
+        //                                .row.requestmessage
+        //                                    | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #singleParent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                            | #threeKids
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='/paypal')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='#') @UofU_11
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $35
+        //                                .row.requestmessage
+        //                                    | Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni voluptatem sequi nesciunt.
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #domesticViolenceSurvivor
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='#')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='/myProfile') @student666
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $40
+        //                                .row.requestmessage
+        //                                    | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #singleParent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+        //                                            | #threeKids
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='#')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //            .col-md-6
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='#') @CS_Stud
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $60
+        //                                .row.requestmessage
+        //                                    | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #veteran
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center" )
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center")
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='#')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='#') @wheelinDude
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $25
+        //                                .row.requestmessage
+        //                                    | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #diabled
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title='Verified By UofU Center fo Disability and Access')
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title='Verified By UofU Center fo Disability and Access')
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='#')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //                .panel.roundrequest
+        //                    .form-inline
+        //                        .container
+        //                            .requestmargin
+        //                                .row
+        //                                    .col-md-9
+        //                                        img.requestuser(src='/img/anonUser.png')
+        //                                        a.requestusername(href='#') @hungryStudent
+        //                                    .col-md-3
+        //                                        .amount
+        //                                            | $60
+        //                                .row.requestmessage
+        //                                    | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+        //                                .row
+        //                                    .col-md-9
+        //                                        .form-inline.tags
+        //                                            | #veteran
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center" )
+        //                                            | #UofUStudent
+        //                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Veteran's Support Center")
+        //                                    .col-md-3
+        //                                        a.roundgivebtn.btn(href='#')
+        //                                            img.givebtnicon(src='/img/maroon_shadow.png')
+        //script.
+        //    console.log("hi from request feed jade")
+        //    $('#notes').click(function () {
+        //        console.log("you clicked the notes button")
+        //        bootbox.alert("This is the default alert!");
+        //    });

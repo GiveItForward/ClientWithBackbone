@@ -72,10 +72,15 @@ define(function (require, exports, module) {
                 email: $("#username").val(),
                 password: $("#password").val()
             });
-            self.model.fetch();
-            console.log(self.model.attributes);
+            self.model.fetch({
+                success: function () {
+                    console.log(self.model.attributes);
+                }
+            });
+
             //todo call to back end here
             //todo go to requestfeed
+            new HomeView();
             // window.location.href = '/requestFeed';
             return this;
         },
@@ -150,15 +155,13 @@ define(function (require, exports, module) {
 
             console.log("in add info function");
             new HomeView();
-            window.location.href = '/requestFeed';
+            // window.location.href = '/requestFeed';
             return this;
         },
 
         fillOutLater: function () {
             var self = this;
-
             new HomeView();
-            HomeView.render();
             // window.location.href = '/requestFeed';
             return this;
         }
