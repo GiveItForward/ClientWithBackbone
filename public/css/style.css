@@ -27,9 +27,9 @@ body{
 }
 
 #titleheading2 {
-  font-size: 28pt;
+  font-size: 24pt;
   color:black;
-  margin-top: 20px;
+  margin: 2%;
 }
 
 #requestfeed {
@@ -86,7 +86,7 @@ body{
   padding: 5px;
   width: 80%;
   height: 275px;
-  margin: 2% 5% 0 5%;
+  margin: 2%;
   /*margin-top: 10px;*/
 }
 
@@ -100,8 +100,8 @@ body{
 .newrequestbtn{
   border-radius: 25px;
   padding: 2%;
-  width: 60%;
-  margin: 3%;
+  width: 50%;
+  margin: 2%;
 }
 
 .roundsmallbtn{
@@ -213,6 +213,14 @@ body{
 .greybtn{
   background-color: dimgrey;
   color:white;
+}
+
+.greybtncol{
+  background-color: dimgrey;
+  color:white;
+  border-radius: 0;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .selected {
@@ -353,8 +361,34 @@ body{
   width: 100%;
 }
 
-.greybackground{
+.lightgreybackground{
   background-color: lightgrey;
+}
+
+.dimgreybackground{
+  background-color: dimgrey;
+}
+
+.orglogo {
+  width: 100%;
+  height: 80%;
+  margin: 2%;
+}
+
+.topborder {
+  border-top: 1px solid lightgray;
+  margin-top: 1%;
+}
+
+.btn-col {
+  padding: 0;
+  margin: 0;
+  justify-content: flex-start;
+  border-right: 1px solid lightgray;
+}
+
+.no-padding {
+  padding: 0;
 }
 
 .footer{
