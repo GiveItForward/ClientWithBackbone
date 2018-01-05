@@ -1,22 +1,31 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 btn-group-vertical btn-col dimgreybackground">
-            <a class="btn homebtn lightgreybackground" href="#"><img id="logomini" src="/img/maroon_shadow.png"></a>
+            <a class="btn homebtn lightgreybackground" href="#"><img id="logoMini" src="/img/maroon_shadow.png"></a>
             <a class="greybtncol btn selected" id="homeBtn" href="#">Home</a>
             <a class="greybtncol btn" id="orgsBtn" href="#">Orgs</a>
-            <a class="btn greybtncol" id="notesBtn" href="#">Notes</a>
+            <a class="greybtncol btn" id="notesBtn" href="#" data-toggle="popover" data-trigger="focus" data-content="Some content inside the popover, more content, more content, more content">Notifications</a>
             <a class="greybtncol btn" id="myProfileBtn" href="#">My Profile</a>
+            <a class="greybtncol btn" id="myRequestsBtn" href="#">My Requests</a>
+            <a class="greybtncol btn" id="myDonationsBtn" href="#">My Donations</a>
         </div>
         <div class="col-md-10  no-padding">
-            <div id="titleheading2">Welcome, CS_Nerd</div>
+            <div class="row">
+                <div class="col-md-8" id="titleheading2">Welcome, CS_Nerd</div>
+                <div class="col-md-3 icon-margin form-inline">
+                    <img class="icon-mini" src="/img/maroon_shadow.png">2
+                    <img class="icon-mini" src="/img/maroon_daisy.png">10
+                </div>
+            </div>
             <div class="container-fluid" id="homeContainer">
-                <div class="row bottom-row padding-top">
+                <div class="row middle-row padding-top">
                     <div class="col-sm-7">
                         <div class="form-inline">
                             <input class="round" id="searchForTags" type="text" placeholder="search for tags"><a class="btn roundminibtn winebtn" href="#">go</a>
                         </div>
                     </div>
-                    <div class="col-sm-5"><a class="newrequestbtn btn winebtn" href="#">+ new request</a></div>
+                    <div class="col-sm-5"><a class="newrequestbtn btn winebtn whitetext" id="newRequestBtn" data-toggle="modal" data-target="#newRequestModal" data-backdrop="static">+ new request</a></div>
+                    <!--<div class="col-sm-5"><a class="newrequestbtn btn winebtn" href="#">+ new request</a></div>-->
                 </div>
                 <div class="row bottom-row">
                     <div class="col-md-12 scroll">
@@ -66,7 +75,63 @@
                                                 <div class="row">
                                                     <div class="col-md-2"><img class="requestimage" src="/img/oldshoes.jpg"></div>
                                                     <div class="col-md-8">
+                                                        <div class="requestmessage">We've had another rough month financially and it's breaking my heart to send my daughter to school in these beat up shoes. Please help me get her new ones for the winter.</div>
+                                                    </div>
+                                                    <div class="col-md-2"><a class="roundgivebtn btn" href="#"><img class="givebtnicon" src="/img/maroon_shadow.png"></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel roundrequest">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="requestmargin">
+                                                <div class="row">
+                                                    <div class="col-md-1"><img class="requestuser" src="/img/anonUser.png"></div>
+                                                    <div class="col-md-8"><a class="requestusername" href="#">@singleMama</a>
+                                                        <div class="form-inline tags">#singleParent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#UofUStudent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#threeKids</div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <p><strong>Requesting:</strong><em class="amount">$40</em><br>&nbsp&nbsp Jan, 19 2018</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2"><img class="requestimage" src="/img/rent.jpeg"></div>
+                                                    <div class="col-md-8">
                                                         <div class="requestmessage">My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!</div>
+                                                    </div>
+                                                    <div class="col-md-2"><a class="roundgivebtn btn" href="#"><img class="givebtnicon" src="/img/maroon_shadow.png"></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel roundrequest">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="requestmargin">
+                                                <div class="row">
+                                                    <div class="col-md-1"><img class="requestuser" src="/img/anonUser.png"></div>
+                                                    <div class="col-md-8"><a class="requestusername" href="#">@singleMama</a>
+                                                        <div class="form-inline tags">#singleParent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#UofUStudent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#threeKids</div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <p><strong>Requesting:</strong><em class="amount">$20</em><br>&nbsp&nbsp Dec, 28 2017</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2"><img class="requestimage" src="/img/oldshoes.jpg"></div>
+                                                    <div class="col-md-8">
+                                                        <div class="requestmessage">We've had another rough month financially and it's breaking my heart to send my daughter to school in these beat up shoes. Please help me get her new ones for the winter.</div>
                                                     </div>
                                                     <div class="col-md-2"><a class="roundgivebtn btn" href="#"><img class="givebtnicon" src="/img/maroon_shadow.png"></a></div>
                                                 </div>

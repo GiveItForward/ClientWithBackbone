@@ -1,0 +1,72 @@
+<div class="modal fade" id="newRequestModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header dimgreytext">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Request</h4>
+            </div>
+            <div class="modal-body">
+                <label>Describe the reason for your request:</label><br>
+                <textarea id="requestDescription" rows="4" cols="60"></textarea>
+                <label>Enter the dollar amount you are requesting: <b>$</b></label>
+                <input id="requestAmount" class="roundminitext" type="text">
+                <!--<div class="dropdown">-->
+                    <!--<button class="round greybtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--Select Tags for this Request-->
+                    <!--</button>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" multiple>-->
+                        <!--<a class="dropdown-item" href="#">#rent</a>-->
+                        <!--<a class="dropdown-item" href="#">#bills</a>-->
+                        <!--<a class="dropdown-item" href="#">#forAChild</a>-->
+                        <!--<a class="dropdown-item" href="#">#clothing</a>-->
+                        <!--<a class="dropdown-item" href="#">#groceries</a>-->
+                        <!--<a class="dropdown-item" href="#">#schoolRelated</a>-->
+                        <!--<a class="dropdown-item" href="#">#other</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <label>Choose up to two tags for your request:</label><br>
+                <select multiple data-max-options="2" class="selectpicker requesttags" title="Choose two of the following...">
+                    <option>#bills</option>
+                    <option>#clothing</option>
+                    <option>#forAChild</option>
+                    <option>#groceries</option>
+                    <option>#rent</option>
+                    <option>#schoolRelated</option>
+                    <option selected>#other</option>
+                </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="/img/rent.jpeg" style="height:100%; width:100%;">
+                    </div>
+                    <div class="col-md-6">
+                        <input id="fileChooser" type="file" style="display: none" />
+                        <input id="uploadImage" class="roundmediumbtn winebtn mainbtn" type="submit" value="upload image"><br>
+                        <input id="chooseImage" class="roundmediumbtn winebtn" type="submit" value="choose image"><br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="createRequest" class="btn winebtn">Create Request</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+<!--<div id="newRequestModal" class="modal fade" role="dialog">-->
+    <!--<div class="modal-header">-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+        <!--<h3 id="myModalLabel">Modal header</h3>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+        <!--<p>One fine body…</p>-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+        <!--<button class="btn greybtn" data-dismiss="modal">Close</button>-->
+        <!--<button class="btn winebtn">Save changes</button>-->
+    <!--</div>-->
+<!--</div>-->
