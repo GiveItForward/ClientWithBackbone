@@ -33,7 +33,7 @@ body{
   color:white;
 }
 
-#titleheading2 {
+.titleheading2 {
   font-size: 18pt;
   color:black;
   margin: 2%;
@@ -388,19 +388,26 @@ body{
 .editrequestbtn {
   border-radius: 25px;
   padding: 10px;
-  height: 70px;
-  width: 100px;
-  margin-top: 30%;
-  margin-bottom: 30%;
+  /*height: 80%;*/
+  width: 100%;
+  margin-top: 50%;
 }
 
 .thankyoubtn {
   border-radius: 25px;
-  padding: 10px;
-  height: 80px;
+  padding: 1%;
+  /*height: 60px;*/
   width: 150px;
   margin-top: 30%;
   margin-bottom: 30%;
+}
+
+.viewthankyoubtn {
+  border-radius: 25px;
+  padding: 1%;
+  /*height: 50px;*/
+  width: 150px;
+  margin-top: 0;
 }
 
 .thankyouheader {
@@ -471,7 +478,7 @@ body{
   margin: 2%;
 }
 
-#requestDescription {
+.bio {
   border-radius: 25px;
   margin-bottom: 1%;
   padding: 2%;

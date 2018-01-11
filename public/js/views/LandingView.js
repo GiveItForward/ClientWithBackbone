@@ -9,8 +9,9 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
-    var UserModel = require("models/UserModel")
+    var UserModel = require("models/UserModel");
     var HomeView = require("views/HomeView");
+    var SignUpView = require("views/SignUpView");
 
     //issues with jade plugin, using html for dynamic loads for now
     // var loginTemplate = require("jade!jadeViews/login");
@@ -29,16 +30,18 @@ define(function (require, exports, module) {
 
         events: {
             "click #signupBtn"          : "renderSignup",
-            "click #loginBtn"           : "renderLogin",
+            // "click #loginBtn"           : "renderLogin",
             "click #loginSubmitBtn"     : "login",
-            "click #yesOrg"             : "toggleYes",
-            "click #noOrg"              : "toggleNo",
-            "click #dropdownBtn"        : "toggleDropdown",
-            "click #createAccountBtn"   : "createAccount",
-            "click #uploadImage"        : "uploadImage",
-            "click #chooseImage"        : "chooseImage",
-            "click #addInfo"            : "addInfo",
-            "click #fillOutLater"       : "fillOutLater"
+            // "click #yesOrg"             : "toggleYes",
+            // "click #noOrg"              : "toggleNo",
+            // "click #dropdownBtn"        : "toggleDropdown",
+            // "click #createAccountBtn"   : "createAccount",
+            // "click #uploadImage"        : "uploadImage",
+            // "click #chooseImage"        : "chooseImage",
+            // "click #addInfo"            : "addInfo",
+            // "click #fillOutLater"       : "fillOutLater",
+            "keyup"                     : "updateModel",
+            "change"                    : "updateModel"
         },
 
         initialize: function () {
@@ -51,6 +54,7 @@ define(function (require, exports, module) {
             console.log("in landing view render");
             var self = this;
             // self.$el.html(indexTemplate());
+            self.$('#loginSubmitBtn').prop("disabled", true);
             return this;
         },
 
@@ -60,114 +64,126 @@ define(function (require, exports, module) {
             $("#loginBtn").addClass("selected");
             var self = this;
             self.$('#inputdiv').html(loginTemplate);
+            self.$('#loginSubmitBtn').prop("disabled", true);
             return this;
+        },
+
+        updateModel: function () {
+            var self = this;
+            self.model.set("username", $("#username").val());
+            self.model.set("password", $("#password").val());// todo this will be hashed/encrypted
+
+            if(!self.model.get("username") || !self.model.get("password")){
+                self.$('#loginSubmitBtn').prop("disabled", true);
+            }else{
+                self.$('#loginSubmitBtn').prop("disabled", false);
+            }
         },
 
         login: function () {
             var self = this;
-            console.log("logging in");
-            console.log($("#username").val());
-            console.log($("#password").val());
+            self.updateModel();
+            console.log("logging in...");
+
             self.model = new UserModel({
                 email: $("#username").val(),
-                password: $("#password").val()
+                password: $("#password").val()// todo this will be hashed/encrypted
             });
             self.model.fetch({
                 success: function () {
-                    console.log(self.model.attributes);
+                    self.model.set("password", undefined); //todo make sure password is not visable
+                     new HomeView({
+                        model: self.model
+                    });
                 }
             });
-
-            //todo call to back end here
-            //todo go to requestfeed
-            new HomeView();
-            // window.location.href = '/requestFeed';
             return this;
         },
 
         renderSignup: function () {
-            // bootbox.alert("Sign up!");
-            console.log("in sign up landing view");
-            $("#signupBtn").addClass("selected");
-            $("#loginBtn").removeClass("selected");
-
             var self = this;
-            self.$('#inputdiv').html(signupTemplate);
+            new SignUpView();
+            // $("#signupBtn").addClass("selected");
+            // $("#loginBtn").removeClass("selected");
+            //
+            // self.$('#inputdiv').html(signupTemplate);
+            // self.$('#createAccountBtn').prop("disabled", true);
             return this;
         },
 
-        toggleYes: function () {
-            $("#yesOrg").prop('checked', true);
-            $("#noOrg").prop('checked', false);
-            $("#findOrg").show();
-            return this;
-        },
-
-        toggleNo: function () {
-            $("#yesOrg").prop('checked', false);
-            $("#noOrg").prop('checked', true);
-            $("#findOrg").hide();
-            return this;
-        },
-
-        toggleDropdown: function () {
-            console.log("in toggleDropdown");
-            $('.dropdown-toggle').dropdown();
-            return this;
-        },
-
-        createAccount: function () {
-            var self = this;
-            console.log("creating account");
-            console.log($("#newUsername").val());
-            console.log($("#newEmail").val());
-            console.log($("#newPassword").val());
-            console.log($("#newVerifyPassword").val());
-
-            //todo call to back end here
-
-            self.$('#landingContainer').html(signup2Template);
-            return this;
-        },
-
-        uploadImage: function () {
-            var self = this;
-            $("#fileChooser").trigger("click");
-            self.$('#landingContainer').html(signup2Template);
-            return this;
-        },
-
-        chooseImage: function () {
-            var self = this;
-            bootbox.alert("Pick an image!");
-            self.$('#landingContainer').html(signup2Template);
-            return this;
-        },
-
-        addInfo: function () {
-            var self = this;
-
-            //todo get image
-            console.log($("#userBio").val());
-            //todo get tags
-
-            //todo call to back end here
-
-            console.log("in add info function");
-            new HomeView();
-            // window.location.href = '/requestFeed';
-            return this;
-        },
-
-        fillOutLater: function () {
-            var self = this;
-            new HomeView();
-            // window.location.href = '/requestFeed';
-            return this;
-        }
-
-
-
+        // toggleYes: function () {
+        //     $("#yesOrg").prop('checked', true);
+        //     $("#noOrg").prop('checked', false);
+        //     $("#findOrg").show();
+        //     return this;
+        // },
+        //
+        // toggleNo: function () {
+        //     $("#yesOrg").prop('checked', false);
+        //     $("#noOrg").prop('checked', true);
+        //     $("#findOrg").hide();
+        //     return this;
+        // },
+        //
+        // toggleDropdown: function () {
+        //     console.log("in toggleDropdown");
+        //     $('.dropdown-toggle').dropdown();
+        //     return this;
+        // },
+        //
+        // createAccount: function () {
+        //     var self = this;
+        //     console.log("creating account");
+        //     console.log($("#newUsername").val());
+        //     console.log($("#newEmail").val());
+        //     console.log($("#newPassword").val());
+        //     console.log($("#newVerifyPassword").val());
+        //
+        //     self.model = new UserModel({
+        //         email: $("#newEmail").val(),
+        //         password: $("#newPassword").val()
+        //     });
+        //
+        //     //todo call to back end here
+        //
+        //     self.$('#landingContainer').html(signup2Template);
+        //     return this;
+        // },
+        //
+        // uploadImage: function () {
+        //     var self = this;
+        //     console.log($("#fileChooser").trigger("click"));
+        //     var image =
+        //     self.$('#landingContainer').html(signup2Template);
+        //     return this;
+        // },
+        //
+        // chooseImage: function () {
+        //     var self = this;
+        //     bootbox.alert("Pick an image!");
+        //     self.$('#landingContainer').html(signup2Template);
+        //     return this;
+        // },
+        //
+        // addInfo: function () {
+        //     var self = this;
+        //
+        //     //todo get image
+        //     console.log($("#userBio").val());
+        //     //todo get tags
+        //
+        //     //todo call to back end here
+        //
+        //     console.log("in add info function");
+        //     new HomeView();
+        //     return this;
+        // },
+        //
+        // fillOutLater: function () {
+        //     var self = this;
+        //     new HomeView();
+        //     return this;
+        // }
 
     });
 

@@ -3,17 +3,17 @@ extends layout
 block content
   #rightCol
     #landingContainer.container
-      script.
-        console.log("hey there from index.jade");
       .btn-group
         //a.input.leftroundbtn.greybtn.selected#loginBtn(href='/index') Log In
-        a.input.leftroundbtn.greybtn.selected#loginBtn(href='#') Log In
+        //a.input.leftroundbtn.greybtn.selected#loginBtn(href='#') Log In
+        button#loginBtn.leftroundbtn.greybtn.selected Log In
         //a.input.rightroundbtn.greybtn#signupBtn(href='/signup') Sign Up
-        a.input.rightroundbtn.greybtn#signupBtn(href='#') Sign Up
+        button#signupBtn.rightroundbtn.greybtn Sign Up
       #inputdiv
         input#username.round(type='text', name='username', placeholder='username or email')
         input#password.round(type='password', placeholder='password')
-        a#loginSubmitBtn.btn.round.winebtn.mainbtn(href='#') Log In
+        button#loginSubmitBtn.btn.round.winebtn.mainbtn login
+        //a#loginSubmitBtn.btn.round.winebtn.mainbtn(href='#') Log In
         //a.btn.round.winebtn.mainbtn#loginSubmitBtn(href='/requestFeed') Log In
 
 include ../public/js/entry/landingEntryPoint.js

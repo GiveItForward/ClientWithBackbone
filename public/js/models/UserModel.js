@@ -1,5 +1,3 @@
-
-
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -9,17 +7,6 @@ define(function (require, exports, module) {
     var UserModel = Backbone.Model.extend({
 
         idAttribute: "email",
-
-        // parse: function (response, options){
-        //     if(_.isObject(response)) {
-        //
-        //     }
-        // },
-        //
-        // toJSON: {
-        //
-        //
-        // },
 
         initialize: function (options) {
 
@@ -34,6 +21,10 @@ define(function (require, exports, module) {
                 this.set("isAdmin", undefined);
                 this.set("email", undefined);
                 this.set("username", undefined);
+                this.set("oid", undefined);
+                this.set("tags", undefined);
+                this.set("donateCount", undefined);
+                this.set("receiveCount", undefined);
             }
         }
     });

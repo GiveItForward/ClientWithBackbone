@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="/img/smiley.png" style="height:90%; width:80%;">
+                    <img id="userImage" src="/img/smiley.png" style="height:90%; width:80%;">
                 </div>
                 <div class="col-md-6">
                     <input id="fileChooser" type="file" style="display: none" />
@@ -16,7 +16,8 @@
                 </div>
             </div>
             <br>
-            <input id="userBio" class="round requestDescription" type="text" placeholder="user bio"><br><br>
+            <!--<input id="userBio" class="round bio" type="text" placeholder="user bio"><br><br>-->
+            <textarea id="userBio" class="bio" rows="4" cols="60" placeholder="user bio"></textarea>
             <div class="dropdown">
                 <button class="round greybtn dropdown-toggle round" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Select Tags

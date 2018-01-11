@@ -30,8 +30,9 @@
                                     <div class="col-md-8">
                                         <div class="requestmessage">My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!</div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button class="editrequestbtn greybtn">edit</button>
+                                    <div class="col-md-2 btn-group">
+                                        <button id="editRequestBtn" class="editrequestbtn greybtn">edit</button>
+                                        <button id="deleteRequestBtn" class="editrequestbtn greybtn">delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -101,16 +102,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-8">
                                         <div class="container">
                                             <div class="row">
                                                 <div id="proposalAccordian" class="panel-group">
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading">
                                                             <h4 class="panel-title">
-                                                                <a data-toggle="collapse" data-parent="#proposalAccordian" href="#collapseThankYou">View Thank you</a>
+                                                                <a class="btn viewthankyoubtn winebtn" data-toggle="collapse" data-parent="#proposalAccordian" href="#collapseThankYou">view "Thank you"</a>
                                                             </h4>
                                                         </div>
                                                         <div id="collapseThankYou" class="panel-collapse collapse in">

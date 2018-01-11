@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <label>Describe the reason for your request:</label><br>
-                <textarea id="requestDescription" rows="4" cols="60"></textarea>
+                <textarea id="requestDescription" class="bio" rows="4" cols="60"></textarea>
                 <label>Enter the dollar amount you are requesting: <b>$</b></label>
                 <input id="requestAmount" class="roundminitext" type="text">
                 <!--<div class="dropdown">-->
@@ -25,7 +25,7 @@
                     <!--</div>-->
                 <!--</div>-->
                 <label>Choose up to two tags for your request:</label><br>
-                <select multiple data-max-options="2" class="selectpicker requesttags" title="Choose two of the following...">
+                <select id="requestTags" multiple data-max-options="2" class="selectpicker requesttags" title="Choose two of the following...">
                     <option>#bills</option>
                     <option>#clothing</option>
                     <option>#forAChild</option>
@@ -46,8 +46,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn greybtn" data-dismiss="modal">Cancel</button>
-                <button id="createRequest" class="btn winebtn">Create Request</button>
+                <button id="cancelBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="createRequestBtn" class="btn winebtn">Create Request</button>
             </div>
         </div>
     </div>
