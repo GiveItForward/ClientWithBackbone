@@ -11,7 +11,8 @@ define(function (require, exports, module) {
         model: OrgModel,
 
         fetch: function (params, options) {
-            options.url = "" + params;
+            // options.url = "" + params;
+            this.url = "http://54.227.151.133:8080/giveitforward/orgs/";
             return Backbone.Collection.prototype.fetch.call(this, options);
         }
 

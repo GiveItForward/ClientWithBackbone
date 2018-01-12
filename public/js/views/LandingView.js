@@ -92,8 +92,10 @@ define(function (require, exports, module) {
             self.model.fetch({
                 success: function () {
                     self.model.set("password", undefined); //todo make sure password is not visable
+                    // var requestCollection = new RequestCollection();
                      new HomeView({
-                        model: self.model
+                         model: self.model
+                         // requestCollection: requestCollection
                     });
                 }
             });

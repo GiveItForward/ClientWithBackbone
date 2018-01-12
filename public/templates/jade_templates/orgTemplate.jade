@@ -1,24 +1,26 @@
-.row
-    .col-md-12
-        .panel.roundrequest
-            .form-inline
-                .container
-                    .requestmargin
-                        #orgName.col-md-12.text-center
-                            // <a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">
-                            // Women's Resource Center
-                            // </a>
-                        .row
-                            #orgImage.col-md-2
-                                // <img class="orglogo" src="/img/u_logo.png">
-                            .col-md-10
-                                #orgDescription.requestmessage.panel-body
-                                    // The Women’s Resource Center (WRC) at the University of Utah serves as the central resource for educational and support services for women.  Honoring the complexities of women’s identities, the WRC facilitates choices and changes through programs, counseling, and training grounded in a commitment to advance social justice and equality.
-                                .row.topborder
-                                    #orgWebsite.col-md-4
-                                        // <a target="_blank" href="https://womenscenter.utah.edu/">https://womenscenter.utah.edu/</a>
-                                    #orgPhone.col-md-3
-                                        // 801-581-8030
-                                    #orgAddress.col-md-5
-                                        // <p>A. Ray Olpin Union 200 S. Central Campus Dr, Room 411
-                                        // Salt Lake City, UT 84112</p>
+for org in locals.models
+    .row
+        .col-md-12
+            .panel.roundrequest
+                .form-inline
+                    .container
+                        .requestmargin
+                            #orgName.col-md-12.text-center #{org.get("name")}
+                                // <a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">
+                                // Women's Resource Center
+                                // </a>
+                            .row
+                                #orgImage.col-md-2
+                                    img.orglogo(src='#{org.get("image")}')
+                                     //<img class="orglogo" src="/img/u_logo.png">
+                                .col-md-10
+                                    #orgDescription.requestmessage.panel-body #{org.get("description")}
+                                        // The Women’s Resource Center (WRC) at the University of Utah serves as the central resource for educational and support services for women.  Honoring the complexities of women’s identities, the WRC facilitates choices and changes through programs, counseling, and training grounded in a commitment to advance social justice and equality.
+                                    .row.topborder
+                                        a#orgWebsite.col-md-4(href="#{org.get("website")}") #{org.get("website")}
+                                            // <a target="_blank" href="https://womenscenter.utah.edu/">https://womenscenter.utah.edu/</a>
+                                        #orgPhone.col-md-3 #{org.get("phoneNumber")}
+                                            // 801-581-8030
+                                        #orgAddress.col-md-5 #{org.get("address")}
+                                            // <p>A. Ray Olpin Union 200 S. Central Campus Dr, Room 411
+                                            // Salt Lake City, UT 84112</p>

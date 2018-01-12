@@ -12,7 +12,7 @@ define(function (require, exports, module) {
 
         fetch: function (params, options) {
             // options.url = "" + params;
-            options.url = "http://54.227.151.133:8080/giveitforward/requests/";
+            this.url = "http://54.227.151.133:8080/giveitforward/requests/";
             return Backbone.Collection.prototype.fetch.call(this, options);
         },
 

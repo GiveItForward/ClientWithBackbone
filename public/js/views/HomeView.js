@@ -12,7 +12,9 @@ define(function (require, exports, module) {
 
     var NewRequestModalView = require("views/NewRequestModalView");
     var RequestModel = require("models/RequestModel");
+    var RequestCollection = require("models/RequestCollection");
     var OrgModel = require("models/OrgModel");
+    var OrgCollection = require("models/OrgCollection");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
@@ -20,29 +22,64 @@ define(function (require, exports, module) {
     var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
-    var myRequestsTemplate = require("jade!templates/jade_templates/myRequestsTemplate");
-    var myDonationsTemplate = require("jade!templates/jade_templates/myDonationsTemplate");
+    var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
+    var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
+    var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
 
     //todo for testing; delete when done
-    var requestModel = new RequestModel({
+    var requestModel1 = new RequestModel({
+        username: "@undefined",
+        userimage: "/img/anonUser.png",
         description: "My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
         amount: "50",
         date: "Jan 10, 2018",
         tags: "#rent", //todo make sure to add usertags and requesttags to the html
-        image: "<img class=\"requestimage\" src=\"/img/rent.jpeg\">",
+        // image: "<img class=\"requestimage\" src=\"/img/rent.jpeg\">",
+        image: "/img/rent.jpeg",
         fulfilled: false
     });
 
-    var orgModel = new OrgModel({
+    var requestModel2 = new RequestModel({
+        username: "@undefined",
+        userimage: "/img/anonUser.png",
+        description: "blah blah 2 My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
+        amount: "60",
+        date: "Jan 11, 2018",
+        tags: "#other", //todo make sure to add usertags and requesttags to the html
+        image: "/img/maroon_daisy.png",
+        fulfilled: false
+    });
+
+    var requestModel3 = new RequestModel({
+        username: "@undefined",
+        userimage: "/img/anonUser.png",
+        description: "blah blah 3 My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
+        amount: "70",
+        date: "Jan 12, 2018",
+        tags: "#forAChild", //todo make sure to add usertags and requesttags to the html
+        image: "/img/oldShoes.jpg",
+        fulfilled: false
+    });
+
+    var orgModel1 = new OrgModel({
         name: "Women's Resource Center", //<a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">Women's Resource Center</a>
         description: "The Women’s Resource Center (WRC) at the University of Utah serves as the central resource for educational and support services for women.  Honoring the complexities of women’s identities, the WRC facilitates choices and changes through programs, counseling, and training grounded in a commitment to advance social justice and equality.",
         email: "some@email.com",
         website: "https://womenscenter.utah.edu/",
         phoneNumber: "801-581-8030",
         address: "A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112",
-        image: "<img class=\"orglogo\" src=\"/img/u_logo.png\">"
+        image: "/img/u_logo.png"
     });
 
+    var orgModel2 = new OrgModel({
+        name: "Veteran's Support Center", //<a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">Women's Resource Center</a>
+        description: "Our mission is to improve and enhance the individual and academic success of veterans, service members, and their family members who attend the university; to help them receive the benefits they earned; and to serve as a liaison between the student veteran community and the university.",
+        email: "some@email.com",
+        website: "https://veteranscenter.utah.edu/",
+        phoneNumber: "801-581-8030",
+        address: "A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112",
+        image: "/img/u_vet_logo.gif"
+    });
 
     var HomeView = Backbone.View.extend({
 
@@ -92,19 +129,19 @@ define(function (require, exports, module) {
             $("#homeBtn").addClass("selected");
             self.$('#homeContainer').html(requestFeedTemplate);
 
-            //todo need to do dynmaic appending here with RequestCollection
-            self.$('#requestCol').append(requestTemplate);
-            self.$('#requestAmount').html("$" + requestModel.get("amount"));
-            self.$('#requestDate').html(requestModel.get("date"));
-            var usertags = "#singleParent<img class=\"checkmark\" src=\"/img/marooncheckmark.png\" title=\"Verified By UofU Women's Resource Center\">#UofUStudent<img class=\"checkmark\" src=\"/img/marooncheckmark.png\" title=\"Verified By UofU Women's Resource Center\">";
-            self.$('#requestTags').html(usertags + requestModel.get("tags"));
-            self.$('#requestImage').html(requestModel.get("image"));
-            self.$('#requestDescription').html(requestModel.get("description"));
+            var requestCollection = new RequestCollection();
+            requestCollection.add(requestModel1);
+            requestCollection.add(requestModel2);
+            requestCollection.add(requestModel3);
+            console.log(requestCollection.models);
 
-            var i;
-            for(i = 0; i < 20; i++){
-                self.$('#requestCol').append(requestTemplate);
-            }
+            self.$('#requestCol').html(requestTemplate(requestCollection));
+            // requestCollection.fetch({
+            //     success: function () {
+            //             console.log(requestCollection.models);
+            //todo this is where the requestCollection html should be added
+            //     }
+            // });
 
             return this;
         },
@@ -115,20 +152,20 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
             self.$('#homeContainer').html(orgsFeedTemplate);
-            self.$('#orgCol').append(orgTemplate);
+            // self.$('#orgCol').append(orgTemplate);
 
-            //todo need to do dynmaic appending here with OrgCollection
-            self.$('#orgName').html("<a class=\"requestusername\" target=\"_blank\" href='" + orgModel.get("website") + "'>" + orgModel.get("name") + "</a>");
-            self.$('#orgImage').html(orgModel.get("image"));
-            self.$('#orgDescription').html(orgModel.get("description"));
-            self.$('#orgWebsite').html("<a target=\"_blank\" href='" + orgModel.get("website") + "'>" + orgModel.get("website") + "</a>");
-            self.$('#orgPhone').html(orgModel.get("phoneNumber"));
-            self.$('#orgAddress').html(orgModel.get("address"));
+            var orgCollection = new OrgCollection();
+            orgCollection.add(orgModel1);
+            orgCollection.add(orgModel2);
+            console.log(orgCollection.models);
 
-            var i;
-            for(i = 0; i < 20; i++){
-                self.$('#orgCol').append(orgTemplate);
-            }
+            self.$('#orgCol').html(orgTemplate(orgCollection));
+            // orgCollection.fetch({
+            //     success: function () {
+            //         console.log(orgCollection);
+            //todo this is where the orgCollection html should be added
+            //     }
+            // });
 
             return this;
         },
@@ -162,7 +199,7 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myRequestsBtn").addClass("selected");
-            self.$('#homeContainer').html(myRequestsTemplate);
+            self.$('#homeContainer').html(myRequestFeedTemplate);
             return this;
         },
 
@@ -171,7 +208,7 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myDonationsBtn").addClass("selected");
-            self.$('#homeContainer').html(myDonationsTemplate);
+            self.$('#homeContainer').html(myDonationFeedTemplate);
             return this;
         },
 
@@ -190,6 +227,29 @@ define(function (require, exports, module) {
 
         logout: function () {
             console.log("logging out...");
+            bootbox.confirm({
+                message: "Are you sure you want to log out?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'greyBtn'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'wineBtn'
+                    }
+                },
+                callback: function (result) {
+                    console.log('This was logged in the callback: ' + result);
+                    if(result){
+                        window.location.href = '/index';
+                    }
+
+                }
+            });
+
+
+
             //todo do logout stuff here
 
         }
