@@ -14,14 +14,14 @@ define(function (require, exports, module) {
     var RequestModel = require("models/RequestModel");
     var OrgModel = require("models/OrgModel");
 
-    var homeTemplate = require("text!templates/homeTemplate.html");
-    var requestFeedTemplate = require("text!templates/requestFeedTemplate.html");
-    var requestTemplate = require("text!templates/requestTemplate.html");
-    var orgsFeedTemplate = require("text!templates/orgsFeedTemplate.html");
-    var orgTemplate = require("text!templates/orgTemplate.html");
-    var myProfileTemplate = require("text!templates/myProfileTemplate.html");
-    var myRequestsTemplate = require("text!templates/myRequestsTemplate.html");
-    var myDonationsTemplate = require("text!templates/myDonationsTemplate.html");
+    var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
+    var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
+    var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
+    var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
+    var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
+    var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
+    var myRequestsTemplate = require("jade!templates/jade_templates/myRequestsTemplate");
+    var myDonationsTemplate = require("jade!templates/jade_templates/myDonationsTemplate");
 
     //todo for testing; delete when done
     var requestModel = new RequestModel({

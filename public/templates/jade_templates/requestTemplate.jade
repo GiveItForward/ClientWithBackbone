@@ -1,0 +1,30 @@
+.row
+    .col-md-12
+        .panel.roundrequest
+            .form-inline
+                .container
+                    .requestmargin
+                        .row
+                            .col-md-1
+                                img#requestUserImage.requestuser(src='/img/anonUser.png')
+                            .col-md-8
+                                a.requestusername(href='#') @singleMama
+                                #requestTags.form-inline.tags
+                                    // #singleParent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#UofUStudent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#threeKids
+                            .col-md-3
+                                p
+                                    strong Requesting:
+                                    em#requestAmount.amount $40
+                                    br
+                                    | &nbsp&nbsp
+                                    span#requestDate
+                                        // Jan, 19 2018
+                        .row
+                            #requestImage.col-md-2
+                                // <img class="requestimage" src="/img/rent.jpeg">
+                            .col-md-8
+                                #requestDescription.requestmessage
+                                    // My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                            .col-md-2
+                                a.roundgivebtn.btn(href='#')
+                                    img.givebtnicon(src='/img/maroon_shadow.png')

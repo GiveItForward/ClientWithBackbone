@@ -1,0 +1,159 @@
+.row.middle-row.padding-top
+    .col-sm-7
+        .form-inline
+            input#searchForTags.round(type='text', placeholder='search for tags')
+            a.btn.roundminibtn.winebtn(href='#') go
+    // <div class="col-sm-5"><a class="newrequestbtn btn winebtn" href="#">+ new request</a></div>
+    .col-sm-5
+        a#newRequestBtn.newrequestbtn.btn.winebtn.whitetext(data-toggle='modal', data-target='#newRequestModal', data-backdrop='static') + new request
+.row.bottom-row
+    .col-md-12.scroll
+        .row
+            .col-md-12
+                .panel.roundrequest
+                    .form-inline
+                        .container
+                            .requestmargin
+                                .row
+                                    .col-md-1
+                                        img.requestuser(src='/img/anonUser.png')
+                                    .col-md-7
+                                        a.requestusername(href='#') @yourName
+                                        .form-inline.tags
+                                            | #singleParent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #UofUStudent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #rent
+                                    .col-md-4
+                                        | Requested
+                                        em
+                                            b $40
+                                        |  on Jan, 19 2018
+                                        .open OPEN
+                                .row.padding-top
+                                    .col-md-2
+                                        img.requestimage(src='/img/rent.jpeg')
+                                    .col-md-8
+                                        .requestmessage
+                                            | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                                    .col-md-2.btn-group
+                                        button#editRequestBtn.editrequestbtn.greybtn edit
+                                        button#deleteRequestBtn.editrequestbtn.greybtn delete
+        .row
+            .col-md-12
+                .panel.roundrequest
+                    .form-inline
+                        .container
+                            .requestmargin
+                                .row
+                                    .col-md-1
+                                        img.requestuser(src='/img/anonUser.png')
+                                    .col-md-7
+                                        a.requestusername(href='#') @yourName
+                                        .form-inline.tags
+                                            | #singleParent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #UofUStudent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #rent
+                                    .col-md-4
+                                        | Requested
+                                        em
+                                            b $40
+                                        |  on Jan 19, 2018
+                                        .form-inline
+                                            .fulfilled FULFILLED
+                                            |  on Jan 23, 2018
+                                .row.padding-top
+                                    .col-md-2
+                                        img.requestimage(src='/img/rent.jpeg')
+                                    .col-md-8
+                                        .requestmessage
+                                            | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                                    .col-md-2
+                                        button.thankyoubtn.winebtn say "Thank you"
+        .row
+            .col-md-12
+                .panel.roundrequest
+                    .form-inline
+                        .container
+                            .requestmargin
+                                .row
+                                    .col-md-1
+                                        img.requestuser(src='/img/anonUser.png')
+                                    .col-md-7
+                                        a.requestusername(href='#') @yourName
+                                        .form-inline.tags
+                                            | #singleParent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #UofUStudent
+                                            img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                            | #rent
+                                    .col-md-4
+                                        | Requested
+                                        em
+                                            b $40
+                                        |  on Jan 19, 2018
+                                        .form-inline
+                                            .fulfilled FULFILLED
+                                            |  on Jan 23, 2018
+                                .row.padding-top
+                                    .col-md-2
+                                        img.requestimage(src='/img/rent.jpeg')
+                                    .col-md-8
+                                        .requestmessage
+                                            | My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
+                                    .col-md-2
+                                        // <button class="thankyoubtn winebtn">say "Thank you"</button>
+                                .row
+                                    .col-md-4
+                                    .col-md-8
+                                        .container
+                                            .row
+                                                #proposalAccordian.panel-group
+                                                    .panel.panel-default
+                                                        .panel-heading
+                                                            h4.panel-title
+                                                                a.btn.viewthankyoubtn.winebtn(data-toggle='collapse', data-parent='#proposalAccordian', href='#collapseThankYou') view "Thank you"
+                                                        #collapseThankYou.panel-collapse.collapse.in
+                                                            .panel-body
+                                                                .roundthankyou
+                                                                    .requestmargin
+                                                                        h2.thankyouheader Thank You!
+                                                                        .requestmessage
+                                                                            | Thank you so much! My heart is full and I have tears in my eyes. I am grateful for the generosity of strangers!
+                                                                        3(<3='', <='', div='')
+// <div class="panel roundthankyou">
+// <div class="requestmargin">
+// <h2>Thank You!</h2>
+// <div class="requestmessage">
+// Thank you so much! My heart is full and I have tears in my eyes. I am grateful for the generosity of strangers! <3 <3 <3
+// </div>
+// </div>
+// </div>
+// <div class="container">
+// <div class="row">
+// <div id="proposalAccordian" class="panel-group">
+// <div class="panel panel-default">
+// <div class="panel-heading">
+// <h4 class="panel-title">
+// <a data-toggle="collapse" data-parent="#proposalAccordian" href="#collapseThankYou">View Thank you</a>
+// </h4>
+// </div>
+// <div id="collapseThankYou" class="panel-collapse collapse in">
+// <div class="panel-body">
+// <div class="roundthankyou">
+// <div class="requestmargin">
+// <h2>Thank You!</h2>
+// <div class="requestmessage">
+// Thank you so much! My heart is full and I have tears in my eyes. I am grateful for the generosity of strangers! <3 <3 <3
+// </div>
+// </div>
+// </div>
+// </div>
+// </div>
+// </div>
+// </div>
+// </div>
+// </div>

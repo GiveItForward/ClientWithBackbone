@@ -9,7 +9,8 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
-    var newRequestModal = require("text!modals/newRequestModal.html");
+    var newRequestModal = require("text!templates/modals/newRequestModal.html");
+    // var newRequestModal = require("jade!templates/jade_templates/modals/newRequestModal");
 
     var NewRequestModalView = Backbone.View.extend({
 

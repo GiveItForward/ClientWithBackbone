@@ -3848,7 +3848,7 @@
         }); // module: utils.js
 
 // window.jade = require("jade");
-        Jade = require("public/js/jade");
+        Jade = require("jade");
     })();
 
     if (typeof window !== "undefined" && window.navigator && window.document) {

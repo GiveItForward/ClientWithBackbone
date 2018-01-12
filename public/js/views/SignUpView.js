@@ -15,9 +15,9 @@ define(function (require, exports, module) {
     var UserModel = require("models/UserModel");
     var HomeView = require("views/HomeView");
 
-    var loginTemplate = require("text!templates/loginTemplate.html");
-    var signupTemplate = require("text!templates/signupTemplate.html");
-    var signup2Template = require("text!templates/signup2Template.html");
+    var loginTemplate = require("jade!templates/jade_templates/loginTemplate");
+    var signupTemplate = require("jade!templates/jade_templates/signupTemplate");
+    var signup2Template = require("jade!templates/jade_templates/signup2Template");
 
     var SignUpView = Backbone.View.extend({
 

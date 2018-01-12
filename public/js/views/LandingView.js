@@ -17,9 +17,9 @@ define(function (require, exports, module) {
     // var loginTemplate = require("jade!jadeViews/login");
     // var signupTemplate = require("jade!signupView");
 
-    var loginTemplate = require("text!templates/loginTemplate.html");
-    var signupTemplate = require("text!templates/signupTemplate.html");
-    var signup2Template = require("text!templates/signup2Template.html");
+    var loginTemplate = require("jade!templates/jade_templates/loginTemplate");
+    // var signupTemplate = require("jade!templates/jade_templates/signupTemplate");
+    // var signup2Template = require("jade!templates/jade_templates/signup2Template");
 
 
     var LandingView = Backbone.View.extend({
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             $("#signupBtn").removeClass("selected");
             $("#loginBtn").addClass("selected");
             var self = this;
-            self.$('#inputdiv').html(loginTemplate);
+            self.$('#inputdiv').html(loginTemplate());
             self.$('#loginSubmitBtn').prop("disabled", true);
             return this;
         },
