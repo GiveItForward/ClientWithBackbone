@@ -1,5 +1,3 @@
-console.log("in signup View file");
-
 var emailNoteHasBeenShown = 0;
 var passwordNoteHasBeenShown = 0;
 
@@ -23,7 +21,10 @@ define(function (require, exports, module) {
 
         el: '#rightCol',
 
-        model: new UserModel({}),
+        model: new UserModel({
+            path: 'signup/',
+            email: 'email',
+        }),
 
         events: {
             // "click #signupBtn"          : "renderSignup",
@@ -44,12 +45,11 @@ define(function (require, exports, module) {
         },
 
         initialize: function () {
-            console.log("in signup view init");
+            var self = this;
             this.render();
         },
 
         render: function () {
-            console.log("in signup view render");
             var self = this;
             $("#signupBtn").addClass("selected");
             $("#loginBtn").removeClass("selected");
@@ -59,7 +59,6 @@ define(function (require, exports, module) {
         },
 
         renderLogin: function () {
-            console.log("in login signup view");
             $("#signupBtn").removeClass("selected");
             $("#loginBtn").addClass("selected");
             var self = this;
@@ -72,7 +71,6 @@ define(function (require, exports, module) {
             self.model.set("username", $("#newUsername").val());
             self.model.set("email", $("#newEmail").val());
 
-            //todo : fix this logic
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.model.set("password", $("#newPassword").val());// todo this will be hashed/encrypted
             }
@@ -131,22 +129,40 @@ define(function (require, exports, module) {
         },
 
         toggleDropdown: function () {
-            console.log("in toggleDropdown");
             $('.dropdown-toggle').dropdown();
             return this;
         },
 
         emailPopup: function () {
             if(!emailNoteHasBeenShown){
-                bootbox.alert("Please use your PayPal email if you wish to receive donations.");
                 emailNoteHasBeenShown = 1;
+                // bootbox.alert("Please use your PayPal email if you wish to receive donations.", function(){
+                //     $('#newEmail').focus();
+                // });
+                bootbox.alert({
+                    size: "medium",
+                    message: "Please use your PayPal email if you wish to receive donations.",
+                    callback: function(){
+                        setTimeout(function(){
+                            $('#newEmail').focus();
+                        }, 10);
+                    }
+                });
             }
         },
 
         passwordPopup: function () {
             if(!passwordNoteHasBeenShown){
-                bootbox.alert("For added security, please do NOT use the same password as your PayPal account.");
                 passwordNoteHasBeenShown = 1;
+                bootbox.alert({
+                    size: "medium",
+                    message: "For added security, please do NOT use the same password as your PayPal account.",
+                    callback: function(){
+                        setTimeout(function(){
+                            $('#newPassword').focus();
+                        }, 10);
+                    }
+                });
             }
         },
 
@@ -154,17 +170,20 @@ define(function (require, exports, module) {
             var self = this;
             self.updateModel();
             console.log("creating account...");
-            // console.log($("#newUsername").val());
-            // console.log($("#newEmail").val());
-            // console.log($("#newPassword").val());
-            // console.log($("#newVerifyPassword").val());
+            console.log($("#newUsername").val());
+            console.log($("#newEmail").val());
+            console.log($("#newPassword").val());
+            console.log($("#newVerifyPassword").val());
 
-            // self.model = new UserModel({
-            //     email: $("#newEmail").val(),
-            //     password: $("#newPassword").val()
-            // });
+            if($("#newPassword").val() === $("#newVerifyPassword").val()){
+                self.model.set("password", $("#newPassword").val());
+                self.model.set("bio", "");
+                console.log(self.model);
+                self.model.save();
+            }else{
+                bootbox.alert("Passwords do not match.");
+            }
 
-            // self.model.save();
 
             //todo call to back end here
 

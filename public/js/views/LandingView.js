@@ -1,5 +1,3 @@
-console.log("in Landing View file");
-
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -45,13 +43,11 @@ define(function (require, exports, module) {
         },
 
         initialize: function () {
-            console.log("in landing view init");
             this.render();
         },
 
 
         render: function () {
-            console.log("in landing view render");
             var self = this;
             // self.$el.html(indexTemplate());
             self.$('#loginSubmitBtn').prop("disabled", true);
@@ -59,7 +55,6 @@ define(function (require, exports, module) {
         },
 
         renderLogin: function () {
-            console.log("in login landing view");
             $("#signupBtn").removeClass("selected");
             $("#loginBtn").addClass("selected");
             var self = this;
@@ -86,6 +81,7 @@ define(function (require, exports, module) {
             console.log("logging in...");
 
             self.model = new UserModel({
+                path: 'login/',
                 email: $("#username").val(),
                 password: $("#password").val()// todo this will be hashed/encrypted
             });

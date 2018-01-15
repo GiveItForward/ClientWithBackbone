@@ -34,7 +34,6 @@ define(function (require, exports, module) {
         amount: "50",
         date: "Jan 10, 2018",
         tags: "#rent", //todo make sure to add usertags and requesttags to the html
-        // image: "<img class=\"requestimage\" src=\"/img/rent.jpeg\">",
         image: "/img/rent.jpeg",
         fulfilled: false
     });
@@ -72,7 +71,7 @@ define(function (require, exports, module) {
     });
 
     var orgModel2 = new OrgModel({
-        name: "Veteran's Support Center", //<a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">Women's Resource Center</a>
+        name: "Veteran's Support Center",
         description: "Our mission is to improve and enhance the individual and academic success of veterans, service members, and their family members who attend the university; to help them receive the benefits they earned; and to serve as a liaison between the student veteran community and the university.",
         email: "some@email.com",
         website: "https://veteranscenter.utah.edu/",
@@ -97,8 +96,9 @@ define(function (require, exports, module) {
             "click #logoutBtn"        : "logout"
         },
 
-        initialize: function () {
+        initialize: function (options) {
             console.log("in home view init");
+            this.model = options.model;
             this.render();
         },
 
@@ -107,9 +107,16 @@ define(function (require, exports, module) {
             console.log("in home view render");
             var self = this;
             self.$el.html(homeTemplate);
+
+            console.log(self.model);
+            console.log(self.model.get("numDonations"));
+            console.log(self.model.get("numFulfilledRequests"));
+
             $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            $("#numDonations").html(self.model.get("numDonations"));
+            $("#numFulfilledRequests").html(self.model.get("numFulfilledRequests"));
             self.renderHome();
-            console.log(self.model)
+
             return this;
         },
 
@@ -130,18 +137,23 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            requestCollection.add(requestModel1);
-            requestCollection.add(requestModel2);
-            requestCollection.add(requestModel3);
-            console.log(requestCollection.models);
 
-            self.$('#requestCol').html(requestTemplate(requestCollection));
-            // requestCollection.fetch({
-            //     success: function () {
-            //             console.log(requestCollection.models);
-            //todo this is where the requestCollection html should be added
-            //     }
-            // });
+            requestCollection.fetch({
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        //todo hard coded data for now; should come from DB
+                        model.set('username', "@undefined");
+                        model.set('userimage', "/img/anonUser.png");
+                        model.set('date', "Jan 11, 2018");
+                        model.set('tags', "#other");  //todo make sure to add usertags and requesttags to the html
+                        model.set('image', "/img/maroon_daisy.png");
+                        console.log(model.toJSON());
+                    })
+                    console.log(collection.models);
+                    self.$('#requestCol').html(requestTemplate(collection));
+                    // self.$('#requestCol').append(requestTemplate(requestCollection));//todo something weird here with requestCollection
+                }
+            });
 
             return this;
         },
@@ -188,7 +200,12 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myProfileTemplate);
 
             $("#myEmail").html(self.model.get("email"));
-            // $("#myTags").html(self.model.get("tags"));
+            var tags = self.model.get("tags");
+            var tagList = "";
+            _.each(tags, function(tag) {
+                tagList += "#" + tag + " ";
+            });
+            $("#myTags").html(tagList);
             $("#myBio").html(self.model.get("bio"));
 
             return this;

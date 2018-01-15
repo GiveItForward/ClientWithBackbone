@@ -11,10 +11,14 @@ define(function (require, exports, module) {
         initialize: function (options) {
 
             if(options.email) {
-
                 this.set("email", options.email);
-                this.url = "http://54.227.151.133:8080/giveitforward/login/" + options.email + "/" + options.password;
 
+                if(options.path === 'login/'){
+                    this.url = "http://54.227.151.133:8080/giveitforward/" + options.path + options.email + "/" + options.password;
+                }else{// 'signup/'
+                    this.url = "http://54.227.151.133:8080/giveitforward/" + options.path;
+                }
+                console.log(this.url);
             } else {
                 this.set("uid", undefined);
                 this.set("bio", undefined);

@@ -12,8 +12,8 @@ define(function (require, exports, module) {
 
             if(options.amount) {
 
-                // this.set("email", options.email);
-                // this.url = "http://54.227.151.133:8080/giveitforward/login/" + options.email + "/" + options.password;
+                this.set("amount", options.amount);
+                this.url = "http://54.227.151.133:8080/giveitforward/requests/";
 
             } else {
                 this.set("description", undefined);
