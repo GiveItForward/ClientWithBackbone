@@ -11,9 +11,9 @@ define(function (require, exports, module) {
         initialize: function (options) {
 
             if(options.path == "login") {
-                this.url = "http://localhost:8080/login/" + options.email + "/" + options.password;
+                this.url = "http://54.227.151.133:8080/giveitforward/login/" + options.email + "/" + options.password;
             } else {
-                this.url = "http://localhost:8080/signup";
+                this.url = "http://54.227.151.133:8080/giveitforward/signup";
                 console.log(this.url);
 
 
@@ -27,11 +27,6 @@ define(function (require, exports, module) {
                 this.set("donateCount", undefined);
                 this.set("receiveCount", undefined);
 
-            }
-
-            fetchUserInfo: function(params, options) {
-                this.url = "http://localhost:8080/" + options.path + "/" + options.email + "/" + options.password;
-                this.fetch(params, options);
             }
         }
     });

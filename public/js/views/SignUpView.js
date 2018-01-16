@@ -23,7 +23,7 @@ define(function (require, exports, module) {
 
         model: new UserModel({
             path: 'signup',
-            email: 'email',
+            email: 'email'
         }),
 
         events: {
