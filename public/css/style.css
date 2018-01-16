@@ -102,7 +102,7 @@ body{
   border: solid 1px dimgray;
   background-color: white;
   border-radius: 25px;
-  padding: 5px;
+  padding: 2%;
   width: 60%;
   height: 200px;
   margin: 0 2% 2% 15%;
@@ -395,18 +395,18 @@ body{
 
 .thankyoubtn {
   border-radius: 25px;
-  padding: 1%;
+  padding: 7%;
   /*height: 60px;*/
-  width: 150px;
+  /*width: 150px;*/
   margin-top: 30%;
   margin-bottom: 30%;
 }
 
 .viewthankyoubtn {
   border-radius: 25px;
-  padding: 1%;
+  padding: 7%;
   /*height: 50px;*/
-  width: 150px;
+  /*width: 150px;*/
   margin-top: 0;
 }
 
