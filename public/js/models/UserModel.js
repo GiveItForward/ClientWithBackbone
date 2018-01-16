@@ -6,20 +6,17 @@ define(function (require, exports, module) {
 
     var UserModel = Backbone.Model.extend({
 
-        idAttribute: "email",
+        idAttribute: "uid",
 
         initialize: function (options) {
 
-            if(options.email) {
-                this.set("email", options.email);
-
-                if(options.path === 'login/'){
-                    this.url = "http://54.227.151.133:8080/giveitforward/" + options.path + options.email + "/" + options.password;
-                }else{// 'signup/'
-                    this.url = "http://54.227.151.133:8080/giveitforward/" + options.path;
-                }
-                console.log(this.url);
+            if(options.path == "login") {
+                this.url = "http://localhost:8080/login/" + options.email + "/" + options.password;
             } else {
+                this.url = "http://localhost:8080/signup";
+                console.log(this.url);
+
+
                 this.set("uid", undefined);
                 this.set("bio", undefined);
                 this.set("isAdmin", undefined);
@@ -29,6 +26,12 @@ define(function (require, exports, module) {
                 this.set("tags", undefined);
                 this.set("donateCount", undefined);
                 this.set("receiveCount", undefined);
+
+            }
+
+            fetchUserInfo: function(params, options) {
+                this.url = "http://localhost:8080/" + options.path + "/" + options.email + "/" + options.password;
+                this.fetch(params, options);
             }
         }
     });

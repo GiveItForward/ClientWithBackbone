@@ -24,7 +24,9 @@ define(function (require, exports, module) {
 
         el: '#rightCol',
 
-        model: new UserModel({}),
+        model: new UserModel({
+            path: "login"
+        }),
 
         events: {
             "click #signupBtn"          : "renderSignup",
@@ -81,7 +83,7 @@ define(function (require, exports, module) {
             console.log("logging in...");
 
             self.model = new UserModel({
-                path: 'login/',
+                path: 'login',
                 email: $("#username").val(),
                 password: $("#password").val()// todo this will be hashed/encrypted
             });

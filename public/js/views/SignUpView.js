@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         el: '#rightCol',
 
         model: new UserModel({
-            path: 'signup/',
+            path: 'signup',
             email: 'email',
         }),
 
@@ -176,10 +176,30 @@ define(function (require, exports, module) {
             console.log($("#newVerifyPassword").val());
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
+                self.model = new UserModel({});
+                self.model.set("username", $("#newUsername").val());
                 self.model.set("password", $("#newPassword").val());
+                self.model.set("email", $("#newEmail").val());
                 self.model.set("bio", "");
                 console.log(self.model);
-                self.model.save();
+
+
+                self.model.save({
+                    wait: true,
+                    success: function(model, response) {
+                        console.log(model);
+                        model.set("password", undefined);
+
+                        new HomeView({
+                            model: model
+                            // requestCollection: requestCollection
+                        });
+                        console.log('success');
+                    },
+                    error: function(model, response) {
+                        console.log(model);
+                        console.log(response);
+                    }});
             }else{
                 bootbox.alert("Passwords do not match.");
             }
