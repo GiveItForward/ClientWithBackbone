@@ -14,7 +14,7 @@ define(function (require, exports, module) {
                 this.url = "http://54.227.151.133:8080/giveitforward/login/" + options.email + "/" + options.password;
             } else {
                 this.url = "http://54.227.151.133:8080/giveitforward/signup";
-                console.log(this.url);
+                // console.log(this.url);
 
 
                 this.set("uid", undefined);

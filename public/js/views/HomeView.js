@@ -11,6 +11,8 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var NewRequestModalView = require("views/NewRequestModalView");
+    var NotificationsModalView = require("views/NotificationsModalView");
+
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
     var OrgModel = require("models/OrgModel");
@@ -25,6 +27,7 @@ define(function (require, exports, module) {
     var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
+    var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
 
     //todo for testing; delete when done
     var requestModel1 = new RequestModel({
@@ -113,8 +116,8 @@ define(function (require, exports, module) {
             console.log(self.model.get("numFulfilledRequests"));
 
             $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            $("#numDonations").html(self.model.get("numDonations"));
-            $("#numFulfilledRequests").html(self.model.get("numFulfilledRequests"));
+            $("#donateCount").html(self.model.get("donateCount"));
+            $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderHome();
 
             return this;
@@ -137,24 +140,39 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
+            var count = 0;
 
             requestCollection.fetch({
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         //todo hard coded data for now; should come from DB
                         model.set('username', "@undefined");
-                        model.set('userimage', "/img/anonUser.png");
+                        model.set('userimage', "/img/default_profile_pic.png");
                         model.set('date', "Jan 11, 2018");
                         model.set('tags', "#other");  //todo make sure to add usertags and requesttags to the html
-                        model.set('image', "/img/maroon_daisy.png");
-                        console.log(model.toJSON());
+                        if(count == 0){
+                            model.set('image', "/img/rent_icon.png");
+                            count++;
+                        }else if(count == 1){
+                            model.set('image', "/img/clothing_icon.png");
+                            count++;
+                        }else if(count == 2){
+                            model.set('image', "/img/car_repair_icon.png");
+                            count++;
+                        }else if(count == 3){
+                            model.set('image', "/img/groceries_icon.png");
+                            count++;
+                        }else if(count == 4){
+                            model.set('image', "/img/school_icon.png");
+                            count = 0;
+                        }
+                        // console.log(model.toJSON());
                     })
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
                     // self.$('#requestCol').append(requestTemplate(requestCollection));//todo something weird here with requestCollection
                 }
             });
-
             return this;
         },
 
@@ -164,31 +182,40 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
             self.$('#homeContainer').html(orgsFeedTemplate);
-            // self.$('#orgCol').append(orgTemplate);
 
             var orgCollection = new OrgCollection();
-            orgCollection.add(orgModel1);
-            orgCollection.add(orgModel2);
-            console.log(orgCollection.models);
-
-            self.$('#orgCol').html(orgTemplate(orgCollection));
-            // orgCollection.fetch({
-            //     success: function () {
-            //         console.log(orgCollection);
-            //todo this is where the orgCollection html should be added
-            //     }
-            // });
-
+            orgCollection.fetch({
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        model.set('description', "This organization wants to help you! This organization wants to help you! This organization wants to help you!");
+                        model.set('phoneNumber', "801-581-8030");
+                        model.set('address', "A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112");
+                        model.set('image', "/img/u_logo.png");
+                        // console.log(model.toJSON());
+                    });
+                    console.log(collection.models);
+                    self.$('#orgCol').html(orgTemplate(collection));
+                }
+            });
             return this;
         },
 
         renderNotes: function () {
             console.log("in home view renderNotes");
             var self = this;
-            self.removeSelectedFromAll();
-            $("#notesBtn").addClass("selected");
-            $("#notesBtn").popover();
-            console.log("after popover call");
+            // self.removeSelectedFromAll();
+            // $("#notesBtn").addClass("selected");
+            // $("#notesBtn").popover();
+            // //todo do a modal here, this popover sucksass
+            // console.log("after popover call");
+            var self = this;
+            var container = document.createDocumentFragment();
+            var notificationsModalView = new NotificationsModalView({
+                parent: self,
+                model: new RequestModel({})
+            });
+            container.appendChild(notificationsModalView.render().el);
+            $('body').append(container);
             return this;
         },
 
@@ -217,6 +244,8 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#myRequestsBtn").addClass("selected");
             self.$('#homeContainer').html(myRequestFeedTemplate);
+
+            self.$('#myRequestCol').html(myRequestTemplate);
             return this;
         },
 
@@ -226,6 +255,8 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#myDonationsBtn").addClass("selected");
             self.$('#homeContainer').html(myDonationFeedTemplate);
+
+            self.$('#myDonationCol').html(myDonationTemplate);
             return this;
         },
 

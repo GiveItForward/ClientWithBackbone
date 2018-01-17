@@ -345,8 +345,9 @@ body{
   margin: 2%;
 }
 
-.requestuser{
-  /*margin: 1%;*/
+.requestuserimage{
+  width: 110%;
+  height: 90%;
 }
 
 .requestusername{
@@ -355,8 +356,8 @@ body{
 }
 
 .requestimage {
-  width: 80%;
-  height: 80%;
+  width: 70%;
+  height: 70%;
   margin-left: 30%;
   margin-top: 5%;
 }
@@ -450,6 +451,15 @@ body{
   margin: 2%;
 }
 
+.orgname{
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.orgmessage{
+  margin: 4%;
+}
+
 .topborder {
   border-top: 1px solid lightgray;
   margin-top: 1%;
@@ -508,6 +518,12 @@ body{
   font-size: 14pt;
   margin: 2%;
 }
+
+.notificationrow {
+  border-bottom: 1px solid lightgray;
+  padding: 3%;
+}
+
 
 .footer{
   margin-top: 10%;

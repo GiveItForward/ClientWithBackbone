@@ -7,7 +7,7 @@ for request in locals.models
                         .requestmargin
                             .row
                                 .col-md-1
-                                    img#requestUserImage.requestuser(src='#{request.get("userimage")}')//(src='/img/anonUser.png')
+                                    img#requestUserImage.requestuserimage(src='#{request.get("userimage")}')//(src='/img/anonUser.png')
                                 .col-md-8
                                     a.requestusername(href='#') #{request.get("username")}
                                     #requestTags.form-inline.tags #{request.get("tags")}

@@ -1,5 +1,3 @@
-console.log("in New Request Modal View file");
-
 define(function (require, exports, module) {
 
     var $ = require("jquery");

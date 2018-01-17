@@ -5,7 +5,8 @@
                 img#logoMini(src='/img/maroon_shadow.png')
             a#homeBtn.greybtncol.btn.selected(href='#') Home
             a#orgsBtn.greybtncol.btn(href='#') Orgs
-            a#notesBtn.greybtncol.btn(href='#', data-toggle='popover', data-trigger='focus', data-content='Some content inside the popover, more content, more content, more content') Notifications
+            //a#notesBtn.greybtncol.btn(href='#', data-toggle='popover', data-trigger='focus', data-content='Some content inside the popover, more content, more content, more content') Notifications
+            a#notesBtn.greybtncol.btn.whitetext(data-toggle='modal', data-target='#notificationsModal', data-backdrop='static') Notifications
             a#myProfileBtn.greybtncol.btn(href='#') My Profile
             a#myRequestsBtn.greybtncol.btn(href='#') My Requests
             a#myDonationsBtn.greybtncol.btn(href='#') My Donations
@@ -14,8 +15,8 @@
             .row
                 #usernameDisplay.col-md-8.titleheading2
                 .col-md-3.icon-margin.form-inline
-                    img.icon-mini(src='/img/maroon_shadow.png')
-                    #numDonations
-                    img.icon-mini(src='/img/maroon_daisy.png')
-                    #numFulfilledRequests
+                    img.icon-mini(src='/img/donate_icon.png')
+                    #donateCount
+                    img.icon-mini(src='/img/receive_icon_gift.png')
+                    #receiveCount
             #homeContainer.container-fluid
