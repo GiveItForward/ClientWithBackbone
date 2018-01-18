@@ -31,7 +31,8 @@ define(function (require, exports, module) {
         },
 
         fetchByDonateUid: function (params, options) {
-            // options.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid" + params;
+            // this.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid" + params;
+            this.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid";
             // return Backbone.Collection.prototype.fetch.call(this, options);
         }
     });

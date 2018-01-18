@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var Backbone = require("backbone");
     var popper = require("popper");
     var bootstrap = require("bootstrap");
+    var bootstrapSelect = require("bootstrapSelect");
     var bootbox = require("bootbox");
 
     var UserModel = require("models/UserModel");

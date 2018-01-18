@@ -250,13 +250,33 @@ define(function (require, exports, module) {
         },
 
         renderMyDonations: function () {
-            console.log("in home view renderMyProfile");
+            console.log("in home view renderMyDonations");
+
             var self = this;
+            console.log(self.model.get('uid'));
             self.removeSelectedFromAll();
             $("#myDonationsBtn").addClass("selected");
             self.$('#homeContainer').html(myDonationFeedTemplate);
+            // self.$('#myDonationCol').html(myDonationTemplate);
 
-            self.$('#myDonationCol').html(myDonationTemplate);
+            var requestCollection = new RequestCollection();
+            requestCollection.fetchByDonateUid({
+                // headers: {'Authorization' : self.model.get('uid')},
+                headers: {'Authorization' : 4},
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        console.log(model.toJSON());
+                    })
+                    console.log(collection.models);
+                    // self.$('#requestCol').html(requestTemplate(collection));
+                    // self.$('#myDonationCol').html(myDonationTemplate);
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
+
             return this;
         },
 

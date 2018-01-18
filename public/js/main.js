@@ -5,11 +5,13 @@ require.config({
        backbone: '../lib/backbone-min',
        popper: '../lib/popper.min',
        bootstrap: '../lib/bootstrap.bundle.min',
+       bootstrapSelect: '../lib/bootstrap-select.min',
        bootbox: '../lib/bootbox.min',
        templates: '../templates',
        modals: '../templates/modals',
        signupView: '../../views/signup',
-       jade: './jade'
+       jade: './jade',
+       // aws: 'https://sdk.amazonaws.com/js/aws-sdk-2.183.0.min'
    },
     shim: {
         underscore: {
@@ -47,7 +49,7 @@ require.config({
         'bootstrap/tab':        { deps: ['jquery'], exports: '$.fn.tab'        },
         'bootstrap/tooltip':    { deps: ['jquery'], exports: '$.fn.tooltip' },
         'bootstrap/transition': { deps: ['jquery'], exports: '$.fn.transition' },
-        'bootstrap-select':     { deps: ['jquery', 'bootstrap'], exports: 'BootstrapSelect'},
+        'bootstrap-select':     { deps: ['jquery', 'bootstrap'], exports: 'bootstrapSelect'},
         bootbox: {
             deps: [
                 'jquery',

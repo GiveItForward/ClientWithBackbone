@@ -8,6 +8,7 @@ define(function (require, exports, module) {
     var Backbone = require("backbone");
     var popper = require("popper");
     var bootstrap = require("bootstrap");
+    var bootstrapSelect = require("bootstrapSelect");
     var bootbox = require("bootbox");
 
     var UserModel = require("models/UserModel");
@@ -54,7 +55,7 @@ define(function (require, exports, module) {
             $("#signupBtn").addClass("selected");
             $("#loginBtn").removeClass("selected");
             self.$('#inputdiv').html(signupTemplate);
-            self.$('#createAccountBtn').prop("disabled", true);
+            // self.$('#createAccountBtn').prop("disabled", true);
             return this;
         },
 
@@ -184,22 +185,22 @@ define(function (require, exports, module) {
                 console.log(self.model);
 
 
-                self.model.save({
-                    wait: true,
-                    success: function(model, response) {
-                        console.log(model);
-                        model.set("password", undefined);
-
-                        new HomeView({
-                            model: model
-                            // requestCollection: requestCollection
-                        });
-                        console.log('success');
-                    },
-                    error: function(model, response) {
-                        console.log(model);
-                        console.log(response);
-                    }});
+                // self.model.save({
+                //     wait: true,
+                //     success: function(model, response) {
+                //         console.log(model);
+                //         model.set("password", undefined);
+                //
+                //         new HomeView({
+                //             model: model
+                //             // requestCollection: requestCollection
+                //         });
+                //         console.log('success');
+                //     },
+                //     error: function(model, response) {
+                //         console.log(model);
+                //         console.log(response);
+                //     }});
             }else{
                 bootbox.alert("Passwords do not match.");
             }

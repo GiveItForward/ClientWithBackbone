@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 
     var OrgModel = Backbone.Model.extend({
 
-        idAttribute: "oid",//todo ??
+        idAttribute: "oid",
 
         initialize: function (options) {
 
