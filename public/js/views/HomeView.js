@@ -259,10 +259,12 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myDonationFeedTemplate);
             // self.$('#myDonationCol').html(myDonationTemplate);
 
+
+
             var requestCollection = new RequestCollection();
             requestCollection.fetchByDonateUid({
                 // headers: {'Authorization' : self.model.get('uid')},
-                headers: {'Authorization' : 4},
+                headers: {"Authorization": self.model.get('uid')},
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
