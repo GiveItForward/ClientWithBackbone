@@ -147,7 +147,7 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         //todo hard coded data for now; should come from DB
-                        model.set('username', "@undefined");
+                        model.set('username', "primary@test.com");
                         model.set('userimage', "/img/default_profile_pic.png");
                         model.set('date', "Jan 11, 2018");
                         model.set('tags', "#other");  //todo make sure to add usertags and requesttags to the html

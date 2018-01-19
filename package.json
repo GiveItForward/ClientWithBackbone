@@ -17,8 +17,10 @@
     "jade-html-loader": "0.0.3",
     "jquery": "^3.2.1",
     "morgan": "~1.9.0",
+    "paypal-adaptive": "^0.4.2",
     "popover": "^2.4.1",
     "popper": "^1.0.1",
+    "process-env": "^1.1.0",
     "require-jade": "0.0.1",
     "serve-favicon": "~2.4.5"
   },
