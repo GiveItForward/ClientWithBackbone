@@ -4,16 +4,11 @@ block content
   #rightCol
     #landingContainer.container
       .btn-group
-        //a.input.leftroundbtn.greybtn.selected#loginBtn(href='/index') Log In
-        //a.input.leftroundbtn.greybtn.selected#loginBtn(href='#') Log In
         button#loginBtn.leftroundbtn.greybtn.selected Log In
-        //a.input.rightroundbtn.greybtn#signupBtn(href='/signup') Sign Up
         button#signupBtn.rightroundbtn.greybtn Sign Up
       #inputdiv
         input#username.round(type='text', name='username', placeholder='username or email')
         input#password.round(type='password', placeholder='password')
-        button#loginSubmitBtn.btn.round.winebtn.mainbtn login
-        //a#loginSubmitBtn.btn.round.winebtn.mainbtn(href='#') Log In
-        //a.btn.round.winebtn.mainbtn#loginSubmitBtn(href='/requestFeed') Log In
+        button#loginSubmitBtn.btn.round.winebtn.mainbtn Log In
+        i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
 
-//include ../public/js/entry/landingEntryPoint.js

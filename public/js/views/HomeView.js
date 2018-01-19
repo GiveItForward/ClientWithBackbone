@@ -90,6 +90,7 @@ define(function (require, exports, module) {
         events: {
             "click #homeBtn"          : "renderHome",
             "click #logoMini"         : "renderHome",
+            "click #giveBtn"          : "paypal",
             "click #orgsBtn"          : "renderOrgs",
             "click #notesBtn"         : "renderNotes",
             "click #myProfileBtn"     : "renderMyProfile",
@@ -173,6 +174,15 @@ define(function (require, exports, module) {
                     // self.$('#requestCol').append(requestTemplate(requestCollection));//todo something weird here with requestCollection
                 }
             });
+            return this;
+        },
+
+        paypal: function () {
+            console.log("in home view paypal");
+            console.log("requester's username: " + $(document.activeElement).attr('data-username'));
+            console.log("request amount: " + $(document.activeElement).attr('data-amount'));
+            console.log("request id: " + $(document.activeElement).attr('data-rid'));
+            var memo = "Give It Forward";
             return this;
         },
 
@@ -317,13 +327,7 @@ define(function (require, exports, module) {
 
                 }
             });
-
-
-
-            //todo do logout stuff here
-
         }
-
     });
 
     return HomeView;

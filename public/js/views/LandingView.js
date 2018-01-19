@@ -41,6 +41,7 @@ define(function (require, exports, module) {
             // "click #chooseImage"        : "chooseImage",
             // "click #addInfo"            : "addInfo",
             // "click #fillOutLater"       : "fillOutLater",
+            "keyup #password"           : "enterLogin",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
         },
@@ -80,8 +81,12 @@ define(function (require, exports, module) {
 
         login: function () {
             var self = this;
+            $('#loginSpinner').delay(100).queue(function () {
+                $(this).css('display', 'inline-block');
+            });
             self.updateModel();
             console.log("logging in...");
+
 
             self.model = new UserModel({
                 path: 'login',
@@ -98,6 +103,16 @@ define(function (require, exports, module) {
                     });
                 }
             });
+            $('#loginSpinner').clearQueue();
+            $('#loginSpinner').css('display', 'none');
+            return this;
+        },
+
+        enterLogin: function (e) {
+            var self = this;
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.login();
+            }
             return this;
         },
 
