@@ -89,11 +89,10 @@ define(function (require, exports, module) {
 
 
             self.model = new UserModel({
-                path: 'login',
-                email: $("#username").val(),
-                password: $("#password").val()// todo this will be hashed/encrypted
+                path: 'login'
             });
             self.model.fetch({
+                headers: {"email": $("#username").val(), "password": $("#password").val()},
                 success: function () {
                     self.model.set("password", undefined); //todo make sure password is not visable
                     // var requestCollection = new RequestCollection();

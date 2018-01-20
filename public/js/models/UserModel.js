@@ -11,7 +11,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
 
             if(options.path == "login") {
-                this.url = "http://54.227.151.133:8080/giveitforward/login/" + options.email + "/" + options.password;
+                this.url = "http://54.227.151.133:8080/giveitforward/login;
             } else {
                 this.url = "http://54.227.151.133:8080/giveitforward/signup";
                 // console.log(this.url);

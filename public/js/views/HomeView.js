@@ -274,7 +274,7 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
             requestCollection.fetchByDonateUid({
                 // headers: {'Authorization' : self.model.get('uid')},
-                headers: {"Authorization": self.model.get('uid')},
+                headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
