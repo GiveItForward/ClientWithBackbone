@@ -54,9 +54,9 @@ define(function (require, exports, module) {
             }
             $( event.target ).blur();
             console.log( requestTagList );
-            if(requestTagList.length > 2){
-                bootbox.alert("Please only select two tags for your request.");
-            }
+            // if(requestTagList.length > 2){
+            //     bootbox.alert("Please only select two tags for your request.");
+            // }
             return this;
         },
 
@@ -90,8 +90,6 @@ define(function (require, exports, module) {
                     self.$('#createRequestBtn').prop("disabled", false);
                 }
             }
-
-
         },
 
         createRequest: function () {
@@ -115,6 +113,5 @@ define(function (require, exports, module) {
         }
 
     });
-
     return NewRequestModalView;
 });

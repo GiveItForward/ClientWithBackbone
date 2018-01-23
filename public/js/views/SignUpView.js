@@ -13,6 +13,8 @@ define(function (require, exports, module) {
     var bootstrapSelect = require("bootstrapSelect");
     var bootbox = require("bootbox");
 
+    var ChooseUserImageModalView = require("views/ChooseUserImageModalView");
+
     var UserModel = require("models/UserModel");
     var HomeView = require("views/HomeView");
 
@@ -233,15 +235,25 @@ define(function (require, exports, module) {
 
         uploadImage: function () {
             var self = this;
-            $("#fileChooser").trigger("click");
-            self.$('#landingContainer').html(signup2Template);
+            // $("#fileChooser").trigger("click");
+            bootbox.alert("Not yet implemented.");
+            // self.$('#landingContainer').html(signup2Template);
             return this;
         },
 
         chooseImage: function () {
             var self = this;
-            bootbox.alert("Pick an image!");
-            self.$('#landingContainer').html(signup2Template);
+            // bootbox.alert("Pick an image!");
+            var self = this;
+            var container = document.createDocumentFragment();
+            var chooseUserImageModalView = new ChooseUserImageModalView({
+                parent: self
+            });
+            container.appendChild(chooseUserImageModalView.render().el);
+            $('body').append(container);
+
+
+            // self.$('#landingContainer').html(signup2Template);
             return this;
         },
 
@@ -251,7 +263,7 @@ define(function (require, exports, module) {
             //todo get image
             console.log($("#userBio").val());
             //todo get tags
-            console.log($('#chooseUserTags:checkbox:checked'));
+            console.log(tagList);
 
             //todo call to back end here
 

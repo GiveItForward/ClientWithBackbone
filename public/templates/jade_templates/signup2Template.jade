@@ -1,5 +1,4 @@
 div
-    // <form>
     h1 Optional Profile Info
     br
     .container
@@ -10,38 +9,13 @@ div
                 input#fileChooser(type='file', style='display: none')
                 input#uploadImage.roundmediumbtn.winebtn.mainbtn(type='submit', value='upload image')
                 br
-                input#chooseImage.roundmediumbtn.winebtn(type='submit', value='choose image')
+                //input#chooseImage.roundmediumbtn.winebtn(type='submit', value='choose image')
+                a#chooseImage.btn.roundmediumbtn.winebtn.whitetext(data-toggle='modal', data-target='#chooseUserImageModal', data-backdrop='static') choose image
                 br
             .col-md-3
         br
-        // <input id="userBio" class="round bio" type="text" placeholder="user bio"><br><br>
         textarea#userBio.bio(rows='4', cols='60', placeholder='user bio')
-        //.dropdown
-        //    button#dropdownMenuButton.round.greybtn.dropdown-toggle.round(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-        //        | Select Tags
-        //    .dropdown-menu(aria-labelledby='dropdownMenuButton')
-        //        a.dropdown-item(href='#') #student
-        //        a.dropdown-item(href='#') #veteran
-        //        a.dropdown-item(href='#') #singleParent
-        //        a.dropdown-item(href='#') #lgbt
-        //        a.dropdown-item(href='#') #domesticViolenceSurvivor
-        //        a.dropdown-item(href='#') #disabled
-        //        a.dropdown-item(href='#') #disabledFamily
         br
-        //select.tag-select(multiple='')
-        //    option #disabled
-        //    |
-        //    option #disabledFamily
-        //    |
-        //    option #domesticViolenceSurvivor
-        //    |
-        //    option #lgbt
-        //    |
-        //    option #singleParent
-        //    |
-        //    option #student
-        //    |
-        //    option #veteran
         .button-group
             button.btn.round.greybtn.dropdown-toggle(type='button', data-toggle='dropdown')
                 | choose tags
@@ -71,11 +45,7 @@ div
                     a(href='#', data-value='veteran', tabindex='-1')
                         input(type='checkbox')
                     | &nbsp;#veteran
-        // <input class="round winebtn mainbtn" type="submit" value="Add Info to Profile" formaction="requestFeed.html"><br>
-        // <a href='/requestFeed' id="addInfoRef" style="display: none" /></a>
-        // <a href='/requestFeed' id="addInfo" class="btn round winebtn mainbtn" />Add Info to Profile</a>
         input#addInfo.round.winebtn.mainbtn(type='submit', value='Add Info to Profile')
         br
         div(style='color:blue;')
             a#fillOutLater(href='#') Fill out later
-    // </form>

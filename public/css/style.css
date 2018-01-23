@@ -576,3 +576,15 @@ body{
   width: 445px;
   font-size: 14pt;
 }
+
+.imagebtn {
+  border-radius: 25px;
+  background-color: lightgrey;
+  width: 60%;
+  height: 80%;
+}
+
+.imageOnImageBtn {
+  width: 100%;
+  height: 100%;
+}
