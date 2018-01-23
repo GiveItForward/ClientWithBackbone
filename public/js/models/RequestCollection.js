@@ -25,9 +25,10 @@ define(function (require, exports, module) {
         //     return Backbone.Model.prototype.fetch.call(this, options);
         // },
 
-        fetchByRequestUid: function (params, options) {
+        fetchByRequestUid: function (options) {
             // options.url = "http://54.227.151.133:8080/giveitforward/requests/requestuid" + params;
-            // return Backbone.Collection.prototype.fetch.call(this, options);
+            this.url = "http://54.227.151.133:8080/giveitforward/requests/requestuid";
+            return Backbone.Collection.prototype.fetch.call(this, options);
         },
 
         fetchByDonateUid: function (options) {

@@ -1,3 +1,5 @@
+var requestTagList = [];
+
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -16,6 +18,7 @@ define(function (require, exports, module) {
 
         events: {
             "click #createRequestBtn"   : "createRequest",
+            "click .dropdown-menu a"    : "updateTags",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
         },
@@ -36,17 +39,59 @@ define(function (require, exports, module) {
             return this;
         },
 
+        updateTags: function (event) {
+            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
+            var $target = $(event.currentTarget),
+                val = $target.attr( 'data-value' ),
+                $inp = $target.find( 'input' ),
+                idx;
+            if ( ( idx = requestTagList.indexOf( val ) ) > -1 ) {
+                requestTagList.splice( idx, 1 );
+                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+            } else {
+                requestTagList.push( val );
+                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            }
+            $( event.target ).blur();
+            console.log( requestTagList );
+            if(requestTagList.length > 2){
+                bootbox.alert("Please only select two tags for your request.");
+            }
+            return this;
+        },
+
         updateModel: function () {
             var self = this;
             self.model.set("description", $("#requestDescription").val());
             self.model.set("amount", $("#requestAmount").val());
-            //todo tags
-            //todo image
-            if(!self.model.get("description") || !self.model.get("amount")){
-                self.$('#createRequestBtn').prop("disabled", true);
+
+            if(requestTagList.length > 2){
+                bootbox.alert("Please only select up to two tags for your request.");
             }else{
-                self.$('#createRequestBtn').prop("disabled", false);
+                self.model.set("tags", requestTagList);
+                //todo hardcoded stuff
+                var firstTag = requestTagList[0];
+                if('bills' === firstTag){
+                    self.model.set("image", '/img/bills_icon.png');
+                } else if('clothing' === firstTag){
+                    self.model.set("image", '/img/clothing_icon.png');
+                }  else if('groceries' === firstTag){
+                    self.model.set("image", '/img/groceries_icon.png');
+                } else if('rent' === firstTag){
+                    self.model.set("image", '/img/rent_icon.png');
+                } else if('schoolRelated' === firstTag){
+                    self.model.set("image", '/img/school_icon.png');
+                }
+
+                $('#newRequestImage').attr('src', self.model.get('image'));
+                if(!self.model.get("description") || !self.model.get("amount")){
+                    self.$('#createRequestBtn').prop("disabled", true);
+                }else{
+                    self.$('#createRequestBtn').prop("disabled", false);
+                }
             }
+
+
         },
 
         createRequest: function () {

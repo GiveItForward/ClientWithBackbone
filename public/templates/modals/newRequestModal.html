@@ -10,33 +10,28 @@
                 <textarea id="requestDescription" class="bio" rows="4" cols="60"></textarea>
                 <label>Enter the dollar amount you are requesting: <b>$</b></label>
                 <input id="requestAmount" class="roundminitext" type="text">
-                <!--<div class="dropdown">-->
-                    <!--<button class="round greybtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Select Tags for this Request-->
-                    <!--</button>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" multiple>-->
-                        <!--<a class="dropdown-item" href="#">#rent</a>-->
-                        <!--<a class="dropdown-item" href="#">#bills</a>-->
-                        <!--<a class="dropdown-item" href="#">#forAChild</a>-->
-                        <!--<a class="dropdown-item" href="#">#clothing</a>-->
-                        <!--<a class="dropdown-item" href="#">#groceries</a>-->
-                        <!--<a class="dropdown-item" href="#">#schoolRelated</a>-->
-                        <!--<a class="dropdown-item" href="#">#other</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <label>Choose up to two tags for your request:</label><br>
-                <select id="requestTags" multiple data-max-options="2" class="selectpicker requesttags" title="Choose two of the following...">
-                    <option>#bills</option>
-                    <option>#clothing</option>
-                    <option>#forAChild</option>
-                    <option>#groceries</option>
-                    <option>#rent</option>
-                    <option>#schoolRelated</option>
-                    <option selected>#other</option>
-                </select>
+                <div class="button-group">
+                    <button class="btn round greybtn dropdown-toggle" type="button" data-toggle="dropdown">choose tags<span class="caret"></span></button>
+                    <ul id="chooseRequestTags" class="dropdown-menu choosetags">
+                        <li><a href="#" data-value="bills" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#bills</li>
+                        <li><a href="#" data-value="clothing" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#clothing</li>
+                        <li><a href="#" data-value="forAChild" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#forAChild</li>
+                        <li><a href="#" data-value="groceries" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#groceries</li>
+                        <li><a href="#" data-value="rent" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#rent</li>
+                        <li><a href="#" data-value="schoolRelated" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#schoolRelated</li>
+                        <li><a href="#" data-value="other" tabindex="-1">
+                            <input type="checkbox"/></a>&nbsp;#other</li>
+                    </ul>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="/img/rent.jpeg" style="height:100%; width:100%;">
+                        <img id="newRequestImage" src="/img/rent_icon.png" style="height:80%; width:80%;">
                     </div>
                     <div class="col-md-6">
                         <input id="fileChooser" type="file" style="display: none" />

@@ -49,7 +49,7 @@ body{
   width: 100%;
 }
 
-#logoMini {
+.logomini {
   width: 70px;
   height: 70px;
   margin: 5px;
@@ -202,12 +202,12 @@ body{
   border-radius: 0;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left:0;
+  padding-right:0;
   /*margin: 10px 0px 40px;*/
   width:100%;
   margin-left:0;
   margin-right:0;
-  padding-left:0;
-  padding-right:0;
   display:block;
   text-align:center;
 }
@@ -346,8 +346,9 @@ body{
 }
 
 .requestuserimage{
-  width: 110%;
-  height: 90%;
+  width: 140%;
+  height: 80%;
+  margin-left: 20%;
 }
 
 .requestusername{
@@ -398,7 +399,7 @@ body{
   border-radius: 25px;
   padding: 7%;
   /*height: 60px;*/
-  /*width: 150px;*/
+  width: 100%;
   margin-top: 30%;
   margin-bottom: 30%;
 }
@@ -407,7 +408,7 @@ body{
   border-radius: 25px;
   padding: 7%;
   /*height: 50px;*/
-  /*width: 150px;*/
+  width: 100%;
   margin-top: 0;
 }
 
@@ -457,7 +458,7 @@ body{
 }
 
 .orgmessage{
-  margin: 4%;
+  margin: 2%;
 }
 
 .topborder {
@@ -477,6 +478,9 @@ body{
   padding: 0;
 }
 
+.padding-left {
+  padding-left: 3%;
+}
 
 .icon-mini {
   height: 25px;
@@ -543,8 +547,32 @@ body{
   width: 80%;
 }
 
+.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
+  display: block;
+}
 
-.footer{
-  margin-top: 10%;
-  margin-bottom: 0;
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
+  display:none;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
+  display: block;
+  width: 100%;
+  padding: 3px 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+}
+
+
+.choosetags {
+  border-radius: 25px;
+  padding: 2%;
+  border: 2px solid dimgray;
+  width: 445px;
+  font-size: 14pt;
 }

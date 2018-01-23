@@ -31,16 +31,7 @@ define(function (require, exports, module) {
 
         events: {
             "click #signupBtn"          : "renderSignup",
-            // "click #loginBtn"           : "renderLogin",
             "click #loginSubmitBtn"     : "login",
-            // "click #yesOrg"             : "toggleYes",
-            // "click #noOrg"              : "toggleNo",
-            // "click #dropdownBtn"        : "toggleDropdown",
-            // "click #createAccountBtn"   : "createAccount",
-            // "click #uploadImage"        : "uploadImage",
-            // "click #chooseImage"        : "chooseImage",
-            // "click #addInfo"            : "addInfo",
-            // "click #fillOutLater"       : "fillOutLater",
             "keyup #password"           : "enterLogin",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
@@ -94,16 +85,14 @@ define(function (require, exports, module) {
             self.model.fetch({
                 headers: {"email": $("#username").val(), "password": $("#password").val()},
                 success: function () {
-                    self.model.set("password", undefined); //todo make sure password is not visable
-                    // var requestCollection = new RequestCollection();
+                    self.model.set("password", undefined);
                      new HomeView({
                          model: self.model
-                         // requestCollection: requestCollection
                     });
+                    $('#loginSpinner').clearQueue();
+                    $('#loginSpinner').css('display', 'none');
                 }
             });
-            $('#loginSpinner').clearQueue();
-            $('#loginSpinner').css('display', 'none');
             return this;
         },
 
@@ -124,82 +113,7 @@ define(function (require, exports, module) {
             // self.$('#inputdiv').html(signupTemplate);
             // self.$('#createAccountBtn').prop("disabled", true);
             return this;
-        },
-
-        // toggleYes: function () {
-        //     $("#yesOrg").prop('checked', true);
-        //     $("#noOrg").prop('checked', false);
-        //     $("#findOrg").show();
-        //     return this;
-        // },
-        //
-        // toggleNo: function () {
-        //     $("#yesOrg").prop('checked', false);
-        //     $("#noOrg").prop('checked', true);
-        //     $("#findOrg").hide();
-        //     return this;
-        // },
-        //
-        // toggleDropdown: function () {
-        //     console.log("in toggleDropdown");
-        //     $('.dropdown-toggle').dropdown();
-        //     return this;
-        // },
-        //
-        // createAccount: function () {
-        //     var self = this;
-        //     console.log("creating account");
-        //     console.log($("#newUsername").val());
-        //     console.log($("#newEmail").val());
-        //     console.log($("#newPassword").val());
-        //     console.log($("#newVerifyPassword").val());
-        //
-        //     self.model = new UserModel({
-        //         email: $("#newEmail").val(),
-        //         password: $("#newPassword").val()
-        //     });
-        //
-        //     //todo call to back end here
-        //
-        //     self.$('#landingContainer').html(signup2Template);
-        //     return this;
-        // },
-        //
-        // uploadImage: function () {
-        //     var self = this;
-        //     console.log($("#fileChooser").trigger("click"));
-        //     var image =
-        //     self.$('#landingContainer').html(signup2Template);
-        //     return this;
-        // },
-        //
-        // chooseImage: function () {
-        //     var self = this;
-        //     bootbox.alert("Pick an image!");
-        //     self.$('#landingContainer').html(signup2Template);
-        //     return this;
-        // },
-        //
-        // addInfo: function () {
-        //     var self = this;
-        //
-        //     //todo get image
-        //     console.log($("#userBio").val());
-        //     //todo get tags
-        //
-        //     //todo call to back end here
-        //
-        //     console.log("in add info function");
-        //     new HomeView();
-        //     return this;
-        // },
-        //
-        // fillOutLater: function () {
-        //     var self = this;
-        //     new HomeView();
-        //     return this;
-        // }
-
+        }
     });
 
     return LandingView;

@@ -28,20 +28,49 @@ div
         //        a.dropdown-item(href='#') #disabled
         //        a.dropdown-item(href='#') #disabledFamily
         br
-        select.tag-select(multiple='')
-            option #disabled
-            |
-            option #disabledFamily
-            |
-            option #domesticViolenceSurvivor
-            |
-            option #lgbt
-            |
-            option #singleParent
-            |
-            option #student
-            |
-            option #veteran
+        //select.tag-select(multiple='')
+        //    option #disabled
+        //    |
+        //    option #disabledFamily
+        //    |
+        //    option #domesticViolenceSurvivor
+        //    |
+        //    option #lgbt
+        //    |
+        //    option #singleParent
+        //    |
+        //    option #student
+        //    |
+        //    option #veteran
+        .button-group
+            button.btn.round.greybtn.dropdown-toggle(type='button', data-toggle='dropdown')
+                | choose tags
+                span.caret
+            ul#chooseUserTags.dropdown-menu.choosetags
+                li
+                    a(href='#', data-value='disabled', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#disabled
+                li
+                    a(href='#', data-value='disabledFamily', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#disabledFamily
+                li
+                    a(href='#', data-value='domesticViolenceSurvivor', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#domesticViolenceSurvivor
+                li
+                    a(href='#', data-value='lgbt', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#lgbt
+                li
+                    a(href='#', data-value='singleParent', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#singleParent
+                li
+                    a(href='#', data-value='veteran', tabindex='-1')
+                        input(type='checkbox')
+                    | &nbsp;#veteran
         // <input class="round winebtn mainbtn" type="submit" value="Add Info to Profile" formaction="requestFeed.html"><br>
         // <a href='/requestFeed' id="addInfoRef" style="display: none" /></a>
         // <a href='/requestFeed' id="addInfo" class="btn round winebtn mainbtn" />Add Info to Profile</a>

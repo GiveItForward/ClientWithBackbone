@@ -1,32 +1,34 @@
-.row
-    .col-md-12
-        .panel.roundrequest
-            .form-inline
-                .container
-                    .requestmargin
-                        .row
-                            .col-md-1
-                                img.requestuserimage(src='/img/default_profile_pic.png')
-                            .col-md-7
-                                a.requestusername(href='#') @someone
-                                .form-inline.tags
-                                    | #singleParent
-                                    img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                    | #UofUStudent
-                                    img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                    | #rent
-                            .col-md-4
-                                | Requested
-                                em
-                                    b $40
-                                |  on Jan 19, 2018
-                                .form-inline
-                                    .fulfilled FULFILLED
-                                    |  on Jan 23, 2018
-                        .row.padding-top
-                            .col-md-2
-                                img.requestimage(src='/img/bills_icon.png')
-                            .col-md-8
-                                .requestmessage
-                                    | Some message goes here
-                            .col-md-2
+for request in locals.models
+    .row
+        .col-md-12
+            .panel.roundrequest
+                .form-inline
+                    .container
+                        .requestmargin
+                            .row
+                                .col-md-1
+                                    img.requestuserimage(src='#{request.get("rUser").image}')
+                                .col-md-8.padding-left
+                                    a.requestusername(href='#') @#{request.get("rUser").username}
+                                    .form-inline.tags
+                                        | #singleParent
+                                        img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        |   ##{request.get("tagId1").tagname} ##{request.get("tagId2").tagname}
+                                        //| #UofUStudent
+                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        //| #rent
+                                .col-md-3
+                                    | Requested &nbsp
+                                    em
+                                        b $#{request.get("amount")}
+                                    |  on #{request.get("requestTime")}
+                                    .form-inline
+                                        .fulfilled FULFILLED
+                                        |  on #{request.get("donateTime")}
+                            .row.padding-top
+                                .col-md-2
+                                    img.requestimage(src='#{request.get("image")}')
+                                .col-md-8
+                                    .requestmessage
+                                        | #{request.get("description")}
+                                .col-md-2

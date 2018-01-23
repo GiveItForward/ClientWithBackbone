@@ -7,18 +7,18 @@ for request in locals.models
                         .requestmargin
                             .row
                                 .col-md-1
-                                    img#requestUserImage.requestuserimage(src='#{request.get("userimage")}')//(src='/img/anonUser.png')
-                                .col-md-8
-                                    a.requestusername(href='#') #{request.get("username")}
-                                    #requestTags.form-inline.tags #{request.get("tags")}
+                                    img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
+                                .col-md-8.padding-left
+                                    a.requestusername(href='#') @#{request.get("rUser").username}
+                                    #requestTags.form-inline.tags ##{request.get("tagId1").tagname} ##{request.get("tagId2").tagname}
                                         // #singleParent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#UofUStudent<img class="checkmark" src="/img/marooncheckmark.png" title="Verified By UofU Women's Resource Center">#threeKids
                                 .col-md-3
                                     p
                                         strong Requesting:
                                         em#requestAmount.amount $#{request.get("amount")}
                                         br
-                                        | &nbsp&nbsp
-                                        span#requestDate #{request.get("date")}
+                                        | &nbsp
+                                        span#requestDate posted on #{request.get("requestTime")}
                                             // Jan, 19 2018
                             .row
                                 #requestImage.col-md-2
@@ -28,5 +28,5 @@ for request in locals.models
                                     #requestDescription.requestmessage #{request.get("description")}
                                         // My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
                                 .col-md-2
-                                    button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("username")}')
+                                    button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}')
                                         img.givebtnicon(src='/img/maroon_shadow.png')

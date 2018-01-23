@@ -1,6 +1,8 @@
 var emailNoteHasBeenShown = 0;
 var passwordNoteHasBeenShown = 0;
 
+var tagList = [];
+
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -39,6 +41,7 @@ define(function (require, exports, module) {
             "click #chooseImage"        : "chooseImage",
             "click #addInfo"            : "addInfo",
             "click #fillOutLater"       : "fillOutLater",
+            "click .dropdown-menu a"    : "updateTags",
             "focus #newEmail"           : "emailPopup",
             "focus #newPassword"        : "passwordPopup",
             "keyup"                     : "updateModel",
@@ -67,10 +70,29 @@ define(function (require, exports, module) {
             return this;
         },
 
+        updateTags: function (event) {
+            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
+            var $target = $(event.currentTarget),
+                val = $target.attr( 'data-value' ),
+                $inp = $target.find( 'input' ),
+                idx;
+            if ( ( idx = tagList.indexOf( val ) ) > -1 ) {
+                tagList.splice( idx, 1 );
+                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+            } else {
+                tagList.push( val );
+                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            }
+            $( event.target ).blur();
+            console.log( tagList );
+            return this;
+        },
+
         updateModel: function () {
             var self = this;
             self.model.set("username", $("#newUsername").val());
             self.model.set("email", $("#newEmail").val());
+            self.model.set("tags", tagList);
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.model.set("password", $("#newPassword").val());// todo this will be hashed/encrypted
@@ -115,19 +137,19 @@ define(function (require, exports, module) {
         //     return this;
         // },
 
-        toggleYes: function () {
-            $("#yesOrg").prop('checked', true);
-            $("#noOrg").prop('checked', false);
-            $("#findOrg").show();
-            return this;
-        },
-
-        toggleNo: function () {
-            $("#yesOrg").prop('checked', false);
-            $("#noOrg").prop('checked', true);
-            $("#findOrg").hide();
-            return this;
-        },
+        // toggleYes: function () {
+        //     $("#yesOrg").prop('checked', true);
+        //     $("#noOrg").prop('checked', false);
+        //     $("#findOrg").show();
+        //     return this;
+        // },
+        //
+        // toggleNo: function () {
+        //     $("#yesOrg").prop('checked', false);
+        //     $("#noOrg").prop('checked', true);
+        //     $("#findOrg").hide();
+        //     return this;
+        // },
 
         toggleDropdown: function () {
             $('.dropdown-toggle').dropdown();
@@ -137,11 +159,8 @@ define(function (require, exports, module) {
         emailPopup: function () {
             if(!emailNoteHasBeenShown){
                 emailNoteHasBeenShown = 1;
-                // bootbox.alert("Please use your PayPal email if you wish to receive donations.", function(){
-                //     $('#newEmail').focus();
-                // });
                 bootbox.alert({
-                    size: "medium",
+                    size: "large",
                     message: "Please use your PayPal email if you wish to receive donations.",
                     callback: function(){
                         setTimeout(function(){
@@ -156,7 +175,7 @@ define(function (require, exports, module) {
             if(!passwordNoteHasBeenShown){
                 passwordNoteHasBeenShown = 1;
                 bootbox.alert({
-                    size: "medium",
+                    size: "large",
                     message: "For added security, please do NOT use the same password as your PayPal account.",
                     callback: function(){
                         setTimeout(function(){
@@ -232,11 +251,12 @@ define(function (require, exports, module) {
             //todo get image
             console.log($("#userBio").val());
             //todo get tags
+            console.log($('#chooseUserTags:checkbox:checked'));
 
             //todo call to back end here
 
             console.log("in add info function");
-            new HomeView();
+            // new HomeView();
             return this;
         },
 
