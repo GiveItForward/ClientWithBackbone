@@ -13,7 +13,7 @@ for request in locals.models
                                     .form-inline.tags
                                         | #singleParent
                                         img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        |   ##{request.get("tagId1").tagname} ##{request.get("tagId2").tagname}
+                                        |   ##{request.get("tag1").tagname} ##{request.get("tag2").tagname}
                                         //| #UofUStudent
                                         //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
                                         //| #rent
