@@ -10,7 +10,7 @@ define(function (require, exports, module) {
 
         model: RequestModel,
 
-        url : "http://54.227.151.133:8080/giveitforward/requests/",
+        url : "http://localhost:3000/api/requests/",
 
         // fetch: function (params, options) {
         //     // options.url = "" + params;

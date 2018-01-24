@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var moreHelp = require('./routes/moreHelp');
 var contactUs = require('./routes/contactUs');
 var aboutUs = require('./routes/aboutUs');
+var gifApi = require('./routes/api');
 // var users = require('./routes/users');
 // var signup = require('./routes/signup');
 // var editProfile = require('./routes/editProfile');
@@ -40,6 +41,7 @@ app.use('/index', index);
 app.use('/moreHelp', moreHelp);
 app.use('/aboutUs', aboutUs);
 app.use('/contactUs', contactUs);
+app.use('/api', gifApi);
 // app.use('/users', users);
 // app.use('/signup', signup);
 // app.use('/editProfile', editProfile);
@@ -67,4 +69,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
 module.exports = app;
+
+// http://54.227.151.133:8080/giveitforward/organizations/

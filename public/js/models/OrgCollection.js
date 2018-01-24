@@ -10,7 +10,7 @@ define(function (require, exports, module) {
 
         model: OrgModel,
 
-        url : "http://54.227.151.133:8080/giveitforward/organizations/",
+        url : "http://localhost:3000/api/organizations/",
 
         // fetch: function (params, options) {
         //     // options.url = "" + params;

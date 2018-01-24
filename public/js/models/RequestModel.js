@@ -13,7 +13,7 @@ define(function (require, exports, module) {
             if(options.amount) {
 
                 this.set("amount", options.amount);
-                this.url = "http://54.227.151.133:8080/giveitforward/requests";
+                this.url = "http://localhost:3000/api/requests";
 
             } else {
                 this.set("description", undefined);

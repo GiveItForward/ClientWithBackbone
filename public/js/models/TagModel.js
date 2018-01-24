@@ -13,7 +13,7 @@ define(function (require, exports, module) {
             if(options.tagname) {
 
                 this.set("tagname", options.tagname);
-                this.url = "http://54.227.151.133:8080/giveitforward/tags/" ;
+                this.url = "http://localhost:3000/api/tags/" ;
 
             } else {
                 this.set("tagname", undefined);
