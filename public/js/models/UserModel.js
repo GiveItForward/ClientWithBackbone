@@ -28,9 +28,6 @@ define(function (require, exports, module) {
                 //fetchUserEmailByUserName
                 this.url = "http://localhost:3000/api/email";
             }
-            console.log(options.path);
-            console.log(this.url);
-            console.log(this);
         }
     });
     return UserModel;

@@ -1,8 +1,33 @@
 .row.middle-row.padding-top
     .col-sm-7
         .form-inline
-            input#searchForTags.round(type='text', placeholder='search for tags')
-            a.btn.roundminibtn.winebtn(href='#') go
+            .button-group
+                button.btn.searchtagsbtn.winebtn.dropdown-toggle(type='button', data-toggle='dropdown')
+                    | search requests by tags
+                    span.caret
+                ul#searchForUserTags.dropdown-menu.searchtags
+            .button-group
+                button.btn.orderbybtn.winebtn.dropdown-toggle(type='button', data-toggle='dropdown')
+                    | order requests
+                    span.caret
+                ul#orderBy.dropdown-menu.searchtags
+                    li
+                        a(href='#', data-value='new', tabindex='-1')
+                            input(type='checkbox')
+                        | &nbsp;new to old
+                    li
+                        a(href='#', data-value='old', tabindex='-1')
+                            input(type='checkbox')
+                        | &nbsp;old to new
+                    li
+                        a(href='#', data-value='low', tabindex='-1')
+                            input(type='checkbox')
+                        | &nbsp;low to high
+                    li
+                        a(href='#', data-value='high', tabindex='-1')
+                            input(type='checkbox')
+                        | &nbsp;high to low
+            a.btn.gobtn.winebtn(href='#') go
     .col-sm-5
         a#newRequestBtn.newrequestbtn.btn.winebtn.whitetext(data-toggle='modal', data-target='#newRequestModal', data-backdrop='static') + new request
 .row.bottom-row

@@ -12,11 +12,15 @@ for request in locals.models
                                 .col-md-7.padding-left
                                     a.requestusername(href='#') @#{request.get("rUser").username}
                                     .form-inline.tags
-                                        | #singleParent
-                                        img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        | #UofUStudent
-                                        img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        | #rent
+                                        for tag in request.get("rUser").tags
+                                            | &nbsp##{tag.tagname}
+                                            if tag.verified === false
+                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        //| #singleParent
+                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        //| #UofUStudent
+                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        //| #rent
                                 .col-md-4
                                     | Requested
                                     em
@@ -28,7 +32,7 @@ for request in locals.models
                                         .open OPEN #{request.get("duid")}
                             .row.padding-top
                                 .col-md-2
-                                    img.requestimage(src='/img/rent_icon.png')
+                                    img.requestimage(src='#{request.get("image")}')
                                 .col-md-8
                                     .requestmessage
                                         | #{request.get("description")}

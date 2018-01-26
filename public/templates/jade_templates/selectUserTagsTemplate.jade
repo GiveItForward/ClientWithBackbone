@@ -1,0 +1,18 @@
+for tag in locals.models
+    li
+        a(href='#', data-value='#{tag.get("tagname")}', tabindex='-1')
+            input(type='checkbox')
+        | &nbsp;##{tag.get("tagname")}
+#searchForRequestTags.dropdown-divider
+li
+    a(href='#', data-value='bills', tabindex='-1')
+        input(type='checkbox')
+    | &nbsp;#bills
+li
+    a(href='#', data-value='carRepair', tabindex='-1')
+        input(type='checkbox')
+    | &nbsp;#carRepair
+li
+    a(href='#', data-value='forAChild', tabindex='-1')
+        input(type='checkbox')
+    | &nbsp;#forAChild

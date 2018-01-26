@@ -16,12 +16,14 @@ define(function (require, exports, module) {
     var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
+    var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
+    var selectUserTagsTemplate = require("jade!templates/jade_templates/selectUserTagsTemplate");
     var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
@@ -109,8 +111,18 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
             console.log("in home view init");
+            var self = this;
             this.model = options.model;
-            this.render();
+            this.tagCollection = new TagCollection();
+            this.tagCollection.fetch({
+                success: function (collection) {
+                    console.log('tag names from db: ')
+                    console.log(collection.models);
+                    this.tagCollection = collection;
+                    self.render();
+                }
+            });
+
         },
 
 
@@ -147,11 +159,9 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
             requestCollection.fetch({
                 success: function (collection) {
-                    _.each(collection.models, function(model) {
-
-                    })
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
+                    self.$('#searchForUserTags').html(selectUserTagsTemplate(self.tagCollection));
                 }
             });
             return this;
@@ -244,7 +254,7 @@ define(function (require, exports, module) {
 
             requestCollection.fetchByRequestUid({
                 // headers: {'Authorization' : self.model.get('uid')},
-                headers: {"Authorization": self.model.get('uid')},
+                headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());

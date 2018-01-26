@@ -116,6 +116,20 @@ body{
   margin: 5px;
 }
 
+.searchtagsbtn{
+  border-radius: 25px;
+  /*padding: 5%;*/
+  width: 250px;
+  margin: 3%;
+}
+
+.orderbybtn{
+  border-radius: 25px;
+  /*padding: 5%;*/
+  width: 150px;
+  margin-left: 15%;
+}
+
 .newrequestbtn {
   border-radius: 25px;
   padding: 2%;
@@ -131,11 +145,18 @@ body{
   margin: 5px;
 }
 
-.roundminibtn{
+/*.roundminibtn{*/
+  /*border-radius: 25px;*/
+  /*padding: 2%;*/
+  /*!*width: 50px;*!*/
+  /*margin-left: 6%;*/
+/*}*/
+
+.gobtn{
   border-radius: 25px;
-  padding: 10px;
+  padding: 2%;
   width: 50px;
-  margin: 5px;
+  margin-left: 6%;
 }
 
 .roundsmalltext{
@@ -574,6 +595,14 @@ body{
   padding: 2%;
   border: 2px solid dimgray;
   width: 445px;
+  font-size: 14pt;
+}
+
+.searchtags {
+  border-radius: 25px;
+  padding: 2%;
+  border: 2px solid dimgray;
+  /*width: 445px;*/
   font-size: 14pt;
 }
 

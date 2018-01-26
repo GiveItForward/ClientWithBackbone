@@ -199,24 +199,27 @@ define(function (require, exports, module) {
             var self = this;
             console.log("in sign up save function");
 
+            console.log(tagList);
             self.model.set("tags", tagList);
             self.model.set("bio", $("#userBio").val());
+            console.log("backbone model");
             console.log(self.model);
 
-            //todo call to back end here
-            self.model.save({
-                wait: true,
-                success: function(model, response) {
-                    console.log(model);
-                    // new HomeView({
-                    //     model: model
-                    // });
-                    console.log('success');
-                },
-                error: function(model, response) {
-                    console.log(model);
-                    console.log(response);
-                }});
+            //todo saving to DB, but not getting to success function...and erasing tags
+            // self.model.save({
+            //     // wait: true,
+            //     success: function(model, response) {
+            //         console.log("model from json");
+            //         console.log(model);
+            //         new HomeView({
+            //             model: model
+            //         });
+            //         console.log('success');
+            //     },
+            //     error: function(model, response) {
+            //         console.log(model);
+            //         console.log(response);
+            //     }});
             return this;
         },
 
