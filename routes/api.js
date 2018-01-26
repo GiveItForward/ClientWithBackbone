@@ -5,7 +5,7 @@ var request = require('request');
 
 
 
-// var local_url = 'http://localhost:8080';
+// var base_url = 'http://localhost:8080';
 var base_url = 'http://54.227.151.133:8080/giveitforward';
 
 
@@ -16,6 +16,20 @@ router.get('/*', function(req, res, next) {
     };
 
     request(options).pipe(res);
+});
+
+router.post('/*', function(req, res, next) {
+    console.log("in post!");
+    console.log(req.body);
+    var options = {
+        method: 'post',
+        body: req.body,
+        // headers: req.headers,
+        url: base_url + req.url,
+        json: true
+    };
+
+    request(options, function (err, res, body) {}).pipe(res);
 });
 
 router.options("/*", function(req, res, next){
