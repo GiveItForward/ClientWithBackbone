@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var RequestModel = require("models/RequestModel");
+    // var RequestTagCollection = require("models/RequestTagCollection");
 
     var newRequestModal = require("text!templates/modals/newRequestModal.html");
     // var newRequestModal = require("jade!templates/jade_templates/modals/newRequestModal");
@@ -37,7 +38,39 @@ define(function (require, exports, module) {
             var self = this;
             self.el = newRequestModal;
             self.setElement(this.el);
+            // self.renderTagList()
             self.$('#createRequestBtn').prop("disabled", true);
+            return this;
+        },
+
+        renderTagList: function () {
+            var self = this;
+
+            var requestTagCollection = new RequestTagCollection();
+            requestTagCollection.fetch({
+                success: function (collection) {
+                    // _.each(collection.models, function(model) {
+                    //
+                    // });
+                    console.log('tag names from db: ')
+                    console.log(collection.models);
+                    var newRequestTagsHtml = self.getnewRequestTagsHtml(collection.models);
+                    self.$('#newRequestTags').html(newRequestTagsHtml);
+                }
+            });
+            return this;
+        },
+
+
+        getnewRequestTagsHtml: function (models) {
+            var self = this;
+            var tagString = '';
+            // _.each(models, function(model) {
+            //     tagString += '<li><a href="#" data-value="' + model.tagname + '" tabindex="-1">\n' +
+            //         '<input type="checkbox"/></a>&nbsp;#\' + model.tagname + \'</li>'
+            //
+            // });
+
             return this;
         },
 
@@ -72,6 +105,8 @@ define(function (require, exports, module) {
                 var firstTag = requestTagList[0];
                 if('bills' === firstTag){
                     self.model.set("image", '/img/bills_icon.png');
+                } else if('carRepairs' === firstTag){
+                    self.model.set("image", '/img/car_repair_icon.png');
                 } else if('clothing' === firstTag){
                     self.model.set("image", '/img/clothing_icon.png');
                 }  else if('groceries' === firstTag){

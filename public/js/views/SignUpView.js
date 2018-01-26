@@ -15,13 +15,15 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var ChooseUserImageModalView = require("views/ChooseUserImageModalView");
+    var HomeView = require("views/HomeView");
 
     var UserModel = require("models/UserModel");
-    var HomeView = require("views/HomeView");
+    var TagCollection = require("models/TagCollection");
 
     var loginTemplate = require("jade!templates/jade_templates/loginTemplate");
     var signupTemplate = require("jade!templates/jade_templates/signupTemplate");
     var signup2Template = require("jade!templates/jade_templates/signup2Template");
+    var signup2TagsTemplate = require("jade!templates/jade_templates/signup2TagsTemplate");
 
     var SignUpView = Backbone.View.extend({
 
@@ -159,7 +161,17 @@ define(function (require, exports, module) {
                 bootbox.alert("Passwords do not match.");
             }
             onSignUp2 = true;
-            self.$('#landingContainer').html(signup2Template);
+
+            var tagCollection = new TagCollection();
+            tagCollection.fetch({
+                success: function (collection) {
+                    console.log('tag names from db: ')
+                    console.log(collection.models);
+                    self.$('#landingContainer').html(signup2Template);
+                    self.$('#chooseUserTags').html(signup2TagsTemplate(collection));
+                }
+            });
+
             return this;
         },
 

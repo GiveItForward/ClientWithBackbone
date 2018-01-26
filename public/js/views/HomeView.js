@@ -145,37 +145,13 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            var count = 0;
-
             requestCollection.fetch({
                 success: function (collection) {
                     _.each(collection.models, function(model) {
-                        //todo hard coded data for now; should come from DB
-                        // model.set('username', "@username");
-                        // model.set('userimage', "/img/default_profile_pic.png");
-                        // model.set('date', "Jan 11, 2018");
-                        // model.set('tags', "#other #other #other");  //todo make sure to add usertags and requesttags to the html
-                        // if(count == 0){
-                        //     model.set('image', "/img/rent_icon.png");
-                        //     count++;
-                        // }else if(count == 1){
-                        //     model.set('image', "/img/clothing_icon.png");
-                        //     count++;
-                        // }else if(count == 2){
-                        //     model.set('image', "/img/car_repair_icon.png");
-                        //     count++;
-                        // }else if(count == 3){
-                        //     model.set('image', "/img/groceries_icon.png");
-                        //     count++;
-                        // }else if(count == 4){
-                        //     model.set('image', "/img/school_icon.png");
-                        //     count = 0;
-                        // }
-                        // console.log(model.toJSON());
+
                     })
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
-                    // self.$('#requestCol').append(requestTemplate(requestCollection));//todo something weird here with requestCollection
                 }
             });
             return this;
@@ -212,14 +188,6 @@ define(function (require, exports, module) {
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
                 success: function (collection) {
-                    _.each(collection.models, function(model) {
-                        // model.set('bio', "HC This organization wants to help you! This organization wants to help you! This organization wants to help you!");
-                        // model.set('phoneNumber', "HC 801-581-8030");
-                        // model.set('address', "HC A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112");
-                        // model.set('image', "
-                        // ");
-                        // console.log(model.toJSON());
-                    });
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
                 }
@@ -269,27 +237,27 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            requestCollection.add(requestModel1);
-            requestCollection.add(requestModel2);
-            requestCollection.add(requestModel3);
-            self.$('#myRequestCol').html(myRequestTemplate(requestCollection));
+            // requestCollection.add(requestModel1);
+            // requestCollection.add(requestModel2);
+            // requestCollection.add(requestModel3);
+            // self.$('#myRequestCol').html(myRequestTemplate(requestCollection));
 
-            // requestCollection.fetchByRequestUid({
-            //     // headers: {'Authorization' : self.model.get('uid')},
-            //     headers: {"Authorization": self.model.get('uid')},
-            //     success: function (collection) {
-            //         _.each(collection.models, function(model) {
-            //             console.log(model.toJSON());
-            //         })
-            //         console.log("My requests: ");
-            //         console.log(collection.models);
-            //         self.$('#myRequestCol').html(myRequestTemplate(collection));
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }
-            // });
+            requestCollection.fetchByRequestUid({
+                // headers: {'Authorization' : self.model.get('uid')},
+                headers: {"Authorization": self.model.get('uid')},
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        console.log(model.toJSON());
+                    })
+                    console.log("My requests: ");
+                    console.log(collection.models);
+                    self.$('#myRequestCol').html(myRequestTemplate(collection));
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
             return this;
         },
 
@@ -303,24 +271,24 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            requestCollection.add(requestModel1);
-            requestCollection.add(requestModel2);
-            requestCollection.add(requestModel3);
-            self.$('#myDonationCol').html(myDonationTemplate(requestCollection));
+            // requestCollection.add(requestModel1);
+            // requestCollection.add(requestModel2);
+            // requestCollection.add(requestModel3);
+            // self.$('#myDonationCol').html(myDonationTemplate(requestCollection));
 
-            // requestCollection.fetchByDonateUid({
-            //     // headers: {'Authorization' : self.model.get('uid')},
-            //     headers: {"uid": self.model.get('uid')},
-            //     success: function (collection) {
-            //         console.log("My donations: ");
-            //         console.log(collection.models);
-            //         self.$('#myDonationCol').html(myDonationTemplate(collection));
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }
-            // });
+            requestCollection.fetchByDonateUid({
+                // headers: {'Authorization' : self.model.get('uid')},
+                headers: {"uid": self.model.get('uid')},
+                success: function (collection) {
+                    console.log("My donations: ");
+                    console.log(collection.models);
+                    self.$('#myDonationCol').html(myDonationTemplate(collection));
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
             return this;
         },
 
@@ -344,11 +312,11 @@ define(function (require, exports, module) {
                 buttons: {
                     confirm: {
                         label: 'Yes',
-                        className: 'greyBtn'
+                        className: 'btn greyBtn'
                     },
                     cancel: {
                         label: 'No',
-                        className: 'wineBtn'
+                        className: 'btn wineBtn'
                     }
                 },
                 callback: function (result) {

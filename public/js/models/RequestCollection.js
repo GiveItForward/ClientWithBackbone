@@ -26,14 +26,14 @@ define(function (require, exports, module) {
         // },
 
         fetchByRequestUid: function (options) {
-            // options.url = "http://54.227.151.133:8080/giveitforward/requests/requestuid" + params;
-            this.url = "http://54.227.151.133:8080/giveitforward/requests/requestuid";
+            // this.url = "http://54.227.151.133:8080/giveitforward/requests/requestuid";
+            this.url = "http://localhost:3000/api/requests/requestuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
         },
 
         fetchByDonateUid: function (options) {
-            // this.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid" + params;
-            this.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid";
+            // this.url = "http://54.227.151.133:8080/giveitforward/requests/donateuid";
+            this.url = "http://localhost:3000/api/requests/donateuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
         }
     });
