@@ -2,17 +2,17 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header dimgreytext">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button id="exitNewRequestModal" type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">New Request</h4>
             </div>
             <div class="modal-body">
                 <label>Describe the reason for your request:</label><br>
-                <textarea id="requestDescription" class="bio" rows="4" cols="60"></textarea>
+                <textarea id="newRequestDescription" class="bio" rows="4" cols="60"></textarea>
                 <label>Enter the dollar amount you are requesting: <b>$</b></label>
-                <input id="requestAmount" class="roundminitext" type="text">
+                <input id="newRequestAmount" class="roundminitext" type="text">
                 <div class="button-group">
                     <button class="btn round greybtn dropdown-toggle" type="button" data-toggle="dropdown">choose tags<span class="caret"></span></button>
-                    <ul id="chooseRequestTags" class="dropdown-menu choosetags">
+                    <ul id="newRequestTags" class="dropdown-menu choosetags">
                         <li><a href="#" data-value="bills" tabindex="-1">
                             <input type="checkbox"/></a>&nbsp;#bills</li>
                         <li><a href="#" data-value="clothing" tabindex="-1">
@@ -41,26 +41,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="cancelBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
-                <button id="createRequestBtn" class="btn winebtn">Create Request</button>
+                <button id="cancelNewRequestBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="createRequestBtn" class="btn winebtn" data-dismiss="modal">Create Request</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-<!--<div id="newRequestModal" class="modal fade" role="dialog">-->
-    <!--<div class="modal-header">-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
-        <!--<h3 id="myModalLabel">Modal header</h3>-->
-    <!--</div>-->
-    <!--<div class="modal-body">-->
-        <!--<p>One fine body…</p>-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-        <!--<button class="btn greybtn" data-dismiss="modal">Close</button>-->
-        <!--<button class="btn winebtn">Save changes</button>-->
-    <!--</div>-->
-<!--</div>-->

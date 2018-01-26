@@ -79,9 +79,9 @@ define(function (require, exports, module) {
             console.log("logging in...");
 
 
-            self.model = new UserModel({
-                path: 'login'
-            });
+            // self.model = new UserModel({
+            //     path: 'login'
+            // });
             self.model.fetch({
                 headers: {"email": $("#username").val(), "password": $("#password").val()},
                 success: function () {

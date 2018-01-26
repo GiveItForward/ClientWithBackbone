@@ -2,38 +2,53 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header dimgreytext">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button id="exitChooseUserImageBtn" type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Profile Image</h4>
             </div>
             <div class="modal-body">
-                <label>Choose an image for your profile:</label><br>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/default_profile_pic_no_bckgrnd.png"></button>
+                <label>Choose an image for your profile:</label>
+                <br>
+                <div id="imageBtnGroup">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button class="btn imagebtn" data-image="/img/default_profile_pic_no_bckgrnd.png">
+                                <img class="imageOnImageBtn" src="/img/default_profile_pic_no_bckgrnd.png">
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn imagebtn" data-image="/img/default_profile_pic_no_bckgrnd.png">
+                                <img class="imageOnImageBtn" src="/img/default_profile_pic_no_bckgrnd.png">
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/default_profile_pic_no_bckgrnd.png"></button>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button class="btn imagebtn" data-image="/img/glasses_profile_pic.png">
+                                <img class="imageOnImageBtn" src="/img/glasses_profile_pic.png">
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn imagebtn" data-image="/img/pigtails_profile_pic.png">
+                                <img class="imageOnImageBtn" src="/img/pigtails_profile_pic.png">
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/glasses_profile_pic.png"></button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/pigtails_profile_pic.png"></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/longhair_profile_pic.png"></button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn imagebtn"><img class="imageOnImageBtn" src="/img/hat_profile_pic.png"></button>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button class="btn imagebtn" data-image="/img/longhair_profile_pic.png">
+                                <img class="imageOnImageBtn" src="/img/longhair_profile_pic.png">
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn imagebtn" data-image="/img/hat_profile_pic.png">
+                                <img class="imageOnImageBtn" src="/img/hat_profile_pic.png">
+                            </button>
+                        </div>
                     </div>
                 </div>
             <div class="modal-footer">
-                <button id="cancelBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
-                <button id="createRequestBtn" class="btn winebtn">Choose</button>
+                <button id="cancelChooseUserImageBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="chooseUserImageBtn" class="btn winebtn" data-dismiss="modal">Choose</button>
             </div>
         </div>
     </div>

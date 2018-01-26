@@ -9,6 +9,8 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
+    var RequestModel = require("models/RequestModel");
+
     var newRequestModal = require("text!templates/modals/newRequestModal.html");
     // var newRequestModal = require("jade!templates/jade_templates/modals/newRequestModal");
 
@@ -16,19 +18,23 @@ define(function (require, exports, module) {
 
         el: newRequestModal,
 
+        model: new RequestModel({}),
+
         events: {
-            "click #createRequestBtn"   : "createRequest",
-            "click .dropdown-menu a"    : "updateTags",
-            "keyup"                     : "updateModel",
-            "change"                    : "updateModel"
+            "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
+            "click #exitNewRequestModal"     : "destroyNewRequestModal",
+            "click #createRequestBtn"        : "save",
+            "click .dropdown-menu a"         : "updateTags",
+            "keyup"                          : "updateModel",
+            "change"                         : "updateModel"
         },
 
         initialize: function (options) {
             console.log("in new request modal view init");
             this.parent = options.parent;
+            this.model.set('fulfilled', false);
             // this.render();
         },
-
 
         render: function () {
             console.log("in new request modal view render");
@@ -54,17 +60,15 @@ define(function (require, exports, module) {
             }
             $( event.target ).blur();
             console.log( requestTagList );
-            // if(requestTagList.length > 2){
-            //     bootbox.alert("Please only select two tags for your request.");
-            // }
             return this;
         },
 
         updateModel: function () {
             var self = this;
-            self.model.set("description", $("#requestDescription").val());
-            self.model.set("amount", $("#requestAmount").val());
-
+            self.model.set("description", $("#newRequestDescription").val());
+            self.model.set("amount", $("#newRequestAmount").val());
+            console.log($("#newRequestDescription").val());
+            console.log(self.model);
             if(requestTagList.length > 2){
                 bootbox.alert("Please only select up to two tags for your request.");
             }else{
@@ -84,32 +88,50 @@ define(function (require, exports, module) {
                 }
 
                 $('#newRequestImage').attr('src', self.model.get('image'));
-                if(!self.model.get("description") || !self.model.get("amount")){
-                    self.$('#createRequestBtn').prop("disabled", true);
-                }else{
-                    self.$('#createRequestBtn').prop("disabled", false);
-                }
+            }
+            if(!self.model.get("description") || !self.model.get("amount")){
+                self.$('#createRequestBtn').prop("disabled", true);
+            }else{
+                self.$('#createRequestBtn').prop("disabled", false);
             }
         },
 
-        createRequest: function () {
+        save: function () {
             var self = this;
             console.log("in createRequest function");
 
             console.log("user id is: " + self.parent.model.get("uid"));
-            console.log($("#requestDescription").val());
-            console.log($("#requestAmount").val());
-            console.log($("#requestTags").val());
-            console.log($("#requestTags").val().length);
-            if($("#requestTags").val().length > 2){
-                bootbox.alert("Please only choose 2 tags for your request.");
-            }else{
-                self.updateModel();
+            console.log($("#newRequestDescription").val());
+            console.log($("#newRequestAmount").val());
+            console.log($("#newRequestTags").val());
+            console.log($("#newRequestTags").val().length);
+            self.model.set('rid', self.parent.model.get("uid"));
+            self.updateModel();
                 //todo save to DB here
 
-            }
-            // todo get or assign image
-            return this;
+            // console.log(self.model);
+            // self.model.save({
+            //     wait: true,
+            //     success: function(model, response) {
+            //         console.log(model);
+            //         console.log('success in saving new request');
+            //     },
+            //     error: function(model, response) {
+            //         console.log(model);
+            //         console.log(response);
+            //     }});
+            self.destroyNewRequestModal();
+            // return this;
+        },
+
+        destroyNewRequestModal: function () {
+            var self = this;
+            $('#newRequestModal').fadeOut('slow', function () {
+                self.undelegateEvents();
+                self.$el.removeData().unbind();
+                self.remove();
+                Backbone.View.prototype.remove.call(self);
+            })
         }
 
     });

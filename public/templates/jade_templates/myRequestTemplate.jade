@@ -7,9 +7,10 @@ for request in locals.models
                         .requestmargin
                             .row
                                 .col-md-1
-                                    img.requestuserimage(src='/img/default_profile_pic.png')
+                                    //img.requestuserimage(src='/img/default_profile_pic.png')
+                                    img.requestuserimage(src='#{request.get("rUser").image}')
                                 .col-md-7.padding-left
-                                    a.requestusername(href='#') @#{request.get("username")}
+                                    a.requestusername(href='#') @#{request.get("rUser").username}
                                     .form-inline.tags
                                         | #singleParent
                                         img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
@@ -30,7 +31,7 @@ for request in locals.models
                                     img.requestimage(src='/img/rent_icon.png')
                                 .col-md-8
                                     .requestmessage
-                                        | #{request.get("message")}
+                                        | #{request.get("description")}
                                 .col-md-2.btn-group
                                     if request.get("duid") > 0
                                         button.thankyoubtn.winebtn say<br>"Thank you"

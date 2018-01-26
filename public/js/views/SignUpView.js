@@ -1,5 +1,6 @@
 var emailNoteHasBeenShown = 0;
 var passwordNoteHasBeenShown = 0;
+var onSignUp2 = false;
 
 var tagList = [];
 
@@ -27,31 +28,26 @@ define(function (require, exports, module) {
         el: '#rightCol',
 
         model: new UserModel({
-            path: 'signup',
-            email: 'email'
+            path: 'signup'
         }),
 
         events: {
-            // "click #signupBtn"          : "renderSignup",
             "click #loginBtn"           : "renderLogin",
-            // "click #loginSubmitBtn"     : "login",
-            "click #yesOrg"             : "toggleYes",
-            "click #noOrg"              : "toggleNo",
             "click #dropdownBtn"        : "toggleDropdown",
             "click #createAccountBtn"   : "createAccount",
             "click #uploadImage"        : "uploadImage",
             "click #chooseImage"        : "chooseImage",
-            "click #addInfo"            : "addInfo",
+            "click #addInfo"            : "save",
             "click #fillOutLater"       : "fillOutLater",
             "click .dropdown-menu a"    : "updateTags",
             "focus #newEmail"           : "emailPopup",
-            "focus #newPassword"        : "passwordPopup",
+            // "focus #newPassword"        : "passwordPopup",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
         },
 
         initialize: function () {
-            var self = this;
+            this.model.set('image', '/img/default_profile_pic_no_bckgrnd.png');
             this.render();
         },
 
@@ -60,7 +56,7 @@ define(function (require, exports, module) {
             $("#signupBtn").addClass("selected");
             $("#loginBtn").removeClass("selected");
             self.$('#inputdiv').html(signupTemplate);
-            // self.$('#createAccountBtn').prop("disabled", true);
+            self.$('#createAccountBtn').prop("disabled", true);
             return this;
         },
 
@@ -91,67 +87,23 @@ define(function (require, exports, module) {
         },
 
         updateModel: function () {
-            var self = this;
-            self.model.set("username", $("#newUsername").val());
-            self.model.set("email", $("#newEmail").val());
-            self.model.set("tags", tagList);
+            if (!onSignUp2) {
+                var self = this;
+                self.model.set("username", $("#newUsername").val());
+                self.model.set("email", $("#newEmail").val());
 
-            if($("#newPassword").val() === $("#newVerifyPassword").val()){
-                self.model.set("password", $("#newPassword").val());// todo this will be hashed/encrypted
-            }
+                if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
+                    self.model.set("password", $("#newPassword").val());// todo this will be hashed/encrypted
+                }
 
-            if(!self.model.get("username") || !self.model.get("email") || !self.model.get("password")){
-                self.$('#createAccountBtn').prop("disabled", true);
-            }else{
-                self.$('#createAccountBtn').prop("disabled", false);
+                if (!self.model.get("username") || !self.model.get("email") || !self.model.get("password")) {
+                    self.$('#createAccountBtn').prop("disabled", true);
+                } else {
+                    self.$('#createAccountBtn').prop("disabled", false);
+                }
             }
         },
 
-        // login: function () {
-        //     var self = this;
-        //     console.log("logging in...");
-        //     // console.log($("#username").val());
-        //     // console.log($("#password").val());
-        //
-        //     self.model = new UserModel({
-        //         email: $("#username").val(),
-        //         password: $("#password").val()
-        //     });
-        //     self.model.fetch({
-        //         success: function () {
-        //             // console.log(self.model);
-        //             new HomeView({
-        //                 model: self.model
-        //             });
-        //         }
-        //     });
-        //     return this;
-        // },
-        //
-        // renderSignup: function () {
-        //     // bootbox.alert("Sign up!");
-        //     console.log("in sign up landing view");
-        //     $("#signupBtn").addClass("selected");
-        //     $("#loginBtn").removeClass("selected");
-        //
-        //     var self = this;
-        //     self.$('#inputdiv').html(signupTemplate);
-        //     return this;
-        // },
-
-        // toggleYes: function () {
-        //     $("#yesOrg").prop('checked', true);
-        //     $("#noOrg").prop('checked', false);
-        //     $("#findOrg").show();
-        //     return this;
-        // },
-        //
-        // toggleNo: function () {
-        //     $("#yesOrg").prop('checked', false);
-        //     $("#noOrg").prop('checked', true);
-        //     $("#findOrg").hide();
-        //     return this;
-        // },
 
         toggleDropdown: function () {
             $('.dropdown-toggle').dropdown();
@@ -173,20 +125,20 @@ define(function (require, exports, module) {
             }
         },
 
-        passwordPopup: function () {
-            if(!passwordNoteHasBeenShown){
-                passwordNoteHasBeenShown = 1;
-                bootbox.alert({
-                    size: "large",
-                    message: "For added security, please do NOT use the same password as your PayPal account.",
-                    callback: function(){
-                        setTimeout(function(){
-                            $('#newPassword').focus();
-                        }, 10);
-                    }
-                });
-            }
-        },
+        // passwordPopup: function () {
+        //     if(!passwordNoteHasBeenShown){
+        //         passwordNoteHasBeenShown = 1;
+        //         bootbox.alert({
+        //             size: "large",
+        //             message: "For added security, please do NOT use the same password as your PayPal account.",
+        //             callback: function(){
+        //                 setTimeout(function(){
+        //                     $('#newPassword').focus();
+        //                 }, 10);
+        //             }
+        //         });
+        //     }
+        // },
 
         createAccount: function () {
             var self = this;
@@ -198,37 +150,15 @@ define(function (require, exports, module) {
             console.log($("#newVerifyPassword").val());
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
-                self.model = new UserModel({});
                 self.model.set("username", $("#newUsername").val());
                 self.model.set("password", $("#newPassword").val());
                 self.model.set("email", $("#newEmail").val());
-                self.model.set("bio", "");
+                // self.model.set("bio", "");
                 console.log(self.model);
-
-
-                // self.model.save({
-                //     wait: true,
-                //     success: function(model, response) {
-                //         console.log(model);
-                //         model.set("password", undefined);
-                //
-                //         new HomeView({
-                //             model: model
-                //             // requestCollection: requestCollection
-                //         });
-                //         console.log('success');
-                //     },
-                //     error: function(model, response) {
-                //         console.log(model);
-                //         console.log(response);
-                //     }});
             }else{
                 bootbox.alert("Passwords do not match.");
             }
-
-
-            //todo call to back end here
-
+            onSignUp2 = true;
             self.$('#landingContainer').html(signup2Template);
             return this;
         },
@@ -237,7 +167,6 @@ define(function (require, exports, module) {
             var self = this;
             // $("#fileChooser").trigger("click");
             bootbox.alert("Not yet implemented.");
-            // self.$('#landingContainer').html(signup2Template);
             return this;
         },
 
@@ -251,31 +180,38 @@ define(function (require, exports, module) {
             });
             container.appendChild(chooseUserImageModalView.render().el);
             $('body').append(container);
-
-
-            // self.$('#landingContainer').html(signup2Template);
             return this;
         },
 
-        addInfo: function () {
+        save: function () {
             var self = this;
+            console.log("in sign up save function");
 
-            //todo get image
-            console.log($("#userBio").val());
-            //todo get tags
-            console.log(tagList);
+            self.model.set("tags", tagList);
+            self.model.set("bio", $("#userBio").val());
+            console.log(self.model);
 
             //todo call to back end here
-
-            console.log("in add info function");
-            // new HomeView();
+            self.model.save({
+                wait: true,
+                success: function(model, response) {
+                    console.log(model);
+                    // new HomeView({
+                    //     model: model
+                    // });
+                    console.log('success');
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }});
             return this;
         },
 
         fillOutLater: function () {
             var self = this;
             new HomeView({
-                model: self.model
+                // model: self.model
             });
             return this;
         }

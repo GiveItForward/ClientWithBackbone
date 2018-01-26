@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     var NewRequestModalView = require("views/NewRequestModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
 
+    var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
     var OrgModel = require("models/OrgModel");
@@ -31,35 +32,41 @@ define(function (require, exports, module) {
 
     //todo for testing; delete when done
     var requestModel1 = new RequestModel({
-        username: "undefined",
-        userimage: "/img/anonUser.png",
+        rUser: {
+            username: "undefined",
+            image: "/img/default_profile_pic_no_bckgrnd.png"
+        },
         description: "My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
         amount: "50",
         date: "Jan 10, 2018",
-        tags: "#rent", //todo make sure to add usertags and requesttags to the html
-        image: "/img/rent.jpeg",
+        tags: "#rent",
+        image: "/img/rent_icon.png",
         duid: undefined
     });
 
     var requestModel2 = new RequestModel({
-        username: "undefined",
-        userimage: "/img/anonUser.png",
-        description: "blah blah 2 My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
+        rUser: {
+            username: "undefined",
+            image: "/img/default_profile_pic_no_bckgrnd.png"
+        },
+        description: "It's getting so cold and my daughter's coat doesn't fit her anymore. Please help me keep my baby warm this winter.",
         amount: "60",
         date: "Jan 11, 2018",
-        tags: "#other", //todo make sure to add usertags and requesttags to the html
-        image: "/img/maroon_daisy.png",
+        tags: "#other",
+        image: "/img/clothing_icon.png",
         duid: 2
     });
 
     var requestModel3 = new RequestModel({
-        username: "undefined",
-        userimage: "/img/anonUser.png",
-        description: "blah blah 3 My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
-        amount: "70",
+        rUser: {
+            username: "undefined",
+            image: "/img/default_profile_pic_no_bckgrnd.png"
+        },
+        description: "My kiddo has holes in her shoes and I can't afford new ones right now.",
+        amount: "20",
         date: "Jan 12, 2018",
-        tags: "#forAChild", //todo make sure to add usertags and requesttags to the html
-        image: "/img/oldShoes.jpg",
+        tags: "#forAChild",
+        image: "/img/clothing_icon.png",
         duid: 5
     });
 
@@ -177,9 +184,21 @@ define(function (require, exports, module) {
         paypal: function () {
             console.log("in home view paypal");
             console.log("requester's username: " + $(document.activeElement).attr('data-username'));
-            console.log("request amount: " + $(document.activeElement).attr('data-amount'));
-            console.log("request id: " + $(document.activeElement).attr('data-rid'));
-            var memo = "Give It Forward";
+
+            //todo fetch useremail using username ...
+            var requestUser = new UserModel({
+                path: 'email'
+            });
+            requestUser.fetch({
+                headers: {"username": $("#username").val()},
+                success: function (model) {
+                    console.log(model.get('email'));
+                    console.log("request amount: " + $(document.activeElement).attr('data-amount'));
+                    console.log("request id: " + $(document.activeElement).attr('data-rid'));
+                    var memo = "Give It Forward";
+                    //todo do paypal stuff in here...
+                }
+            });
             return this;
         },
 
@@ -284,19 +303,24 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            requestCollection.fetchByDonateUid({
-                // headers: {'Authorization' : self.model.get('uid')},
-                headers: {"uid": self.model.get('uid')},
-                success: function (collection) {
-                    console.log("My donations: ");
-                    console.log(collection.models);
-                    self.$('#myDonationCol').html(myDonationTemplate(collection));
-                },
-                error: function(model, response) {
-                    console.log(model);
-                    console.log(response);
-                }
-            });
+            requestCollection.add(requestModel1);
+            requestCollection.add(requestModel2);
+            requestCollection.add(requestModel3);
+            self.$('#myDonationCol').html(myDonationTemplate(requestCollection));
+
+            // requestCollection.fetchByDonateUid({
+            //     // headers: {'Authorization' : self.model.get('uid')},
+            //     headers: {"uid": self.model.get('uid')},
+            //     success: function (collection) {
+            //         console.log("My donations: ");
+            //         console.log(collection.models);
+            //         self.$('#myDonationCol').html(myDonationTemplate(collection));
+            //     },
+            //     error: function(model, response) {
+            //         console.log(model);
+            //         console.log(response);
+            //     }
+            // });
             return this;
         },
 

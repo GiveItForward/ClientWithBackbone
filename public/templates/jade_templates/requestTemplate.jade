@@ -15,7 +15,7 @@ for request in locals.models
                                            | &nbsp##{tag.tagname}
                                            if tag.verified === false
                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        | ##{request.get("tag1").tagname} &nbsp##{request.get("tag2").tagname}
+                                        //| ##{request.get("tag1").tagname} &nbsp##{request.get("tag2").tagname}
                                 .col-md-3
                                     p
                                         strong Requesting:

@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 
     var RequestModel = Backbone.Model.extend({
 
-        idAttribute: "rid",//todo ??
+        idAttribute: "rid",
 
         initialize: function (options) {
 
@@ -16,6 +16,7 @@ define(function (require, exports, module) {
                 this.url = "http://localhost:3000/api/requests";
 
             } else {
+                this.set("rid", undefined);
                 this.set("description", undefined);
                 this.set("amount", undefined);
                 this.set("tags", undefined);
