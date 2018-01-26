@@ -18,8 +18,6 @@ define(function (require, exports, module) {
 
         el: newRequestModal,
 
-        model: new RequestModel({}),
-
         events: {
             "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
             "click #exitNewRequestModal"     : "destroyNewRequestModal",
@@ -30,14 +28,12 @@ define(function (require, exports, module) {
         },
 
         initialize: function (options) {
-            console.log("in new request modal view init");
             this.parent = options.parent;
-            this.model.set('fulfilled', false);
+            // this.model.set('fulfilled', false);
             // this.render();
         },
 
         render: function () {
-            console.log("in new request modal view render");
             var self = this;
             self.el = newRequestModal;
             self.setElement(this.el);
@@ -67,8 +63,7 @@ define(function (require, exports, module) {
             var self = this;
             self.model.set("description", $("#newRequestDescription").val());
             self.model.set("amount", $("#newRequestAmount").val());
-            console.log($("#newRequestDescription").val());
-            console.log(self.model);
+
             if(requestTagList.length > 2){
                 bootbox.alert("Please only select up to two tags for your request.");
             }else{
@@ -105,21 +100,21 @@ define(function (require, exports, module) {
             console.log($("#newRequestAmount").val());
             console.log($("#newRequestTags").val());
             console.log($("#newRequestTags").val().length);
-            self.model.set('rid', self.parent.model.get("uid"));
+            self.model.set('ruid', self.parent.model.get("uid"));
             self.updateModel();
                 //todo save to DB here
 
-            // console.log(self.model);
-            // self.model.save({
-            //     wait: true,
-            //     success: function(model, response) {
-            //         console.log(model);
-            //         console.log('success in saving new request');
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }});
+            console.log(self.model);
+            self.model.save({
+                wait: true,
+                success: function(model, response) {
+                    console.log(model);
+                    console.log('success in saving new request');
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }});
             self.destroyNewRequestModal();
             // return this;
         },
@@ -129,6 +124,7 @@ define(function (require, exports, module) {
             $('#newRequestModal').fadeOut('slow', function () {
                 self.undelegateEvents();
                 self.$el.removeData().unbind();
+                requestTagList = [];
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
             })

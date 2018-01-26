@@ -330,7 +330,7 @@ define(function (require, exports, module) {
             var container = document.createDocumentFragment();
             var newRequestModalView = new NewRequestModalView({
                 parent: self,
-                model: new RequestModel({})
+                model: new RequestModel({ path: 'create'})
             });
             container.appendChild(newRequestModalView.render().el);
             $('body').append(container);

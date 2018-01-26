@@ -10,18 +10,18 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
 
-            if(options.amount) {
-
-                this.set("amount", options.amount);
-                this.url = "http://localhost:3000/api/requests";
-
-            } else {
+            if(options.path === "create") {
+                this.url = "http://localhost:3000/api/requests/create";
                 this.set("rid", undefined);
+                this.set("ruid", undefined);
                 this.set("description", undefined);
                 this.set("amount", undefined);
                 this.set("tags", undefined);
                 this.set("image", undefined);
-                this.set("fulfilled", undefined);
+                this.set("fulfilled", false);
+            } else {
+                this.url = "http://localhost:3000/api/requests";
+
             }
         }
     });
