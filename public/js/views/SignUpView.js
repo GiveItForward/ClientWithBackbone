@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootstrapSelect = require("bootstrapSelect");
     var bootbox = require("bootbox");
+    var sha256 = require('sha256');
 
     var ChooseUserImageModalView = require("views/ChooseUserImageModalView");
     var HomeView = require("views/HomeView");
@@ -95,7 +96,7 @@ define(function (require, exports, module) {
                 self.model.set("email", $("#newEmail").val());
 
                 if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
-                    self.model.set("password", $("#newPassword").val());// todo this will be hashed/encrypted
+                    self.model.set("password", sha256($("#newPassword").val()));// todo this will be hashed/encrypted
                 }
 
                 if (!self.model.get("username") || !self.model.get("email") || !self.model.get("password")) {
@@ -153,7 +154,7 @@ define(function (require, exports, module) {
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.model.set("username", $("#newUsername").val());
-                self.model.set("password", $("#newPassword").val());
+                self.model.set("password", sha256($("#newPassword").val()));
                 self.model.set("email", $("#newEmail").val());
                 // self.model.set("bio", "");
                 console.log(self.model);

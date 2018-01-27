@@ -11,6 +11,7 @@ require.config({
        modals: '../templates/modals',
        signupView: '../../views/signup',
        jade: './jade',
+       sha256: '../lib/sha256.min'
        // aws: 'https://sdk.amazonaws.com/js/aws-sdk-2.183.0.min'
    },
     shim: {

@@ -12,6 +12,8 @@ define(function (require, exports, module) {
     var HomeView = require("views/HomeView");
     var SignUpView = require("views/SignUpView");
 
+    var sha256 = require("sha256");
+
     //issues with jade plugin, using html for dynamic loads for now
     // var loginTemplate = require("jade!jadeViews/login");
     // var signupTemplate = require("jade!signupView");
@@ -77,13 +79,13 @@ define(function (require, exports, module) {
             });
             self.updateModel();
             console.log("logging in...");
-
-
             // self.model = new UserModel({
             //     path: 'login'
             // });
+            var hashPassword = sha256($("#password").val());
+
             self.model.fetch({
-                headers: {"email": $("#username").val(), "password": $("#password").val()},
+                headers: {"email": $("#username").val(), "password": hashPassword},
                 success: function () {
                     self.model.set("password", undefined);
                      new HomeView({
@@ -91,7 +93,11 @@ define(function (require, exports, module) {
                     });
                     $('#loginSpinner').clearQueue();
                     $('#loginSpinner').css('display', 'none');
-                }
+                },
+                error: (function(err){
+                    self.renderLogin(); // but render the login with an error message! TODO
+                    console.log("error occurred in login");
+                })
             });
             return this;
         },
