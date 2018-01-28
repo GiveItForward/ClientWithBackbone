@@ -1,0 +1,20 @@
+#searchByUserTags
+    for tag in locals.models
+        li
+            a(href='#', data-value='#{tag.get("tagname")}', data-group='usertags', tabindex='-1')
+                input(type='checkbox')
+            | &nbsp;##{tag.get("tagname")}
+.dropdown-divider
+#searchByRequestTags
+    li
+        a(href='#', data-value='bills', data-group='requesttags', tabindex='-1')
+            input(type='checkbox')
+        | &nbsp;#bills
+    li
+        a(href='#', data-value='carRepair', data-group='requesttags', tabindex='-1')
+            input(type='checkbox')
+        | &nbsp;#carRepair
+    li
+        a(href='#', data-value='forAChild', data-group='requesttags', tabindex='-1')
+            input(type='checkbox')
+        | &nbsp;#forAChild

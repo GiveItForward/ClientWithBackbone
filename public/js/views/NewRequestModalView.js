@@ -23,7 +23,7 @@ define(function (require, exports, module) {
             "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
             "click #exitNewRequestModal"     : "destroyNewRequestModal",
             "click #createRequestBtn"        : "save",
-            "click .dropdown-menu a"         : "updateTags",
+            "click .dropdown-menu a"         : "updateRequestTags",
             "keyup"                          : "updateModel",
             "change"                         : "updateModel"
         },
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             return this;
         },
 
-        updateTags: function (event) {
+        updateRequestTags: function (event) {
             // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
             var $target = $(event.currentTarget),
                 val = $target.attr( 'data-value' ),

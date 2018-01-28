@@ -11,12 +11,11 @@ for request in locals.models
                                 .col-md-8.padding-left
                                     a.requestusername(href='#') @#{request.get("rUser").username}
                                     .form-inline.tags
-                                        | #singleParent
-                                        img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
+                                        for tag in request.get("rUser").tags
+                                            | &nbsp##{tag.tagname}
+                                            if tag.verified === false
+                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
                                         //|   ##{request.get("tag1").tagname} ##{request.get("tag2").tagname}
-                                        //| #UofUStudent
-                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        //| #rent
                                 .col-md-3
                                     | Requested &nbsp
                                     em

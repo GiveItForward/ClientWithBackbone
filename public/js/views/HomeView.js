@@ -1,12 +1,13 @@
 console.log("in Home View file");
 //The HomeView's model is the UserModel
+var searchUserTagsList = [];
+var searchRequestTagsList = [];
 
 define(function (require, exports, module) {
 
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var popper = require("popper");
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
@@ -23,7 +24,7 @@ define(function (require, exports, module) {
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
-    var selectUserTagsTemplate = require("jade!templates/jade_templates/selectUserTagsTemplate");
+    var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
     var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
@@ -32,105 +33,50 @@ define(function (require, exports, module) {
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
 
-    //todo for testing; delete when done
-    var requestModel1 = new RequestModel({
-        rUser: {
-            username: "undefined",
-            image: "/img/default_profile_pic_no_bckgrnd.png"
-        },
-        description: "My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!",
-        amount: "50",
-        date: "Jan 10, 2018",
-        tags: "#rent",
-        image: "/img/rent_icon.png",
-        duid: undefined
-    });
-
-    var requestModel2 = new RequestModel({
-        rUser: {
-            username: "undefined",
-            image: "/img/default_profile_pic_no_bckgrnd.png"
-        },
-        description: "It's getting so cold and my daughter's coat doesn't fit her anymore. Please help me keep my baby warm this winter.",
-        amount: "60",
-        date: "Jan 11, 2018",
-        tags: "#other",
-        image: "/img/clothing_icon.png",
-        duid: 2
-    });
-
-    var requestModel3 = new RequestModel({
-        rUser: {
-            username: "undefined",
-            image: "/img/default_profile_pic_no_bckgrnd.png"
-        },
-        description: "My kiddo has holes in her shoes and I can't afford new ones right now.",
-        amount: "20",
-        date: "Jan 12, 2018",
-        tags: "#forAChild",
-        image: "/img/clothing_icon.png",
-        duid: 5
-    });
-
-    var orgModel1 = new OrgModel({
-        name: "Women's Resource Center", //<a class="requestusername" target="_blank" href="https://womenscenter.utah.edu/">Women's Resource Center</a>
-        bio: "The Women’s Resource Center (WRC) at the University of Utah serves as the central resource for educational and support services for women.  Honoring the complexities of women’s identities, the WRC facilitates choices and changes through programs, counseling, and training grounded in a commitment to advance social justice and equality.",
-        email: "some@email.com",
-        website: "https://womenscenter.utah.edu/",
-        phoneNumber: "801-581-8030",
-        address: "A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112",
-        image: "/img/u_logo.png"
-    });
-
-    var orgModel2 = new OrgModel({
-        name: "Veteran's Support Center",
-        bio: "Our mission is to improve and enhance the individual and academic success of veterans, service members, and their family members who attend the university; to help them receive the benefits they earned; and to serve as a liaison between the student veteran community and the university.",
-        email: "some@email.com",
-        website: "https://veteranscenter.utah.edu/",
-        phoneNumber: "801-581-8030",
-        address: "A. Ray Olpin Union 200 S. Central Campus Dr, Room 411\n Salt Lake City, UT 84112",
-        image: "/img/u_vet_logo.gif"
-    });
 
     var HomeView = Backbone.View.extend({
 
         el: 'body',
 
         events: {
-            "click #homeBtn"          : "renderHome",
-            "click #logoMini"         : "renderHome",
-            "click #giveBtn"          : "paypal",
-            "click #orgsBtn"          : "renderOrgs",
-            "click #notesBtn"         : "renderNotes",
-            "click #myProfileBtn"     : "renderMyProfile",
-            "click #myRequestsBtn"    : "renderMyRequests",
-            "click #myDonationsBtn"   : "renderMyDonations",
-            "click #newRequestBtn"    : "newRequest",
-            "click #logoutBtn"        : "logout"
+            "click #homeBtn"                    : "renderHome",
+            "click #logoMini"                   : "renderHome",
+            "click #searchByUserTags a"         : "updateSearchUserTags",
+            "click #searchByRequestTags a"      : "updateSearchRequestTags",
+            "click #orderBy a"                  : "updateOrderBy",
+            "click #new"                        : "toggleNew",
+            "click #old"                        : "toggleOld",
+            "click #low"                        : "toggleLow",
+            "click #high"                       : "toggleHigh",
+            "click #giveBtn"                    : "paypal",
+            "click #orgsBtn"                    : "renderOrgs",
+            "click #notesBtn"                   : "renderNotes",
+            "click #myProfileBtn"               : "renderMyProfile",
+            "click #myRequestsBtn"              : "renderMyRequests",
+            "click #myDonationsBtn"             : "renderMyDonations",
+            "click #newRequestBtn"              : "newRequest",
+            "click #logoutBtn"                  : "logout"
         },
 
         initialize: function (options) {
             console.log("in home view init");
             var self = this;
-            this.model = options.model;
-            this.tagCollection = new TagCollection();
-            this.tagCollection.fetch({
+            self.model = options.model;
+            self.tagCollection = new TagCollection();
+            self.tagCollection.fetch({
                 success: function (collection) {
-                    console.log('tag names from db: ')
+                    console.log('tag names from db: ');
                     console.log(collection.models);
-                    this.tagCollection = collection;
+                    self.tagCollection = collection;
                     self.render();
                 }
             });
-
         },
-
 
         render: function () {
             console.log("in home view render");
             var self = this;
             self.$el.html(homeTemplate);
-
             console.log(self.model);
 
             $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
@@ -161,7 +107,7 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
-                    self.$('#searchForUserTags').html(selectUserTagsTemplate(self.tagCollection));
+                    self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
             return this;
@@ -247,13 +193,7 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            // requestCollection.add(requestModel1);
-            // requestCollection.add(requestModel2);
-            // requestCollection.add(requestModel3);
-            // self.$('#myRequestCol').html(myRequestTemplate(requestCollection));
-
             requestCollection.fetchByRequestUid({
-                // headers: {'Authorization' : self.model.get('uid')},
                 headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     _.each(collection.models, function(model) {
@@ -281,13 +221,7 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            // requestCollection.add(requestModel1);
-            // requestCollection.add(requestModel2);
-            // requestCollection.add(requestModel3);
-            // self.$('#myDonationCol').html(myDonationTemplate(requestCollection));
-
             requestCollection.fetchByDonateUid({
-                // headers: {'Authorization' : self.model.get('uid')},
                 headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     console.log("My donations: ");
@@ -315,20 +249,75 @@ define(function (require, exports, module) {
             return this;
         },
 
+        updateSearchUserTags: function (event) {
+            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
+            var $target = $(event.currentTarget),
+                val = $target.attr( 'data-value' ),
+                $inp = $target.find( 'input' ),
+                idx;
+            if ( ( idx = searchUserTagsList.indexOf( val ) ) > -1 ) {
+                searchUserTagsList.splice( idx, 1 );
+                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+            } else {
+                searchUserTagsList.push( val );
+                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            }
+            $( event.target ).blur();
+            console.log( searchUserTagsList );
+            return this;
+        },
+
+        updateSearchRequestTags: function (event) {
+            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
+            var $target = $(event.currentTarget),
+                val = $target.attr( 'data-value' ),
+                $inp = $target.find( 'input' ),
+                idx;
+            if ( ( idx = searchRequestTagsList.indexOf( val ) ) > -1 ) {
+                searchRequestTagsList.splice( idx, 1 );
+                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+            } else {
+                searchRequestTagsList.push( val );
+                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            }
+            $( event.target ).blur();
+            console.log( searchRequestTagsList );
+            return this;
+        },
+
+        updateOrderBy: function (event) {
+            console.log("in updateOrderBy");
+            return this;
+        },
+
+        toggleNew: function () {
+            $("#new").prop('checked', true);
+            $("#old").prop('checked', false);
+            return this;
+        },
+
+        toggleOld: function () {
+            $("#old").prop('checked', true);
+            $("#new").prop('checked', false);
+            return this;
+        },
+
+        toggleLow: function () {
+            $("#low").prop('checked', true);
+            $("#high").prop('checked', false);
+            return this;
+        },
+
+        toggleHigh: function () {
+            $("#high").prop('checked', true);
+            $("#low").prop('checked', false);
+            return this;
+        },
+
         logout: function () {
             console.log("logging out...");
             bootbox.confirm({
                 message: "Are you sure you want to log out?",
-                buttons: {
-                    confirm: {
-                        label: 'Yes',
-                        className: 'btn greyBtn'
-                    },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn wineBtn'
-                    }
-                },
                 callback: function (result) {
                     console.log('This was logged in the callback: ' + result);
                     if(result){

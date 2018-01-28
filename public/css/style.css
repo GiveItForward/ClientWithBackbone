@@ -154,7 +154,7 @@ body{
 
 .gobtn{
   border-radius: 25px;
-  padding: 2%;
+  /*padding: 2%;*/
   width: 50px;
   margin-left: 6%;
 }

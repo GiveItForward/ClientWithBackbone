@@ -1,5 +1,4 @@
 var emailNoteHasBeenShown = 0;
-var passwordNoteHasBeenShown = 0;
 var onSignUp2 = false;
 
 var tagList = [];
@@ -42,9 +41,8 @@ define(function (require, exports, module) {
             "click #chooseImage"        : "chooseImage",
             "click #addInfo"            : "save",
             "click #fillOutLater"       : "fillOutLater",
-            "click .dropdown-menu a"    : "updateTags",
+            "click .dropdown-menu a"    : "updateUserTags",
             "focus #newEmail"           : "emailPopup",
-            // "focus #newPassword"        : "passwordPopup",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
         },
@@ -71,7 +69,7 @@ define(function (require, exports, module) {
             return this;
         },
 
-        updateTags: function (event) {
+        updateUserTags: function (event) {
             // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
             var $target = $(event.currentTarget),
                 val = $target.attr( 'data-value' ),
@@ -127,21 +125,6 @@ define(function (require, exports, module) {
                 });
             }
         },
-
-        // passwordPopup: function () {
-        //     if(!passwordNoteHasBeenShown){
-        //         passwordNoteHasBeenShown = 1;
-        //         bootbox.alert({
-        //             size: "large",
-        //             message: "For added security, please do NOT use the same password as your PayPal account.",
-        //             callback: function(){
-        //                 setTimeout(function(){
-        //                     $('#newPassword').focus();
-        //                 }, 10);
-        //             }
-        //         });
-        //     }
-        // },
 
         createAccount: function () {
             var self = this;
