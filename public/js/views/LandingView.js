@@ -83,7 +83,7 @@ define(function (require, exports, module) {
             //     path: 'login'
             // });
             var hashPassword = sha256($("#password").val());
-
+            // console.log(hashPassword);
             self.model.fetch({
                 headers: {"email": $("#username").val(), "password": hashPassword},
                 success: function () {

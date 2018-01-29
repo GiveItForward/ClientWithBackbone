@@ -13,6 +13,7 @@ define(function (require, exports, module) {
 
     var NewRequestModalView = require("views/NewRequestModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
+    var SayThankYouModalView = require("views/SayThankYouModalView");
 
     var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
@@ -20,6 +21,7 @@ define(function (require, exports, module) {
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
+    var ThankYouModel = require("models/ThankYouModel");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
@@ -55,6 +57,7 @@ define(function (require, exports, module) {
             "click #myRequestsBtn"              : "renderMyRequests",
             "click #myDonationsBtn"             : "renderMyDonations",
             "click #newRequestBtn"              : "newRequest",
+            "click #sayThankYouBtn"             : "sayThankYou",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -245,6 +248,22 @@ define(function (require, exports, module) {
                 model: new RequestModel({ path: 'create'})
             });
             container.appendChild(newRequestModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        sayThankYou: function (event) {
+            console.log("in say thank you function");
+            var self = this;
+            //get current request rid, duid (username)
+            var currentRid = $(event.currentTarget).attr( 'data-rid' );
+            console.log(currentRid);
+            var container = document.createDocumentFragment();
+            var sayThankYouModalView = new SayThankYouModalView({
+                parent: self,
+                model: new ThankYouModel({ path: 'create'})
+            });
+            container.appendChild(sayThankYouModalView.render().el);
             $('body').append(container);
             return this;
         },

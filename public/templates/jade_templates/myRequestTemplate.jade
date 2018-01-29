@@ -38,7 +38,8 @@ for request in locals.models
                                         | #{request.get("description")}
                                 .col-md-2.btn-group
                                     if request.get("duid") > 0
-                                        button.thankyoubtn.winebtn say<br>"Thank you"
+                                        //button.thankyoubtn.winebtn say<br>"Thank you"
+                                        a#sayThankYouBtn.thankyoubtn.btn.winebtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
                                     else
                                         button#editRequestBtn.editrequestbtn.greybtn edit
                                         button#deleteRequestBtn.editrequestbtn.greybtn delete

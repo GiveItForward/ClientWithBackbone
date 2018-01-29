@@ -9,11 +9,11 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
-    var thankYouModal = require("text!templates/modals/thankYouModal.html");
+    var sayThankYouModal = require("text!templates/modals/sayThankYouModal.html");
 
-    var ThankYouModalView = Backbone.View.extend({
+    var SayThankYouModalView = Backbone.View.extend({
 
-        el: chooseUserImageModal,
+        el: sayThankYouModal,
 
         events: {
             // "keyup"                     : "updateModel",
@@ -29,8 +29,10 @@ define(function (require, exports, module) {
         render: function () {
             console.log("in thank you modal view render");
             var self = this;
-            self.el = chooseUserImageModal;
+            self.el = sayThankYouModal;
             self.setElement(this.el);
+            // self.$('#sayThankYouLabel').html('Write your Thank You message to ' ' here:');
+
             return this;
         },
 
@@ -40,9 +42,9 @@ define(function (require, exports, module) {
             return this;
         },
 
-        destroyThankYouModal: function () {
+        destroySayThankYouModal: function () {
             var self = this;
-            $('#chooseUserImageModal').fadeOut('slow', function () {
+            $('#sayThankYouModal').fadeOut('slow', function () {
                 self.undelegateEvents();
                 self.$el.removeData().unbind();
                 self.remove();
@@ -50,5 +52,5 @@ define(function (require, exports, module) {
             })
         }
     });
-    return ThankYouModalView;
+    return SayThankYouModalView;
 });
