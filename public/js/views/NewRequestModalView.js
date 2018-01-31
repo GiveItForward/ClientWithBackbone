@@ -99,8 +99,14 @@ define(function (require, exports, module) {
 
             if(requestTagList.length > 2){
                 bootbox.alert("Please only select up to two tags for your request.");
-            }else{
-                self.model.set("tags", requestTagList);
+            }else if (requestTagList.length === 1){
+                var tag1Obj = Backbone.Model.extend({
+                    defaults: {
+                        tagname: requestTagList[0],
+                        // tid: 1
+                    }
+                });
+                self.model.set("tag1", new tag1Obj());
                 //todo hardcoded stuff
                 var firstTag = requestTagList[0];
                 if('bills' === firstTag){
@@ -118,6 +124,14 @@ define(function (require, exports, module) {
                 }
 
                 $('#newRequestImage').attr('src', self.model.get('image'));
+            }else if (requestTagList.length === 2){
+                var tag2Obj = Backbone.Model.extend({
+                    defaults: {
+                        tagname: requestTagList[1],
+                        // tid: 1
+                    }
+                });
+                self.model.set("tag2", new tag2Obj());
             }
             if(!self.model.get("description") || !self.model.get("amount")){
                 self.$('#createRequestBtn').prop("disabled", true);
@@ -135,12 +149,17 @@ define(function (require, exports, module) {
             console.log($("#newRequestAmount").val());
             console.log($("#newRequestTags").val());
             console.log($("#newRequestTags").val().length);
-            self.model.set('ruid', self.parent.model.get("uid"));
+            var rUserObj = Backbone.Model.extend({
+                defaults: {
+                    uid: self.parent.model.get("uid")
+                }
+            });
+            self.model.set('rUser', new rUserObj());
             self.updateModel();
                 //todo save to DB here
 
             console.log(self.model);
-            self.model.save({
+            self.model.save(null, {
                 wait: true,
                 success: function(model, response) {
                     console.log(model);

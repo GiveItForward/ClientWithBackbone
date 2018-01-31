@@ -179,9 +179,12 @@ define(function (require, exports, module) {
 
             $("#myEmail").html(self.model.get("email"));
             var tags = self.model.get("tags");
+            console.log(tags);
             var tagList = "";
             _.each(tags, function(tag) {
-                tagList += "#" + tag + " ";
+                if(tag.tagname !== ''){
+                    tagList += "#" + tag.tagname + " ";
+                }
             });
             $("#myTags").html(tagList);
             $("#myBio").html(self.model.get("bio"));

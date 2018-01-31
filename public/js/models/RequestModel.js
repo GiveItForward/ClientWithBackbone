@@ -16,9 +16,8 @@ define(function (require, exports, module) {
                 this.set("ruid", undefined);
                 this.set("description", undefined);
                 this.set("amount", undefined);
-                this.set("tags", undefined);
                 this.set("image", undefined);
-                this.set("fulfilled", false);
+                // this.set("fulfilled", false);
             } else {
                 this.url = "http://localhost:3000/api/requests";
 

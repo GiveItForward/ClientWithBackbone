@@ -1,7 +1,7 @@
 var emailNoteHasBeenShown = 0;
 var onSignUp2 = false;
 
-var tagList = [];
+var tagList = []; //todo change to array of tag objects
 
 define(function (require, exports, module) {
 
@@ -184,8 +184,18 @@ define(function (require, exports, module) {
             console.log("in sign up save function");
 
             // console.log(tagList);
-            self.model.set("tags", tagList);
-            self.model.get('tags');
+            var tagArr = [];
+            _.each(tagList, function(tag) {
+                var tagObj = Backbone.Model.extend({
+                    defaults: {
+                        tagname: tag,
+                        // tid: 1
+                    }
+                });
+                tagArr.push(new tagObj());
+            });
+            self.model.set("tags", tagArr);
+
             self.model.set("bio", $("#userBio").val());
             console.log("backbone model");
             console.log(self.model); // todo tags aren't setting...fix it
