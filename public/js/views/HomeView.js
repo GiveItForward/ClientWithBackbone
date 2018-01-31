@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     var NewRequestModalView = require("views/NewRequestModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
+    var LandingView = require("views/LandingView");
 
     var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
@@ -334,14 +335,25 @@ define(function (require, exports, module) {
         },
 
         logout: function () {
+            var self = this;
             console.log("logging out...");
+
+
+
             bootbox.confirm({
                 message: "Are you sure you want to log out?",
                 callback: function (result) {
-                    console.log('This was logged in the callback: ' + result);
-                    if(result){
-                        window.location.href = '/index';
-                    }
+                    self.model.setUrl('logout');
+
+                    self.model.fetch({
+                        success: function (collection, response, options) {
+                            window.location.href = 'http://localhost:3000/';
+
+                        },
+                        error: function(model, response, options){
+                            window.location.href = 'http://localhost:3000/home';
+                        }
+                    });
                 }
             });
         }

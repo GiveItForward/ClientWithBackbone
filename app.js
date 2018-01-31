@@ -11,6 +11,11 @@ var moreHelp = require('./routes/moreHelp');
 var contactUs = require('./routes/contactUs');
 var aboutUs = require('./routes/aboutUs');
 var gifApi = require('./routes/api');
+var home = require("./routes/home");
+
+
+
+var session = require('express-session');
 // var users = require('./routes/users');
 // var signup = require('./routes/signup');
 // var editProfile = require('./routes/editProfile');
@@ -29,6 +34,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
+app.use(session({
+    secret: 'ssshhhhh',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -42,6 +52,8 @@ app.use('/moreHelp', moreHelp);
 app.use('/aboutUs', aboutUs);
 app.use('/contactUs', contactUs);
 app.use('/api', gifApi);
+app.use('/home', home);
+
 // app.use('/users', users);
 // app.use('/signup', signup);
 // app.use('/editProfile', editProfile);

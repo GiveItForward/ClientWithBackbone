@@ -14,14 +14,7 @@ define(function (require, exports, module) {
 
     var sha256 = require("sha256");
 
-    //issues with jade plugin, using html for dynamic loads for now
-    // var loginTemplate = require("jade!jadeViews/login");
-    // var signupTemplate = require("jade!signupView");
-
     var loginTemplate = require("jade!templates/jade_templates/loginTemplate");
-    // var signupTemplate = require("jade!templates/jade_templates/signupTemplate");
-    // var signup2Template = require("jade!templates/jade_templates/signup2Template");
-
 
     var LandingView = Backbone.View.extend({
 
@@ -94,10 +87,11 @@ define(function (require, exports, module) {
                     $('#loginSpinner').clearQueue();
                     $('#loginSpinner').css('display', 'none');
                 },
-                error: (function(err){
+                error: function(err){
                     self.renderLogin(); // but render the login with an error message! TODO
+                    $('#loginErrorLabel').html("The username or password was incorrect.");
                     console.log("error occurred in login");
-                })
+                }
             });
             return this;
         },
