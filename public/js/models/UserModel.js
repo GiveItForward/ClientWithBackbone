@@ -35,7 +35,9 @@ define(function (require, exports, module) {
         },
 
         setUrl: function(option){
-            this.url = 'http://localhost:3000/api/users/' + option;
+
+            // this.url = 'http://localhost:3000/api/users/' + option;
+            this.url = 'http://giveitforward.us/api/users/' + option;
         }
     });
     return UserModel;
