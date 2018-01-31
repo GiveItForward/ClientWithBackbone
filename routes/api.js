@@ -67,16 +67,16 @@ router.get('/tags', function(req, res, next) {
 router.get('/*', function(req, res, next) {
     session = req.session;
 
-    if(session.email && session.userObject){
+    // if(session.email && session.userObject){
         var options = {
             url: base_url + req.url,
             headers: req.headers
         };
 
         request(options).pipe(res);
-    } else {
-        res.sendStatus(401);
-    }
+    // } else {
+    //     res.sendStatus(401);
+    // }
 
 });
 
@@ -94,10 +94,10 @@ router.post('/users/create', function(req, res, next) {
     };
 
     request(options, function(error, response, body){
+        console.log("--------------------- body of new user\n" + body);
         if(response.statusCode === 200){
-            var user = parser.parse(body);
-            session.email = user.email;
-            session.userObject = user;
+            session.email = body.email;
+            session.userObject = body;
             res.end(body);
         } else {
             res.sendStatus(401);
