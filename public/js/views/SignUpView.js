@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         el: '#rightCol',
 
         model: new UserModel({
-            path: 'signup'
+            path: 'create'
         }),
 
         events: {

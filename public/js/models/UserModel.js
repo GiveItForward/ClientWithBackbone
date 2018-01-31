@@ -35,7 +35,7 @@ define(function (require, exports, module) {
         },
 
         setUrl: function(option){
-            this.url = 'http://localhost:3000/api/' + option;
+            this.url = 'http://localhost:3000/api/users/' + option;
         }
     });
     return UserModel;
