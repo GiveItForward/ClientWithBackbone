@@ -23,7 +23,7 @@ var session = require('express-session');
 // var orgs = require('./routes/orgs');
 // var myProfile = require('./routes/myProfile');
 // var newRequest = require('./routes/newRequest');
-// var paypal = require('./routes/paypal');
+var paypal = require('./routes/paypal');
 
 console.log("hello from app.js");
 
@@ -61,7 +61,7 @@ app.use('/home', home);
 // app.use('/orgs', orgs);
 // app.use('/myProfile', myProfile);
 // app.use('/newRequest', newRequest);
-// app.use('/paypal', paypal);
+app.use('/paypal', paypal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

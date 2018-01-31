@@ -183,27 +183,28 @@ define(function (require, exports, module) {
             var self = this;
             console.log("in sign up save function");
 
-            console.log(tagList);
+            // console.log(tagList);
             self.model.set("tags", tagList);
+            self.model.get('tags');
             self.model.set("bio", $("#userBio").val());
             console.log("backbone model");
-            console.log(self.model);
+            console.log(self.model); // todo tags aren't setting...fix it
 
-            //todo saving to DB, but not getting to success function...and erasing tags
-            // self.model.save({
-            //     // wait: true,
-            //     success: function(model, response) {
-            //         console.log("model from json");
-            //         console.log(model);
-            //         new HomeView({
-            //             model: model
-            //         });
-            //         console.log('success');
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }});
+            self.model.save( null, {
+                wait: true,
+                success: function(model, response) {
+                    console.log('success');
+                    console.log("model from json");
+                    console.log(model);
+                    new HomeView({
+                        model: model
+                    });
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
             return this;
         },
 
