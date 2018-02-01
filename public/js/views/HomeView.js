@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     var NewRequestModalView = require("views/NewRequestModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
+    var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
     var UserModel = require("models/UserModel");
@@ -59,6 +60,7 @@ define(function (require, exports, module) {
             "click #myDonationsBtn"             : "renderMyDonations",
             "click #newRequestBtn"              : "newRequest",
             "click #sayThankYouBtn"             : "sayThankYou",
+            "click #viewThankYouBtn"            : "viewThankYou",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -227,13 +229,20 @@ define(function (require, exports, module) {
             $("#myDonationsBtn").addClass("selected");
             self.$('#homeContainer').html(myDonationFeedTemplate);
 
+
             var requestCollection = new RequestCollection();
             requestCollection.fetchByDonateUid({
                 headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     console.log("My donations: ");
-                    console.log(collection.models);
+                    // console.log(collection.models);
+                    var total = 0;
+                    _.each(collection.models, function(model) {
+                        total += model.get("amount");
+                    });
+                    self.$('#totalDonations').html('$' + total);
                     self.$('#myDonationCol').html(myDonationTemplate(collection));
+                    self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -268,6 +277,22 @@ define(function (require, exports, module) {
                 model: new ThankYouModel({ path: 'create'})
             });
             container.appendChild(sayThankYouModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        viewThankYou: function (event) {
+            console.log("in view thank you function");
+            var self = this;
+            //get current request rid, duid (username)
+            var currentRid = $(event.currentTarget).attr( 'data-rid' );
+            console.log(currentRid);
+            var container = document.createDocumentFragment();
+            var viewThankYouModalView = new ViewThankYouModalView({
+                parent: self,
+                model: new ThankYouModel({ path: 'create'})
+            });
+            container.appendChild(viewThankYouModalView.render().el);
             $('body').append(container);
             return this;
         },

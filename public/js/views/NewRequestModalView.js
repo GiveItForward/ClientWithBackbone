@@ -96,7 +96,16 @@ define(function (require, exports, module) {
         updateModel: function () {
             var self = this;
             self.model.set("description", $("#newRequestDescription").val());
-            self.model.set("amount", $("#newRequestAmount").val());
+            // var amount = $("#newRequestAmount").val();
+            if(isNaN($("#newRequestAmount").val())){
+                $('#requestAmountErrorLabel').html('Please enter a number in the amount field.');
+            // }else if($("#newRequestAmount").val() > 500){
+            //     $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
+            }else{//is a number and < 500
+                $('#requestAmountErrorLabel').html('');
+                self.model.set("amount", $("#newRequestAmount").val());
+            }
+
 
             if(requestTagList.length > 2){
                 bootbox.alert("Please only select up to two tags for your request.");

@@ -433,10 +433,11 @@ body{
   margin-top: 0;
 }
 
-.thankyouheader {
+.viewThankYouHeader {
   color: #760709;
   font-weight: bold;
   font-style: italic;
+  font-size: 24pt;
   font-stretch: expanded;
   font-family: cursive;
   text-align: center;

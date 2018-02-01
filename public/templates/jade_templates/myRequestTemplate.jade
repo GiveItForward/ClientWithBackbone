@@ -13,21 +13,23 @@ for request in locals.models
                                     a.requestusername(href='#') @#{request.get("rUser").username}
                                     .form-inline.tags
                                         for tag in request.get("rUser").tags
-                                            | &nbsp##{tag.tagname}
-                                            if tag.verified === false
-                                                img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        //| #singleParent
-                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        //| #UofUStudent
-                                        //img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        //| #rent
+                                            if tag.tagname !== ''
+                                                | &nbsp##{tag.tagname}
+                                            if tag.verifiedBy !== ''
+                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified by #{tag.verifiedBy}')
+                                            else
+                                                | &nbsp
+                                        if request.get("tag1") !== ''
+                                            | &nbsp##{request.get("tag1").tagname}
+                                        if request.get("tag2") !== ''
+                                            | &nbsp##{request.get("tag2").tagname}
                                 .col-md-4
                                     | Requested
                                     em
                                         b $#{request.get("amount")}
                                     |  on #{request.get("date")}
                                     if request.get("duid") > 0
-                                        .fulfilled FULFILLED #{request.get("duid")}
+                                        .fulfilled FULFILLED
                                     else
                                         .open OPEN #{request.get("duid")}
                             .row.padding-top
@@ -38,8 +40,10 @@ for request in locals.models
                                         | #{request.get("description")}
                                 .col-md-2.btn-group
                                     if request.get("duid") > 0
-                                        //button.thankyoubtn.winebtn say<br>"Thank you"
-                                        a#sayThankYouBtn.thankyoubtn.btn.winebtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
+                                        if request.get("thankYou") === ''
+                                            a#sayThankYouBtn.thankyoubtn.btn.winebtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
+                                        else
+                                            a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
                                     else
                                         button#editRequestBtn.editrequestbtn.greybtn edit
                                         button#deleteRequestBtn.editrequestbtn.greybtn delete
