@@ -30,6 +30,7 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
             this.parent = options.parent;
+            $('#requestErrorLabel').html('');
             // this.model.set('fulfilled', false);
             // this.render();
         },
@@ -133,10 +134,18 @@ define(function (require, exports, module) {
                 });
                 self.model.set("tag2", new tag2Obj());
             }
+
             if(!self.model.get("description") || !self.model.get("amount")){
                 self.$('#createRequestBtn').prop("disabled", true);
             }else{
-                self.$('#createRequestBtn').prop("disabled", false);
+                if(self.model.get("amount") > 500){
+                    self.model.set("amount", undefined);
+                    self.$('#createRequestBtn').prop("disabled", true);
+                    $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
+                }else {
+                    self.$('#createRequestBtn').prop("disabled", false);
+                    $('#requestAmountErrorLabel').html('');
+                }
             }
         },
 
@@ -156,7 +165,6 @@ define(function (require, exports, module) {
             });
             self.model.set('rUser', new rUserObj());
             self.updateModel();
-                //todo save to DB here
 
             console.log(self.model);
             self.model.save(null, {
@@ -164,12 +172,15 @@ define(function (require, exports, module) {
                 success: function(model, response) {
                     console.log(model);
                     console.log('success in saving new request');
+                    self.parent.renderHome();
+                    self.destroyNewRequestModal();
                 },
                 error: function(model, response) {
                     console.log(model);
                     console.log(response);
+                    $('#requestErrorLabel').html('There was a problem saving your request.');
                 }});
-            self.destroyNewRequestModal();
+
             // return this;
         },
 
@@ -181,9 +192,10 @@ define(function (require, exports, module) {
                 requestTagList = [];
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
-            })
+            });
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
         }
-
     });
     return NewRequestModalView;
 });

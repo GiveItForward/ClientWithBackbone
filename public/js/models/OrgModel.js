@@ -13,8 +13,8 @@ define(function (require, exports, module) {
             if(options.name) {
 
                 this.set("name", options.name);
-                // this.url = "http://localhost:3000/api/organizations/" ;
-                this.url = "http://giveitforward.us/api/organizations/" ;
+                this.url = "http://localhost:3000/api/organizations/" ;
+                // this.url = "http://giveitforward.us/api/organizations/" ;
 
 
             } else {

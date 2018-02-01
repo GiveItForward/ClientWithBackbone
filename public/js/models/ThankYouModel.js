@@ -11,12 +11,12 @@ define(function (require, exports, module) {
         initialize: function (options) {
 
             if(options.path === "create") {
-                // this.url = "http://localhost:3000/api/thankyou/create";
-                this.url = "http://giveitforward.us/api/thankyou/create";
+                this.url = "http://localhost:3000/api/thankyou/create";
+                // this.url = "http://giveitforward.us/api/thankyou/create";
 
             } else {
-                // this.url = "http://localhost:3000/api/thankyou";
-                this.url = "http://giveitforward.us/api/thankyou";
+                this.url = "http://localhost:3000/api/thankyou";
+                // this.url = "http://giveitforward.us/api/thankyou";
             }
         }
     });

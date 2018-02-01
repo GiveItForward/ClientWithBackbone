@@ -10,8 +10,8 @@ define(function (require, exports, module) {
 
         model: RequestTagModel,
 
-        // url : "http://localhost:3000/api/requesttags/"
-        url : "http://giveitforward.us/api/requesttags/"
+        url : "http://localhost:3000/api/requesttags/"
+        // url : "http://giveitforward.us/api/requesttags/"
 
     });
     return RequestTagCollection;

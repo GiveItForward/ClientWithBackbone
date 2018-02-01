@@ -12,10 +12,16 @@ for request in locals.models
                                     a.requestusername(href='#') @#{request.get("rUser").username}
                                     #requestTags.form-inline.tags
                                         for tag in request.get("rUser").tags
-                                           | &nbsp##{tag.tagname}
-                                           if tag.verified === false
-                                               img.checkmark(src='/img/marooncheckmark.png', title="Verified By UofU Women's Resource Center")
-                                        //| ##{request.get("tag1").tagname} &nbsp##{request.get("tag2").tagname}
+                                            if tag.tagname !== ''
+                                                | &nbsp##{tag.tagname}
+                                            if tag.verifiedBy !== ''
+                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified by #{tag.verifiedBy}')
+                                            else
+                                                | &nbsp
+                                        if request.get("tag1") !== ''
+                                            | &nbsp##{request.get("tag1").tagname}
+                                        if request.get("tag2") !== ''
+                                            | &nbsp##{request.get("tag2").tagname}
                                 .col-md-3
                                     p
                                         strong Requesting:

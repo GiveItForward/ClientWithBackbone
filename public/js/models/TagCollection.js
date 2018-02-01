@@ -10,8 +10,8 @@ define(function (require, exports, module) {
 
         model: TagModel,
 
-        // url : "http://localhost:3000/api/tags",
-        url : "http://giveitforward.us/api/tags",
+        url : "http://localhost:3000/api/tags",
+        // url : "http://giveitforward.us/api/tags",
 
         // fetch: function (params, options) {
         //     // options.url = "" + params;

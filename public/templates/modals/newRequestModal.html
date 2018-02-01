@@ -10,6 +10,7 @@
                 <textarea id="newRequestDescription" class="bio" rows="4" cols="60"></textarea>
                 <label>Enter the dollar amount you are requesting: <b>$</b></label>
                 <input id="newRequestAmount" class="roundminitext" type="text">
+                <label id="requestAmountErrorLabel" style="color: red"></label>
                 <div class="button-group">
                     <button class="btn round greybtn dropdown-toggle" type="button" data-toggle="dropdown">choose tags<span class="caret"></span></button>
                     <ul id="newRequestTags" class="dropdown-menu choosetags">
@@ -42,8 +43,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <label id="requestErrorLabel" style="color: red"></label>
                 <button id="cancelNewRequestBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
-                <button id="createRequestBtn" class="btn winebtn" data-dismiss="modal">Create Request</button>
+                <button id="createRequestBtn" class="btn winebtn">Create Request</button>
             </div>
         </div>
     </div>
