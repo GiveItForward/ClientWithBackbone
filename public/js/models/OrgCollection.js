@@ -4,13 +4,16 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var OrgModel = require("./OrgModel");
 
     var OrgCollection = Backbone.Collection.extend({
 
         model: OrgModel,
 
-        url : "http://localhost:3000/api/organizations/",
+        url : rootUrl.url + "organizations/"
+        // url : "http://localhost:3000/api/organizations/",
         // url : "http://giveitforward.us/api/organizations/",
         // fetch: function (params, options) {
         //     // options.url = "" + params;

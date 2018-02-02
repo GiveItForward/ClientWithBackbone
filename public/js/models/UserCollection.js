@@ -4,6 +4,8 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var UserModel = require("./UserModel");
 
     var UserCollection = Backbone.Collection.extend({

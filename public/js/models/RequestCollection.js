@@ -4,13 +4,16 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var RequestModel = require("./RequestModel");
 
     var RequestCollection = Backbone.Collection.extend({
 
         model: RequestModel,
 
-        url : "http://localhost:3000/api/requests/",
+        url : rootUrl.url + "requests/",
+        // url : "http://localhost:3000/api/requests/",
         // url : "http://giveitforward.us/api/requests/",
 
 

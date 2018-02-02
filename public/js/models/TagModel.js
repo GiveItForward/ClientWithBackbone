@@ -4,6 +4,8 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var TagModel = Backbone.Model.extend({
 
         idAttribute: "tid",
@@ -13,7 +15,8 @@ define(function (require, exports, module) {
             if(options.tagname) {
 
                 this.set("tagname", options.tagname);
-                this.url = "http://localhost:3000/api/tags/" ;
+                this.url = rootUrl.url + "tags/";
+                // this.url = "http://localhost:3000/api/tags/";
                 // this.url = "http://giveitforward.us/api/tags/" ;
 
 

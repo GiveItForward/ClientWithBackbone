@@ -4,13 +4,16 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var TagModel = require("./TagModel");
 
     var TagCollection = Backbone.Collection.extend({
 
         model: TagModel,
 
-        url : "http://localhost:3000/api/tags",
+        url : rootUrl.url + "tags",
+        // url : "http://localhost:3000/api/tags",
         // url : "http://giveitforward.us/api/tags",
 
         // fetch: function (params, options) {

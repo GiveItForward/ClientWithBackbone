@@ -4,6 +4,8 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var OrgModel = Backbone.Model.extend({
 
         idAttribute: "oid",
@@ -13,7 +15,8 @@ define(function (require, exports, module) {
             if(options.name) {
 
                 this.set("name", options.name);
-                this.url = "http://localhost:3000/api/organizations/" ;
+                this.url = rootUrl.url + "organizations/"
+                // this.url = "http://localhost:3000/api/organizations/" ;
                 // this.url = "http://giveitforward.us/api/organizations/" ;
 
 

@@ -4,6 +4,8 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
+    var rootUrl = require("./RootUrl");
+
     var UserModel = Backbone.Model.extend({
 
         idAttribute: "uid",
@@ -36,7 +38,8 @@ define(function (require, exports, module) {
 
         setUrl: function(option){
 
-            this.url = 'http://localhost:3000/api/users/' + option;
+            this.url = rootUrl.url + 'users/' + option;
+            // this.url = 'http://localhost:3000/api/users/' + option;
             // this.url = 'http://giveitforward.us/api/users/' + option;
         }
     });
