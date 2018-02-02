@@ -32,13 +32,15 @@ define(function (require, exports, module) {
 
         fetchByRequestUid: function (options) {
 
-            this.url = "http://localhost:3000/api/requests/requestuid";
+            this.url = rootUrl.url + "requests/requestuid";
+            // this.url = "http://localhost:3000/api/requests/requestuid";
             // this.url = "http://giveitforward.us/api/requests/requestuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
         },
 
         fetchByDonateUid: function (options) {
-            this.url = "http://localhost:3000/api/requests/donateuid";
+            this.url = rootUrl.url + "requests/donateuid";
+            // this.url = "http://localhost:3000/api/requests/donateuid";
             // this.url = "http://giveitforward.us/api/requests/donateuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
         }
