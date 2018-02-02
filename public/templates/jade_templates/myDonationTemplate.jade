@@ -37,4 +37,5 @@ for request in locals.models
                                     .requestmessage
                                         | #{request.get("description")}
                                 .col-md-2
-                                    button.thankyoubtn.winebtn view<br>"Thank you"
+                                    if request.get("thankYou") !== ''
+                                        a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
