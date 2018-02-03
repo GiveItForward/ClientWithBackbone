@@ -17,6 +17,8 @@ define(function (require, exports, module) {
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
+    var rootUrl = require("models/RootUrl");
+
     var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
@@ -188,6 +190,7 @@ define(function (require, exports, module) {
                     tagList += "#" + tag.tagname + " ";
                 }
             });
+            $("#myImage").attr('src', self.model.get("image"));
             $("#myTags").html(tagList);
             $("#myBio").html(self.model.get("bio"));
 
@@ -375,11 +378,13 @@ define(function (require, exports, module) {
 
                     self.model.fetch({
                         success: function (collection, response, options) {
-                            window.location.href = 'http://localhost:3000/';
+                            window.location.href = rootUrl.url;
+                            // window.location.href = 'http://localhost:3000/';
 
                         },
                         error: function(model, response, options){
-                            window.location.href = 'http://localhost:3000/home';
+                            window.location.href = rootUrl.url + '/home';
+                            // window.location.href = 'http://localhost:3000/home';
                         }
                     });
                 }

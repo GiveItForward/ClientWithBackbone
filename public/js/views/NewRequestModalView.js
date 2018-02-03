@@ -125,6 +125,8 @@ define(function (require, exports, module) {
                     self.model.set("image", '/img/car_repair_icon.png');
                 } else if('clothing' === firstTag){
                     self.model.set("image", '/img/clothing_icon.png');
+                }  else if('forAChild' === firstTag){
+                    self.model.set("image", '/img/forachild_icon.png');
                 }  else if('groceries' === firstTag){
                     self.model.set("image", '/img/groceries_icon.png');
                 } else if('rent' === firstTag){
