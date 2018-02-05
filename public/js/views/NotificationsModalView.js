@@ -3,7 +3,6 @@ define(function (require, exports, module) {
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var popper = require("popper");
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 

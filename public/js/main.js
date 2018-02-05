@@ -3,9 +3,9 @@ require.config({
        jquery : '../lib/jquery',
        underscore: '../lib/underscore-min',
        backbone: '../lib/backbone-min',
-       popper: '../lib/popper.min',
+       // popper: '../lib/popper.min',
        bootstrap: '../lib/bootstrap.bundle.min',
-       bootstrapSelect: '../lib/bootstrap-select.min',
+       // bootstrapSelect: '../lib/bootstrap-select.min',
        bootbox: '../lib/bootbox.min',
        templates: '../templates',
        modals: '../templates/modals',
@@ -25,16 +25,16 @@ require.config({
             ],
             exports: 'Backbone'
         },
-        popper: {
-            deps: [
-                'jquery'
-            ],
-            exports: 'popper'
-        },
+        // popper: {
+        //     deps: [
+        //         'jquery'
+        //     ],
+        //     exports: 'popper'
+        // },
         bootstrap: {
             deps: [
                 'jquery',
-                'popper'
+                // 'popper'
             ],
             exports: 'bootstrap'
         },
@@ -50,12 +50,11 @@ require.config({
         'bootstrap/tab':        { deps: ['jquery'], exports: '$.fn.tab'        },
         'bootstrap/tooltip':    { deps: ['jquery'], exports: '$.fn.tooltip' },
         'bootstrap/transition': { deps: ['jquery'], exports: '$.fn.transition' },
-        'bootstrap-select':     { deps: ['jquery', 'bootstrap'], exports: 'bootstrapSelect'},
+        // 'bootstrap-select':     { deps: ['jquery', 'bootstrap'], exports: 'bootstrapSelect'},
         bootbox: {
             deps: [
                 'jquery',
                 'bootstrap'
-
             ],
             exports: 'bootbox'
         }
