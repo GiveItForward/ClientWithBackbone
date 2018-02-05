@@ -177,13 +177,14 @@ define(function (require, exports, module) {
         renderMyProfile: function () {
             console.log("in home view renderMyProfile");
             var self = this;
+            console.log(self.model);
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("selected");
             self.$('#homeContainer').html(myProfileTemplate);
 
             $("#myEmail").html(self.model.get("email"));
             var tags = self.model.get("tags");
-            console.log(tags);
+            // console.log(tags);
             var tagList = "";
             _.each(tags, function(tag) {
                 if(tag.tagname !== ''){

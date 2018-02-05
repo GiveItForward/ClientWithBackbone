@@ -1,12 +1,7 @@
 ({
     name: "main",
-    baseUrl: "../src/js",
-    mainConfigFile: "../src/js/main.js",
-    out: "../src/js/main-optimized.min.js",
-    generateSourceMaps: true,
-    preserveLicenseComments: false,
-    optimize: "uglify2"
+    baseUrl: "../public/js",
+    mainConfigFile: "../public/js/main.js",
+    out: "../public/js/main-optimized.min.js",
+    preserveLicenseComments: false
 })
-
-//from pluralSight requirejs 4, optimization build profiles
-//node build\r.js -o build\build.config.js
