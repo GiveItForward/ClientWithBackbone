@@ -15,7 +15,7 @@ define(function (require, exports, module) {
             if(options.tagname) {
 
                 this.set("tagname", options.tagname);
-                this.url = rootUrl.url + "tags/";
+                this.url = rootUrl.url + "api/tags/";
                 // this.url = "http://localhost:3000/api/tags/";
                 // this.url = "http://giveitforward.us/api/tags/" ;
 

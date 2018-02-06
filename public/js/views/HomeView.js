@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var NewRequestModalView = require("views/NewRequestModalView");
+    var OtherProfileModalView = require("views/OtherProfileModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
@@ -61,6 +62,7 @@ define(function (require, exports, module) {
             "click #myRequestsBtn"              : "renderMyRequests",
             "click #myDonationsBtn"             : "renderMyDonations",
             "click #newRequestBtn"              : "newRequest",
+            "click #otherProfileLink"           : "otherProfile",
             "click #sayThankYouBtn"             : "sayThankYou",
             "click #viewThankYouBtn"            : "viewThankYou",
             "click #logoutBtn"                  : "logout"
@@ -265,6 +267,19 @@ define(function (require, exports, module) {
                 model: new RequestModel({ path: 'create'})
             });
             container.appendChild(newRequestModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        otherProfile: function () {
+            console.log("in other profile function");
+            var self = this;
+            var container = document.createDocumentFragment();
+            var otherProfileModalView = new OtherProfileModalView({
+                parent: self,
+                // model: new UserModel({ path: 'create'})//todo get usermodel
+            });
+            container.appendChild(otherProfileModalView.render().el);
             $('body').append(container);
             return this;
         },

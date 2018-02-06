@@ -12,7 +12,7 @@ define(function (require, exports, module) {
 
         model: RequestModel,
 
-        url : rootUrl.url + "requests/",
+        url : rootUrl.url + "api/requests/",
         // url : "http://localhost:3000/api/requests/",
         // url : "http://giveitforward.us/api/requests/",
 
@@ -32,14 +32,14 @@ define(function (require, exports, module) {
 
         fetchByRequestUid: function (options) {
 
-            this.url = rootUrl.url + "requests/requestuid";
+            this.url = rootUrl.url + "api/requests/requestuid";
             // this.url = "http://localhost:3000/api/requests/requestuid";
             // this.url = "http://giveitforward.us/api/requests/requestuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
         },
 
         fetchByDonateUid: function (options) {
-            this.url = rootUrl.url + "requests/donateuid";
+            this.url = rootUrl.url + "api/requests/donateuid";
             // this.url = "http://localhost:3000/api/requests/donateuid";
             // this.url = "http://giveitforward.us/api/requests/donateuid";
             return Backbone.Collection.prototype.fetch.call(this, options);

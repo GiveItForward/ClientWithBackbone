@@ -375,6 +375,7 @@ body{
 .requestusername{
   font-weight: bold;
   font-size: 24px;
+  color: #0000EE !important; /*link blue*/
 }
 
 .requestimage {

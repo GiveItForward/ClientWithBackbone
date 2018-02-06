@@ -9,7 +9,8 @@ for request in locals.models
                                 .col-md-1
                                     img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
                                 .col-md-8.padding-left
-                                    a.requestusername(href='#') @#{request.get("rUser").username}
+                                    //a.requestusername(href='#') @#{request.get("rUser").username}
+                                    a#otherProfileLink.requestusername.btn(data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
                                     #requestTags.form-inline.tags
                                         for tag in request.get("rUser").tags
                                             if tag.tagname !== ''

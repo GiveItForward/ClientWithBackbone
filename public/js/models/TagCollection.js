@@ -12,7 +12,7 @@ define(function (require, exports, module) {
 
         model: TagModel,
 
-        url : rootUrl.url + "tags",
+        url : rootUrl.url + "api/tags"
         // url : "http://localhost:3000/api/tags",
         // url : "http://giveitforward.us/api/tags",
 
