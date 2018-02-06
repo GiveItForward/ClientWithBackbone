@@ -2,10 +2,18 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var parser = require('json-parser');
+var Paypal = require('paypal-adaptive');
 
 
 // var base_url = 'http://localhost:8080';
 var base_url = 'http://54.227.151.133:8080/giveitforward';
+
+var paypalSdk = new Paypal({
+    userId:    process.env.USER_ID,
+    password:  process.env.PASSWORD,
+    signature: process.env.SIGNATURE,
+    sandbox:   true //defaults to false
+});
 
 
 var session;
@@ -13,8 +21,6 @@ var session;
 router.get('/users/login', function(req, res, next) {
 
     session = req.session;
-
-    console.log("------------------ in create user");
 
     if(session.email && session.userObject){
         res.redirect("/home");
@@ -37,7 +43,96 @@ router.get('/users/login', function(req, res, next) {
     }
 });
 
-/* GET home page. */
+
+router.get('/requests/paypal', function(req, res, next) {
+
+    session = req.session;
+
+
+    if(session.email && session.userObject){
+        console.log(req.headers);
+
+        var options = {
+            url: base_url + "/users/byuid",
+            headers: req.headers
+        };
+
+        // request for the requestors email
+        request(options, function(error, response, body){
+            if(response.statusCode === 200){
+                var userBody = parser.parse(body);
+                var requestorsEmail = userBody.email;
+                var amount = req.header('amt');
+
+
+                var payload = {
+                    requestEnvelope: {
+                        errorLanguage:  'en_US'
+                    },
+                    actionType:     'PAY',
+                    currencyCode:   'USD',
+                    feesPayer:      'EACHRECEIVER',
+                    memo:           'Chained payment example',
+                    cancelUrl:      'http://giveitforward.us/home',
+                    returnUrl:      'http://giveitforward.us/home',
+                    // cancelUrl:      'http://localhost:3000/home',
+                    // returnUrl:      'http://localhost:3000/home',
+                    receiverList: {
+                        receiver: [
+                            {
+                                email:  'primary@test.com',
+                                amount: amount,
+                                primary:'true'
+                            },
+                            {
+                                email:  'secondary@test.com',
+                                amount: '10.00',
+                                primary:'false'
+                            }
+                        ]
+                    }
+                };
+
+                paypalSdk.pay(payload, function (err, paypalResponse) {
+                    if (err) {
+                        res.end(err);
+                    } else {
+                        if(paypalResponse.responseEnvelope.ack === 'Success') {
+
+
+                            var requestBody;
+
+                            // todo - this needs to happen upon actual payment from paypal.
+                            var options = {
+                                url: base_url + "/requests/fulfill",
+                                headers: req.headers
+                            };
+
+                            request(options, function(error, response, body){
+                                if(response.statusCode === 200){
+                                    requestBody = parser.parse(body);
+                                    console.log(requestBody);
+                                    req.session.userObject.donateCount += 1;
+                                } else {
+                                    console.log("issue with recording fulfilled request");
+                                    res.sendStatus(500);
+                                }
+                            });
+                            res.end(paypalResponse.paymentApprovalUrl);
+                        }
+                    }
+                });
+            } else {
+                console.log("issue with recording fulfilled request");
+                res.sendStatus(500);
+            }
+        });
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+
 router.get('/users/logout', function(req, res, next) {
 
     session = req.session;
@@ -63,7 +158,7 @@ router.get('/tags', function(req, res, next) {
 
 });
 
-
+// todo - sessions is messing up sign up getting of all tags during sign up
 router.get('/*', function(req, res, next) {
     session = req.session;
 
@@ -130,7 +225,7 @@ router.post('/*', function(req, res, next) {
 router.options("/*", function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt');
     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.send(200);
 });

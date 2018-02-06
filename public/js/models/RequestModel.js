@@ -22,6 +22,10 @@ define(function (require, exports, module) {
                 this.set("amount", undefined);
                 this.set("image", undefined);
                 // this.set("fulfilled", false);
+            } else if(options.path === 'paypal'){
+                this.url = rootUrl.url + "api/requests/paypal";
+            }else if (options.path === 'update'){
+                this.url = rootUrl.url + "api/request/update"
             } else {
                 this.url = rootUrl.url + "api/requests";
                 // this.url = "http://localhost:3000/api/requests";

@@ -89,9 +89,9 @@ define(function (require, exports, module) {
             self.$el.html(homeTemplate);
             console.log(self.model);
 
-            $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            $("#donateCount").html(self.model.get("donateCount"));
-            $("#receiveCount").html(self.model.get("receiveCount"));
+            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            // $("#donateCount").html(self.model.get("donateCount"));
+            // $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderHome();
             return this;
         },
@@ -106,6 +106,12 @@ define(function (require, exports, module) {
         },
 
         renderHome: function () {
+            var self = this;
+
+            $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            $("#donateCount").html(self.model.get("donateCount"));
+            $("#receiveCount").html(self.model.get("receiveCount"));
+
             console.log("in home view renderHome");
             var self = this;
             self.removeSelectedFromAll();
@@ -123,24 +129,57 @@ define(function (require, exports, module) {
             return this;
         },
 
-        paypal: function () {
+        paypal: function (e) {
+            var self = this;
+            var element = $(e.currentTarget);
+            var rid = element.attr("data-rid");
+            var ruseruid = element.attr("data-ruser-uid");
+            var amount = element.attr("data-amount");
             console.log("in home view paypal");
-            console.log("requester's username: " + $(document.activeElement).attr('data-username'));
 
-            //todo fetch useremail using username ...
-            var requestUser = new UserModel({
-                path: 'email'
+            var currRequest = new RequestModel({
+                path: 'paypal'
             });
-            requestUser.fetch({
-                headers: {"username": $("#username").val()},
-                success: function (model) {
-                    console.log(model.get('email'));
-                    console.log("request amount: " + $(document.activeElement).attr('data-amount'));
-                    console.log("request id: " + $(document.activeElement).attr('data-rid'));
-                    var memo = "Give It Forward";
-                    //todo do paypal stuff in here...
+
+            currRequest.fetch({
+                reset: true,
+                headers: {
+                    "rid": rid,
+                    "duid": self.model.get("uid"),
+                    "uid": ruseruid,
+                    "amt": amount
+                },
+                success: function (model, response, options) {
+                    console.log("success on request fulfill");
+
+                },
+                error: function (model, response, options){
+                    console.log(response.responseText);
+                    self.model.set('donateCount', self.model.get('donateCount') + 1);
+                    window.location.href = response.responseText;
                 }
             });
+
+            // var requestUser = new UserModel({
+            //     path: 'paypal'
+            // });
+
+            //
+            // requestUser.fetch({
+            //     headers: {"username": $("#username").val()},
+            //     success: function (model, response, options) {
+            //         console.log(response.body);
+            //         console.log(model.get('email'));
+            //         console.log("request amount: " + $(document.activeElement).attr('data-amount'));
+            //         console.log("request id: " + $(document.activeElement).attr('data-rid'));
+            //         var memo = "Give It Forward";
+            //         //todo do paypal stuff in here...
+            //     },
+            //     error: function (model, response, options){
+            //         console.log(response.responseText);
+            //         window.location.href = response.responseText;
+            //     }
+            // });
             return this;
         },
 

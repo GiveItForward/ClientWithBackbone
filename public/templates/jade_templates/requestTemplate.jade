@@ -39,7 +39,7 @@ for request in locals.models
                                     #requestDescription.requestmessage #{request.get("description")}
                                         // My oldest got sick and I had to miss a few days of work last week. Now I'm needing help to pay the rent for next month. Please help!
                                 .col-md-2
-                                    button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}')
+                                    button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}')
                                         img.givebtnicon(src='/img/maroon_shadow.png')
 
 
