@@ -160,26 +160,6 @@ define(function (require, exports, module) {
                 }
             });
 
-            // var requestUser = new UserModel({
-            //     path: 'paypal'
-            // });
-
-            //
-            // requestUser.fetch({
-            //     headers: {"username": $("#username").val()},
-            //     success: function (model, response, options) {
-            //         console.log(response.body);
-            //         console.log(model.get('email'));
-            //         console.log("request amount: " + $(document.activeElement).attr('data-amount'));
-            //         console.log("request id: " + $(document.activeElement).attr('data-rid'));
-            //         var memo = "Give It Forward";
-            //         //todo do paypal stuff in here...
-            //     },
-            //     error: function (model, response, options){
-            //         console.log(response.responseText);
-            //         window.location.href = response.responseText;
-            //     }
-            // });
             return this;
         },
 

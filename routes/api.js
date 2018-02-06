@@ -5,8 +5,8 @@ var parser = require('json-parser');
 var Paypal = require('paypal-adaptive');
 
 
-// var base_url = 'http://localhost:8080';
-var base_url = 'http://54.227.151.133:8080/giveitforward';
+var base_url = 'http://localhost:8080';
+// var base_url = 'http://54.227.151.133:8080/giveitforward';
 
 var paypalSdk = new Paypal({
     userId:    process.env.USER_ID,
