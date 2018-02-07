@@ -418,7 +418,7 @@ define(function (require, exports, module) {
 
                         },
                         error: function(model, response, options){
-                            window.location.href = rootUrl.url + '/home';
+                            window.location.href = rootUrl.url + 'home';
                             // window.location.href = 'http://localhost:3000/home';
                         }
                     });
