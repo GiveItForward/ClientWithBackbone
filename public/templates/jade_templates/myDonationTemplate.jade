@@ -38,4 +38,4 @@ for request in locals.models
                                         | #{request.get("description")}
                                 .col-md-2
                                     if request.get("thankYou") !== ''
-                                        a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rid='#{request.get("rid")}',data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+                                        a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"

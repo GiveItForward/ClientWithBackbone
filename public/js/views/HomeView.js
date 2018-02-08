@@ -322,13 +322,18 @@ define(function (require, exports, module) {
         viewThankYou: function (event) {
             console.log("in view thank you function");
             var self = this;
-            //get current request rid, duid (username)
-            var currentRid = $(event.currentTarget).attr( 'data-rid' );
-            console.log(currentRid);
+            var note = $(event.currentTarget).attr( 'data-note' );
+            console.log(note);
+            var date = $(event.currentTarget).attr( 'data-date' );
+            console.log(date);
+            var rUsername = $(event.currentTarget).attr( 'data-rUsername' );
+            console.log(rUsername);
             var container = document.createDocumentFragment();
             var viewThankYouModalView = new ViewThankYouModalView({
                 parent: self,
-                model: new ThankYouModel({ path: 'create'})
+                note: note,
+                date: date,
+                rUsername: rUsername
             });
             container.appendChild(viewThankYouModalView.render().el);
             $('body').append(container);

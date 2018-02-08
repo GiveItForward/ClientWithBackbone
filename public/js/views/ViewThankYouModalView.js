@@ -15,14 +15,16 @@ define(function (require, exports, module) {
         el: viewThankYouModal,
 
         events: {
-            // "keyup"                     : "updateModel",
-            // "change"                    : "updateModel"
+            "click #exitViewThankYouModalBtn"     : "destroyViewThankYouModal",
+            "click #closeViewThankYouModalBtn"    : "destroyViewThankYouModal"
         },
 
         initialize: function (options) {
             console.log("in thank you modal view init");
             this.parent = options.parent;
-            // this.render();
+            this.note = options.note;
+            this.date = options.date;
+            this.rUsername = options.rUsername;
         },
 
         render: function () {
@@ -30,10 +32,10 @@ define(function (require, exports, module) {
             var self = this;
             self.el = viewThankYouModal;
             self.setElement(this.el);
-            self.$('#viewThankYouMessage').html('Thank you hard coded!');
+            self.$('#viewThankYouHeader').html(self.date);
+            self.$('#viewThankYouMessage').html(self.note + "<br><br>&nbsp from " + self.rUsername);
             return this;
         },
-
 
         destroyViewThankYouModal: function () {
             var self = this;
