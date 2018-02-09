@@ -22,12 +22,12 @@ define(function (require, exports, module) {
                 // this.set("fulfilled", false);
             } else if(options.path === 'paypal'){
                 this.url = rootUrl.url + "api/requests/paypal";
-            }else if (options.path === 'getByRid'){
-                this.url = rootUrl.url + "api/request/getByRid"
+            }else if (options.path === 'rid'){
+                this.url = rootUrl.url + "api/requests/rid"
             }else if (options.path === 'update'){
-                this.url = rootUrl.url + "api/request/update"
+                this.url = rootUrl.url + "api/requests/update"
             }else if (options.path === 'delete'){
-                this.url = rootUrl.url + "api/request/delete"
+                this.url = rootUrl.url + "api/requests/delete"
             } else {
                 this.url = rootUrl.url + "api/requests";
             }

@@ -8,14 +8,15 @@ for request in locals.models
                             .row
                                 .col-md-1
                                     img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
-                                .col-md-8.padding-left
+                                .col-md-8
                                     a#otherProfileLink.requestusername.btn(data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
                                     #requestTags.form-inline.tags
                                         for tag in request.get("rUser").tags
                                             if tag.tagname !== ''
                                                 | &nbsp##{tag.tagname}
                                             if tag.verifiedBy !== ''
-                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified by #{tag.verifiedBy}')
+                                                span(data-title='Verified by #{tag.verifiedBy}')
+                                                    img.checkmark(src='/img/marooncheckmark.png')
                                             else
                                                 | &nbsp
                                         if request.get("tag1") !== ''
@@ -30,9 +31,10 @@ for request in locals.models
                                         | &nbsp
                                         span#requestDate posted on #{request.get("requestTime")}
                             .row
+                                .col-md-1
                                 #requestImage.col-md-2
                                     img.requestimage(src='#{request.get("image")}')
-                                .col-md-8
+                                .col-md-7
                                     #requestDescription.requestmessage #{request.get("description")}
                                 .col-md-2
                                     button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}')

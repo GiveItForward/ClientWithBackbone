@@ -38,7 +38,7 @@ define(function (require, exports, module) {
             self.setElement(this.el);
             // self.renderTagList()
             self.$('#editRequestDescription').html(self.model.get('description'));
-            self.$('#editRequestAmount').html(self.model.get('amount'));
+            self.$('#editRequestAmount').val(self.model.get('amount'));
             self.checkTags(self.model.get('tags'));
             self.$('#updateRequestBtn').prop("disabled", true);
             return this;
@@ -205,6 +205,7 @@ define(function (require, exports, module) {
                 self.undelegateEvents();
                 self.$el.removeData().unbind();
                 requestTagList = [];
+                self.model = undefined;
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
             });

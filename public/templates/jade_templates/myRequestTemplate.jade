@@ -33,9 +33,10 @@ for request in locals.models
                                     else
                                         .open OPEN #{request.get("duid")}
                             .row.padding-top
+                                .col-md-1
                                 .col-md-2
                                     img.requestimage(src='#{request.get("image")}')
-                                .col-md-8
+                                .col-md-7
                                     .requestmessage
                                         | #{request.get("description")}
                                 .col-md-2.btn-group

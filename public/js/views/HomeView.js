@@ -91,10 +91,6 @@ define(function (require, exports, module) {
             var self = this;
             self.$el.html(homeTemplate);
             console.log(self.model);
-
-            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            // $("#donateCount").html(self.model.get("donateCount"));
-            // $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderHome();
             return this;
         },
@@ -297,37 +293,40 @@ define(function (require, exports, module) {
             console.log("in edit Request function");
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
-            var model = new RequestModel({
-                path: 'getByRid',
+            var editModel = new RequestModel({
+                path: 'rid',
                 rid: ridToEdit,
                 description: "This is a hard coded request message to edit.",
                 amount: 222
             });
-            // model.fetch({
-            //         success: function (model) {
-            //             console.log(model);
-            //             //if model is fulfilled, can't edit it
-            //             if(model.get('duid') > 0){
-            //                 bootbox.alert("This request has been fulfilled and cannot be changed.")
-            //             }else{
+            // editModel.fetch({
+            //     headers: {"rid": ridToEdit },
+            //     success: function (model) {
+            //         console.log("edit model:");
+            //         console.log(model);
             //
-            //                 // var container = document.createDocumentFragment();
-            //                 // var editRequestModalView = new EditRequestModalView({
-            //                 //     parent: self,
-            //                 //     model: model
-            //                 // });
-            //                 // container.appendChild(editRequestModalView.render().el);
-            //                 // $('body').append(container);
-            //             }
-            //         },
-            //         error: function(err){
-            //             console.log("error occurred in getting the request to edit");
+            //         //if model is fulfilled, can't edit it
+            //         if(model.get('duid') > 0){
+            //             bootbox.alert("This request has been fulfilled and cannot be changed.")
+            //         }else{
+            //
+            //             var container = document.createDocumentFragment();
+            //             var editRequestModalView = new EditRequestModalView({
+            //                 parent: self,
+            //                 model: model
+            //             });
+            //             container.appendChild(editRequestModalView.render().el);
+            //             $('body').append(container);
             //         }
-            //     });
+            //     },
+            //     error: function(err){
+            //         console.log("error occurred in getting the request to edit");
+            //     }
+            // });
             var container = document.createDocumentFragment();
             var editRequestModalView = new EditRequestModalView({
                 parent: self,
-                model: model
+                model: editModel
             });
             container.appendChild(editRequestModalView.render().el);
             $('body').append(container);
