@@ -33,7 +33,8 @@ define(function (require, exports, module) {
             self.el = viewThankYouModal;
             self.setElement(this.el);
             self.$('#viewThankYouHeader').html(self.date);
-            self.$('#viewThankYouMessage').html(self.note + "<br><br>&nbsp from " + self.rUsername);
+            self.$('#viewThankYouMessage').html(self.note);
+            self.$('#viewThankYouSig').html("With Gratitude,<br>" + self.rUsername);
             return this;
         },
 

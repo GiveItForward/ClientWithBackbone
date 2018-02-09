@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header dimgreytext">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button id="exitCreateThankYouBtn" type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Thank You Note</h4>
             </div>
             <div class="modal-body">
@@ -10,7 +10,8 @@
                 <textarea id="thankYouMessage" class="bio" rows="4" cols="60"></textarea>
             </div>
             <div class="modal-footer">
-                <button id="cancelBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <label id="thankYouErrorLabel" style="color: red"></label>
+                <button id="cancelCreateThankYouBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
                 <button id="createThankYouBtn" class="btn winebtn">Create Thank You</button>
             </div>
         </div>

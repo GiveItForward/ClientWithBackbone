@@ -434,7 +434,7 @@ body{
   margin-top: 0;
 }
 
-.viewThankYouHeader {
+.viewThankYouLabel {
   color: #760709;
   font-weight: bold;
   font-style: italic;
@@ -442,6 +442,15 @@ body{
   font-stretch: expanded;
   font-family: cursive;
   text-align: center;
+}
+
+.viewThankYouSig {
+  color: #760709;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 14pt;
+  font-stretch: expanded;
+  font-family: cursive;
 }
 
 .givebtnicon{

@@ -8,7 +8,7 @@ define(function (require, exports, module) {
 
     var ThankYouModel = Backbone.Model.extend({
 
-        idAttribute: "tid",
+        idAttribute: "rid",
 
         initialize: function (options) {
 

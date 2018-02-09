@@ -15,13 +15,17 @@ define(function (require, exports, module) {
         el: sayThankYouModal,
 
         events: {
-            // "keyup"                     : "updateModel",
-            // "change"                    : "updateModel"
+            "click #exitCreateThankYouBtn"          : "destroySayThankYouModal",
+            "click #cancelCreateThankYouBtn"        : "destroySayThankYouModal",
+            "click #createThankYouBtn"              : "save",
+            "keyup"                                 : "updateThankYouModel",
+            "change"                                : "updateThankYouModel"
         },
 
         initialize: function (options) {
             console.log("in thank you modal view init");
             this.parent = options.parent;
+            this.model = options.model
             // this.render();
         },
 
@@ -30,14 +34,42 @@ define(function (require, exports, module) {
             var self = this;
             self.el = sayThankYouModal;
             self.setElement(this.el);
+            console.log(self.model);
             // self.$('#sayThankYouLabel').html('Write your Thank You message to ' ' here:');
+            self.$('#createThankYouBtn').prop("disabled", true);
 
             return this;
         },
 
-        save: function (event) {
+        updateThankYouModel: function () {
+            var self = this;
+            self.model.set("note", $("#thankYouMessage").val());
 
+            if(!self.model.get("note")){
+                self.$('#createRequestBtn').prop("disabled", true);
+            }else{
+                self.$('#createThankYouBtn').prop("disabled", false);
+            }
+        },
 
+        save: function () {
+            var self = this;
+            self.updateThankYouModel()
+
+            console.log(self.model);
+            self.model.save(null, {
+                wait: true,
+                success: function(model, response) {
+                    console.log(model);
+                    console.log('success in saving new thank you');
+                    self.parent.renderMyRequests();
+                    self.destroySayThankYouModal();
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#thankYouErrorLabel').html('There was a problem saving your request.');
+                }});
             return this;
         },
 
@@ -48,7 +80,9 @@ define(function (require, exports, module) {
                 self.$el.removeData().unbind();
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
-            })
+            });
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
         }
     });
     return SayThankYouModalView;

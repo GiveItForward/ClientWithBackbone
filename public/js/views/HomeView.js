@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var NewRequestModalView = require("views/NewRequestModalView");
+    var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
@@ -62,6 +63,8 @@ define(function (require, exports, module) {
             "click #myRequestsBtn"              : "renderMyRequests",
             "click #myDonationsBtn"             : "renderMyDonations",
             "click #newRequestBtn"              : "newRequest",
+            "click #editRequestBtn"             : "editRequest",
+            "click #deleteRequestBtn"           : "deleteRequest",
             "click #otherProfileLink"           : "otherProfile",
             "click #sayThankYouBtn"             : "sayThankYou",
             "click #viewThankYouBtn"            : "viewThankYou",
@@ -290,6 +293,76 @@ define(function (require, exports, module) {
             return this;
         },
 
+        editRequest: function () {
+            console.log("in edit Request function");
+            var self = this;
+            var ridToEdit = $(event.currentTarget).attr('data-rid');
+            var model = new RequestModel({
+                path: 'getByRid',
+                rid: ridToEdit,
+                description: "This is a hard coded request message to edit.",
+                amount: 222
+            });
+            // model.fetch({
+            //         success: function (model) {
+            //             console.log(model);
+            //             //if model is fulfilled, can't edit it
+            //             if(model.get('duid') > 0){
+            //                 bootbox.alert("This request has been fulfilled and cannot be changed.")
+            //             }else{
+            //
+            //                 // var container = document.createDocumentFragment();
+            //                 // var editRequestModalView = new EditRequestModalView({
+            //                 //     parent: self,
+            //                 //     model: model
+            //                 // });
+            //                 // container.appendChild(editRequestModalView.render().el);
+            //                 // $('body').append(container);
+            //             }
+            //         },
+            //         error: function(err){
+            //             console.log("error occurred in getting the request to edit");
+            //         }
+            //     });
+            var container = document.createDocumentFragment();
+            var editRequestModalView = new EditRequestModalView({
+                parent: self,
+                model: model
+            });
+            container.appendChild(editRequestModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        deleteRequest: function (event) {
+            console.log("in deleteRequest function");
+            var self = this;
+            var ridToDelete = $(event.currentTarget).attr('data-rid');
+            console.log(ridToDelete);
+
+            bootbox.confirm({
+                message: "Are you sure you want to delete this request?",
+                callback: function (result) {
+                    var requestModel = new RequestModel({
+                        path: 'delete',
+                        rid: ridToDelete
+                    });
+                    requestModel.destroy({
+                        success: function (collection, response, options) {
+                            console.log("request was deleted")
+                            self.renderMyRequests();
+
+                        },
+                        error: function(model, response, options){
+                            bootbox.alert('There was a problem deleting this request.');
+                            console.log(response);
+                        }
+                    });
+                }
+            });
+            return this;
+        },
+
         otherProfile: function () {
             console.log("in other profile function");
             var self = this;
@@ -309,10 +382,31 @@ define(function (require, exports, module) {
             //get current request rid, duid (username)
             var currentRid = $(event.currentTarget).attr( 'data-rid' );
             console.log(currentRid);
+            var duid = $(event.currentTarget).attr( 'data-duid' );
+            console.log(duid);
+            // var donateUserModel = new UserModel({
+            //     path: 'byuid',
+            //     uid: duid
+            // });
+            // donateUserModel.fetch({
+            //     success: function (model) {
+            //
+            //         donateUserModel = model;
+            //         console.log(model);
+            //
+            //     },
+            //     error: function(err){
+            //         console.log("error occurred in getting the donate username");
+            //     }
+            // });
             var container = document.createDocumentFragment();
             var sayThankYouModalView = new SayThankYouModalView({
                 parent: self,
-                model: new ThankYouModel({ path: 'create'})
+                model: new ThankYouModel({
+                    path: 'create',
+                    rid: currentRid
+                }),
+                // donateUsername: donateUserModel.get('username')
             });
             container.appendChild(sayThankYouModalView.render().el);
             $('body').append(container);
@@ -408,8 +502,6 @@ define(function (require, exports, module) {
         logout: function () {
             var self = this;
             console.log("logging out...");
-
-
 
             bootbox.confirm({
                 message: "Are you sure you want to log out?",
