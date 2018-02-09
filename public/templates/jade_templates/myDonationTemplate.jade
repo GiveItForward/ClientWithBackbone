@@ -15,7 +15,8 @@ for request in locals.models
                                             if tag.tagname !== ''
                                                 | &nbsp##{tag.tagname}
                                             if tag.verifiedBy !== ''
-                                                img.checkmark(src='/img/marooncheckmark.png', title='Verified by #{tag.verifiedBy}')
+                                                span(data-title='Verified by #{tag.verifiedBy}')
+                                                    img.checkmark(src='/img/marooncheckmark.png')
                                             else
                                                 | &nbsp
                                         if request.get("tag1") !== ''

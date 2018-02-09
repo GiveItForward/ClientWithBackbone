@@ -9,10 +9,9 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var RequestModel = require("models/RequestModel");
-    // var RequestTagCollection = require("models/RequestTagCollection");
+    var RequestTagCollection = require("models/RequestTagCollection");
 
     var newRequestModal = require("text!templates/modals/newRequestModal.html");
-    // var newRequestModal = require("jade!templates/jade_templates/modals/newRequestModal");
 
     var NewRequestModalView = Backbone.View.extend({
 
@@ -30,15 +29,13 @@ define(function (require, exports, module) {
         initialize: function (options) {
             this.parent = options.parent;
             $('#requestErrorLabel').html('');
-            // this.model.set('fulfilled', false);
-            // this.render();
         },
 
         render: function () {
             var self = this;
             self.el = newRequestModal;
             self.setElement(this.el);
-            // self.renderTagList()
+            self.renderTagList()
             self.$('#createRequestBtn').prop("disabled", true);
             return this;
         },
@@ -49,9 +46,6 @@ define(function (require, exports, module) {
             var requestTagCollection = new RequestTagCollection();
             requestTagCollection.fetch({
                 success: function (collection) {
-                    // _.each(collection.models, function(model) {
-                    //
-                    // });
                     console.log('tag names from db: ')
                     console.log(collection.models);
                     var newRequestTagsHtml = self.getnewRequestTagsHtml(collection.models);
@@ -63,15 +57,12 @@ define(function (require, exports, module) {
 
 
         getnewRequestTagsHtml: function (models) {
-            var self = this;
             var tagString = '';
-            // _.each(models, function(model) {
-            //     tagString += '<li><a href="#" data-value="' + model.tagname + '" tabindex="-1">\n' +
-            //         '<input type="checkbox"/></a>&nbsp;#\' + model.tagname + \'</li>'
-            //
-            // });
-
-            return this;
+            _.each(models, function(model) {
+                tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
+                    '<input type="checkbox" name="newRequestTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+            });
+            return tagString;
         },
 
         updateRequestTags: function (event) {

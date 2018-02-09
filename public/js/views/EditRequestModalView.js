@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var RequestModel = require("models/RequestModel");
-    // var RequestTagCollection = require("models/RequestTagCollection");
+    var RequestTagCollection = require("models/RequestTagCollection");
 
     var editRequestModal = require("text!templates/modals/editRequestModal.html");
 
@@ -36,7 +36,7 @@ define(function (require, exports, module) {
             var self = this;
             self.el = editRequestModal;
             self.setElement(this.el);
-            // self.renderTagList()
+            self.renderTagList()
             self.$('#editRequestDescription').html(self.model.get('description'));
             self.$('#editRequestAmount').val(self.model.get('amount'));
             self.checkTags(self.model.get('tags'));
@@ -50,13 +50,9 @@ define(function (require, exports, module) {
 
         renderTagList: function () {
             var self = this;
-
             var requestTagCollection = new RequestTagCollection();
             requestTagCollection.fetch({
                 success: function (collection) {
-                    // _.each(collection.models, function(model) {
-                    //
-                    // });
                     console.log('tag names from db: ')
                     console.log(collection.models);
                     var editRequestTagsHtml = self.getEditRequestTagsHtml(collection.models);
@@ -68,15 +64,12 @@ define(function (require, exports, module) {
 
 
         getEditRequestTagsHtml: function (models) {
-            var self = this;
             var tagString = '';
-            // _.each(models, function(model) {
-            //     tagString += '<li><a href="#" data-value="' + model.tagname + '" tabindex="-1">\n' +
-            //         '<input type="checkbox"/></a>&nbsp;#\' + model.tagname + \'</li>'
-            //
-            // });
-
-            return this;
+            _.each(models, function(model) {
+                tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
+                    '<input type="checkbox" name="editRequestTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+            });
+            return tagString;
         },
 
         updateRequestTags: function (event) {

@@ -12,16 +12,15 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
 
-            if(options.tagname) {
-
-                this.set("tagname", options.tagname);
-                this.url = rootUrl.url + "api/requesttags/";
-                // this.url = "http://localhost:3000/api/requesttags/";
-                // this.url = "http://giveitforward.us/api/requesttags/" ;
-
-            } else {
-                this.set("tagname", undefined);
-            }
+            this.url = rootUrl.url + "api/requests/tags/";
+            // if(options.tagname) {
+            //
+            //     this.set("tagname", options.tagname);
+            //     this.url = rootUrl.url + "api/requests/tags/";
+            //
+            // } else {
+            //     this.set("tagname", undefined);
+            // }
         }
     });
     return RequestTagModel;
