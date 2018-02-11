@@ -662,4 +662,34 @@ body{
   margin: 5%;
 }
 
+.otherProfileImage {
+  width: 100%;
+  height: 100%;
+  /*margin-left: 50%;*/
+}
+
+
+.nav-tabs .nav-link.active {
+  border-top: 1px solid dimgray;
+  border-left: 1px solid dimgray;
+  border-right: 1px solid dimgray;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: white;
+  color: #007F64;
+}
+
+.nav-tabs .nav-link {
+  border-top: 1px solid dimgray;
+  border-left: 1px solid dimgray;
+  border-right: 1px solid dimgray;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #007F64;
+  color: white;
+}
+
+
+
+
 

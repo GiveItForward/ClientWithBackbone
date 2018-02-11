@@ -3,15 +3,50 @@
         <div class="modal-content">
             <div class="modal-header dimgreytext">
                 <button id="exitOtherProfileModal" type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">View Profile</h4>
+                <h4 id="otherProfileModalTitle" class="modal-title">View Profile</h4>
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <div class="col-md-6">
-                        <img id="otherProfileImage" src="/img/default_profile_pic_no_bckgrnd.png" style="height:80%; width:80%;">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2 text-center">
+                        <img id="otherProfileImage" class="otherProfileImage" src="/img/default_profile_pic_no_bckgrnd.png">
+                        <!--<label id="otherProfileUserName" class="requestusername"></label>-->
+                        <div id="otherProfileTags"></div>
                     </div>
-                    <div class="col-md-6">
-                        <label id="otherProfileUserName"></label>
+                    <div class="col-md-5"></div>
+                </div>
+                <Br>
+                <div class="row text-center">
+                    <div class="col-md-2"></div>
+                    <div id="otherProfileDescription" class="col-md-8"></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div id="exTab2" class="container">
+                            <ul class="nav nav-tabs justify-content-center">
+                                <li class="nav-item active">
+                                    <a class="nav-link active" href="#1" data-toggle="tab">Request History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#2" data-toggle="tab">Donation History</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="1">
+                                    <br>
+                                    <h4>This is some request history for this user that isn't you.</h4>
+                                    <div id="otherRequestHistory"></div>
+                                </div>
+                                <div class="tab-pane" id="2">
+                                    <br>
+                                    <h4>This is some donation history for this user that isn't you.</h4>
+                                    <div id="otherDonationHistory"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

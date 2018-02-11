@@ -2,6 +2,8 @@ console.log("in Home View file");
 //The HomeView's model is the UserModel
 var searchUserTagsList = [];
 var searchRequestTagsList = [];
+var lowOrHigh = '';
+var newOrOld = '';
 
 define(function (require, exports, module) {
 
@@ -362,13 +364,38 @@ define(function (require, exports, module) {
             return this;
         },
 
-        otherProfile: function () {
+        otherProfile: function (event) {
             console.log("in other profile function");
             var self = this;
+            var otherRid = $(event.currentTarget).attr( 'data-rid' );
+            var otherUserModel = new UserModel({
+                path: 'uid',
+                uid: otherRid,
+                username: 'someUserName',
+                description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
+                image: 'img/glasses_profile_pic.png'
+
+            });
+            // otherUserModel.fetch({
+            //     success: function (model) {
+            //         console.log(model);
+            //
+            //         var container = document.createDocumentFragment();
+            //         var otherProfileModalView = new OtherProfileModalView({
+            //             parent: self,
+            //             model: model
+            //         });
+            //         container.appendChild(otherProfileModalView.render().el);
+            //         $('body').append(container);
+            //     },
+            //     error: function(err){
+            //         console.log("error occurred in getting the donate username");
+            //     }
+            // });
             var container = document.createDocumentFragment();
             var otherProfileModalView = new OtherProfileModalView({
                 parent: self,
-                // model: new UserModel({ path: 'create'})//todo get usermodel
+                model: otherUserModel
             });
             container.appendChild(otherProfileModalView.render().el);
             $('body').append(container);
@@ -379,9 +406,9 @@ define(function (require, exports, module) {
             console.log("in say thank you function");
             var self = this;
             //get current request rid, duid (username)
-            var currentRid = $(event.currentTarget).attr( 'data-rid' );
+            var currentRid = $(event.currentTarget).attr('data-rid');
             console.log(currentRid);
-            var duid = $(event.currentTarget).attr( 'data-duid' );
+            var duid = $(event.currentTarget).attr('data-duid');
             console.log(duid);
             // var donateUserModel = new UserModel({
             //     path: 'byuid',
@@ -475,26 +502,50 @@ define(function (require, exports, module) {
         },
 
         toggleNew: function () {
-            $("#new").prop('checked', true);
-            $("#old").prop('checked', false);
+            if($("#new").prop('checked') == true){
+                $("#old").prop('checked', false);
+                newOrOld = 'new';
+            }else{
+                $("#new").prop('checked', false);
+                newOrOld = '';
+            }
+            console.log(newOrOld);
             return this;
         },
 
         toggleOld: function () {
-            $("#old").prop('checked', true);
-            $("#new").prop('checked', false);
+            if($("#old").prop('checked') == true){
+                $("#new").prop('checked', false);
+                newOrOld = 'old';
+            }else{
+                $("#old").prop('checked', false);
+                newOrOld = '';
+            }
+            console.log(newOrOld);
             return this;
         },
 
         toggleLow: function () {
-            $("#low").prop('checked', true);
-            $("#high").prop('checked', false);
+            if($("#low").prop('checked') == true){
+                $("#high").prop('checked', false);
+                lowOrHigh = 'low';
+            }else{
+                $("#low").prop('checked', false);
+                lowOrHigh = '';
+            }
+            console.log(lowOrHigh);
             return this;
         },
 
         toggleHigh: function () {
-            $("#high").prop('checked', true);
-            $("#low").prop('checked', false);
+            if($("#high").prop('checked') == true){
+                $("#low").prop('checked', false);
+                lowOrHigh = 'high';
+            }else{
+                $("#high").prop('checked', false);
+                lowOrHigh = '';
+            }
+            console.log(lowOrHigh);
             return this;
         },
 
@@ -511,7 +562,6 @@ define(function (require, exports, module) {
                         success: function (collection, response, options) {
                             window.location.href = rootUrl.url;
                             // window.location.href = 'http://localhost:3000/';
-
                         },
                         error: function(model, response, options){
                             window.location.href = rootUrl.url + 'home';
