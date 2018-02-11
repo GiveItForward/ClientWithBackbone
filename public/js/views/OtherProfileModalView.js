@@ -10,6 +10,8 @@ define(function (require, exports, module) {
 
     var RequestCollection = require("models/RequestCollection");
 
+    var otherRequestTemplate = require("jade!templates/jade_templates/otherRequestTemplate");
+
 
     var OtherProfileModalView = Backbone.View.extend({
 
@@ -33,6 +35,7 @@ define(function (require, exports, module) {
             console.log(self.model);
             self.$('#otherProfileModalTitle').html(self.model.get('username'));
             self.$("#otherProfileImage").attr('src', self.model.get("image"));
+            self.$("#otherProfileTags").html("#student"); //todo probably need a rendertags
             self.$('#otherProfileDescription').html(self.model.get('description'));
             self.renderOtherRequests();
             self.renderOtherDonations();
@@ -41,55 +44,53 @@ define(function (require, exports, module) {
 
         renderOtherRequests: function () {
             var self = this;
-            var temp = "some request history template goes here ";
-            for(var i = 0; i < 20; i++){
-                temp += "some request history template goes here ";
-            }
-            self.$('#otherRequestHistory').html(temp);
 
-            // var requestCollection = new RequestCollection();
-            // requestCollection.fetchByRequestUid({
-            //     headers: {"uid": self.model.get('uid')},
-            //     success: function (collection) {
-            //         _.each(collection.models, function(model) {
-            //             console.log(model.toJSON());
-            //         })
-            //         console.log("My requests: ");
-            //         console.log(collection.models);
-            //         self.$('#myRequestCol').html(myRequestTemplate(collection));
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }
-            // });
+            var requestCollection = new RequestCollection();
+            requestCollection.fetchByRequestUid({
+                headers: {"uid": self.model.get('uid')},
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        console.log(model.toJSON());
+                    });
+                    console.log("other requests: ");
+                    console.log(collection.models);
+                    if(collection.length > 0){
+                        self.$('#otherRequestHistory').html(otherRequestTemplate(collection));
+                    }else{
+                        self.$('#otherRequestHistory').html("There is no request history available.");
+                    }
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
             return this;
         },
 
         renderOtherDonations: function (event) {
             var self = this;
-            var temp = "some donation history template goes here ";
-            for(var i = 0; i < 20; i++){
-                temp += "some donation history template goes here ";
-            }
-            self.$('#otherDonationHistory').html(temp);
 
-            // var requestCollection = new RequestCollection();
-            // requestCollection.fetchByRequestUid({
-            //     headers: {"uid": self.model.get('uid')},
-            //     success: function (collection) {
-            //         // _.each(collection.models, function(model) {
-            //         //     console.log(model.toJSON());
-            //         // });
-            //         console.log("My requests: ");
-            //         console.log(collection.models);
-            //         self.$('#otherDonationHistory').html(myRequestTemplate(collection));
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //     }
-            // });
+            var requestCollection = new RequestCollection();
+            requestCollection.fetchByDonateUid({
+                headers: {"uid": self.model.get('uid')},
+                success: function (collection) {
+                    _.each(collection.models, function(model) {
+                        console.log(model.toJSON());
+                    });
+                    console.log("other donations: ");
+                    console.log(collection.models);
+                    if(collection.length > 0){
+                        self.$('#otherDonationHistory').html(otherRequestTemplate(collection));
+                    }else{
+                        self.$('#otherDonationHistory').html("There is no donation history available.");
+                    }
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
 
             return this;
         },

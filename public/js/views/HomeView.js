@@ -261,7 +261,7 @@ define(function (require, exports, module) {
                 headers: {"uid": self.model.get('uid')},
                 success: function (collection) {
                     console.log("My donations: ");
-                    // console.log(collection.models);
+                    console.log(collection.models);
                     var total = 0;
                     _.each(collection.models, function(model) {
                         total += model.get("amount");
@@ -367,10 +367,12 @@ define(function (require, exports, module) {
         otherProfile: function (event) {
             console.log("in other profile function");
             var self = this;
-            var otherRid = $(event.currentTarget).attr( 'data-rid' );
+            var otherUid = $(event.currentTarget).attr( 'data-uid' );
+            console.log("current uid: ");
+            console.log(otherUid);
             var otherUserModel = new UserModel({
                 path: 'uid',
-                uid: otherRid,
+                uid: otherUid,
                 username: 'someUserName',
                 description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
                 image: 'img/glasses_profile_pic.png'

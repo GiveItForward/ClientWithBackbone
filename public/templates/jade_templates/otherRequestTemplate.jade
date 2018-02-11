@@ -1,0 +1,36 @@
+for request in locals.models
+    .row
+        .col-md-12
+            .panel.otherroundrequest
+                .form-inline
+                    .container.text-center
+                        .requestmargin
+                            .row
+                                .col-md-12
+                                    | Requested&nbsp
+                                    em
+                                        b $#{request.get("amount")}
+                                    |  on #{request.get("requestTime")}
+                                    if request.get("duid") > 0
+                                        .fulfilled FULFILLED
+                                    else
+                                        .open OPEN #{request.get("duid")}
+                            .row.text-center
+                                .col-md-12
+                                    if request.get("tag1") !== ''
+                                        | &nbsp##{request.get("tag1").tagname}
+                            .row.text-center
+                                .col-md-12.text-center#requestImage
+                                        img.otherrequestimage(src='#{request.get("image")}')
+                            .row.text-center
+                                .col-md-12
+                                    #requestDescription.requestmessage #{request.get("description")}
+                            .row
+                                .col-md-12.text-center
+                                    if request.get("duid") > 0
+                                        if request.get("thankYou") !== ''
+                                            a#viewThankYouBtn.otherthankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+                                    else
+                                        button#giveBtn.otherroundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}')
+                                            img.givebtnicon(src='/img/maroon_shadow.png')
+

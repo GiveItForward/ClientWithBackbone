@@ -8,8 +8,8 @@ for request in locals.models
                             .row
                                 .col-md-1
                                     img.requestuserimage(src='#{request.get("rUser").image}')
-                                .col-md-8.padding-left
-                                    a.requestusername(href='#') @#{request.get("rUser").username}
+                                .col-md-7.padding-left
+                                    a#otherProfileLink.requestusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
                                     .form-inline.tags
                                         for tag in request.get("rUser").tags
                                             if tag.tagname !== ''
@@ -23,7 +23,7 @@ for request in locals.models
                                             | &nbsp##{request.get("tag1").tagname}
                                         if request.get("tag2") !== ''
                                             | &nbsp##{request.get("tag2").tagname}
-                                .col-md-3
+                                .col-md-4
                                     | Requested &nbsp
                                     em
                                         b $#{request.get("amount")}
