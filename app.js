@@ -10,7 +10,7 @@ var index = require('./routes/index');
 var moreHelp = require('./routes/moreHelp');
 var contactUs = require('./routes/contactUs');
 var aboutUs = require('./routes/aboutUs');
-var gifApi = require('./routes/api');
+var api = require('./routes/api');
 var home = require("./routes/home");
 
 
@@ -51,7 +51,7 @@ app.use('/index', index);
 app.use('/moreHelp', moreHelp);
 app.use('/aboutUs', aboutUs);
 app.use('/contactUs', contactUs);
-app.use('/api', gifApi);
+app.use('/api', api);
 app.use('/home', home);
 
 // app.use('/users', users);
@@ -61,7 +61,7 @@ app.use('/home', home);
 // app.use('/orgs', orgs);
 // app.use('/myProfile', myProfile);
 // app.use('/newRequest', newRequest);
-app.use('/paypal', paypal);
+// app.use('/paypal', paypal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -83,5 +83,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-
-// http://54.227.151.133:8080/giveitforward/organizations/

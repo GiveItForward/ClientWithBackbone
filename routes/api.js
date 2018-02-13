@@ -4,7 +4,6 @@ var request = require('request');
 var parser = require('json-parser');
 var Paypal = require('paypal-adaptive');
 
-
 // var base_url = 'http://localhost:8080';
 var base_url = 'http://54.227.151.133:8080/giveitforward';
 
@@ -35,6 +34,7 @@ router.get('/users/login', function(req, res, next) {
                 var user = parser.parse(body);
                 session.email = user.email;
                 session.userObject = user;
+                session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 res.end(body);
             } else {
                 res.sendStatus(401);
@@ -50,6 +50,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
 
     if(session.email && session.userObject){
+        session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
         console.log(req.headers);
 
         var options = {
@@ -57,12 +58,13 @@ router.get('/requests/paypal', function(req, res, next) {
             headers: req.headers
         };
 
-        // request for the requestors email
+        // request for the requester email
         request(options, function(error, response, body){
             if(response.statusCode === 200){
                 var userBody = parser.parse(body);
                 var requestorsEmail = userBody.email;
                 var amount = req.header('amt');
+                var randomDBHash = 'hash'
 
 
                 var payload = {
@@ -73,10 +75,8 @@ router.get('/requests/paypal', function(req, res, next) {
                     currencyCode:   'USD',
                     feesPayer:      'EACHRECEIVER',
                     memo:           'Chained payment example',
-                    cancelUrl:      'http://giveitforward.us/home',
-                    returnUrl:      'http://giveitforward.us/home',
-                    // cancelUrl:      'http://localhost:3000/home',
-                    // returnUrl:      'http://localhost:3000/home',
+                    cancelUrl:      base_url + "/home",
+                    returnUrl:      base_url + "home",//"/fulfilled?" + randomDBHash,
                     receiverList: {
                         receiver: [
                             {
@@ -147,6 +147,7 @@ router.get('/users/logout', function(req, res, next) {
     }
 });
 
+// todo - /tags is currently open to the public
 router.get('/tags', function(req, res, next) {
 
     var options = {
@@ -158,27 +159,30 @@ router.get('/tags', function(req, res, next) {
 
 });
 
-// todo - sessions is messing up sign up getting of all tags during sign up
 router.get('/*', function(req, res, next) {
     session = req.session;
 
-    // if(session.email && session.userObject){
+    if(session.email && session.userObject){
+        session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
         var options = {
             url: base_url + req.url,
             headers: req.headers
         };
 
         request(options).pipe(res);
-    // } else {
-    //     res.sendStatus(401);
-    // }
+    } else {
+        res.sendStatus(401);
+    }
 
 });
 
 
+
+// todo - issues with post and session
 router.post('/users/create', function(req, res, next) {
     session = req.session;
     console.log("------------------ in create user");
+    console.log(session);
 
 
     var options = {
