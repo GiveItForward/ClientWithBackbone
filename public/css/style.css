@@ -34,6 +34,18 @@ body{
   color: white !important;
 }
 
+.purpletext {
+  color: #5F3E5B;
+}
+
+.turquoisetext {
+  color: #00947D;
+}
+
+.orangetext {
+  color: #F7882F;
+}
+
 .dimgreytext {
   color: dimgray;
   /*color: #007F64;*/
@@ -46,8 +58,11 @@ body{
 }
 
 .titleheading2 {
-  font-size: 18pt;
-  color:black;
+  font-size: 24pt;
+  color:#00947D;
+  font-family: cursive;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px #002A26;
   margin: 2%;
 }
 
@@ -106,7 +121,8 @@ body{
   width: 80%;
   height: 300px;
   margin: 2%;
-  box-shadow: 4px 4px 10px 4px #daa520;
+  /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
+  box-shadow: 4px 4px 10px 4px #00947D;
   /*margin-top: 10px;*/
 }
 
@@ -281,8 +297,23 @@ body{
 }
 
 .winebtn {
-  /*background-color: #760709; //wine*/
+  background-color: #760709; //wine
+  color:white;
+}
+
+.turquoisebtn {
   background-color: #007F64;
+  color:white;
+}
+
+.orangebtn {
+  background-color: #F7882F;
+  color:white;
+  text-shadow: 2px 2px 2px #00947D;
+}
+
+.purplebtn {
+  background-color: #5F3E5B;
   color:white;
 }
 
@@ -297,6 +328,17 @@ body{
   border-radius: 0;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+}
+
+.turquoisebtncol{
+  background-color: #00947D;
+  color:white;
+  text-shadow: 2px 2px 5px #002A26;
+  font-size: 18pt;
+  border-radius: 0;
+  border-top: 1px solid #FBF9F7;
+  border-bottom: 1px solid #FBF9F7;
+  padding: 5%;
 }
 
 .selected {
@@ -322,17 +364,24 @@ body{
   height: 100vh;
 }
 
+.topHomeBar{
+  /*background: linear-gradient(#FFCE0C, #FBF9F7);*/
+  /*width: 100vw;*/
+}
+
 .middle-row{
   /*background-color: dimgrey;*/
-  background: linear-gradient(dimgray, lightgrey);
+  /*background: linear-gradient(dimgray, lightgrey);*/
+  /*background: linear-gradient(#00947D, #FBF9F7);*/
+  background: linear-gradient(#FFCE0C, #FBF9F7);
   /*border-top: 2px solid #e37222;*/
   width: 100vw;
 }
 
 .bottom-row{
   /*padding-top: 150px;*/
-  background-color: lightgrey;
-  /*background-color: #daa520;*/
+  /*background-color: #FBF9F7;*/
+  background-color: #FBF9F7;
   width: 100vw;
   height: 100vh;
 }
@@ -509,7 +558,7 @@ body{
 }
 
 .viewThankYouLabel {
-  color: #760709;
+  color: #00947D;
   font-weight: bold;
   font-style: italic;
   font-size: 24pt;
@@ -519,7 +568,7 @@ body{
 }
 
 .viewThankYouSig {
-  color: #760709;
+  color: #00947D;
   font-weight: bold;
   font-style: italic;
   font-size: 14pt;
@@ -534,7 +583,8 @@ body{
 
 .homebtn{
   /*background-color: lightgrey;*/
-  background-color: #daa520;
+  /*background-color: #FFCE0C;*/
+  background: linear-gradient(to bottom right, #FFCE0C, #FBF9F7);
   border-radius: 0;
   outline: none;
   /*padding: 10px;*/
@@ -549,6 +599,11 @@ body{
 .dimgreybackground{
   background-color: dimgrey;
 }
+
+.turqouisebackground{
+  background-color: #00947D;
+}
+
 
 .winebackground{
   background-color: #760709;
@@ -570,8 +625,9 @@ body{
 }
 
 .topborder {
-  border-top: 1px solid lightgray;
+  border-top: 5px ridge #FFCE0C;
   margin-top: 1%;
+  margin-left: 1%;
 }
 
 .btn-col {
@@ -598,7 +654,7 @@ body{
 }
 
 .icon-margin {
-  margin: 2%;
+  margin: 1%;
 }
 
 .bio {
@@ -647,13 +703,16 @@ body{
 }
 
 .totalDonationsMessage {
-  color: white;
+  /*color: white;*/
+  color: #00947D;
   /*padding-top: 2%;*/
   /*padding-bottom: 2%;*/
 }
 
 .totalDonations {
-  color: white;
+  /*color: white;*/
+  color: #00947D;
+  text-shadow: 2px 2px 5px #FBF9F7;
   /*padding-top: 2%;*/
   /*padding-bottom: 5%;*/
   font-size: 20pt;
@@ -663,6 +722,7 @@ body{
 .notificationrow {
   border-bottom: 1px solid lightgray;
   padding: 3%;
+  margin: 3%;
 }
 
 .tag-select {
@@ -720,9 +780,39 @@ body{
 }
 
 .myProfileImage {
-  width: 70%;
-  height: 70%;
-  margin: 5%;
+  width: 90px;
+  height: 120px;
+  /*margin: 5%;*/
+}
+
+.myProfileMargin {
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
+.myTags {
+  margin-top: 3%;
+  margin-left: 10%;
+}
+
+.myProfileFont {
+  font-size: 14pt;
+}
+
+.myProfileInfo {
+  margin-left: 5%;
+}
+
+.myBio {
+  height: 150px;
+  overflow-y: scroll;
+}
+
+.myProfileDonateIcon {
+  height: 35px;
+  width: 35px;
+  margin-right: 2%;
+  margin-left: 10%;
 }
 
 .otherProfileImage {
@@ -756,5 +846,25 @@ body{
   overflow-y: scroll;
 }
 
+.notificationsPanel{
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 90%;
+  height: 600px;
+  margin-top: 10%;
+  /*margin-left: 5%;*/
+  box-shadow: 4px 4px 10px 4px #00947D;
+}
 
-
+.myHistoryPanel{
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 90%;
+  height: 600px;
+  margin-top: 5%;
+  box-shadow: 4px 4px 10px 4px #00947D;
+}

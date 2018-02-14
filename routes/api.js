@@ -80,9 +80,9 @@ router.get('/requests/paypal', function(req, res, next) {
                     receiverList: {
                         receiver: [
                             {
-                                email:  'primary@test.com',
-                                amount: amount,
-                                primary:'true'
+                                // email:  'primary@test.com',
+                                // amount: amount,
+                                // primary:'true'
                             },
                             {
                                 email:  'secondary@test.com',

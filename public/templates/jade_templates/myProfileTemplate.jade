@@ -1,26 +1,89 @@
-.row.topborder
-    .col-md-2
+.row.myProfileMargin.myProfileFont
+    .col-md-1
         img#myImage.myProfileImage(src='/img/default_profile_pic_no_bckgrnd.png')
-    .col-md-10
-        button.roundmediumbtn.winebtn edit my profile
-br
+    .col-md-4.myProfileInfo
+        .form-inline
+            #myFirstName.font-weight-bold Firstname
+            | &nbsp
+            #myLastName.font-weight-bold Lastname
+        #myUsername.turquoisetext.font-weight-bold @username
+        #myEmail my@email.com
+        #memberSince Member Since: 2017
+        //button.roundmediumbtn.winebtn edit my profile
+        .btn-group
+            button.btn.roundmediumbtn.orangebtn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                | update info
+            .dropdown-menu
+                a.dropdown-item(href='#') update profile
+                a.dropdown-item(href='#') change password
+                a.dropdown-item(href='#') Something else here
+                .dropdown-divider
+                a.dropdown-item(href='#') delete account
+    .col-md-5#myBio.myBio
 .row
-    .col-md-1
-    .col-md-1
-        b my tags:
-    #myTags.col-md-8
+    .col-md-5
+        #myTags.myTags.myProfileFont.font-weight-bold
     .col-md-2
-br
-.row
-    .col-md-1
-    .col-md-1
-        b my bio:
-    #myBio.col-md-8
-    .col-md-2
-br
+    .col-md-3.icon-margin.form-inline
+            img.myProfileDonateIcon(src='/img/donate_icon.png')
+            #donateCount.myProfileFont
+            img.myProfileDonateIcon(src='/img/gift_icon.png')
+            #receiveCount.myProfileFont
 .row.topborder
-    .col-md-1
-    .col-md-1
-        b my email:
-    #myEmail.col-md-8
-    .col-md-2
+    .col-md-4
+        .notificationsPanel.scroll
+            .row.notificationrow
+                .h4 Notifications
+            .row.notificationrow
+                | @userX fulfilled your request!
+                br
+                a(href='#') Say &quot;Thank You&quot;
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+            .row.notificationrow
+                | some notification
+    .col-md-8
+        .myHistoryPanel.scroll
+            #myHistory.container
+                ul.nav.nav-tabs.justify-content-center
+                    li.nav-item.active
+                        a.nav-link.active(href='#myRequests', data-toggle='tab') Request History
+                    li.nav-item
+                        a.nav-link(href='#myDonations', data-toggle='tab') Donation History
+                .tab-content
+                    #myRequests.tab-pane.active
+                        br
+                        #myRequestHistory There is no request history available.
+                    #myDonations.tab-pane
+                        br
+                        #myDonationHistory There is no donation history available.

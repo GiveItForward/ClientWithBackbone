@@ -32,6 +32,7 @@ define(function (require, exports, module) {
     var ThankYouModel = require("models/ThankYouModel");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
+    var topHomeBarTemplate = require("jade!templates/jade_templates/topHomeBarTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
     var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
@@ -62,8 +63,8 @@ define(function (require, exports, module) {
             "click #orgsBtn"                    : "renderOrgs",
             "click #notesBtn"                   : "renderNotes",
             "click #myProfileBtn"               : "renderMyProfile",
-            "click #myRequestsBtn"              : "renderMyRequests",
-            "click #myDonationsBtn"             : "renderMyDonations",
+            // "click #myRequestsBtn"              : "renderMyRequests",
+            // "click #myDonationsBtn"             : "renderMyDonations",
             "click #newRequestBtn"              : "newRequest",
             "click #editRequestBtn"             : "editRequest",
             "click #deleteRequestBtn"           : "deleteRequest",
@@ -108,10 +109,11 @@ define(function (require, exports, module) {
 
         renderHome: function () {
             var self = this;
+            self.renderTopHomeBar();
 
-            $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            $("#donateCount").html(self.model.get("donateCount"));
-            $("#receiveCount").html(self.model.get("receiveCount"));
+            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            // $("#donateCount").html(self.model.get("donateCount"));
+            // $("#receiveCount").html(self.model.get("receiveCount"));
 
             console.log("in home view renderHome");
             var self = this;
@@ -127,6 +129,15 @@ define(function (require, exports, module) {
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
+            return this;
+        },
+
+        renderTopHomeBar: function () {
+            var self = this;
+            self.$('#mainHomeContainer').html(topHomeBarTemplate);
+            $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            $("#donateCount").html(self.model.get("donateCount"));
+            $("#receiveCount").html(self.model.get("receiveCount"));
             return this;
         },
 
@@ -202,7 +213,7 @@ define(function (require, exports, module) {
             console.log(self.model);
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("selected");
-            self.$('#homeContainer').html(myProfileTemplate);
+            self.$('#mainHomeContainer').html(myProfileTemplate);
 
             $("#myEmail").html(self.model.get("email"));
             var tags = self.model.get("tags");
@@ -216,6 +227,10 @@ define(function (require, exports, module) {
             $("#myImage").attr('src', self.model.get("image"));
             $("#myTags").html(tagList);
             $("#myBio").html(self.model.get("bio"));
+            $("#donateCount").html(self.model.get("donateCount"));
+            $("#receiveCount").html(self.model.get("receiveCount"));
+            self.renderMyRequests();
+            self.renderMyDonations();
 
             return this;
         },
@@ -223,9 +238,11 @@ define(function (require, exports, module) {
         renderMyRequests: function () {
             console.log("in home view renderMyProfile");
             var self = this;
-            self.removeSelectedFromAll();
-            $("#myRequestsBtn").addClass("selected");
-            self.$('#homeContainer').html(myRequestFeedTemplate);
+            // self.removeSelectedFromAll();
+            // $("#myRequestsBtn").addClass("selected");
+            // self.renderTopHomeBar();
+            // self.$('#homeContainer').html(myRequestFeedTemplate);
+            self.$('#myRequestHistory').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
             requestCollection.fetchByRequestUid({
@@ -251,10 +268,11 @@ define(function (require, exports, module) {
 
             var self = this;
             console.log(self.model.get('uid'));
-            self.removeSelectedFromAll();
-            $("#myDonationsBtn").addClass("selected");
-            self.$('#homeContainer').html(myDonationFeedTemplate);
-
+            // self.removeSelectedFromAll();
+            // $("#myDonationsBtn").addClass("selected");
+            // self.renderTopHomeBar();
+            // self.$('#homeContainer').html(myDonationFeedTemplate);
+            self.$('#myDonationHistory').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
             requestCollection.fetchByDonateUid({
@@ -344,21 +362,22 @@ define(function (require, exports, module) {
             bootbox.confirm({
                 message: "Are you sure you want to delete this request?",
                 callback: function (result) {
-                    var requestModel = new RequestModel({
-                        path: 'delete',
-                        rid: ridToDelete
-                    });
-                    requestModel.destroy({
-                        success: function (collection, response, options) {
-                            console.log("request was deleted")
-                            self.renderMyRequests();
-
-                        },
-                        error: function(model, response, options){
-                            bootbox.alert('There was a problem deleting this request.');
-                            console.log(response);
-                        }
-                    });
+                    if(result){
+                        var requestModel = new RequestModel({
+                            path: 'delete',
+                            rid: ridToDelete
+                        });
+                        requestModel.destroy({
+                            success: function (collection, response, options) {
+                                console.log("request was deleted");
+                                self.renderMyRequests();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem deleting this request.');
+                                console.log(response);
+                            }
+                        });
+                    }
                 }
             });
             return this;
@@ -371,13 +390,19 @@ define(function (require, exports, module) {
             console.log("current uid: ");
             console.log(otherUid);
             var otherUserModel = new UserModel({
-                path: 'uid',
+                path: 'byuid/private',
                 uid: otherUid,
                 username: 'someUserName',
                 description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
                 image: 'img/glasses_profile_pic.png'
 
             });
+
+            // var otherUserModel = new UserModel({
+            //     headers: { "rid": otherUid },
+            //     path: 'byuid/private'
+            // });
+
             // otherUserModel.fetch({
             //     success: function (model) {
             //         console.log(model);
@@ -394,6 +419,7 @@ define(function (require, exports, module) {
             //         console.log("error occurred in getting the donate username");
             //     }
             // });
+
             var container = document.createDocumentFragment();
             var otherProfileModalView = new OtherProfileModalView({
                 parent: self,
@@ -558,18 +584,20 @@ define(function (require, exports, module) {
             bootbox.confirm({
                 message: "Are you sure you want to log out?",
                 callback: function (result) {
-                    self.model.setUrl('logout');
+                    if(result){
+                        self.model.setUrl('logout');
 
-                    self.model.fetch({
-                        success: function (collection, response, options) {
-                            window.location.href = rootUrl.url;
-                            // window.location.href = 'http://localhost:3000/';
-                        },
-                        error: function(model, response, options){
-                            window.location.href = rootUrl.url + 'home';
-                            // window.location.href = 'http://localhost:3000/home';
-                        }
-                    });
+                        self.model.fetch({
+                            success: function (collection, response, options) {
+                                window.location.href = rootUrl.url;
+                                // window.location.href = 'http://localhost:3000/';
+                            },
+                            error: function(model, response, options){
+                                window.location.href = rootUrl.url + 'home';
+                                // window.location.href = 'http://localhost:3000/home';
+                            }
+                        });
+                    }
                 }
             });
         }
