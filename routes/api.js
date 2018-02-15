@@ -109,12 +109,12 @@ router.get('/requests/paypal', function(req, res, next) {
                                 if(response.statusCode === 200){
                                     requestBody = parser.parse(body);
                                     req.session.userObject.donateCount += 1;
+                                    res.send(paypalResponse.paymentApprovalUrl);
                                 } else {
                                     console.log("issue with recording fulfilled request");
                                     res.sendStatus(500);
                                 }
                             });
-                            res.send(paypalResponse.paymentApprovalUrl);
                         }
                     }
                 });
