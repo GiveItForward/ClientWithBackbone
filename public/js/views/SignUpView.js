@@ -166,8 +166,6 @@ define(function (require, exports, module) {
 
         chooseImage: function () {
             var self = this;
-            // bootbox.alert("Pick an image!");
-            var self = this;
             var container = document.createDocumentFragment();
             var chooseUserImageModalView = new ChooseUserImageModalView({
                 parent: self

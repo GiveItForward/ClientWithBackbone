@@ -6,6 +6,8 @@ var Paypal = require('paypal-adaptive');
 
 // var base_url = 'http://localhost:8080';
 var base_url = 'http://54.227.151.133:8080/giveitforward';
+var paypal_url = 'http://localhost:3000';
+// var paypal_url = 'http://www.giveitforward.us/';
 
 var paypalSdk = new Paypal({
     userId:    process.env.USER_ID,
@@ -69,23 +71,23 @@ router.get('/requests/paypal', function(req, res, next) {
 
                 var payload = {
                     requestEnvelope: {
-                        errorLanguage:  'en_US'
+                        errorLanguage:  'en_US'
                     },
-                    actionType:     'PAY',
-                    currencyCode:   'USD',
-                    feesPayer:      'EACHRECEIVER',
-                    memo:           'Chained payment example',
-                    cancelUrl:      base_url + "/home",
-                    returnUrl:      base_url + "home",//"/fulfilled?" + randomDBHash,
+                    actionType:     'PAY',
+                    currencyCode:   'USD',
+                    feesPayer:      'EACHRECEIVER',
+                    memo:           'Chained payment example',
+                    cancelUrl:      paypal_url + "/home",
+                    returnUrl:      paypal_url + "/home",
                     receiverList: {
                         receiver: [
                             {
-                                // email:  'primary@test.com',
-                                // amount: amount,
-                                // primary:'true'
+                                email:  'primary@test.com',
+                                amount: amount,
+                                primary:'true'
                             },
                             {
-                                email:  'secondary@test.com',
+                                email:  'secondary@test.com',
                                 amount: '10.00',
                                 primary:'false'
                             }
@@ -222,8 +224,42 @@ router.post('/*', function(req, res, next) {
     } else {
         res.sendStatus(401);
     }
+});
+
+router.put('/*', function(req, res, next) {
+    session = req.session;
 
 
+    if(session.email && session.userObject){
+        var options = {
+            method: 'put',
+            body: req.body,
+            url: base_url + req.url,
+            json: true
+        };
+
+        request(options, function (err, res, body) {}).pipe(res);
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+router.delete('/*', function(req, res, next) {
+    session = req.session;
+
+
+    if(session.email && session.userObject){
+        var options = {
+            method: 'delete',
+            body: req.body,
+            url: base_url + req.url,
+            json: true
+        };
+
+        request(options, function (err, res, body) {}).pipe(res);
+    } else {
+        res.sendStatus(401);
+    }
 });
 
 router.options("/*", function(req, res, next){
