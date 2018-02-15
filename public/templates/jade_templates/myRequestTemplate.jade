@@ -1,29 +1,24 @@
 for request in locals.models
     .row
         .col-md-12
-            .panel.roundrequest
+            .panel.myrequestpanel
                 .form-inline
                     .container
                         .requestmargin
                             .row
-                                .col-md-1
-                                    img.requestuserimage(src='#{request.get("rUser").image}')
-                                .col-md-7.padding-left
-                                    .requestusername(href='#') @#{request.get("rUser").username}
-                                    .form-inline.tags
-                                        for tag in request.get("rUser").tags
-                                            if tag.tagname !== ''
-                                                | &nbsp##{tag.tagname}
-                                            if tag.verifiedBy !== ''
-                                                span(data-title='Verified by #{tag.verifiedBy}')
-                                                    img.checkmark(src='/img/marooncheckmark.png')
-                                            else
-                                                | &nbsp
-                                        if request.get("tag1") !== ''
-                                            | &nbsp##{request.get("tag1").tagname}
-                                        if request.get("tag2") !== ''
-                                            | &nbsp##{request.get("tag2").tagname}
-                                .col-md-4
+                                .col-md-12
+                                    .form-inline
+                                        img.myhistoryuserimage(src='#{request.get("rUser").image}')
+                                        .myhistoryusername.padding-left(href='#') @#{request.get("rUser").username}
+                            .row.topborder
+                                .col-md-12.text-center
+                                    if request.get("tag1") !== ''
+                                        |##{request.get("tag1").tagname}
+                            .row
+                                .col-md-12.text-center
+                                    img.otherrequestimage(src='#{request.get("image")}')
+                            .row.text-center
+                                .col-md-12
                                     | Requested&nbsp
                                     em
                                         b $#{request.get("amount")}
@@ -32,19 +27,19 @@ for request in locals.models
                                         .fulfilled FULFILLED
                                     else
                                         .open OPEN #{request.get("duid")}
-                            .row.padding-top
-                                .col-md-1
-                                .col-md-2
-                                    img.requestimage(src='#{request.get("image")}')
-                                .col-md-7
-                                    .requestmessage
-                                        | #{request.get("description")}
-                                .col-md-2.btn-group
-                                    if request.get("duid") > 0
-                                        if request.get("thankYou") === ''
-                                            a#sayThankYouBtn.thankyoubtn.btn.orangebtn.whitetext(data-rid='#{request.get("rid")}', data-duid='#{request.get("duid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
+                            .row
+                                .col-md-12.text-center
+                                    .requestmessagediv
+                                        .otherrequestmessage
+                                            | #{request.get("description")}
+                            .row
+                                .col-md-12.text-center
+                                    .btn-group
+                                        if request.get("duid") > 0
+                                            if request.get("thankYou") === ''
+                                                a#sayThankYouBtn.thankyoubtn.btn.orangebtn.whitetext(data-rid='#{request.get("rid")}', data-duid='#{request.get("duid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
+                                            else
+                                                a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
                                         else
-                                            a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
-                                    else
-                                        button#editRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#editRequestModal', data-backdrop='static') edit
-                                        button#deleteRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}') delete
+                                            button#editRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#editRequestModal', data-backdrop='static') edit
+                                            button#deleteRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}') delete

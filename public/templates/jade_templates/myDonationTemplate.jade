@@ -1,43 +1,96 @@
 for request in locals.models
     .row
         .col-md-12
-            .panel.roundrequest
+            .panel.mydonationpanel
                 .form-inline
                     .container
                         .requestmargin
                             .row
-                                .col-md-1
-                                    img.requestuserimage(src='#{request.get("rUser").image}')
-                                .col-md-7.padding-left
-                                    a#otherProfileLink.requestusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
-                                    .form-inline.tags
-                                        for tag in request.get("rUser").tags
-                                            if tag.tagname !== ''
-                                                | &nbsp##{tag.tagname}
-                                            if tag.verifiedBy !== ''
-                                                span(data-title='Verified by #{tag.verifiedBy}')
-                                                    img.checkmark(src='/img/marooncheckmark.png')
-                                            else
-                                                | &nbsp
-                                        if request.get("tag1") !== ''
-                                            | &nbsp##{request.get("tag1").tagname}
-                                        if request.get("tag2") !== ''
-                                            | &nbsp##{request.get("tag2").tagname}
-                                .col-md-4
+                                .col-md-12
+                                    .form-inline
+                                        img.myhistoryuserimage(src='#{request.get("rUser").image}')
+                                        a#otherProfileLink.myhistoryusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
+                            .row.text-center
+                                .form-inline
+                                    for tag in request.get("rUser").tags
+                                        if tag.tagname !== ''
+                                            | &nbsp##{tag.tagname}
+                                        if tag.verifiedBy !== ''
+                                            span(data-title='Verified by #{tag.verifiedBy}')
+                                                img.checkmark(src='/img/marooncheckmark.png')
+                                        else
+                                            | &nbsp
+                            .row.topborder
+                                .col-md-12.text-center
+                                    if request.get("tag1") !== ''
+                                        |##{request.get("tag1").tagname}
+                            .row
+                                .col-md-12.text-center
+                                    img.otherrequestimage(src='#{request.get("image")}')
+                            .row
+                                .col-md-12.text-center
                                     | Requested&nbsp
                                     em
                                         b $#{request.get("amount")}
                                     |  on #{request.get("requestTime")}
-                                    .form-inline
-                                        .fulfilled FULFILLED
-                                        |  on #{request.get("donateTime")}
-                            .row.padding-top
-                                .col-md-1
-                                .col-md-2
-                                    img.requestimage(src='#{request.get("image")}')
-                                .col-md-7
-                                    .requestmessage
-                                        | #{request.get("description")}
-                                .col-md-2
+                                    .fulfilled FULFILLED
+                                    |  on #{request.get("donateTime")}
+                            .row.myProfileFont
+                                .col-md-12.text-center
+                                    .requestmessagediv
+                                        .otherrequestmessage
+                                            | #{request.get("description")}
+                            .row
+                                .col-md-12.text-center
                                     if request.get("thankYou") !== ''
                                         a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+
+
+
+//for request in locals.models
+//    .row
+//        .col-md-12
+//            .panel.roundrequest
+//                .form-inline
+//                    .container
+//                        .requestmargin
+//                            .row
+//                                .col-md-1
+//                                    img.requestuserimage(src='#{request.get("rUser").image}')
+//                                .col-md-7.padding-left
+//                                    a#otherProfileLink.requestusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
+//                                    .form-inline.tags
+//                                        for tag in request.get("rUser").tags
+//                                            if tag.tagname !== ''
+//                                                | &nbsp##{tag.tagname}
+//                                            if tag.verifiedBy !== ''
+//                                                span(data-title='Verified by #{tag.verifiedBy}')
+//                                                    img.checkmark(src='/img/marooncheckmark.png')
+//                                            else
+//                                                | &nbsp
+//                                        if request.get("tag1") !== ''
+//                                            | &nbsp##{request.get("tag1").tagname}
+//                                        if request.get("tag2") !== ''
+//                                            | &nbsp##{request.get("tag2").tagname}
+//                                .col-md-4
+//                                    | Requested&nbsp
+//                                    em
+//                                        b $#{request.get("amount")}
+//                                    |  on #{request.get("requestTime")}
+//                                    .form-inline
+//                                        .fulfilled FULFILLED
+//                                        |  on #{request.get("donateTime")}
+//                            .row.padding-top
+//                                .col-md-1
+//                                .col-md-2
+//                                    img.requestimage(src='#{request.get("image")}')
+//                                .col-md-7
+//                                    .requestmessage
+//                                        | #{request.get("description")}
+//                                .col-md-2
+//                                    if request.get("thankYou") !== ''
+//                                        a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+
+
+
+
