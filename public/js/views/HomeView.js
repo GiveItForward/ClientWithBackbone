@@ -309,47 +309,51 @@ define(function (require, exports, module) {
             return this;
         },
 
-        editRequest: function () {
+        editRequest: function (event) {
             console.log("in edit Request function");
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
+            console.log($(event.currentTarget));
+            console.log(ridToEdit);
             var editModel = new RequestModel({
                 path: 'rid',
-                rid: ridToEdit,
-                description: "This is a hard coded request message to edit.",
-                amount: 222
+                // rid: ridToEdit,
+                // description: "This is a hard coded request message to edit.",
+                // amount: 222
             });
-            // editModel.fetch({
-            //     headers: {"rid": ridToEdit },
-            //     success: function (model) {
-            //         console.log("edit model:");
-            //         console.log(model);
-            //
-            //         //if model is fulfilled, can't edit it
-            //         if(model.get('duid') > 0){
-            //             bootbox.alert("This request has been fulfilled and cannot be changed.")
-            //         }else{
-            //
-            //             var container = document.createDocumentFragment();
-            //             var editRequestModalView = new EditRequestModalView({
-            //                 parent: self,
-            //                 model: model
-            //             });
-            //             container.appendChild(editRequestModalView.render().el);
-            //             $('body').append(container);
-            //         }
-            //     },
-            //     error: function(err){
-            //         console.log("error occurred in getting the request to edit");
-            //     }
+            editModel.fetch({
+                headers: {"rid": ridToEdit },
+                success: function (model) {
+                    console.log("edit model:");
+                    console.log(model);
+                    console.log("duid: ");
+                    console.log("duid: ")
+                    //if model is fulfilled, can't edit it
+                    if(model.get('duid') > 0){
+                        bootbox.alert("This request has been fulfilled and cannot be changed.");
+                    }else{
+
+                        var container = document.createDocumentFragment();
+                        var editRequestModalView = new EditRequestModalView({
+                            parent: self,
+                            model: model
+                        });
+                        container.appendChild(editRequestModalView.render().el);
+                        $('body').append(container);
+                    }
+                },
+                error: function(err){
+                    console.log(err);
+                    console.log("error occurred in getting the request to edit");
+                }
+            });
+            // var container = document.createDocumentFragment();
+            // var editRequestModalView = new EditRequestModalView({
+            //     parent: self,
+            //     model: editModel
             // });
-            var container = document.createDocumentFragment();
-            var editRequestModalView = new EditRequestModalView({
-                parent: self,
-                model: editModel
-            });
-            container.appendChild(editRequestModalView.render().el);
-            $('body').append(container);
+            // container.appendChild(editRequestModalView.render().el);
+            // $('body').append(container);
             return this;
         },
 

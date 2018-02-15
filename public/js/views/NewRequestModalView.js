@@ -1,5 +1,3 @@
-var requestTagList = [];
-
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -21,7 +19,7 @@ define(function (require, exports, module) {
             "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
             "click #exitNewRequestModal"     : "destroyNewRequestModal",
             "click #createRequestBtn"        : "save",
-            "click .dropdown-menu a"         : "updateRequestTags",
+            "change input[type=radio]"       : "updateRequestTags",
             "keyup"                          : "updateModel",
             "change"                         : "updateModel"
         },
@@ -59,27 +57,44 @@ define(function (require, exports, module) {
         getnewRequestTagsHtml: function (models) {
             var tagString = '';
             _.each(models, function(model) {
-                tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
-                    '<input type="checkbox" name="newRequestTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+                tagString += '<input type="radio" name="newRequestTag" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '"> #' + model.get("tagname") + '<br>';
             });
             return tagString;
         },
 
         updateRequestTags: function (event) {
-            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
-            var $target = $(event.currentTarget),
-                val = $target.attr( 'data-value' ),
-                $inp = $target.find( 'input' ),
-                idx;
-            if ( ( idx = requestTagList.indexOf( val ) ) > -1 ) {
-                requestTagList.splice( idx, 1 );
-                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-            } else {
-                requestTagList.push( val );
-                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+
+           var self = this;
+           var currTag = $(event.currentTarget).attr('data-value');
+           var currTid = $(event.currentTarget).attr('data-tid')
+           console.log(currTag);
+           console.log(currTid);
+
+            var tag1Obj = Backbone.Model.extend({
+                defaults: {
+                    tagname: currTag,
+                    tid: currTid
+                }
+            });
+            self.model.set("tag1", new tag1Obj());
+
+            if('bills' === currTag){
+                self.model.set("image", '/img/bills_icon.png');
+            } else if('carRepairs' === currTag){
+                self.model.set("image", '/img/car_repair_icon.png');
+            } else if('clothing' === currTag){
+                self.model.set("image", '/img/clothing_icon.png');
+            }  else if('forAChild' === currTag){
+                self.model.set("image", '/img/forachild_icon.png');
+            }  else if('groceries' === currTag){
+                self.model.set("image", '/img/groceries_icon.png');
+            } else if('rent' === currTag){
+                self.model.set("image", '/img/rent_icon.png');
+            } else if('schoolRelated' === currTag){
+                self.model.set("image", '/img/school_icon.png');
             }
-            $( event.target ).blur();
-            console.log( requestTagList );
+
+            $('#newRequestImage').attr('src', self.model.get('image'));
             return this;
         },
 
@@ -94,46 +109,6 @@ define(function (require, exports, module) {
             }else{//is a number and < 500
                 $('#requestAmountErrorLabel').html('');
                 self.model.set("amount", $("#newRequestAmount").val());
-            }
-
-
-            if(requestTagList.length > 2){
-                bootbox.alert("Please only select up to two tags for your request.");
-            }else if (requestTagList.length === 1){
-                var tag1Obj = Backbone.Model.extend({
-                    defaults: {
-                        tagname: requestTagList[0],
-                        // tid: 1
-                    }
-                });
-                self.model.set("tag1", new tag1Obj());
-                //todo hardcoded stuff
-                var firstTag = requestTagList[0];
-                if('bills' === firstTag){
-                    self.model.set("image", '/img/bills_icon.png');
-                } else if('carRepairs' === firstTag){
-                    self.model.set("image", '/img/car_repair_icon.png');
-                } else if('clothing' === firstTag){
-                    self.model.set("image", '/img/clothing_icon.png');
-                }  else if('forAChild' === firstTag){
-                    self.model.set("image", '/img/forachild_icon.png');
-                }  else if('groceries' === firstTag){
-                    self.model.set("image", '/img/groceries_icon.png');
-                } else if('rent' === firstTag){
-                    self.model.set("image", '/img/rent_icon.png');
-                } else if('schoolRelated' === firstTag){
-                    self.model.set("image", '/img/school_icon.png');
-                }
-
-                $('#newRequestImage').attr('src', self.model.get('image'));
-            }else if (requestTagList.length === 2){
-                var tag2Obj = Backbone.Model.extend({
-                    defaults: {
-                        tagname: requestTagList[1],
-                        // tid: 1
-                    }
-                });
-                self.model.set("tag2", new tag2Obj());
             }
 
             if(!self.model.get("description") || !self.model.get("amount")){

@@ -24,7 +24,8 @@ for request in locals.models
                                         img.otherrequestimage(src='#{request.get("image")}')
                             .row.text-center
                                 .col-md-12
-                                    #requestDescription.requestmessage #{request.get("description")}
+                                    .requestmessagediv
+                                        #requestDescription.requestmessage #{request.get("description")}
                             .row
                                 .col-md-12.text-center
                                     if request.get("duid") > 0

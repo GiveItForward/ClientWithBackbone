@@ -30,7 +30,7 @@ for request in locals.models
                                         br
                                         | &nbsp
                                         span#requestDate posted on #{request.get("requestTime")}
-                            .row
+                            .row.topborder
                                 .col-md-1
                                 #requestImage.col-md-2
                                     img.requestimage(src='#{request.get("image")}')
