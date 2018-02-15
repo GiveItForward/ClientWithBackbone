@@ -3,11 +3,7 @@ var router = express.Router();
 var request = require('request');
 var parser = require('json-parser');
 var Paypal = require('paypal-adaptive');
-
-// var base_url = 'http://localhost:8080';
-var base_url = 'http://54.227.151.133:8080/giveitforward';
-var paypal_url = 'http://localhost:3000';
-// var paypal_url = 'http://www.giveitforward.us/';
+var baseUrl = require('./baseUrl');
 
 var paypalSdk = new Paypal({
     userId:    process.env.USER_ID,
@@ -27,7 +23,7 @@ router.get('/users/login', function(req, res, next) {
         res.redirect("/home");
     } else {
         var options = {
-            url: base_url + req.url,
+            url: baseUrl.base_url + req.url,
             headers: req.headers
         };
 
@@ -37,7 +33,7 @@ router.get('/users/login', function(req, res, next) {
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
-                res.end(body);
+                res.send(body);
             } else {
                 res.sendStatus(401);
             }
@@ -53,10 +49,9 @@ router.get('/requests/paypal', function(req, res, next) {
 
     if(session.email && session.userObject){
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
-        console.log(req.headers);
 
         var options = {
-            url: base_url + "/users/byuid",
+            url: baseUrl.base_url + "/users/byuid",
             headers: req.headers
         };
 
@@ -77,8 +72,8 @@ router.get('/requests/paypal', function(req, res, next) {
                     currencyCode:   'USD',
                     feesPayer:      'EACHRECEIVER',
                     memo:           'Chained payment example',
-                    cancelUrl:      paypal_url + "/home",
-                    returnUrl:      paypal_url + "/home",
+                    cancelUrl:      baseUrl.paypal_url + "/home",
+                    returnUrl:      baseUrl.paypal_url + "/home",
                     receiverList: {
                         receiver: [
                             {
@@ -97,7 +92,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
                 paypalSdk.pay(payload, function (err, paypalResponse) {
                     if (err) {
-                        res.end(err);
+                        res.end(err); // TODO - better error handling here
                     } else {
                         if(paypalResponse.responseEnvelope.ack === 'Success') {
 
@@ -106,21 +101,20 @@ router.get('/requests/paypal', function(req, res, next) {
 
                             // todo - this needs to happen upon actual payment from paypal.
                             var options = {
-                                url: base_url + "/requests/fulfill",
+                                url: baseUrl.base_url + "/requests/fulfill",
                                 headers: req.headers
                             };
 
                             request(options, function(error, response, body){
                                 if(response.statusCode === 200){
                                     requestBody = parser.parse(body);
-                                    console.log(requestBody);
                                     req.session.userObject.donateCount += 1;
                                 } else {
                                     console.log("issue with recording fulfilled request");
                                     res.sendStatus(500);
                                 }
                             });
-                            res.end(paypalResponse.paymentApprovalUrl);
+                            res.send(paypalResponse.paymentApprovalUrl);
                         }
                     }
                 });
@@ -153,7 +147,7 @@ router.get('/users/logout', function(req, res, next) {
 router.get('/tags', function(req, res, next) {
 
     var options = {
-        url: base_url + req.url,
+        url: baseUrl.base_url + req.url,
         headers: req.headers
     };
 
@@ -167,11 +161,17 @@ router.get('/*', function(req, res, next) {
     if(session.email && session.userObject){
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
         var options = {
-            url: base_url + req.url,
+            url: baseUrl.base_url + req.url,
             headers: req.headers
         };
 
-        request(options).pipe(res);
+        request(options, function (error, response, body) {
+            if(response.statusCode === 200){
+                res.send(body)
+            } else {
+                res.sendStatus(500);
+            }
+        });
     } else {
         res.sendStatus(401);
     }
@@ -183,27 +183,23 @@ router.get('/*', function(req, res, next) {
 // todo - issues with post and session
 router.post('/users/create', function(req, res, next) {
     session = req.session;
-    console.log("------------------ in create user");
-    console.log(session);
-
 
     var options = {
         method: 'post',
         body: req.body,
-        url: base_url + req.url,
+        url: baseUrl.base_url + req.url,
         json: true
     };
 
     request(options, function(error, response, body){
-        console.log("--------------------- body of new user\n" + body);
         if(response.statusCode === 200){
             session.email = body.email;
             session.userObject = body;
-            res.end(body);
+            res.send(body);
         } else {
-            res.sendStatus(401);
+            res.sendStatus(500);
         }
-    }).pipe(res);
+    });
 
 
 });
@@ -216,11 +212,17 @@ router.post('/*', function(req, res, next) {
         var options = {
             method: 'post',
             body: req.body,
-            url: base_url + req.url,
+            url: baseUrl.base_url + req.url,
             json: true
         };
 
-        request(options, function (err, res, body) {}).pipe(res);
+        request(options, function (error, response, body) {
+            if(response.statusCode === 200){
+                res.send(body)
+            } else {
+                res.sendStatus(500);
+            }
+        });
     } else {
         res.sendStatus(401);
     }
@@ -234,11 +236,17 @@ router.put('/*', function(req, res, next) {
         var options = {
             method: 'put',
             body: req.body,
-            url: base_url + req.url,
+            url: baseUrl.base_url + req.url,
             json: true
         };
 
-        request(options, function (err, res, body) {}).pipe(res);
+        request(options, function (error, response, body) {
+            if(response.statusCode === 200){
+                res.send(body)
+            } else {
+                res.sendStatus(500);
+            }
+        });
     } else {
         res.sendStatus(401);
     }
@@ -252,11 +260,17 @@ router.delete('/*', function(req, res, next) {
         var options = {
             method: 'delete',
             body: req.body,
-            url: base_url + req.url,
+            url: baseUrl.base_url + req.url,
             json: true
         };
 
-        request(options, function (err, res, body) {}).pipe(res);
+        request(options, function (error, response, body) {
+            if(response.statusCode === 200){
+                res.send(body)
+            } else {
+                res.sendStatus(500);
+            }
+        });
     } else {
         res.sendStatus(401);
     }
@@ -265,9 +279,10 @@ router.delete('/*', function(req, res, next) {
 router.options("/*", function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.send(200);
 });
+
 
 module.exports = router;

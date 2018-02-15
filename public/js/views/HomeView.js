@@ -75,8 +75,9 @@ define(function (require, exports, module) {
         },
 
         initialize: function (options) {
-            console.log("in home view init");
+            console.log("in home view init *******************");
             var self = this;
+            console.log(self.model);
             self.model = options.model;
             self.tagCollection = new TagCollection();
             self.tagCollection.fetch({

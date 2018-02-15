@@ -40,7 +40,7 @@ define(function (require, exports, module) {
             "click #addInfo"            : "save",
             "click #fillOutLater"       : "fillOutLater",
             "click .dropdown-menu a"    : "updateUserTags",
-            "focus #newEmail"           : "emailPopup",
+            // "focus #newEmail"           : "emailPopup",
             "keyup"                     : "updateModel",
             "change"                    : "updateModel"
         },
@@ -109,20 +109,20 @@ define(function (require, exports, module) {
             return this;
         },
 
-        emailPopup: function () {
-            if(!emailNoteHasBeenShown){
-                emailNoteHasBeenShown = 1;
-                bootbox.alert({
-                    size: "large",
-                    message: "Please use your PayPal email if you wish to receive donations.",
-                    callback: function(){
-                        setTimeout(function(){
-                            $('#newEmail').focus();
-                        }, 10);
-                    }
-                });
-            }
-        },
+        // emailPopup: function () {
+        //     if(!emailNoteHasBeenShown){
+        //         emailNoteHasBeenShown = 1;
+        //         bootbox.alert({
+        //             size: "large",
+        //             message: "Please use your PayPal email if you wish to receive donations.",
+        //             callback: function(){
+        //                 setTimeout(function(){
+        //                     $('#newEmail').focus();
+        //                 }, 10);
+        //             }
+        //         });
+        //     }
+        // },
 
         createAccount: function () {
             var self = this;
