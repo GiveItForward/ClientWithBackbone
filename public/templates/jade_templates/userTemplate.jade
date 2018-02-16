@@ -12,8 +12,18 @@ for user in locals.models
                                     a.requestusername(target="_blank", href='#') @#{user.get("username")}
                             .row.topborder
                                 .col-md-12.text-center
-                                    | stuff stuff stuff stuff stuff stuff stuff stuff
+                                    | #{user.get("bio")}
                                     br
                                     for tag in user.get("tags")
                                         if tag.tagname !== ''
-                                            | &nbsp##{tag.tagname}
+                                            if tag.verifiedBy !== ''
+                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+                                                    input#verifyTag(type='checkbox', checked="checked",)
+                                                | &nbsp##{tag.tagname}&nbsp&nbsp
+                                            else
+                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+                                                    input#verifyTag(type='checkbox')
+                                                | &nbsp##{tag.tagname}&nbsp&nbsp
+                            .row
+                                .col-md-12.text-center
+                                    button#updateVerifiedTagsBtn.thankyoubtn.orangebtn update

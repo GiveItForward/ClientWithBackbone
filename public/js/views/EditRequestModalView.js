@@ -1,5 +1,3 @@
-var requestTagList = [];
-
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -18,10 +16,10 @@ define(function (require, exports, module) {
         el: editRequestModal,
 
         events: {
-            "click #cancelEditRequestBtn"     : "destroyEditRequestModal",
-            "click #exitEditRequestModal"     : "destroyEditRequestModal",
+            "click #cancelEditRequestBtn"    : "destroyEditRequestModal",
+            "click #exitEditRequestModal"    : "destroyEditRequestModal",
             "click #updateRequestBtn"        : "save",
-            "click .dropdown-menu a"         : "updateRequestTags",
+            "change input[type=radio]"       : "updateRequestTags",
             "keyup"                          : "updateEditRequestModel",
             "change"                         : "updateEditRequestModel"
         },
@@ -36,9 +34,11 @@ define(function (require, exports, module) {
             var self = this;
             self.el = editRequestModal;
             self.setElement(this.el);
-            self.renderTagList()
-            self.$('#editRequestDescription').html(self.model.get('description'));
-            self.$('#editRequestAmount').val(self.model.get('amount'));
+            self.renderTagList();
+            console.log(self.model.get(0));
+            self.$('#editRequestDescription').html(self.model.get(0).description);
+            self.$('#editRequestAmount').val(self.model.get(0).amount);
+            self.$('#editRequestImage').attr('src', self.model.get(0).image);
             self.checkTags(self.model.get('tags'));
             self.$('#updateRequestBtn').prop("disabled", true);
             return this;
@@ -66,27 +66,43 @@ define(function (require, exports, module) {
         getEditRequestTagsHtml: function (models) {
             var tagString = '';
             _.each(models, function(model) {
-                tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
-                    '<input type="checkbox" name="editRequestTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+                tagString += '<input type="radio" name="editRequestTag" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '"> #' + model.get("tagname") + '<br>';
             });
             return tagString;
         },
 
         updateRequestTags: function (event) {
-            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
-            var $target = $(event.currentTarget),
-                val = $target.attr( 'data-value' ),
-                $inp = $target.find( 'input' ),
-                idx;
-            if ( ( idx = requestTagList.indexOf( val ) ) > -1 ) {
-                requestTagList.splice( idx, 1 );
-                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-            } else {
-                requestTagList.push( val );
-                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            var self = this;
+            var currTag = $(event.currentTarget).attr('data-value');
+            var currTid = $(event.currentTarget).attr('data-tid');
+            console.log(currTag);
+            console.log(currTid);
+
+            var tag1Obj = Backbone.Model.extend({
+                defaults: {
+                    tagname: currTag,
+                    tid: currTid
+                }
+            });
+            self.model.set("tag1", new tag1Obj());
+
+            if('bills' === currTag){
+                self.model.set("image", '/img/bills_icon.png');
+            } else if('carRepairs' === currTag){
+                self.model.set("image", '/img/car_repair_icon.png');
+            } else if('clothing' === currTag){
+                self.model.set("image", '/img/clothing_icon.png');
+            }  else if('forAChild' === currTag){
+                self.model.set("image", '/img/forachild_icon.png');
+            }  else if('groceries' === currTag){
+                self.model.set("image", '/img/groceries_icon.png');
+            } else if('rent' === currTag){
+                self.model.set("image", '/img/rent_icon.png');
+            } else if('schoolRelated' === currTag){
+                self.model.set("image", '/img/school_icon.png');
             }
-            $( event.target ).blur();
-            console.log( requestTagList );
+
+            $('#editRequestImage').attr('src', self.model.get('image'));
             return this;
         },
 
@@ -181,7 +197,7 @@ define(function (require, exports, module) {
                     console.log(model);
                     console.log('success in saving updated request');
                     self.parent.renderMyRequests();
-                    self.destroyNewRequestModal();
+                    self.destroyEditRequestModal();
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -197,8 +213,10 @@ define(function (require, exports, module) {
             $('#editRequestModal').fadeOut('slow', function () {
                 self.undelegateEvents();
                 self.$el.removeData().unbind();
-                requestTagList = [];
                 self.model = undefined;
+                self.$('#editRequestDescription').html('');
+                self.$('#editRequestAmount').val('');
+                self.$('#editRequestImage').attr('src', '');
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
             });

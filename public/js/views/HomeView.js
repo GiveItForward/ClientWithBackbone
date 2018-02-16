@@ -71,6 +71,7 @@ define(function (require, exports, module) {
             "click #changePasswordBtn"          : "changePassword",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
+            "click #adminBtn"                   : "renderAdmin",
             "click #newRequestBtn"              : "newRequest",
             "click #editRequestBtn"             : "editRequest",
             "click #deleteRequestBtn"           : "deleteRequest",
@@ -133,12 +134,16 @@ define(function (require, exports, module) {
                 }
             });
             if(self.model.get('isAdmin')){
-                console.log("in render users button if");
+                $("#adminBtn").addClass("turquoisebtncol");
+                $("#adminBtn").addClass("btn");
+                $("#adminBtn").attr("href", "#");
+                $("#adminBtn").text("Admin");
+            }
+            if(self.model.get('orgId') > 0 || self.model.get('isAdmin')){
                 $("#usersBtn").addClass("turquoisebtncol");
                 $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
                 $("#usersBtn").text("Users");
-                console.log("done");
             }
             return this;
         },
@@ -203,21 +208,6 @@ define(function (require, exports, module) {
             });
             return this;
         },
-
-        // renderNotes: function () {
-        //     console.log("in home view renderNotes");
-        //     var self = this;
-        //     // self.removeSelectedFromAll();
-        //     // $("#notesBtn").addClass("selected");
-        //     var container = document.createDocumentFragment();
-        //     var notificationsModalView = new NotificationsModalView({
-        //         parent: self,
-        //         model: new RequestModel({})
-        //     });
-        //     container.appendChild(notificationsModalView.render().el);
-        //     $('body').append(container);
-        //     return this;
-        // },
 
         renderMyProfile: function () {
             console.log("in home view renderMyProfile");
@@ -304,6 +294,17 @@ define(function (require, exports, module) {
             return this;
         },
 
+        renderAdmin: function () {
+            console.log("in render admin function");
+            var self = this;
+            self.renderTopHomeBar();
+            self.removeSelectedFromAll();
+            $("#adminBtn").addClass("selected");
+            self.$('#homeContainer').html(userFeedTemplate);
+
+            return this;
+        },
+
         renderMyRequests: function () {
             console.log("in home view renderMyProfile");
             var self = this;
@@ -382,47 +383,49 @@ define(function (require, exports, module) {
             console.log("in edit Request function");
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
-            console.log($(event.currentTarget));
-            console.log(ridToEdit);
-            var editModel = new RequestModel({
-                path: 'rid',
-                rid: ridToEdit,
-                description: "This is a hard coded request message to edit.",
-                amount: 222
-            });
-            // editModel.fetch({
-            //     headers: {"rid": ridToEdit },
-            //     success: function (model) {
-            //         console.log("edit model:");
-            //         console.log(model);
-            //         console.log("duid: ");
-            //         console.log("duid: ")
-            //         //if model is fulfilled, can't edit it
-            //         if(model.get('duid') > 0){
-            //             bootbox.alert("This request has been fulfilled and cannot be changed.");
-            //         }else{
-            //
-            //             var container = document.createDocumentFragment();
-            //             var editRequestModalView = new EditRequestModalView({
-            //                 parent: self,
-            //                 model: model
-            //             });
-            //             container.appendChild(editRequestModalView.render().el);
-            //             $('body').append(container);
-            //         }
-            //     },
-            //     error: function(err){
-            //         console.log(err);
-            //         console.log("error occurred in getting the request to edit");
-            //     }
+            // console.log(ridToEdit);
+            //todo remove after testing
+            // var editModelTest = new RequestModel({
+            //     path: 'rid',
+            //     rid: ridToEdit,
+            //     description: "This is a hard coded request message to edit.",
+            //     amount: 222
             // });
-            var container = document.createDocumentFragment();
-            var editRequestModalView = new EditRequestModalView({
-                parent: self,
-                model: editModel
+            var editModel = new RequestModel({path: 'rid'});
+            editModel.fetch({
+                headers: {"rid": ridToEdit },
+                success: function (model) {
+                    console.log("edit model:");
+                    console.log(model);
+                    // console.log("duid: ");
+                    // console.log(model.get("duid"));
+                    //todo if model is fulfilled, can't edit it
+                    // if(model.get('duid') > 0){
+                    //     bootbox.alert("This request has been fulfilled and cannot be changed.");
+                    // }else{
+
+                    var container = document.createDocumentFragment();
+                    var editRequestModalView = new EditRequestModalView({
+                        parent: self,
+                        model: model
+                    });
+                    container.appendChild(editRequestModalView.render().el);
+                    $('body').append(container);
+                    // }
+                },
+                error: function(err){
+                    console.log(err);
+                    console.log("error occurred in getting the request to edit");
+                    //
+                    // var container = document.createDocumentFragment();
+                    // var editRequestModalView = new EditRequestModalView({
+                    //     parent: self,
+                    //     model: editModelTest
+                    // });
+                    // container.appendChild(editRequestModalView.render().el);
+                    // $('body').append(container);
+                }
             });
-            container.appendChild(editRequestModalView.render().el);
-            $('body').append(container);
             return this;
         },
 

@@ -27,6 +27,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
             this.parent = options.parent;
             $('#requestErrorLabel').html('');
+            this.model.set('image', '/img/other_help_icon.png');
         },
 
         render: function () {
@@ -66,7 +67,7 @@ define(function (require, exports, module) {
 
            var self = this;
            var currTag = $(event.currentTarget).attr('data-value');
-           var currTid = $(event.currentTarget).attr('data-tid')
+           var currTid = $(event.currentTarget).attr('data-tid');
            console.log(currTag);
            console.log(currTid);
 
@@ -165,7 +166,6 @@ define(function (require, exports, module) {
             $('#newRequestModal').fadeOut('slow', function () {
                 self.undelegateEvents();
                 self.$el.removeData().unbind();
-                requestTagList = [];
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
             });

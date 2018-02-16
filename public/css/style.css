@@ -144,7 +144,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 420px;
+  height: 425px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
   box-shadow: 4px 4px 10px 4px #00947D;
@@ -586,7 +586,7 @@ body{
   padding: 5px;
   height: 55px;
   width: 105px;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 .otherthankyoubtn {
