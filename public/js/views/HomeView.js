@@ -256,7 +256,7 @@ define(function (require, exports, module) {
             var container = document.createDocumentFragment();
             var changePasswordModalView = new ChangePasswordModalView({
                 parent: self,
-                // model: new RequestModel({ path: 'create'})
+                model: self.model
             });
             container.appendChild(changePasswordModalView.render().el);
             $('body').append(container);
@@ -306,7 +306,7 @@ define(function (require, exports, module) {
         },
 
         renderMyRequests: function () {
-            console.log("in home view renderMyProfile");
+            console.log("in home view renderMyrequests");
             var self = this;
             // self.removeSelectedFromAll();
             // $("#myRequestsBtn").addClass("selected");

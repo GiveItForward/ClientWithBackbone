@@ -144,7 +144,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 425px;
+  height: 430px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
   box-shadow: 4px 4px 10px 4px #00947D;
@@ -904,4 +904,8 @@ body{
   height: 500px;
   margin-top: 5%;
   box-shadow: 4px 4px 10px 4px #00947D;
+}
+
+.errorLabel {
+  color: red;
 }
