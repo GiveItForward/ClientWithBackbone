@@ -17,6 +17,8 @@ define(function (require, exports, module) {
     var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
     var NotificationsModalView = require("views/NotificationsModalView");
+    var EditProfileModalView = require("views/EditProfileModalView");
+    var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
@@ -29,6 +31,7 @@ define(function (require, exports, module) {
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
+    var UserCollection = require("models/UserCollection");
     var ThankYouModel = require("models/ThankYouModel");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
@@ -38,6 +41,8 @@ define(function (require, exports, module) {
     var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
     var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
+    var userFeedTemplate = require("jade!templates/jade_templates/userFeedTemplate");
+    var userTemplate = require("jade!templates/jade_templates/userTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
     var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
@@ -61,10 +66,11 @@ define(function (require, exports, module) {
             "click #high"                       : "toggleHigh",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
-            "click #notesBtn"                   : "renderNotes",
             "click #myProfileBtn"               : "renderMyProfile",
-            // "click #myRequestsBtn"              : "renderMyRequests",
-            // "click #myDonationsBtn"             : "renderMyDonations",
+            "click #editProfileBtn"             : "editProfile",
+            "click #changePasswordBtn"          : "changePassword",
+            "click #deleteAccountBtn"           : "deleteAccount",
+            "click #usersBtn"                   : "renderUsers",
             "click #newRequestBtn"              : "newRequest",
             "click #editRequestBtn"             : "editRequest",
             "click #deleteRequestBtn"           : "deleteRequest",
@@ -102,7 +108,7 @@ define(function (require, exports, module) {
         removeSelectedFromAll: function () {
             $("#homeBtn").removeClass("selected");
             $("#orgsBtn").removeClass("selected");
-            $("#notesBtn").removeClass("selected");
+            $("#usersBtn").removeClass("selected");
             $("#myProfileBtn").removeClass("selected");
             $("#myRequestsBtn").removeClass("selected");
             $("#myDonationsBtn").removeClass("selected");
@@ -111,10 +117,6 @@ define(function (require, exports, module) {
         renderHome: function () {
             var self = this;
             self.renderTopHomeBar();
-
-            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            // $("#donateCount").html(self.model.get("donateCount"));
-            // $("#receiveCount").html(self.model.get("receiveCount"));
 
             console.log("in home view renderHome");
             var self = this;
@@ -130,6 +132,14 @@ define(function (require, exports, module) {
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
+            if(self.model.get('isAdmin')){
+                console.log("in render users button if");
+                $("#usersBtn").addClass("turquoisebtncol");
+                $("#usersBtn").addClass("btn");
+                $("#usersBtn").attr("href", "#");
+                $("#usersBtn").text("Users");
+                console.log("done");
+            }
             return this;
         },
 
@@ -179,6 +189,7 @@ define(function (require, exports, module) {
         renderOrgs: function () {
             console.log("in home view renderOrgs");
             var self = this;
+            self.renderTopHomeBar();
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
             self.$('#homeContainer').html(orgsFeedTemplate);
@@ -193,20 +204,20 @@ define(function (require, exports, module) {
             return this;
         },
 
-        renderNotes: function () {
-            console.log("in home view renderNotes");
-            var self = this;
-            // self.removeSelectedFromAll();
-            // $("#notesBtn").addClass("selected");
-            var container = document.createDocumentFragment();
-            var notificationsModalView = new NotificationsModalView({
-                parent: self,
-                model: new RequestModel({})
-            });
-            container.appendChild(notificationsModalView.render().el);
-            $('body').append(container);
-            return this;
-        },
+        // renderNotes: function () {
+        //     console.log("in home view renderNotes");
+        //     var self = this;
+        //     // self.removeSelectedFromAll();
+        //     // $("#notesBtn").addClass("selected");
+        //     var container = document.createDocumentFragment();
+        //     var notificationsModalView = new NotificationsModalView({
+        //         parent: self,
+        //         model: new RequestModel({})
+        //     });
+        //     container.appendChild(notificationsModalView.render().el);
+        //     $('body').append(container);
+        //     return this;
+        // },
 
         renderMyProfile: function () {
             console.log("in home view renderMyProfile");
@@ -233,6 +244,63 @@ define(function (require, exports, module) {
             self.renderMyRequests();
             self.renderMyDonations();
 
+            return this;
+        },
+
+        editProfile: function () {
+            console.log("in edit profile function");
+            var self = this;
+            var container = document.createDocumentFragment();
+            var editProfileModalView = new EditProfileModalView({
+                parent: self,
+                // model: new RequestModel({ path: 'create'})
+            });
+            container.appendChild(editProfileModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        changePassword: function () {
+            console.log("in change password function");
+            var self = this;
+            var container = document.createDocumentFragment();
+            var changePasswordModalView = new ChangePasswordModalView({
+                parent: self,
+                // model: new RequestModel({ path: 'create'})
+            });
+            container.appendChild(changePasswordModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        deleteAccount: function () {
+            console.log("in delete account function");
+
+            bootbox.confirm({
+                message: "Are you sure you want to DELETE your account?",
+                callback: function (result) {
+                    if(result){
+                       bootbox.alert("Your account is pretend deleted. buh-bye now!")
+                    }
+                }
+            });
+        },
+
+        renderUsers: function () {
+            console.log("in render users function");
+            var self = this;
+            self.renderTopHomeBar();
+            self.removeSelectedFromAll();
+            $("#usersBtn").addClass("selected");
+            self.$('#homeContainer').html(userFeedTemplate);
+
+            var userCollection = new UserCollection();
+            userCollection.fetch({
+                success: function (collection) {
+                    console.log(collection.models);
+                    self.$('#usersCol').html(userTemplate(collection));
+                }
+            });
             return this;
         },
 

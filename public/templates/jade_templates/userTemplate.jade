@@ -1,0 +1,19 @@
+for user in locals.models
+    .row
+        .col-md-12
+            .panel.roundrequest
+                .form-inline
+                    .container
+                        .requestmargin.text-center
+                            .row
+                                .col-md-1
+                                    img.requestuserimage(src='#{user.get("image")}')
+                                 .col-md-11
+                                    a.requestusername(target="_blank", href='#') @#{user.get("username")}
+                            .row.topborder
+                                .col-md-12.text-center
+                                    | stuff stuff stuff stuff stuff stuff stuff stuff
+                                    br
+                                    for tag in user.get("tags")
+                                        if tag.tagname !== ''
+                                            | &nbsp##{tag.tagname}

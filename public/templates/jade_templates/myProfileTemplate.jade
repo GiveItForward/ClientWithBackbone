@@ -9,16 +9,14 @@
         #myUsername.turquoisetext.font-weight-bold @username
         #myEmail my@email.com
         #memberSince Member Since: 2017
-        //button.roundmediumbtn.winebtn edit my profile
         .btn-group
             button.btn.roundmediumbtn.orangebtn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                 | update info
             .dropdown-menu
-                a.dropdown-item(href='#') update profile
-                a.dropdown-item(href='#') change password
-                a.dropdown-item(href='#') Something else here
+                a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
+                a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
                 .dropdown-divider
-                a.dropdown-item(href='#') delete account
+                a#deleteAccountBtn.dropdown-item(href='#', data-toggle='modal', data-target='#deleteAccountModal', data-backdrop='static') delete account
     .col-md-5#myBio.myBio
 .row
     .col-md-5
