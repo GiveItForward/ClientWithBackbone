@@ -383,7 +383,7 @@ define(function (require, exports, module) {
             console.log("in edit Request function");
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
-            // console.log(ridToEdit);
+            console.log(ridToEdit);
             //todo remove after testing
             // var editModelTest = new RequestModel({
             //     path: 'rid',
@@ -391,41 +391,41 @@ define(function (require, exports, module) {
             //     description: "This is a hard coded request message to edit.",
             //     amount: 222
             // });
-            var editModel = new RequestModel({path: 'rid'});
-            editModel.fetch({
-                headers: {"rid": ridToEdit },
-                success: function (model) {
-                    console.log("edit model:");
-                    console.log(model);
-                    // console.log("duid: ");
-                    // console.log(model.get("duid"));
-                    //todo if model is fulfilled, can't edit it
-                    // if(model.get('duid') > 0){
-                    //     bootbox.alert("This request has been fulfilled and cannot be changed.");
-                    // }else{
+            // var editModel = new RequestModel({path: 'rid'});
+            // editModel.fetch({
+            //     headers: {"rid": ridToEdit },
+            //     success: function (model) {
+            //         console.log("in success edit model:");
+            //         console.log(model);
+            //         // console.log("duid: ");
+            //         // console.log(model.get("duid"));
+            //         //todo if model is fulfilled, can't edit it
+            //         // if(model.get('duid') > 0){
+            //         //     bootbox.alert("This request has been fulfilled and cannot be changed.");
+            //         // }else{
+            //
+            //         var container = document.createDocumentFragment();
+            //         var editRequestModalView = new EditRequestModalView({
+            //             parent: self,
+            //             model: model
+            //         });
+            //         container.appendChild(editRequestModalView.render().el);
+            //         $('body').append(container);
+            //         // }
+            //     },
+            //     error: function(err){
+            //         console.log(err);
+            //         console.log("error occurred in getting the request to edit");
+            //     }
+            // });
 
-                    var container = document.createDocumentFragment();
-                    var editRequestModalView = new EditRequestModalView({
-                        parent: self,
-                        model: model
-                    });
-                    container.appendChild(editRequestModalView.render().el);
-                    $('body').append(container);
-                    // }
-                },
-                error: function(err){
-                    console.log(err);
-                    console.log("error occurred in getting the request to edit");
-                    //
-                    // var container = document.createDocumentFragment();
-                    // var editRequestModalView = new EditRequestModalView({
-                    //     parent: self,
-                    //     model: editModelTest
-                    // });
-                    // container.appendChild(editRequestModalView.render().el);
-                    // $('body').append(container);
-                }
+            var container = document.createDocumentFragment();
+            var editRequestModalView = new EditRequestModalView({
+                parent: self,
+                rid: ridToEdit
             });
+            container.appendChild(editRequestModalView.render().el);
+            $('body').append(container);
             return this;
         },
 
@@ -606,7 +606,7 @@ define(function (require, exports, module) {
         },
 
         toggleNew: function () {
-            if($("#new").prop('checked') == true){
+            if($("#new").prop('checked') === true){
                 $("#old").prop('checked', false);
                 newOrOld = 'new';
             }else{
@@ -618,7 +618,7 @@ define(function (require, exports, module) {
         },
 
         toggleOld: function () {
-            if($("#old").prop('checked') == true){
+            if($("#old").prop('checked') === true){
                 $("#new").prop('checked', false);
                 newOrOld = 'old';
             }else{
@@ -642,7 +642,7 @@ define(function (require, exports, module) {
         },
 
         toggleHigh: function () {
-            if($("#high").prop('checked') == true){
+            if($("#high").prop('checked') === true){
                 $("#low").prop('checked', false);
                 lowOrHigh = 'high';
             }else{

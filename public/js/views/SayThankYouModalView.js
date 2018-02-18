@@ -45,6 +45,9 @@ define(function (require, exports, module) {
             var self = this;
             self.model.set("note", $("#thankYouMessage").val());
 
+            console.log('in say thank you update model:');
+            console.log(self.model);
+
             if(!self.model.get("note")){
                 self.$('#createRequestBtn').prop("disabled", true);
             }else{
@@ -55,7 +58,7 @@ define(function (require, exports, module) {
         save: function () {
             var self = this;
             self.updateThankYouModel()
-
+            console.log('in say thank you save:');
             console.log(self.model);
             self.model.save(null, {
                 wait: true,

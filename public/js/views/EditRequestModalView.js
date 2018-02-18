@@ -19,14 +19,60 @@ define(function (require, exports, module) {
             "click #cancelEditRequestBtn"    : "destroyEditRequestModal",
             "click #exitEditRequestModal"    : "destroyEditRequestModal",
             "click #updateRequestBtn"        : "save",
-            "change input[type=radio]"       : "updateRequestTags",
+            "change input[type=radio]"       : "updateEditRequestTags",
             "keyup"                          : "updateEditRequestModel",
             "change"                         : "updateEditRequestModel"
         },
 
         initialize: function (options) {
-            this.parent = options.parent;
-            this.model = options.model;
+            var self= this;
+            self.parent = options.parent;
+            var currRid = options.rid;
+            self.model = new RequestModel({path: 'rid'});
+            self.model.fetch({
+                headers: {"rid": currRid },
+                success: function (model) {
+                    console.log("in edit model view init:");
+                    console.log(model);
+                    // console.log("duid: ");
+                    // console.log(model.get("duid"));
+                    //todo if model is fulfilled, can't edit it
+                    // if(model.get('duid') > 0){
+                    //     bootbox.alert("This request has been fulfilled and cannot be changed.");
+                    // }else{
+                    var tagObj = Backbone.Model.extend({
+                        defaults: {
+                            tagname: model.get(0).tag1.tagname,
+                            tid: model.get(0).tag1.tid
+                        }
+                    });
+                    self.model = new RequestModel({
+                        path: 'update',
+                        rid: currRid,
+                        amount: model.get(0).amount,
+                        description: model.get(0).description,
+                        image: model.get(0).image,
+                        tag1: new tagObj()
+                    });
+
+                    console.log("self.model");
+                    console.log(self.model);
+                    self.$('#editRequestDescription').html(self.model.get('description'));
+                    self.$('#editRequestAmount').val(self.model.get('amount'));
+                    self.$('#editRequestImage').attr('src', self.model.get('image'));
+                    self.checkTags(self.model.get('tag1').get('tagname'));
+                    self.$('#updateRequestBtn').prop("disabled", true);
+                    // }
+                },
+                error: function(err){
+                    console.log(err);
+                    console.log("error occurred in getting the request to edit");
+                    bootbox.alert("There was an error getting this request to edit.");
+                    self.destroyEditRequestModal();
+                }
+            });
+
+
             $('#requestErrorLabel').html('');
         },
 
@@ -35,17 +81,14 @@ define(function (require, exports, module) {
             self.el = editRequestModal;
             self.setElement(this.el);
             self.renderTagList();
-            console.log(self.model.get(0));
-            self.$('#editRequestDescription').html(self.model.get(0).description);
-            self.$('#editRequestAmount').val(self.model.get(0).amount);
-            self.$('#editRequestImage').attr('src', self.model.get(0).image);
-            self.checkTags(self.model.get('tags'));
-            self.$('#updateRequestBtn').prop("disabled", true);
             return this;
         },
 
-        checkTags: function (tags) {
+        checkTags: function (tag) {
             //todo check tags and set image from model
+            console.log("this is the tag to check:");
+            console.log(tag);
+            $('#' + tag).attr('checked', true);
         },
 
         renderTagList: function () {
@@ -66,12 +109,12 @@ define(function (require, exports, module) {
         getEditRequestTagsHtml: function (models) {
             var tagString = '';
             _.each(models, function(model) {
-                tagString += '<input type="radio" name="editRequestTag" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '"> #' + model.get("tagname") + '<br>';
+                tagString += '<input type="radio" name="editRequestTag" id="' + model.get("tagname") + '" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '"> #' + model.get("tagname") + '<br>';
             });
             return tagString;
         },
 
-        updateRequestTags: function (event) {
+        updateEditRequestTags: function (event) {
             var self = this;
             var currTag = $(event.currentTarget).attr('data-value');
             var currTid = $(event.currentTarget).attr('data-tid');
@@ -106,76 +149,36 @@ define(function (require, exports, module) {
             return this;
         },
 
-        updateModel: function () {
+        updateEditRequestModel: function () {
             var self = this;
+            console.log(" in updateEditRequestModel function");
+            console.log(self.model);
             self.model.set("description", $("#editRequestDescription").val());
             // var amount = $("#newRequestAmount").val();
             if(isNaN($("#editRequestAmount").val())){
-                $('#requestAmountErrorLabel').html('Please enter a number in the amount field.');
-                // }else if($("#newRequestAmount").val() > 500){
-                //     $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
+                $('#editRequestErrorLabel').html('Please enter a number in the amount field.');
             }else{//is a number and < 500
-                $('#requestAmountErrorLabel').html('');
+                $('#editRequestAmountErrorLabel').html('');
                 self.model.set("amount", $("#editRequestAmount").val());
             }
 
-
-            if(requestTagList.length > 2){
-                bootbox.alert("Please only select up to two tags for your request.");
-            }else if (requestTagList.length === 1){
-                var tag1Obj = Backbone.Model.extend({
-                    defaults: {
-                        tagname: requestTagList[0],
-                        // tid: 1
-                    }
-                });
-                self.model.set("tag1", new tag1Obj());
-                //todo hardcoded stuff
-                var firstTag = requestTagList[0];
-                if('bills' === firstTag){
-                    self.model.set("image", '/img/bills_icon.png');
-                } else if('carRepairs' === firstTag){
-                    self.model.set("image", '/img/car_repair_icon.png');
-                } else if('clothing' === firstTag){
-                    self.model.set("image", '/img/clothing_icon.png');
-                }  else if('forAChild' === firstTag){
-                    self.model.set("image", '/img/forachild_icon.png');
-                }  else if('groceries' === firstTag){
-                    self.model.set("image", '/img/groceries_icon.png');
-                } else if('rent' === firstTag){
-                    self.model.set("image", '/img/rent_icon.png');
-                } else if('schoolRelated' === firstTag){
-                    self.model.set("image", '/img/school_icon.png');
-                }
-
-                $('#newRequestImage').attr('src', self.model.get('image'));
-            }else if (requestTagList.length === 2){
-                var tag2Obj = Backbone.Model.extend({
-                    defaults: {
-                        tagname: requestTagList[1],
-                        // tid: 1
-                    }
-                });
-                self.model.set("tag2", new tag2Obj());
-            }
-
             if(!self.model.get("description") || !self.model.get("amount")){
-                self.$('#createRequestBtn').prop("disabled", true);
+                self.$('#updateRequestBtn').prop("disabled", true);
             }else{
                 if(self.model.get("amount") > 500){
                     self.model.set("amount", undefined);
-                    self.$('#createRequestBtn').prop("disabled", true);
-                    $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
+                    self.$('#updateRequestBtn').prop("disabled", true);
+                    $('#editRequestAmountErrorLabel').html('Please make your request amount less than $500.');
                 }else {
-                    self.$('#createRequestBtn').prop("disabled", false);
-                    $('#requestAmountErrorLabel').html('');
+                    self.$('#updateRequestBtn').prop("disabled", false);
+                    $('#editRequestAmountErrorLabel').html('');
                 }
             }
         },
 
         save: function () {
             var self = this;
-            console.log("in createRequest function");
+            console.log("in edit Request function");
 
             console.log("user id is: " + self.parent.model.get("uid"));
             console.log($("#editRequestDescription").val());
@@ -188,7 +191,7 @@ define(function (require, exports, module) {
                 }
             });
             self.model.set('rUser', new rUserObj());
-            self.updateModel();
+            self.updateEditRequestModel();
 
             console.log(self.model);
             self.model.save(null, {
