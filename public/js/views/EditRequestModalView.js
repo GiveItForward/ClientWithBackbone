@@ -85,7 +85,6 @@ define(function (require, exports, module) {
         },
 
         checkTags: function (tag) {
-            //todo check tags and set image from model
             console.log("this is the tag to check:");
             console.log(tag);
             $('#' + tag).attr('checked', true);

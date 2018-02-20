@@ -26,6 +26,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
             console.log("in choose user image modal view init");
             this.parent = options.parent;
+            this.update = options.update;
             // this.render();
         },
 
@@ -48,7 +49,12 @@ define(function (require, exports, module) {
 
             this.parent.model.set('image', chosenImage);
             console.log(this.parent.model.get('image'));
-            $("#userImage").attr('src', this.parent.model.get('image'));
+            if(this.update){
+                $("#editProfileImage").attr('src', this.parent.model.get('image'));
+            }else{
+                $("#userImage").attr('src', this.parent.model.get('image'));
+            }
+
             return this;
         },
 

@@ -6,27 +6,40 @@
                 <h4 class="modal-title">Edit Profile</h4>
             </div>
             <div class="modal-body">
-                <label>Some edit profile stuff goes here</label><br>
-                <textarea id="editRequestDescription" class="bio" rows="4" cols="60"></textarea>
-                <label>Enter the dollar amount you are requesting: <b>$</b></label>
-                <input id="editRequestAmount" class="roundminitext" type="text">
-                <label id="requestAmountErrorLabel" style="color: red"></label>
-                <div class="button-group dropup">
-                    <button class="btn round greybtn dropdown-toggle" type="button" data-toggle="dropdown">tags<span class="caret"></span></button>
-                    <!--<ul id="editRequestTags" class="dropdown-menu choosetags">-->
-                    <!--</ul>-->
-                    <ul class="dropdown-menu choosetags">
-                        <form id="editRequestTags">
-                        </form>
-                    </ul>
+                <div class="row text-center">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <img id="editProfileImage" class='editProfileImage' src="/img/default_profile_pic_no_bckgrnd.png">
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn changeimagebtn orangebtn whitetext" id="changeImage" data-toggle="modal" data-target="#chooseUserImageModal" data-backdrop="static">change image</a>
+                    </div>
+                    <div class="col-md-3"></div>
                 </div>
                 <div class="row text-center">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                <img id="editRequestImage" src="/img/other_help_icon.png" style="height:80%; width:80%;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5 text-center">
+                        <input id="editFirst" class="roundmedium" type="text" placeholder="first name">
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <input id="editLast" class="roundmedium" type="text" placeholder="last name">
+                    </div>
+                    <div class="col-md-1"></div>
                 </div>
-                <div class="col-md-3">
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12 text-center">-->
+                        <!--<input id="editUsername" class="roundmedium" type="text" placeholder="username">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <textarea id="editBio" class="bio" rows="4" cols="60" placeholder="bio"></textarea>
+                    </div>
                 </div>
+                <div class="button-group dropup">
+                    <button class="btn round greybtn dropdown-toggle" type="button" data-toggle="dropdown">tags<span class="caret"></span></button>
+                    <ul id="editRequestTags" class="dropdown-menu choosetags">
+                    </ul>
                 </div>
             </div>
             <div class="modal-footer">

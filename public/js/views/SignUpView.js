@@ -168,7 +168,8 @@ define(function (require, exports, module) {
             var self = this;
             var container = document.createDocumentFragment();
             var chooseUserImageModalView = new ChooseUserImageModalView({
-                parent: self
+                parent: self,
+                update: false
             });
             container.appendChild(chooseUserImageModalView.render().el);
             $('body').append(container);

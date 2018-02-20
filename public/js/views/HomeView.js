@@ -120,7 +120,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
 
             console.log("in home view renderHome");
-            var self = this;
+
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("selected");
             self.$('#homeContainer').html(requestFeedTemplate);
@@ -217,7 +217,6 @@ define(function (require, exports, module) {
             $("#myProfileBtn").addClass("selected");
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
-            $("#myEmail").html(self.model.get("email"));
             var tags = self.model.get("tags");
             // console.log(tags);
             var tagList = "";
@@ -227,6 +226,10 @@ define(function (require, exports, module) {
                 }
             });
             $("#myImage").attr('src', self.model.get("image"));
+            $("#myUsername").html('@' + self.model.get("username"));
+            $("#myFirstName").html(self.model.get("firstname"));
+            $("#myLastName").html(self.model.get("lastname"));
+            $("#myEmail").html(self.model.get("email"));
             $("#myTags").html(tagList);
             $("#myBio").html(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
@@ -243,7 +246,8 @@ define(function (require, exports, module) {
             var container = document.createDocumentFragment();
             var editProfileModalView = new EditProfileModalView({
                 parent: self,
-                // model: new RequestModel({ path: 'create'})
+                model: self.model,
+                collection: self.tagCollection
             });
             container.appendChild(editProfileModalView.render().el);
             $('body').append(container);
@@ -320,7 +324,7 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
-                    })
+                    });
                     console.log("My requests: ");
                     console.log(collection.models);
                     self.$('#myRequestCol').html(myRequestTemplate(collection));
@@ -443,6 +447,7 @@ define(function (require, exports, module) {
                             path: 'delete',
                             rid: ridToDelete
                         });
+                        console.log(requestModel);
                         requestModel.destroy({
                             success: function (collection, response, options) {
                                 console.log("request was deleted");
