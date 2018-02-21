@@ -48,9 +48,9 @@ define(function (require, exports, module) {
 
             self.renderEditTagList(self.model.get('tags'));
             self.$('#editProfileImage').attr('src', self.model.get('image'));
-            self.$('#editFirst').attr('src', self.model.get('firstname'));
-            self.$('#editLast').attr('src', self.model.get('lastname'));
-            self.$('#editUsername').attr('src', self.model.get('username'));
+            self.$('#editFirst').html(self.model.get('firstname'));
+            self.$('#editLast').html(self.model.get('lastname'));
+            self.$('#editUsername').attr(self.model.get('username'));
             self.$('#editBio').html(self.model.get('bio'));
 
             self.$('#updateProfileBtn').prop("disabled", true);
@@ -120,9 +120,9 @@ define(function (require, exports, module) {
             // self.model.set("firstname", $("#editFirst").val());
             // self.model.set("lastname", $("#editLast").val());
             // self.model.set("image", $("#editProfileImage").attr('src')); (being set in chooseImageModal
-            self.model.set("bio", $("#editBio").val());
-            self.model.set("tags", editProfileTagList);
-            console.log(self.model);
+            // self.model.set("bio", $("#editBio").val());
+            // self.model.set("tags", editProfileTagList);
+            // console.log(self.model);
 
             self.$('#updateProfileBtn').prop("disabled", false);
         },
@@ -132,7 +132,7 @@ define(function (require, exports, module) {
             console.log("in createRequest function");
             self.updateEditProfileModel();
 
-            bootbox.alert("update profile is almost ready.");
+            bootbox.alert("update profile is almost ready, but not quite. Please be patient.");
             //todo update is resetting isadmin...no no...
             //todo something weird with the tags coming back
             // var updatedUserModel = new UserModel({

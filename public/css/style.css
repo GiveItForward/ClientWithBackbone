@@ -398,8 +398,8 @@ body{
   /*padding-top: 150px;*/
   /*background-color: dimgrey;*/
   /*background-color: #daa520;*/
-  background: linear-gradient(to right, #4d4d4d, #999999);
-  /*background: linear-gradient(to top right, #FFCC00, #FFECA2);*/
+  /*background: linear-gradient(to right, #4d4d4d, #999999);*/
+  background: linear-gradient(to top right, #F76F00, #FCD7B9);
   height: 100vh;
 }
 

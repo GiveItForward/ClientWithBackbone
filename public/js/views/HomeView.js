@@ -16,7 +16,7 @@ define(function (require, exports, module) {
     var NewRequestModalView = require("views/NewRequestModalView");
     var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
-    var NotificationsModalView = require("views/NotificationsModalView");
+    // var NotificationsModalView = require("views/NotificationsModalView");
     var EditProfileModalView = require("views/EditProfileModalView");
     var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
@@ -28,6 +28,8 @@ define(function (require, exports, module) {
     var UserModel = require("models/UserModel");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
+    var NotificationModel = require("models/NotificationModel");
+    var NotificationCollection = require("models/NotificationCollection");
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
@@ -48,6 +50,7 @@ define(function (require, exports, module) {
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
+    var notificationTemplate = require("jade!templates/jade_templates/notificationTemplate");
 
 
     var HomeView = Backbone.View.extend({
@@ -236,6 +239,7 @@ define(function (require, exports, module) {
             $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderMyRequests();
             self.renderMyDonations();
+            self.renderMyNotifications();
 
             return this;
         },
@@ -361,6 +365,30 @@ define(function (require, exports, module) {
                     self.$('#totalDonations').html('$' + total);
                     self.$('#myDonationCol').html(myDonationTemplate(collection));
                     self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                }
+            });
+            return this;
+        },
+
+        renderMyNotifications: function () {
+            console.log("in home view renderMyNotifications");
+            var self = this;
+
+            var notificationCollection = new NotificationCollection();
+            notificationCollection.fetch({
+                headers: {"uid": self.model.get('uid')},
+                success: function (collection) {
+                    console.log("My notifications: ");
+                    console.log(collection.models);
+                    var total = 0;
+                    _.each(collection.models, function(model) {
+                        total += model.get("amount");
+                    });
+                    self.$('#notifications').html(notificationTemplate(collection));
                 },
                 error: function(model, response) {
                     console.log(model);
