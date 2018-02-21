@@ -8,7 +8,7 @@ for user in locals.models
                             .row
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
-                                 .col-md-11
+                                .col-md-11
                                     a.requestusername(target="_blank", href='#') @#{user.get("username")}
                             .row.topborder
                                 .col-md-12.text-center
@@ -26,4 +26,6 @@ for user in locals.models
                                                 | &nbsp##{tag.tagname}&nbsp&nbsp
                             .row
                                 .col-md-12.text-center
-                                    button#updateVerifiedTagsBtn.thankyoubtn.orangebtn update
+                                    .btn-group
+                                        button#elevateUserBtn.editrequestbtn.turquoisebtn elevate
+                                        button#deleteUserBtn.editrequestbtn.orangebtn delete

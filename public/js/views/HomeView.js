@@ -45,6 +45,7 @@ define(function (require, exports, module) {
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var userFeedTemplate = require("jade!templates/jade_templates/userFeedTemplate");
     var userTemplate = require("jade!templates/jade_templates/userTemplate");
+    var userAdminTemplate = require("jade!templates/jade_templates/userAdminTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
     var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
@@ -113,6 +114,7 @@ define(function (require, exports, module) {
             $("#homeBtn").removeClass("selected");
             $("#orgsBtn").removeClass("selected");
             $("#usersBtn").removeClass("selected");
+            $("#adminBtn").removeClass("selected");
             $("#myProfileBtn").removeClass("selected");
             $("#myRequestsBtn").removeClass("selected");
             $("#myDonationsBtn").removeClass("selected");
@@ -296,7 +298,13 @@ define(function (require, exports, module) {
             userCollection.fetch({
                 success: function (collection) {
                     console.log(collection.models);
-                    self.$('#usersCol').html(userTemplate(collection));
+                    if(self.model.get('isAdmin')){
+                        self.$('#usersCol').html(userAdminTemplate(collection));
+                    }else{
+                        self.$('#usersCol').html(userTemplate(collection));
+                    }
+
+
                 }
             });
             return this;
@@ -384,10 +392,7 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
-                    var total = 0;
-                    _.each(collection.models, function(model) {
-                        total += model.get("amount");
-                    });
+
                     self.$('#notifications').html(notificationTemplate(collection));
                 },
                 error: function(model, response) {
@@ -416,40 +421,6 @@ define(function (require, exports, module) {
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
             console.log(ridToEdit);
-            //todo remove after testing
-            // var editModelTest = new RequestModel({
-            //     path: 'rid',
-            //     rid: ridToEdit,
-            //     description: "This is a hard coded request message to edit.",
-            //     amount: 222
-            // });
-            // var editModel = new RequestModel({path: 'rid'});
-            // editModel.fetch({
-            //     headers: {"rid": ridToEdit },
-            //     success: function (model) {
-            //         console.log("in success edit model:");
-            //         console.log(model);
-            //         // console.log("duid: ");
-            //         // console.log(model.get("duid"));
-            //         //todo if model is fulfilled, can't edit it
-            //         // if(model.get('duid') > 0){
-            //         //     bootbox.alert("This request has been fulfilled and cannot be changed.");
-            //         // }else{
-            //
-            //         var container = document.createDocumentFragment();
-            //         var editRequestModalView = new EditRequestModalView({
-            //             parent: self,
-            //             model: model
-            //         });
-            //         container.appendChild(editRequestModalView.render().el);
-            //         $('body').append(container);
-            //         // }
-            //     },
-            //     error: function(err){
-            //         console.log(err);
-            //         console.log("error occurred in getting the request to edit");
-            //     }
-            // });
 
             var container = document.createDocumentFragment();
             var editRequestModalView = new EditRequestModalView({
