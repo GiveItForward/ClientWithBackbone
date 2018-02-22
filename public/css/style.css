@@ -558,7 +558,7 @@ body{
 .requestmessagediv{
   width: 100%;
   height: 120px;
-  background-color: #ffe890;
+  background-color: #F3E9F4;
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
@@ -567,7 +567,7 @@ body{
 .otherProfileBioDiv{
   width: 100%;
   height: 160px;
-  background-color: #ddbddf;
+  background-color: #F3E9F4;
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
