@@ -89,6 +89,8 @@ define(function (require, exports, module) {
             if (!onSignUp2) {
                 var self = this;
                 self.model.set("username", $("#newUsername").val());
+                self.model.set("firstname", $("#newFirstname").val());
+                self.model.set("lastname", $("#newLastname").val());
                 self.model.set("email", $("#newEmail").val());
 
                 if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
@@ -128,13 +130,15 @@ define(function (require, exports, module) {
             var self = this;
             self.updateModel();
             console.log("creating account...");
-            console.log($("#newUsername").val());
-            console.log($("#newEmail").val());
-            console.log($("#newPassword").val());
-            console.log($("#newVerifyPassword").val());
+            // console.log($("#newUsername").val());
+            // console.log($("#newEmail").val());
+            // console.log($("#newPassword").val());
+            // console.log($("#newVerifyPassword").val());
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.model.set("username", $("#newUsername").val());
+                self.model.set("firstname", $("#newFirstname").val());
+                self.model.set("lastname", $("#newLastname").val());
                 self.model.set("password", sha256($("#newPassword").val()));
                 self.model.set("email", $("#newEmail").val());
                 // self.model.set("bio", "");

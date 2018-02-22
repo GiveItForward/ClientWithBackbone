@@ -113,6 +113,13 @@ body{
   margin: 10px;
 }
 
+.roundhalf{
+  border-radius: 25px;
+  padding: 10px;
+  width: 195px;
+  /*margin: 10px;*/
+}
+
 .roundrequest{
   color: black;
   background-color: white;
@@ -383,7 +390,7 @@ body{
 .selected {
   color: white;
   /*background: #760709;*/
-  background: #002A26;
+  background: #004637;
 }
 
 .mainbtn{

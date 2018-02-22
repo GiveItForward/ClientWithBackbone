@@ -48,9 +48,9 @@ define(function (require, exports, module) {
 
             self.renderEditTagList(self.model.get('tags'));
             self.$('#editProfileImage').attr('src', self.model.get('image'));
-            self.$('#editFirst').html(self.model.get('firstname'));
-            self.$('#editLast').html(self.model.get('lastname'));
-            self.$('#editUsername').attr(self.model.get('username'));
+            self.$('#editFirst').val(self.model.get('firstname'));
+            self.$('#editLast').val(self.model.get('lastname'));
+            // self.$('#editUsername').attr(self.model.get('username'));
             self.$('#editBio').html(self.model.get('bio'));
 
             self.$('#updateProfileBtn').prop("disabled", true);
@@ -117,12 +117,12 @@ define(function (require, exports, module) {
 
         updateEditProfileModel: function () {
             var self = this;
-            // self.model.set("firstname", $("#editFirst").val());
-            // self.model.set("lastname", $("#editLast").val());
-            // self.model.set("image", $("#editProfileImage").attr('src')); (being set in chooseImageModal
-            // self.model.set("bio", $("#editBio").val());
-            // self.model.set("tags", editProfileTagList);
-            // console.log(self.model);
+            self.model.set("firstname", $("#editFirst").val());
+            self.model.set("lastname", $("#editLast").val());
+            self.model.set("image", $("#editProfileImage").attr('src')); //being set in chooseImageModal
+            self.model.set("bio", $("#editBio").val());
+            self.model.set("tags", editProfileTagList);
+            console.log(self.model);
 
             self.$('#updateProfileBtn').prop("disabled", false);
         },
@@ -132,46 +132,49 @@ define(function (require, exports, module) {
             console.log("in createRequest function");
             self.updateEditProfileModel();
 
-            bootbox.alert("update profile is almost ready, but not quite. Please be patient.");
-            //todo update is resetting isadmin...no no...
+            // bootbox.alert("update profile is almost ready, but not quite. Please be patient.");
+
             //todo something weird with the tags coming back
-            // var updatedUserModel = new UserModel({
-            //     path: 'update',
-            //     uid: self.model.get('uid'),
-            //     username: self.model.get('username'),
-            //     email: self.model.get('email'),
-            //     image: self.model.get('image'),
-            //     bio: self.model.get('bio')
-            // });
-            // var tagArr = [];
-            // _.each(editProfileTagList, function(tag) {
-            //     var tagObj = Backbone.Model.extend({
-            //         defaults: {
-            //             tagname: tag,
-            //             // tid: 1
-            //         }
-            //     });
-            //     tagArr.push(new tagObj());
-            // });
-            // updatedUserModel.set("tags", tagArr);
-            //
-            // console.log("user model to update: ");
-            // console.log(updatedUserModel);
-            //
-            // updatedUserModel.save(null, {
-            //     wait: true,
-            //     success: function(model, response) {
-            //         console.log('success in saving updated request');
-            //         console.log(model);
-            //         //todo reset usermodel and refresh in home
-            //         self.destroyEditProfileModal();
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //         $('#requestErrorLabel').html('There was a problem updating your profile.');
-            //     }
-            // });
+            var updatedUserModel = new UserModel({
+                path: 'update',
+                uid: self.model.get('uid'),
+                username: self.model.get('username'),
+                firstname: self.model.get('firstname'),
+                lastname: self.model.get('lastname'),
+                isAdmin: self.model.get('isAdmin'),
+                email: self.model.get('email'),
+                image: self.model.get('image'),
+                bio: self.model.get('bio')
+            });
+            var tagArr = [];
+            _.each(editProfileTagList, function(tag) {
+                var tagObj = Backbone.Model.extend({
+                    defaults: {
+                        tagname: tag,
+                        // tid: 1
+                    }
+                });
+                tagArr.push(new tagObj());
+            });
+            updatedUserModel.set("tags", tagArr);
+
+            console.log("user model to update: ");
+            console.log(updatedUserModel);
+
+            updatedUserModel.save(null, {
+                wait: true,
+                success: function(model, response) {
+                    console.log('success in saving updated request');
+                    console.log(model);
+                    self.parent.model = model;
+                    self.destroyEditProfileModal();
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem updating your profile.');
+                }
+            });
 
             return this;
         },

@@ -138,17 +138,24 @@ define(function (require, exports, module) {
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
-            if(self.model.get('isAdmin')){
-                $("#adminBtn").addClass("turquoisebtncol");
-                $("#adminBtn").addClass("btn");
-                $("#adminBtn").attr("href", "#");
-                $("#adminBtn").text("Admin");
-            }
+            //todo, not this but add tabs to orgs
+            // if(self.model.get('isAdmin')){
+            //     $("#adminBtn").addClass("turquoisebtncol");
+            //     $("#adminBtn").addClass("btn");
+            //     $("#adminBtn").attr("href", "#");
+            //     $("#adminBtn").text("Admin");
+            // }
             if(self.model.get('orgId') > 0 || self.model.get('isAdmin')){
                 $("#usersBtn").addClass("turquoisebtncol");
                 $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
                 $("#usersBtn").text("Users");
+                if(self.model.get('orgId') > 0 ) {
+                    $("#myOrgProfileBtn").addClass("turquoisebtncol");
+                    $("#myOrgProfileBtn").addClass("btn");
+                    $("#myOrgProfileBtn").attr("href", "#");
+                    $("#myOrgProfileBtn").text("My Org Profile");
+                }
             }
             return this;
         },
