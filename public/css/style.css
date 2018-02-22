@@ -564,6 +564,15 @@ body{
   padding:2%;
 }
 
+.otherProfileBioDiv{
+  width: 100%;
+  height: 160px;
+  background-color: #ddbddf;
+  overflow-y: scroll;
+  border-radius: 25px;
+  padding:2%;
+}
+
 .tags{
   /*margin: 1%;*/
   font-size: 14pt;

@@ -26,6 +26,7 @@ define(function (require, exports, module) {
     var rootUrl = require("models/RootUrl");
 
     var UserModel = require("models/UserModel");
+    var UserCollection = require("models/UserCollection");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
     var NotificationModel = require("models/NotificationModel");
@@ -33,7 +34,6 @@ define(function (require, exports, module) {
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
-    var UserCollection = require("models/UserCollection");
     var ThankYouModel = require("models/ThankYouModel");
 
     var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
@@ -331,10 +331,6 @@ define(function (require, exports, module) {
         renderMyRequests: function () {
             console.log("in home view renderMyrequests");
             var self = this;
-            // self.removeSelectedFromAll();
-            // $("#myRequestsBtn").addClass("selected");
-            // self.renderTopHomeBar();
-            // self.$('#homeContainer').html(myRequestFeedTemplate);
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
@@ -361,10 +357,6 @@ define(function (require, exports, module) {
 
             var self = this;
             console.log(self.model.get('uid'));
-            // self.removeSelectedFromAll();
-            // $("#myDonationsBtn").addClass("selected");
-            // self.renderTopHomeBar();
-            // self.$('#homeContainer').html(myDonationFeedTemplate);
             self.$('#myDonationHistory').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
@@ -476,45 +468,37 @@ define(function (require, exports, module) {
             var otherUid = $(event.currentTarget).attr( 'data-uid' );
             console.log("current uid: ");
             console.log(otherUid);
+
             // var otherUserModel = new UserModel({
-            //     path: 'byuid/',
-            //     uid: otherUid,
-            //     username: 'someUserName',
-            //     description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
-            //     image: 'img/glasses_profile_pic.png'
+            //     path: 'byuid/'
+            // });
             //
+            // otherUserModel.fetch({
+            //     headers: { "uid": otherUid },
+            //     success: function (model) {
+            //         console.log("other user model");
+            //         console.log(model);
+            //
+            //         var container = document.createDocumentFragment();
+            //         var otherProfileModalView = new OtherProfileModalView({
+            //             parent: self,
+            //             model: model
+            //         });
+            //         container.appendChild(otherProfileModalView.render().el);
+            //         $('body').append(container);
+            //     },
+            //     error: function(err){
+            //         console.log("error occurred in getting the other username");
+            //     }
             // });
 
-            var otherUserModel = new UserModel({
-                path: 'byuid/'
+            var container = document.createDocumentFragment();
+            var otherProfileModalView = new OtherProfileModalView({
+                parent: self,
+                uid: otherUid
             });
-
-            otherUserModel.fetch({
-                headers: { "rid": otherUid },
-                success: function (model) {
-                    console.log("other user model");
-                    console.log(model);
-
-                    var container = document.createDocumentFragment();
-                    var otherProfileModalView = new OtherProfileModalView({
-                        parent: self,
-                        model: model
-                    });
-                    container.appendChild(otherProfileModalView.render().el);
-                    $('body').append(container);
-                },
-                error: function(err){
-                    console.log("error occurred in getting the donate username");
-                }
-            });
-
-            // var container = document.createDocumentFragment();
-            // var otherProfileModalView = new OtherProfileModalView({
-            //     parent: self,
-            //     model: otherUserModel
-            // });
-            // container.appendChild(otherProfileModalView.render().el);
-            // $('body').append(container);
+            container.appendChild(otherProfileModalView.render().el);
+            $('body').append(container);
             return this;
         },
 
