@@ -476,44 +476,45 @@ define(function (require, exports, module) {
             var otherUid = $(event.currentTarget).attr( 'data-uid' );
             console.log("current uid: ");
             console.log(otherUid);
-            var otherUserModel = new UserModel({
-                path: 'byuid/private',
-                uid: otherUid,
-                username: 'someUserName',
-                description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
-                image: 'img/glasses_profile_pic.png'
-
-            });
-
             // var otherUserModel = new UserModel({
-            //     headers: { "rid": otherUid },
-            //     path: 'byuid/private'
-            // });
-
-            // otherUserModel.fetch({
-            //     success: function (model) {
-            //         console.log(model);
+            //     path: 'byuid/',
+            //     uid: otherUid,
+            //     username: 'someUserName',
+            //     description: 'A little about this person you might help. And then a bit more info. And juuuuuuuuuuuust a little itty bitty bit more.',
+            //     image: 'img/glasses_profile_pic.png'
             //
-            //         var container = document.createDocumentFragment();
-            //         var otherProfileModalView = new OtherProfileModalView({
-            //             parent: self,
-            //             model: model
-            //         });
-            //         container.appendChild(otherProfileModalView.render().el);
-            //         $('body').append(container);
-            //     },
-            //     error: function(err){
-            //         console.log("error occurred in getting the donate username");
-            //     }
             // });
 
-            var container = document.createDocumentFragment();
-            var otherProfileModalView = new OtherProfileModalView({
-                parent: self,
-                model: otherUserModel
+            var otherUserModel = new UserModel({
+                path: 'byuid/'
             });
-            container.appendChild(otherProfileModalView.render().el);
-            $('body').append(container);
+
+            otherUserModel.fetch({
+                headers: { "rid": otherUid },
+                success: function (model) {
+                    console.log("other user model");
+                    console.log(model);
+
+                    var container = document.createDocumentFragment();
+                    var otherProfileModalView = new OtherProfileModalView({
+                        parent: self,
+                        model: model
+                    });
+                    container.appendChild(otherProfileModalView.render().el);
+                    $('body').append(container);
+                },
+                error: function(err){
+                    console.log("error occurred in getting the donate username");
+                }
+            });
+
+            // var container = document.createDocumentFragment();
+            // var otherProfileModalView = new OtherProfileModalView({
+            //     parent: self,
+            //     model: otherUserModel
+            // });
+            // container.appendChild(otherProfileModalView.render().el);
+            // $('body').append(container);
             return this;
         },
 
