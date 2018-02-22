@@ -77,7 +77,10 @@ require(["jquery", "views/HomeView", "models/UserModel"], function ($, HomeView,
             receiveCount: userInfo.receiveCount,
             image: userInfo.image,
             tags: userInfo.tags,
-            isAdmin: userInfo.isAdmin
+            isAdmin: userInfo.isAdmin,
+            orgId: userInfo.orgId,
+            firstname: userInfo.firstname,
+            lastname: userInfo.lastname
         });
 
         console.log(userModel);
