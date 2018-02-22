@@ -398,8 +398,8 @@ body{
   /*padding-top: 150px;*/
   /*background-color: dimgrey;*/
   /*background-color: #daa520;*/
-  /*background: linear-gradient(to right, #4d4d4d, #999999);*/
-  background: linear-gradient(to top right, #F76F00, #FCD7B9);
+  background: linear-gradient(to right, #4d4d4d, #999999);
+  /*background: linear-gradient(to top right, #F76F00, #FCD7B9);*/
   height: 100vh;
 }
 
@@ -410,21 +410,22 @@ body{
 
 .middle-row{
   /*background-color: dimgrey;*/
-  /*background: linear-gradient(dimgray, lightgrey);*/
+  background: linear-gradient(dimgray, lightgrey);
   /*background: linear-gradient(#00947D, #FBF9F7);*/
-  background: linear-gradient(#FFCE0C, #FBF9F7);
+  /*background: linear-gradient(#840E8C, #FBF9F7);*/
   /*border-top: 2px solid #e37222;*/
   width: 100vw;
 }
 
 .myhistorymiddlerow{
-  background: linear-gradient(#FFCE0C, #FBF9F7);
+  background: linear-gradient(dimgray, lightgrey);
+  /*background: linear-gradient(#840E8C, #FBF9F7);*/
 }
 
 .bottom-row{
   /*padding-top: 150px;*/
+  background-color: lightgrey;
   /*background-color: #FBF9F7;*/
-  background-color: #FBF9F7;
   width: 100vw;
   height: 100vh;
 }
@@ -647,7 +648,8 @@ body{
 .homebtn{
   /*background-color: lightgrey;*/
   /*background-color: #FFCE0C;*/
-  background: linear-gradient(to bottom right, #FFCE0C, #FBF9F7);
+  background: linear-gradient(to bottom right, dimgrey, lightgrey);
+  /*background: linear-gradient(to bottom right, #840E8C, #FBF9F7);*/
   border-radius: 0;
   outline: none;
   /*padding: 10px;*/
@@ -688,7 +690,7 @@ body{
 }
 
 .topborder {
-  border-top: 5px ridge #FFCE0C;
+  border-top: 5px ridge #840E8C;
   margin-top: 1%;
   margin-left: 1%;
 }
