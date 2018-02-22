@@ -369,7 +369,8 @@ body{
 }
 
 .turquoisebtncol{
-  background-color: #00947D;
+  /*background-color: #00947D;*/
+  background: linear-gradient(to right, #002A26, #00947D);
   color:white;
   text-shadow: 2px 2px 5px #002A26;
   font-size: 18pt;
@@ -382,7 +383,7 @@ body{
 .selected {
   color: white;
   /*background: #760709;*/
-  background: #007F64;
+  background: #002A26;
 }
 
 .mainbtn{
@@ -665,8 +666,9 @@ body{
   background-color: dimgrey;
 }
 
-.turqouisebackground{
-  background-color: #00947D;
+.turquoisebackground{
+  /*background-color: #00947D;*/
+  background: linear-gradient(to right, #002A26, #00947D);
 }
 
 
