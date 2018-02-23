@@ -1,0 +1,30 @@
+.row
+    .col-md-12
+        .myHistoryPanel.scroll
+            #orgAdminDiv.container
+                ul.nav.nav-tabs
+                    li.nav-item.active
+                        a.nav-link.active(href='#orgColTab', data-toggle='tab') Approved Orgs
+                    li.nav-item
+                        a.nav-link(href='#pendingOrgTab', data-toggle='tab') Pending Orgs
+                .tab-content
+                    #orgColTab.tab-pane.active
+                        br
+                        #orgCol.activeTabDiv Filler for the approved orgs.
+                    #pendingOrgTab.tab-pane
+                        br
+                        #pendingOrgCol Filler for the pending orgs.
+
+
+
+
+
+
+//.row.middle-row.padding-top
+//    .col-sm-9
+//        .form-inline
+//            input.round(type='text', placeholder='search for orgs')
+//            a.btn.roundminibtn.turquoisebtn(href='#') go
+//    .col-sm-3
+//.row.bottom-row
+//    #orgCol.col-md-12.scroll

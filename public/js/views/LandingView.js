@@ -88,7 +88,10 @@ define(function (require, exports, module) {
                 error: function(err){
                     self.renderLogin(); // but render the login with an error message! TODO
                     $('#loginErrorLabel').html("The username or password was incorrect.");
-                    console.log("error occurred in login");
+                    console.log("error occurred in login" + err);
+                    if(err === 401){
+                        $('#loginErrorLabel').html("401! 401!");
+                    }
                 }
             });
             return this;

@@ -907,8 +907,10 @@ body{
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: white;
+  /*background-color: #F3E9F4;*/
   color: #007F64;
 }
+
 
 .nav-tabs .nav-link {
   border-top: 1px solid dimgray;
@@ -916,7 +918,8 @@ body{
   border-right: 1px solid dimgray;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  background-color: #007F64;
+  /*background-color: #007F64;*/
+  background-color: #840E8C;
   color: white;
 }
 

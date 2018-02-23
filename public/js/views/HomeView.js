@@ -41,7 +41,8 @@ define(function (require, exports, module) {
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
     var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
-    var orgsFeedTemplate = require("jade!templates/jade_templates/orgsFeedTemplate");
+    var orgFeedAdminTemplate = require("jade!templates/jade_templates/orgFeedAdminTemplate");
+    var orgFeedTemplate = require("jade!templates/jade_templates/orgFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var userFeedTemplate = require("jade!templates/jade_templates/userFeedTemplate");
     var userTemplate = require("jade!templates/jade_templates/userTemplate");
@@ -209,7 +210,11 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
-            self.$('#homeContainer').html(orgsFeedTemplate);
+            if(self.model.get('isAdmin')){
+                self.$('#homeContainer').html(orgFeedAdminTemplate);
+            }else{
+                self.$('#homeContainer').html(orgFeedTemplate);
+            }
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
@@ -218,6 +223,17 @@ define(function (require, exports, module) {
                     self.$('#orgCol').html(orgTemplate(collection));
                 }
             });
+
+            if(self.model.get('isAdmin')){
+                var pendingOrgCollection = new OrgCollection();
+                pendingOrgCollection.fetchPending({
+                    success: function (collection) {
+                        console.log(collection.models);
+                        self.$('#pendingOrgCol').html(orgTemplate(collection));
+                    }
+                });
+            }
+
             return this;
         },
 

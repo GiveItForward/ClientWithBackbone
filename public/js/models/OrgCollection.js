@@ -12,14 +12,13 @@ define(function (require, exports, module) {
 
         model: OrgModel,
 
-        url : rootUrl.url + "api/organizations/"
-        // url : "http://localhost:3000/api/organizations/",
-        // url : "http://giveitforward.us/api/organizations/",
-        // fetch: function (params, options) {
-        //     // options.url = "" + params;
-        //     this.url = "http://54.227.151.133:8080/giveitforward/organizations/" ;
-        //     return Backbone.Collection.prototype.fetch.call(this, options);
-        // }
+        url : rootUrl.url + "api/organizations/",
+
+        fetchPending: function (options) {
+
+            this.url = rootUrl.url + "api/organizations/pending";
+            return Backbone.Collection.prototype.fetch.call(this, options);
+        }
 
     });
     return OrgCollection;
