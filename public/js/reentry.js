@@ -83,7 +83,6 @@ require(["jquery", "views/HomeView", "models/UserModel"], function ($, HomeView,
             lastname: userInfo.lastname
         });
 
-        console.log(userModel);
         new HomeView({
             model: userModel
         });

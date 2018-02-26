@@ -1,5 +1,9 @@
 var express = require('express');
+var request = require('request');
+var baseUrl = require('./baseUrl');
+var parser = require('json-parser');
 var router = express.Router();
+
 
 
 var session;
@@ -10,8 +14,23 @@ router.get('/', function(req, res, next) {
     session = req.session;
 
     if(session.email && session.userObject){
-        session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
-        res.render("home", { user: session.userObject}); // i need the user object
+
+        var options = {
+            url: baseUrl.tomcat_url + "/users/byuid",
+            headers:  {uid: session.userObject.uid}
+        };
+
+        request(options, function(error, response, body){
+            if(response.statusCode === 200){
+                var user = parser.parse(body);
+                session.email = user.email;
+                session.userObject = user;
+                session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
+                res.render("home", { user: session.userObject}); // i need the user object
+            } else {
+                res.send(response);
+            }
+        });
     } else {
         res.redirect("/");
     }
@@ -40,7 +59,7 @@ router.get('/', function(req, res, next) {
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
 
         var options = {
-            url: baseUrl.base_url + "/users/byuid",
+            url: baseUrl.tomcat_url + "/users/byuid",
             headers: {uid: session.userObject.uid}
         };
 
