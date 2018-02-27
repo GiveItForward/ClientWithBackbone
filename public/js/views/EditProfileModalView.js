@@ -167,6 +167,7 @@ define(function (require, exports, module) {
                     console.log('success in saving updated request');
                     console.log(model);
                     self.parent.model = model;
+                    self.parent.renderMyProfile();
                     self.destroyEditProfileModal();
                 },
                 error: function(model, response) {

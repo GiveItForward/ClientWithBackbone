@@ -42,6 +42,7 @@ define(function (require, exports, module) {
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
     var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
     var orgFeedAdminTemplate = require("jade!templates/jade_templates/orgFeedAdminTemplate");
+    var orgFeedOrgTemplate = require("jade!templates/jade_templates/orgFeedOrgTemplate");
     var orgFeedTemplate = require("jade!templates/jade_templates/orgFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
     var userFeedTemplate = require("jade!templates/jade_templates/userFeedTemplate");
@@ -151,12 +152,6 @@ define(function (require, exports, module) {
                 $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
                 $("#usersBtn").text("Users");
-                if(self.model.get('orgId') > 0 ) {
-                    $("#myOrgProfileBtn").addClass("turquoisebtncol");
-                    $("#myOrgProfileBtn").addClass("btn");
-                    $("#myOrgProfileBtn").attr("href", "#");
-                    $("#myOrgProfileBtn").text("My Org Profile");
-                }
             }
             return this;
         },
@@ -206,12 +201,15 @@ define(function (require, exports, module) {
 
         renderOrgs: function () {
             console.log("in home view renderOrgs");
+            //todo orgs need div on description and admin needs approve/deny btns
             var self = this;
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
-            if(self.model.get('isAdmin')){
+            if(self.model.get('isAdmin')) {
                 self.$('#homeContainer').html(orgFeedAdminTemplate);
+            }else if(self.model.get('orgId') > 0 ) {
+                self.$('#homeContainer').html(orgFeedOrgTemplate);
             }else{
                 self.$('#homeContainer').html(orgFeedTemplate);
             }

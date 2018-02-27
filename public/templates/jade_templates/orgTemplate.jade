@@ -1,16 +1,18 @@
 for org in locals.models
     .row
         .col-md-12
-            .panel.roundrequest
+            .panel.roundorg
                 .form-inline
                     .container
-                        .requestmargin.text-center
-                            a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
+                        .requestmargin
+                            //a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
                             .row
                                 #orgImage.col-md-2
                                     img.orglogo(src='#{org.get("image")}')
                                 .col-md-10.text-center
-                                    #orgBio.orgmessage.panel-body #{org.get("description")}
+                                    a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
+                                    .orgDescriptionDiv
+                                        #orgBio.orgmessage.panel-body #{org.get("description")}
                                     .row.topborder
                                         .col-md-6
                                             a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}

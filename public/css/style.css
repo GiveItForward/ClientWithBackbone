@@ -133,6 +133,19 @@ body{
   /*margin-top: 10px;*/
 }
 
+.roundorg{
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 80%;
+  height: 350px;
+  margin: 2%;
+  /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
+  box-shadow: 4px 4px 10px 4px #00947D;
+  /*margin-top: 10px;*/
+}
+
 .myrequestpanel{
   color: black;
   background-color: white;
@@ -382,8 +395,9 @@ body{
   text-shadow: 2px 2px 5px #002A26;
   font-size: 18pt;
   border-radius: 0;
-  border-top: 1px solid #FBF9F7;
-  border-bottom: 1px solid #FBF9F7;
+  /*border-top: 1px solid #FBF9F7;*/
+  /*border-bottom: 1px solid #FBF9F7;*/
+  /*margin-left: -1px;*/
   padding: 5%;
 }
 
@@ -434,6 +448,17 @@ body{
   /*padding-top: 150px;*/
   background-color: lightgrey;
   /*background-color: #FBF9F7;*/
+  width: 100vw;
+  height: 100vh;
+}
+
+.bottom-row-org{
+  background: linear-gradient(dimgray, lightgrey);
+  width: 100vw;
+  height: 100vh;
+}
+
+.orgFeedAdminDiv {
   width: 100vw;
   height: 100vh;
 }
@@ -573,6 +598,15 @@ body{
   padding:2%;
 }
 
+.orgDescriptionDiv{
+  width: 100%;
+  height: 140px;
+  background-color: #F3E9F4;
+  overflow-y: scroll;
+  border-radius: 25px;
+  /*padding:2%;*/
+}
+
 .tags{
   /*margin: 1%;*/
   font-size: 14pt;
@@ -639,7 +673,7 @@ body{
 }
 
 .viewThankYouLabel {
-  color: #00947D;
+  color: #840E8C;
   font-weight: bold;
   font-style: italic;
   font-size: 24pt;
@@ -693,9 +727,9 @@ body{
 }
 
 .orglogo {
-  width: 100%;
-  height: 80%;
-  margin: 2%;
+  width: 130px;
+  height: 130px;
+  margin-top: 20%;
 }
 
 .orgname{
@@ -877,8 +911,10 @@ body{
   margin-left: 5%;
 }
 
-.myBio {
+.myBioDiv {
   height: 150px;
+  border-radius: 25px;
+  background-color: #F3E9F4;
   overflow-y: scroll;
 }
 
