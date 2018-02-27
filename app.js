@@ -33,11 +33,17 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// for security
+app.set('trust proxy', 1);
+
 // uncomment after placing your favicon in /public
 app.use(session({
     secret: 'ssshhhhh',
-    resave: true,
-    saveUninitialized: true
+    proxy: true,
+    key: session.sid,
+    cookie: { secure: true },
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

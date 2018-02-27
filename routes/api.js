@@ -115,92 +115,89 @@ router.get('/requests/paypal', function(req, res, next) {
                 var userDBHash = 'hash';
 
 
-                // todo - temporary take out later
-                var requestBody;
-
-                var options = {
-                    url: baseUrl.tomcat_url + "/requests/fulfill",
-                    headers: req.headers
-                };
-
-                request(options, function(error, response, body){
-                    if(response.statusCode === 200){
-                        res.send("home");
-                    } else {
-                        res.sendStatus(response);
-                    }
-                }); // take out to here
-
-
-                // var hashOptions = {
-                //     url: baseUrl.tomcat_url + "/users/gethash",
+                // // todo - temporary take out later
+                // var requestBody;
+                //
+                // var options = {
+                //     url: baseUrl.tomcat_url + "/requests/fulfill",
                 //     headers: req.headers
-                // }
+                // };
                 //
-                // // get the paypal hash from db
-                // request(hashOptions, function(error, response, body) {
-                //     if(response.statusCode === 200) {
-                //
-                //         // set up paypal configuration
-                //         var payload = {
-                //             requestEnvelope: {
-                //                 errorLanguage:  'en_US'
-                //             },
-                //             // ipnNotificationUrl: baseUrl.paypal_url + "/api/paypal/verify", // need IPN Handler for this to work
-                //             actionType:     'PAY',
-                //             currencyCode:   'USD',
-                //             feesPayer:      'SENDER',
-                //             memo:           'Donating $' + amount + ' to ' + userBody.username + ' via Give It Forward',
-                //             cancelUrl:      baseUrl.paypal_url + "/home",
-                //             returnUrl:      baseUrl.paypal_url + "/api/paypal/verify/" + userDBHash,
-                //             receiverList: {
-                //                 receiver: [
-                //                     {
-                //                         email:  'primary@test.com',
-                //                         amount: amount
-                //                     }
-                //                 ]
-                //             }
-                //         };
-                //
-                //
-                //         paypalSdk.pay(payload, function (err, paypalResponse) {
-                //             if (err) {
-                //                 res.end(err); // TODO - better error handling here
-                //             } else if(paypalResponse.responseEnvelope.ack === 'Success') {
-                //
-                //                 res.send(paypalResponse.paymentApprovalUrl);
-                //
-                //                 // var requestBody;
-                //                 //
-                //                 // var options = {
-                //                 //     url: baseUrl.tomcat_url + "/requests/fulfill",
-                //                 //     headers: req.headers
-                //                 // };
-                //                 //
-                //                 // request(options, function(error, response, body){
-                //                 //     if(response.statusCode === 200){
-                //                 //         requestBody = parser.parse(body);
-                //                 //         req.session.userObject.donateCount += 1;
-                //                 //         res.send(paypalResponse.paymentApprovalUrl);
-                //                 //     } else {
-                //                 //         console.log("issue with recording fulfilled request");
-                //                 //         res.sendStatus(500);
-                //                 //     }
-                //                 // });
-                //
-                //             }
-                //         });
-                //
-                //
+                // request(options, function(error, response, body){
+                //     if(response.statusCode === 200){
+                //         res.send("home");
                 //     } else {
-                //         console.log(error)
-                //         req.send(response)
+                //         res.sendStatus(response);
                 //     }
-                // });
+                // }); // take out to here
 
 
+                var hashOptions = {
+                    url: baseUrl.tomcat_url + "/users/gethash",
+                    headers: req.headers
+                }
 
+                // get the paypal hash from db
+                request(hashOptions, function(error, response, body) {
+                    if(response.statusCode === 200) {
+
+                        // set up paypal configuration
+                        var payload = {
+                            requestEnvelope: {
+                                errorLanguage:  'en_US'
+                            },
+                            // ipnNotificationUrl: baseUrl.paypal_url + "/api/paypal/verify", // need IPN Handler for this to work
+                            actionType:     'PAY',
+                            currencyCode:   'USD',
+                            feesPayer:      'SENDER',
+                            memo:           'Donating $' + amount + ' to ' + userBody.username + ' via Give It Forward',
+                            cancelUrl:      baseUrl.paypal_url + "/home",
+                            returnUrl:      baseUrl.paypal_url + "/api/paypal/verify/" + userDBHash,
+                            receiverList: {
+                                receiver: [
+                                    {
+                                        email:  'primary@test.com',
+                                        amount: amount
+                                    }
+                                ]
+                            }
+                        };
+
+
+                        paypalSdk.pay(payload, function (err, paypalResponse) {
+                            if (err) {
+                                res.end(err); // TODO - better error handling here
+                            } else if(paypalResponse.responseEnvelope.ack === 'Success') {
+
+                                res.send(paypalResponse.paymentApprovalUrl);
+
+                                // var requestBody;
+                                //
+                                // var options = {
+                                //     url: baseUrl.tomcat_url + "/requests/fulfill",
+                                //     headers: req.headers
+                                // };
+                                //
+                                // request(options, function(error, response, body){
+                                //     if(response.statusCode === 200){
+                                //         requestBody = parser.parse(body);
+                                //         req.session.userObject.donateCount += 1;
+                                //         res.send(paypalResponse.paymentApprovalUrl);
+                                //     } else {
+                                //         console.log("issue with recording fulfilled request");
+                                //         res.sendStatus(500);
+                                //     }
+                                // });
+
+                            }
+                        });
+
+
+                    } else {
+                        console.log(error)
+                        req.send(response)
+                    }
+                });
             } else {
                 console.log("issue with recording fulfilled request");
                 res.sendStatus(500);
