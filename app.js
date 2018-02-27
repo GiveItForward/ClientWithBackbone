@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var memoryStore = require('memorystore');
 
 
 var index = require('./routes/index');
@@ -49,8 +48,10 @@ app.use(session({
     secret: 'ssshhhhh',
     proxy: true,
     key: session.sid,
-    cookie: { secure: true }
-    // store: new memoryStore()
+    cookie: { secure: true },
+    resave: false,
+    saveUninitialized: false,
+    store: new (require('connect-pg-simple')(session))()
 }));
 
 app.use('/', index);
