@@ -65,16 +65,7 @@ const pgStoreConfig = {
     // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
 }
 
-// 4-) use the store configuration to pgSession instance
-app.use(session({
-    store: new pgSession(pgStoreConfig),
-    secret: 'jW8aor76jpPX', // session secret
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-}));
-
-
+// 4-) Use the storage configuration
 // uncomment after placing your favicon in /public
 app.use(session({
     store: new pgSession(pgStoreConfig),
