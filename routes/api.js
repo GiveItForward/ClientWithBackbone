@@ -363,7 +363,6 @@ router.options("/*", function(req, res, next){
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, ' +
         'Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.send(200);
 });
 
