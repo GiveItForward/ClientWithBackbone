@@ -28,7 +28,6 @@ router.get('/users/login', function(req, res, next) {
         };
 
         request(options, function(error, response, body){
-            console.log(response);
             if(response.statusCode === 200){
                 var user = parser.parse(body);
                 session.email = user.email;
