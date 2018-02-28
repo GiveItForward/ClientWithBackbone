@@ -33,6 +33,7 @@ router.get('/users/login', function(req, res, next) {
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
+                console.log(response.headers);
                 res.headers = response.headers
                 res.send(body);
             } else {
