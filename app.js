@@ -77,11 +77,11 @@ app.use(session({
 
 // uncomment after placing your favicon in /public
 app.use(session({
-    // store: new pgSession(pgStoreConfig),
+    store: new pgSession(pgStoreConfig),
     secret: 'sT12vLR25pQx',
     proxy: true,
     key: session.sid,
-    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 },
+    cookie: { secure: true },
     resave: false,
     saveUninitialized: false
 }));
