@@ -34,7 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // for security
-// app.enable('trust proxy');
+app.enable('trust proxy');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -44,44 +44,44 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//
-// // 1-) Connection details
-// const conObject = {
-//     user: 'admin',
-//     password: 'sarabookenziejen',
-//     host: '54.227.151.133',// or whatever it may be
-//     port: 5432,
-//     database: 'postgres'
-// };
-//
-// // 2-) Create an instance of connect-pg-simple and pass it session
-// const pgSession = require('connect-pg-simple')(session);
-//
-// // 3-) Create a config option for store
-// const pgStoreConfig = {
-//     pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
-//     //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
-//     conObject: conObject,// or this,
-//     // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
-// }
-//
-// // 4-) use the store configuration to pgSession instance
-// app.use(session({
-//     store: new pgSession(pgStoreConfig),
-//     secret: 'jW8aor76jpPX', // session secret
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-// }));
+
+// 1-) Connection details
+const conObject = {
+    user: 'admin',
+    password: 'sarabookenziejen',
+    host: '54.227.151.133',// or whatever it may be
+    port: 5432,
+    database: 'postgres'
+};
+
+// 2-) Create an instance of connect-pg-simple and pass it session
+const pgSession = require('connect-pg-simple')(session);
+
+// 3-) Create a config option for store
+const pgStoreConfig = {
+    pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
+    //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
+    conObject: conObject,// or this,
+    // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
+}
+
+// 4-) use the store configuration to pgSession instance
+app.use(session({
+    store: new pgSession(pgStoreConfig),
+    secret: 'jW8aor76jpPX', // session secret
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
 
 
 // uncomment after placing your favicon in /public
 app.use(session({
     // store: new pgSession(pgStoreConfig),
     secret: 'sT12vLR25pQx',
-    // proxy: true,
-    // key: session.sid,
-    // cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 },
+    proxy: true,
+    key: session.sid,
+    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: false
 }));
