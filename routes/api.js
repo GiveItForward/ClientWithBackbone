@@ -34,7 +34,8 @@ router.get('/users/login', function(req, res, next) {
                 session.userObject = user;
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 console.log(response.headers);
-                res.headers = response.headers
+                res.headers = response.headers;
+                console.log(res.headers);
                 res.send(body);
             } else {
                 res.sendStatus(401);
@@ -362,7 +363,7 @@ router.options("/*", function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
-    res.send(200);
+    res.sendStatus(200);
 });
 
 
