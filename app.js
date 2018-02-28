@@ -65,26 +65,30 @@ const pgStoreConfig = {
     // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
 }
 
-// // 4-) use the store configuration to pgSession instance
-// app.use(session({
-//     store: new pgSession(pgStoreConfig),
-//     secret: 'jW8aor76jpPX', // session secret
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-// }));
-
-
-// uncomment after placing your favicon in /public
+// 4-) use the store configuration to pgSession instance
 app.use(session({
     store: new pgSession(pgStoreConfig),
-    secret: 'sT12vLR25pQx',
+    secret: 'jW8aor76jpPX', // session secret
     proxy: true,
     key: session.sid,
-    cookie: { secure: true, maxAge: 3600000 },
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000
+    } // 30 days
 }));
+
+//
+// app.use(session({
+//     store: new pgSession(pgStoreConfig),
+//     secret: 'sT12vLR25pQx',
+//     proxy: true,
+//     key: session.sid,
+//     cookie: { secure: true, maxAge: 3600000 },
+//     resave: true,
+//     saveUninitialized: true
+// }));
 
 app.use('/', index);
 app.use('/index', index);
