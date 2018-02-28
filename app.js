@@ -69,26 +69,22 @@ const pgStoreConfig = {
 app.use(session({
     store: new pgSession(pgStoreConfig),
     secret: 'jW8aor76jpPX', // session secret
-    proxy: true,
-    key: session.sid,
     resave: true,
     saveUninitialized: true,
-    cookie: {
-        secure: true,
-        maxAge: 30 * 24 * 60 * 60 * 1000
-    } // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
-//
-// app.use(session({
-//     store: new pgSession(pgStoreConfig),
-//     secret: 'sT12vLR25pQx',
-//     proxy: true,
-//     key: session.sid,
-//     cookie: { secure: true, maxAge: 3600000 },
-//     resave: true,
-//     saveUninitialized: true
-// }));
+
+// uncomment after placing your favicon in /public
+app.use(session({
+    store: new pgSession(pgStoreConfig),
+    secret: 'sT12vLR25pQx',
+    proxy: true,
+    key: session.sid,
+    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 },
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use('/', index);
 app.use('/index', index);
