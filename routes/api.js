@@ -33,6 +33,7 @@ router.get('/users/login', function(req, res, next) {
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
+                res.headers = response.headers
                 res.send(body);
             } else {
                 res.sendStatus(401);
@@ -359,8 +360,7 @@ router.options("/*", function(req, res, next){
     console.log("IN OPTIONS");
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, ' +
-        'Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
     res.send(200);
 });
 
