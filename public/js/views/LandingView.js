@@ -75,18 +75,20 @@ define(function (require, exports, module) {
             // });
             var hashPassword = sha256($("#password").val());
             // console.log(hashPassword);
-            
+
 
             self.model.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 headers: {
                     "email": $("#username").val(),
                     "password": hashPassword
                 },
                 success: function () {
                     self.model.set("password", undefined);
-                     new HomeView({
-                         model: self.model
+                    new HomeView({
+                        model: self.model
                     });
                     $('#loginSpinner').clearQueue();
                     $('#loginSpinner').css('display', 'none');

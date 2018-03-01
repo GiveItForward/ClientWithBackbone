@@ -95,7 +95,9 @@ define(function (require, exports, module) {
             self.tagCollection = new TagCollection();
 
             self.tagCollection.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (collection) {
                     console.log('tag names from db: ');
                     console.log(collection.models);
@@ -139,7 +141,9 @@ define(function (require, exports, module) {
 
 
             requestCollection.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
@@ -194,7 +198,9 @@ define(function (require, exports, module) {
                     "uid": ruseruid,
                     "amt": amount
                 },
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
 
@@ -228,7 +234,9 @@ define(function (require, exports, module) {
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
@@ -238,7 +246,9 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')){
                 var pendingOrgCollection = new OrgCollection();
                 pendingOrgCollection.fetchPending({
-                    credentials: 'include',
+                    xhrFields: {
+                        withCredentials: true
+                    },
                     success: function (collection) {
                         console.log(collection.models);
                         self.$('#pendingOrgCol').html(orgTemplate(collection));
@@ -315,7 +325,7 @@ define(function (require, exports, module) {
                 message: "Are you sure you want to DELETE your account?",
                 callback: function (result) {
                     if(result){
-                       bootbox.alert("Your account is pretend deleted. buh-bye now!")
+                        bootbox.alert("Your account is pretend deleted. buh-bye now!")
                     }
                 }
             });
@@ -331,7 +341,9 @@ define(function (require, exports, module) {
 
             var userCollection = new UserCollection();
             userCollection.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (collection) {
                     console.log(collection.models);
                     if(self.model.get('isAdmin')){
@@ -366,7 +378,9 @@ define(function (require, exports, module) {
 
 
             requestCollection.fetchByRequestUid({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 headers: {
                     "uid": self.model.get('uid')
                 },
@@ -396,7 +410,9 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
 
             requestCollection.fetchByDonateUid({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 headers: {
                     "uid": self.model.get('uid')
                 },
@@ -426,7 +442,9 @@ define(function (require, exports, module) {
             var notificationCollection = new NotificationCollection();
 
             notificationCollection.fetch({
-                credentials: 'include',
+                xhrFields: {
+                    withCredentials: true
+                },
                 headers: {
                     "uid": self.model.get('uid')
                 },
@@ -702,7 +720,9 @@ define(function (require, exports, module) {
                         self.model.setUrl('logout');
 
                         self.model.fetch({
-                            credentials: 'include',
+                            xhrFields: {
+                                withCredentials: true
+                            },
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
                                 // window.location.href = 'http://localhost:3000/';
