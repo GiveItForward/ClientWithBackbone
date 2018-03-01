@@ -40,41 +40,57 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var environment = process.env.NODE_ENV;
 
+console.log(environment === 'development');
+console.log(environment);
+if (environment === 'production'){
 
-// 1-) Connection details
-const conObject = {
-    user: 'admin',
-    password: 'sarabookenziejen',
-    host: '54.227.151.133',// or whatever it may be
-    port: 5432,
-    database: 'postgres'
-};
+    // 1-) Connection details
+    const conObject = {
+        user: 'admin',
+        password: 'sarabookenziejen',
+        host: '54.227.151.133',// or whatever it may be
+        port: 5432,
+        database: 'postgres'
+    };
 
 // 2-) Create an instance of connect-pg-simple and pass it session
-const pgSession = require('connect-pg-simple')(session);
+    const pgSession = require('connect-pg-simple')(session);
 
 // 3-) Create a config option for store
-const pgStoreConfig = {
-    // pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
-    //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
-    conObject: conObject,// or this,
-    // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
-}
+    const pgStoreConfig = {
+        // pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
+        //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
+        conObject: conObject,// or this,
+        // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
+    }
 
 // for security
-app.set('trust proxy', true);
+    app.set('trust proxy', true);
 
 // 4-) use the store configuration to pgSession instance
-app.use(session({
-    secret: 'jW8aor76jpPX', // session secret
-    proxy: true,
-    resave: false,
-    key: session.sid,
-    saveUninitialized: false,
-    cookie: { secure: true, maxAge: 3600000 }, // 1 hour
-    store: new pgSession(pgStoreConfig)
-}));
+    app.use(session({
+        secret: 'jW8aor76jpPX', // session secret
+        proxy: true,
+        resave: false,
+        key: session.sid,
+        saveUninitialized: false,
+        cookie: { secure: true, maxAge: new Date(Date.now() + (60000 * 30)) }, // 30 minute session
+        store: new pgSession(pgStoreConfig)
+    }));
+} else {
+    app.use(session({
+        secret: 'jW8aor76jpPX', // session secret
+        resave: false,
+        key: session.sid,
+        saveUninitialized: false
+    }));
+}
+
+
+
+
 
 
 app.use('/', index);
