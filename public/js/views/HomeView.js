@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             self.model = options.model;
             self.tagCollection = new TagCollection();
             self.tagCollection.fetch({
-                headers:{credentials: 'include'},
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log('tag names from db: ');
                     console.log(collection.models);
@@ -134,8 +134,13 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
+
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
+
             requestCollection.fetch({
-                headers:{credentials: 'include'},
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
@@ -179,14 +184,19 @@ define(function (require, exports, module) {
                 path: 'paypal'
             });
 
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
+
+
             currRequest.fetch({
+                beforeSend: sendAuthentication,
                 reset: true,
                 headers: {
                     "rid": rid,
                     "duid": self.model.get("uid"),
                     "uid": ruseruid,
-                    "amt": amount,
-                    credentials: 'include'
+                    "amt": amount
                 },
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
@@ -217,9 +227,13 @@ define(function (require, exports, module) {
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
 
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
+
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
-                headers: {credentials: 'include'},
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
@@ -229,7 +243,7 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')){
                 var pendingOrgCollection = new OrgCollection();
                 pendingOrgCollection.fetchPending({
-                    headers: {credentials: 'include'},
+                    beforeSend:sendAuthentication,
                     success: function (collection) {
                         console.log(collection.models);
                         self.$('#pendingOrgCol').html(orgTemplate(collection));
@@ -353,11 +367,15 @@ define(function (require, exports, module) {
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
+
             requestCollection.fetchByRequestUid({
                 headers: {
-                    "uid": self.model.get('uid'),
-                    credentials: 'include'
+                    "uid": self.model.get('uid')
                 },
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
@@ -382,11 +400,14 @@ define(function (require, exports, module) {
             self.$('#myDonationHistory').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
             requestCollection.fetchByDonateUid({
                 headers: {
-                    "uid": self.model.get('uid'),
-                    credentials: 'include'
+                    "uid": self.model.get('uid')
                 },
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log("My donations: ");
                     console.log(collection.models);
@@ -411,11 +432,14 @@ define(function (require, exports, module) {
             var self = this;
 
             var notificationCollection = new NotificationCollection();
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
             notificationCollection.fetch({
                 headers: {
-                    "uid": self.model.get('uid'),
-                    credentials: 'include'
+                    "uid": self.model.get('uid')
                 },
+                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
@@ -688,7 +712,7 @@ define(function (require, exports, module) {
                         self.model.setUrl('logout');
 
                         self.model.fetch({
-                            headers:{credentials: 'include'},
+                            beforeSend: sendAuthentication,
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
                                 // window.location.href = 'http://localhost:3000/';
