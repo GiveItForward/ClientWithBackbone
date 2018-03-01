@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             self.model = options.model;
             self.tagCollection = new TagCollection();
             self.tagCollection.fetch({
-                withCredentials: 'include',
+                headers:{credentials: 'include'},
                 success: function (collection) {
                     console.log('tag names from db: ');
                     console.log(collection.models);
@@ -135,7 +135,7 @@ define(function (require, exports, module) {
 
             var requestCollection = new RequestCollection();
             requestCollection.fetch({
-                withCredentials: 'include',
+                headers:{credentials: 'include'},
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
@@ -185,9 +185,9 @@ define(function (require, exports, module) {
                     "rid": rid,
                     "duid": self.model.get("uid"),
                     "uid": ruseruid,
-                    "amt": amount
+                    "amt": amount,
+                    credentials: 'include'
                 },
-                withCredentials: 'include',
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
 
@@ -219,7 +219,7 @@ define(function (require, exports, module) {
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
-                withCredentials: 'include',
+                headers: {credentials: 'include'},
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
@@ -229,7 +229,7 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')){
                 var pendingOrgCollection = new OrgCollection();
                 pendingOrgCollection.fetchPending({
-                    withCredentials: 'include',
+                    headers: {credentials: 'include'},
                     success: function (collection) {
                         console.log(collection.models);
                         self.$('#pendingOrgCol').html(orgTemplate(collection));
@@ -355,9 +355,9 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
             requestCollection.fetchByRequestUid({
                 headers: {
-                    "uid": self.model.get('uid')
+                    "uid": self.model.get('uid'),
+                    credentials: 'include'
                 },
-                withCredentials: 'include',
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
@@ -385,8 +385,8 @@ define(function (require, exports, module) {
             requestCollection.fetchByDonateUid({
                 headers: {
                     "uid": self.model.get('uid'),
+                    credentials: 'include'
                 },
-                withCredentials: 'include',
                 success: function (collection) {
                     console.log("My donations: ");
                     console.log(collection.models);
@@ -414,8 +414,8 @@ define(function (require, exports, module) {
             notificationCollection.fetch({
                 headers: {
                     "uid": self.model.get('uid'),
+                    credentials: 'include'
                 },
-                withCredentials: 'include',
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
@@ -688,7 +688,7 @@ define(function (require, exports, module) {
                         self.model.setUrl('logout');
 
                         self.model.fetch({
-                            withCredentials: 'include',
+                            headers:{credentials: 'include'},
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
                                 // window.location.href = 'http://localhost:3000/';
