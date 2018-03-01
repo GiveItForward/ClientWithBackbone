@@ -76,7 +76,11 @@ define(function (require, exports, module) {
             var hashPassword = sha256($("#password").val());
             // console.log(hashPassword);
             self.model.fetch({
-                headers: {"email": $("#username").val(), "password": hashPassword},
+                headers: {
+                    "email": $("#username").val(),
+                    "password": hashPassword,
+                    credentials: 'include'
+                },
                 success: function () {
                     self.model.set("password", undefined);
                      new HomeView({
