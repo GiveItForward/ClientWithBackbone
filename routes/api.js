@@ -14,6 +14,10 @@ var paypalSdk = new Paypal({
 
 
 var session;
+
+var allowedOrigins = ['https://www.giveitforward.us', 'https://giveitforward.us'];
+
+
 // this will be used for sessions
 router.get('/users/login', function(req, res, next) {
 
@@ -404,10 +408,7 @@ router.put('/*', function(req, res, next) {
 
 router.delete('/*', function(req, res, next) {
 
-    /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid'); */
+
 
     session = req.session;
 
@@ -441,10 +442,16 @@ router.options("/*", function(req, res, next){
     var session = req.session;
     console.log("\n\n\tAFTER from Login:\n");
     console.log(session.sessionID);
-    /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid'); */
+
+    // var origin = req.headers.origin;
+    // if(allowedOrigins.indexOf(origin) > -1){
+    //     res.setHeader('Access-Control-Allow-Origin', origin);
+    // }
+    //
+    // // res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
+    // res.header('Access-Control-Allow-Credentials', true);
+    // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    // res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
     res.sendStatus(200);
 });
 

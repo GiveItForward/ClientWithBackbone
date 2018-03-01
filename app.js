@@ -112,7 +112,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(function(req, res, next) {
+
+// global controller
+app.get('/*',function(req,res,next){
     var allowedOrigins = ['https://www.giveitforward.us', 'https://giveitforward.us'];
     var origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
