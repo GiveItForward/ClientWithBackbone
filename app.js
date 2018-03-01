@@ -72,7 +72,7 @@ app.use(session({
     resave: false,
     key: session.sid,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false }, // 30 days
     store: new pgSession(pgStoreConfig)
 }));
 
