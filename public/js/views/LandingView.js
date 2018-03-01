@@ -78,9 +78,9 @@ define(function (require, exports, module) {
             self.model.fetch({
                 headers: {
                     "email": $("#username").val(),
-                    "password": hashPassword,
-                    credentials: 'include'
+                    "password": hashPassword
                 },
+                credentials: 'include',
                 success: function () {
                     self.model.set("password", undefined);
                      new HomeView({
