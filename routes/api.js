@@ -19,6 +19,9 @@ router.get('/users/login', function(req, res, next) {
 
     session = req.session;
 
+    console.log("\n\n\tSESSION:\n");
+    console.log(session);
+
     if(session.email && session.userObject){
         res.redirect("/home");
     } else {
