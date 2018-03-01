@@ -112,5 +112,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(function(req, res, next) {
+    var allowedOrigins = ['https://www.giveitforward.us', 'https://giveitforward.us'];
+    var origin = req.headers.origin;
+    if(allowedOrigins.indexOf(origin) > -1){
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+    return next();
+});
+
 
 module.exports = app;
