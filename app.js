@@ -16,16 +16,8 @@ var home = require("./routes/home");
 
 
 var session = require('express-session');
-// var users = require('./routes/users');
-// var signup = require('./routes/signup');
-// var editProfile = require('./routes/editProfile');
-// var requestFeed = require('./routes/requestFeed');
-// var orgs = require('./routes/orgs');
-// var myProfile = require('./routes/myProfile');
-// var newRequest = require('./routes/newRequest');
-var paypal = require('./routes/paypal');
 
-console.log("hello from app.js");
+console.log("hello from app.js\n");
 
 var app = express();
 
@@ -42,7 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var environment = process.env.NODE_ENV;
 
-console.log("in " + environment + " environment");
+console.log(" ------------------------ Starting app.js ------------------------");
+console.log("-------------------- in " + environment + " environment --------------------");
 
 // if i am the production database, then set up a session store correctly
 if (environment === 'production'){
@@ -56,10 +49,10 @@ if (environment === 'production'){
         database: 'postgres'
     };
 
-// 2-) Create an instance of connect-pg-simple and pass it session
+    // 2-) Create an instance of connect-pg-simple and pass it session
     const pgSession = require('connect-pg-simple')(session);
 
-// 3-) Create a config option for store
+    // 3-) Create a config option for store
     const pgStoreConfig = {
         // pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
         //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
@@ -67,10 +60,10 @@ if (environment === 'production'){
         // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
     }
 
-// for security
+    // for security
     app.set('trust proxy', true);
 
-// 4-) use the store configuration to pgSession instance
+    // 4-) use the store configuration to pgSession instance
     app.use(session({
         secret: 'jW8aor76jpPX', // session secret
         proxy: true,
@@ -80,7 +73,7 @@ if (environment === 'production'){
         cookie: { secure: true, maxAge: new Date(Date.now() + (60000 * 30)) }, // 30 minute session
         store: new pgSession(pgStoreConfig)
     }));
-} else {
+} else { // local session store for dev env
     app.use(session({
         secret: 'jW8aor76jpPX', // session secret
         resave: false,
@@ -88,10 +81,6 @@ if (environment === 'production'){
         saveUninitialized: false
     }));
 }
-
-
-
-
 
 
 app.use('/', index);
@@ -102,31 +91,23 @@ app.use('/contactUs', contactUs);
 app.use('/api', api);
 app.use('/home', home);
 
-// app.use('/users', users);
-// app.use('/signup', signup);
-// app.use('/editProfile', editProfile);
-// app.use('/requestFeed', requestFeed);
-// app.use('/orgs', orgs);
-// app.use('/myProfile', myProfile);
-// app.use('/newRequest', newRequest);
-// app.use('/paypal', paypal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 
