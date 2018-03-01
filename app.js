@@ -42,8 +42,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var environment = process.env.NODE_ENV;
 
-console.log(environment === 'development');
-console.log(environment);
+console.log("in " + environment + " environment");
+
+// if i am the production database, then set up a session store correctly
 if (environment === 'production'){
 
     // 1-) Connection details
