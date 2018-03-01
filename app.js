@@ -63,7 +63,7 @@ const pgStoreConfig = {
 }
 
 // for security
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 // 4-) use the store configuration to pgSession instance
 app.use(session({

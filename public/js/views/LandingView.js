@@ -78,7 +78,7 @@ define(function (require, exports, module) {
             
 
             self.model.fetch({
-                credentials: 'same-origin',
+                credentials: 'include',
                 headers: {
                     "email": $("#username").val(),
                     "password": hashPassword
