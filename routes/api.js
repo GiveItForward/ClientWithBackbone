@@ -25,7 +25,7 @@ router.get('/users/login', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', '*');
 
     console.log("\n\n\tSESSION from Login:\n");
-    console.log(session);
+    console.log(session.sessionID);
 
     if(session.email && session.userObject){
         res.redirect("/home");
@@ -269,7 +269,7 @@ router.get('/*', function(req, res, next) {
     session = req.session;
 
     console.log("\n\n\tSESSION FROM GET\t");
-    console.log(session);
+    console.log(session.sessionID);
 
     if(session.email && session.userObject){
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
