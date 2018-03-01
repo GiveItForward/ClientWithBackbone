@@ -22,7 +22,7 @@ var allowedOrigins = ['https://www.giveitforward.us', 'https://giveitforward.us'
 router.get('/users/login', function(req, res, next) {
 
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
     session = req.session;
 
@@ -65,7 +65,7 @@ router.get('/users/login', function(req, res, next) {
 router.post('/paypal/verify/*', function(req, res, next) {
     req.sendStatus(200)
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
 
     console.log("in paypal verify: POST");
@@ -120,7 +120,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
     session = req.session;
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
 
     if(session.email && session.userObject){
@@ -236,7 +236,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
 router.get('/users/logout', function(req, res, next) {
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
     /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
     res.header('Access-Control-Allow-Credentials', true);
@@ -266,7 +266,7 @@ router.get('/tags', function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid'); */
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
     var options = {
         url: baseUrl.tomcat_url + req.url,
@@ -288,7 +288,7 @@ router.get('/tags', function(req, res, next) {
 
 router.get('/*', function(req, res, next) {
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
     /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -324,7 +324,7 @@ router.get('/*', function(req, res, next) {
 // todo - issues with post and session
 router.post('/users/create', function(req, res, next) {
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
     /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -358,7 +358,7 @@ router.post('/users/create', function(req, res, next) {
 
 router.post('/*', function(req, res, next) {
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
     /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -392,7 +392,7 @@ router.post('/*', function(req, res, next) {
 
 router.put('/*', function(req, res, next) {
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
     /* res.header('Access-Control-Allow-Origin', 'https://www.giveitforward.us/');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -426,7 +426,7 @@ router.put('/*', function(req, res, next) {
 router.delete('/*', function(req, res, next) {
 
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
 
     session = req.session;
@@ -462,7 +462,7 @@ router.options("/*", function(req, res, next){
     console.log("\n\n\tAFTER from Login:\n");
     console.log(session.sessionID);
 
-    res = setupCorsResponse(res);
+    setupCorsResponse(res, req.headers.origin);
 
     // var origin = req.headers.origin;
     // if(allowedOrigins.indexOf(origin) > -1){
@@ -480,9 +480,8 @@ router.options("/*", function(req, res, next){
 
 
 // global controller
-function setupCorsResponse(res){
+function setupCorsResponse(res, origin){
     var allowedOrigins = ['https://www.giveitforward.us', 'https://giveitforward.us'];
-    var origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
@@ -490,7 +489,7 @@ function setupCorsResponse(res){
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
-    return res;
+    // return res;
 };
 
 
