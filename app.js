@@ -68,12 +68,12 @@ app.set('trust proxy', 1);
 // 4-) use the store configuration to pgSession instance
 app.use(session({
     secret: 'jW8aor76jpPX', // session secret
-    // proxy: true,
+    proxy: true,
     resave: false,
     key: session.sid,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 3600000 } // 30 days
-    // store: new pgSession(pgStoreConfig)
+    cookie: { secure: true, maxAge: 3600000 }, // 1 hour
+    store: new pgSession(pgStoreConfig)
 }));
 
 
