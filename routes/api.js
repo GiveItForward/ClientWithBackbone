@@ -19,6 +19,10 @@ router.get('/users/login', function(req, res, next) {
 
     session = req.session;
 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     console.log("\n\n\tSESSION from Login:\n");
     console.log(session);
 
@@ -38,9 +42,6 @@ router.get('/users/login', function(req, res, next) {
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 // console.log(response.headers);
                 // res.headers = response.headers;
-                res.header('Access-Control-Allow-Origin', '*');
-                res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-                res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
                 res.send(body);
             } else {
                 res.sendStatus(401);
@@ -218,6 +219,10 @@ router.get('/requests/paypal', function(req, res, next) {
 
 router.get('/users/logout', function(req, res, next) {
 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     session = req.session;
     var userObject = session.userObject;
 
@@ -233,16 +238,30 @@ router.get('/users/logout', function(req, res, next) {
 // todo - /tags is currently open to the public
 router.get('/tags', function(req, res, next) {
 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     var options = {
         url: baseUrl.tomcat_url + req.url,
         headers: req.headers
     };
 
-    request(options).pipe(res);
-
+    request(options, function(error, response, body){
+        if(response.statusCode === 200){
+            res.send(body);
+        } else {
+            res.send(response);
+        }
+    });
 });
 
 router.get('/*', function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     session = req.session;
 
     console.log("\n\n\tSESSION FROM GET\t");
@@ -257,18 +276,12 @@ router.get('/*', function(req, res, next) {
 
         request(options, function (error, response, body) {
             if(response.statusCode === 200){
-                res.header('Access-Control-Allow-Origin', '*');
-                res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-                res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
                 res.send(body)
             } else {
                 res.sendStatus(response);
             }
         });
     } else {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
         res.sendStatus(401);
     }
 
@@ -278,6 +291,12 @@ router.get('/*', function(req, res, next) {
 
 // todo - issues with post and session
 router.post('/users/create', function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
+
     session = req.session;
 
     var options = {
@@ -301,6 +320,11 @@ router.post('/users/create', function(req, res, next) {
 });
 
 router.post('/*', function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     session = req.session;
 
 
@@ -325,6 +349,11 @@ router.post('/*', function(req, res, next) {
 });
 
 router.put('/*', function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     session = req.session;
 
 
@@ -349,6 +378,11 @@ router.put('/*', function(req, res, next) {
 });
 
 router.delete('/*', function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+
     session = req.session;
 
 
