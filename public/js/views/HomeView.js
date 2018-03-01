@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             self.model = options.model;
             self.tagCollection = new TagCollection();
             self.tagCollection.fetch({
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log('tag names from db: ');
                     console.log(collection.models);
@@ -135,7 +135,7 @@ define(function (require, exports, module) {
 
             var requestCollection = new RequestCollection();
             requestCollection.fetch({
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
@@ -187,7 +187,7 @@ define(function (require, exports, module) {
                     "uid": ruseruid,
                     "amt": amount
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
 
@@ -219,7 +219,7 @@ define(function (require, exports, module) {
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
@@ -229,7 +229,7 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')){
                 var pendingOrgCollection = new OrgCollection();
                 pendingOrgCollection.fetchPending({
-                    credentials: 'include',
+                    credentials: 'same-origin',
                     success: function (collection) {
                         console.log(collection.models);
                         self.$('#pendingOrgCol').html(orgTemplate(collection));
@@ -357,7 +357,7 @@ define(function (require, exports, module) {
                 headers: {
                     "uid": self.model.get('uid')
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
@@ -386,7 +386,7 @@ define(function (require, exports, module) {
                 headers: {
                     "uid": self.model.get('uid'),
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log("My donations: ");
                     console.log(collection.models);
@@ -415,7 +415,7 @@ define(function (require, exports, module) {
                 headers: {
                     "uid": self.model.get('uid'),
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
@@ -688,7 +688,7 @@ define(function (require, exports, module) {
                         self.model.setUrl('logout');
 
                         self.model.fetch({
-                            credentials: 'include',
+                            credentials: 'same-origin',
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
                                 // window.location.href = 'http://localhost:3000/';

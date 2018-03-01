@@ -80,7 +80,7 @@ define(function (require, exports, module) {
                     "email": $("#username").val(),
                     "password": hashPassword
                 },
-                credentials: 'include',
+                credentials: 'same-origin',
                 success: function () {
                     self.model.set("password", undefined);
                      new HomeView({
