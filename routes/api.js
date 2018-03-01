@@ -19,7 +19,7 @@ router.get('/users/login', function(req, res, next) {
 
     session = req.session;
 
-    console.log("\n\n\tSESSION:\n");
+    console.log("\n\n\tSESSION from Login:\n");
     console.log(session);
 
     if(session.email && session.userObject){
@@ -241,6 +241,9 @@ router.get('/tags', function(req, res, next) {
 
 router.get('/*', function(req, res, next) {
     session = req.session;
+
+    console.log("\n\n\tSESSION FROM GET\t");
+    console.log(session);
 
     if(session.email && session.userObject){
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
