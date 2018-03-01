@@ -59,7 +59,7 @@ const pgSession = require('connect-pg-simple')(session);
 
 // 3-) Create a config option for store
 const pgStoreConfig = {
-    pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
+    // pgPromise: require('pg-promise')({ promiseLib: require('bluebird') })( conObject ), // user either this
     //conString: 'postgres://mehmood:mehmood@localhost:5432/test_db', // or this
     conObject: conObject,// or this,
     // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
@@ -69,9 +69,9 @@ const pgStoreConfig = {
 app.use(session({
     secret: 'jW8aor76jpPX', // session secret
     proxy: true,
-    resave: true,
+    resave: false,
     key: session.sid,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
     store: new pgSession(pgStoreConfig)
 }));
