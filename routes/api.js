@@ -20,7 +20,7 @@ router.get('/users/login', function(req, res, next) {
     session = req.session;
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -221,7 +221,7 @@ router.get('/requests/paypal', function(req, res, next) {
 router.get('/users/logout', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -241,7 +241,7 @@ router.get('/users/logout', function(req, res, next) {
 router.get('/tags', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -262,7 +262,7 @@ router.get('/tags', function(req, res, next) {
 router.get('/*', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -297,7 +297,7 @@ router.get('/*', function(req, res, next) {
 router.post('/users/create', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -327,7 +327,7 @@ router.post('/users/create', function(req, res, next) {
 router.post('/*', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -357,7 +357,7 @@ router.post('/*', function(req, res, next) {
 router.put('/*', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -387,7 +387,7 @@ router.put('/*', function(req, res, next) {
 router.delete('/*', function(req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
 
@@ -417,7 +417,7 @@ router.delete('/*', function(req, res, next) {
 router.options("/*", function(req, res, next){
     console.log("IN OPTIONS");
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
     res.sendStatus(200);
