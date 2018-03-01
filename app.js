@@ -33,9 +33,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// for security
-app.set('trust proxy', 1);
-
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -65,15 +62,18 @@ const pgStoreConfig = {
     // pool: new (require('pg').Pool({ /* pool options here*/}))// or this
 }
 
+// for security
+app.set('trust proxy', 1);
+
 // 4-) use the store configuration to pgSession instance
 app.use(session({
     secret: 'jW8aor76jpPX', // session secret
-    proxy: true,
+    // proxy: true,
     resave: false,
     key: session.sid,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false }, // 30 days
-    store: new pgSession(pgStoreConfig)
+    cookie: { secure: true, maxAge: 3600000 } // 30 days
+    // store: new pgSession(pgStoreConfig)
 }));
 
 
