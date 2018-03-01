@@ -35,10 +35,10 @@ router.get('/users/login', function(req, res, next) {
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 // console.log(response.headers);
                 // res.headers = response.headers;
-                res.header('Access-Control-Allow-Origin', '*');
-                res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-                res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
-                console.log(res.headers);
+                // res.header('Access-Control-Allow-Origin', '*');
+                // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+                // res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, email, password, uid, username, bio, rid, amt, oid');
+                // console.log(res.headers);
                 res.send(body);
             } else {
                 res.sendStatus(401);
