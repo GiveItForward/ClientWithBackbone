@@ -93,6 +93,9 @@ define(function (require, exports, module) {
             console.log(self.model);
             self.model = options.model;
             self.tagCollection = new TagCollection();
+            var sendAuthentication = function (xhr) {
+                xhr.setRequestHeader('withCredentials', true);
+            }
             self.tagCollection.fetch({
                 beforeSend: sendAuthentication,
                 success: function (collection) {
