@@ -75,12 +75,10 @@ define(function (require, exports, module) {
             // });
             var hashPassword = sha256($("#password").val());
             // console.log(hashPassword);
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+            
 
             self.model.fetch({
-                beforeSend: sendAuthentication,
+                credentials: 'same-origin',
                 headers: {
                     "email": $("#username").val(),
                     "password": hashPassword

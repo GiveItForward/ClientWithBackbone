@@ -93,11 +93,9 @@ define(function (require, exports, module) {
             console.log(self.model);
             self.model = options.model;
             self.tagCollection = new TagCollection();
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
             self.tagCollection.fetch({
-                beforeSend: sendAuthentication,
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log('tag names from db: ');
                     console.log(collection.models);
@@ -138,12 +136,10 @@ define(function (require, exports, module) {
 
             var requestCollection = new RequestCollection();
 
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
 
             requestCollection.fetch({
-                beforeSend: sendAuthentication,
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#requestCol').html(requestTemplate(collection));
@@ -187,13 +183,10 @@ define(function (require, exports, module) {
                 path: 'paypal'
             });
 
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
 
 
             currRequest.fetch({
-                beforeSend: sendAuthentication,
                 reset: true,
                 headers: {
                     "rid": rid,
@@ -201,6 +194,7 @@ define(function (require, exports, module) {
                     "uid": ruseruid,
                     "amt": amount
                 },
+                credentials: 'same-origin',
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
 
@@ -230,13 +224,11 @@ define(function (require, exports, module) {
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
 
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
-                beforeSend: sendAuthentication,
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log(collection.models);
                     self.$('#orgCol').html(orgTemplate(collection));
@@ -246,7 +238,7 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')){
                 var pendingOrgCollection = new OrgCollection();
                 pendingOrgCollection.fetchPending({
-                    beforeSend:sendAuthentication,
+                    credentials: 'same-origin',
                     success: function (collection) {
                         console.log(collection.models);
                         self.$('#pendingOrgCol').html(orgTemplate(collection));
@@ -339,6 +331,7 @@ define(function (require, exports, module) {
 
             var userCollection = new UserCollection();
             userCollection.fetch({
+                credentials: 'same-origin',
                 success: function (collection) {
                     console.log(collection.models);
                     if(self.model.get('isAdmin')){
@@ -370,15 +363,13 @@ define(function (require, exports, module) {
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
 
             requestCollection.fetchByRequestUid({
+                credentials: 'same-origin',
                 headers: {
                     "uid": self.model.get('uid')
                 },
-                beforeSend: sendAuthentication,
                 success: function (collection) {
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
@@ -403,14 +394,12 @@ define(function (require, exports, module) {
             self.$('#myDonationHistory').html(myDonationFeedTemplate);
 
             var requestCollection = new RequestCollection();
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
             requestCollection.fetchByDonateUid({
+                credentials: 'same-origin',
                 headers: {
                     "uid": self.model.get('uid')
                 },
-                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log("My donations: ");
                     console.log(collection.models);
@@ -435,14 +424,12 @@ define(function (require, exports, module) {
             var self = this;
 
             var notificationCollection = new NotificationCollection();
-            var sendAuthentication = function (xhr) {
-                xhr.setRequestHeader('withCredentials', true);
-            }
+
             notificationCollection.fetch({
+                credentials: 'same-origin',
                 headers: {
                     "uid": self.model.get('uid')
                 },
-                beforeSend: sendAuthentication,
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
@@ -715,7 +702,7 @@ define(function (require, exports, module) {
                         self.model.setUrl('logout');
 
                         self.model.fetch({
-                            beforeSend: sendAuthentication,
+                            credentials: 'same-origin',
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
                                 // window.location.href = 'http://localhost:3000/';
