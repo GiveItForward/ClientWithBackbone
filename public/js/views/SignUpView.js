@@ -34,19 +34,19 @@ define(function (require, exports, module) {
         events: {
             "click #loginBtn"           : "renderLogin",
             "click #dropdownBtn"        : "toggleDropdown",
-            "click #createAccountBtn"   : "createAccount",
+            // "click #createAccountBtn"   : "createAccount",
             "click #uploadImage"        : "uploadImage",
             "click #chooseImage"        : "chooseImage",
             "click #addInfo"            : "save",
             "click #fillOutLater"       : "fillOutLater",
             "click .dropdown-menu a"    : "updateUserTags",
             // "focus #newEmail"           : "emailPopup",
-            "keyup"                     : "updateModel",
-            "change"                    : "updateModel"
+            // "keyup"                     : "updateModel",
+            // "change"                    : "updateModel"
         },
 
         initialize: function () {
-            this.model.set('image', '/img/default_profile_pic_no_bckgrnd.png');
+            this.model.set('image', '/img/wine_default.png');
             this.render();
         },
 
@@ -151,7 +151,7 @@ define(function (require, exports, module) {
             var tagCollection = new TagCollection();
             tagCollection.fetch({
                 success: function (collection) {
-                    console.log('tag names from db: ')
+                    console.log('tag names from db: ');
                     console.log(collection.models);
                     self.$('#landingContainer').html(signup2Template);
                     self.$('#chooseUserTags').html(signup2TagsTemplate(collection));

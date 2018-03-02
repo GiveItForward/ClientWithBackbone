@@ -1,0 +1,37 @@
+<div class="modal fade" id="editOrgModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header dimgreytext">
+                <button id="exitEditOrgModal" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Organization</h4>
+            </div>
+            <div class="modal-body">
+                <label>Your Organization's name:</label>
+                <input type="text" class="neworgname"/>
+                <label>Org description:</label>
+                <textarea id="editOrgDescription" class="neworgdescription" rows="4" cols="60"></textarea>
+                <label>Website:</label>
+                <input type="text" class="neworgname"/>
+                <label>Phone number:</label>
+                <input type="text" class="neworgname"/>
+                <label>Address:</label>
+                <input type="text" class="neworgname"/>
+                <label>Email:</label>
+                <input type="text" class="neworgname"/>
+                <!--<div class="row text-center">-->
+                <!--<div class="col-md-3"></div>-->
+                <!--<div class="col-md-6">-->
+                <!--<img id="newOrgImage" src="/img/u_logo.png" style="height:80%; width:80%;">-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <label id="editOrgErrorLabel" style="color: red"></label>
+                <button id="cancelEditOrgBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="updateOrgBtn" class="btn turquoisebtn">Update Org</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,28 +4,44 @@ for user in locals.models
             .panel.roundrequest
                 .form-inline
                     .container
-                        .requestmargin.text-center
+                        .requestmargin
                             .row
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
                                 .col-md-11
                                     a.requestusername(target="_blank", href='#') @#{user.get("username")}
-                            .row.topborder
-                                .col-md-12.text-center
-                                    | #{user.get("bio")}
-                                    br
-                                    for tag in user.get("tags")
-                                        if tag.tagname !== ''
+                                    #requestTags.form-inline.tags
+                                        for tag in user.get("tags")
+                                            if tag.tagname !== ''
+                                                | &nbsp##{tag.tagname}
                                             if tag.verifiedBy !== ''
-                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-                                                    input#verifyTag(type='checkbox', checked="checked",)
-                                                | &nbsp##{tag.tagname}&nbsp&nbsp
+                                                span(data-title='Verified by #{tag.verifiedBy}')
+                                                    img.checkmark(src='/img/marooncheckmark.png')
                                             else
-                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-                                                    input#verifyTag(type='checkbox')
-                                                | &nbsp##{tag.tagname}&nbsp&nbsp
+                                                | &nbsp
+                            .row.topborder
+                                .col-md-12
+                                    .userbiodiv.text-center
+                                        | #{user.get("bio")}
                             .row
                                 .col-md-12.text-center
                                     .btn-group
-                                        button#elevateUserBtn.editrequestbtn.turquoisebtn elevate
-                                        button#deleteUserBtn.editrequestbtn.btn-danger delete
+                                        button#elevateUserOrgBtn.elevateuserbtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to org user
+                                        button#elevateUserAdminBtn.elevateuserbtn.turquoisebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
+                                        button#deleteUserBtn.elevateuserbtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') delete user
+
+
+
+
+
+
+//for tag in user.get("tags")
+//    if tag.tagname !== ''
+//        if tag.verifiedBy !== ''
+//            a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+//                input#verifyTag(type='checkbox', checked="checked",)
+//            | &nbsp##{tag.tagname}&nbsp&nbsp
+//        else
+//            a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+//                input#verifyTag(type='checkbox')
+//            | &nbsp##{tag.tagname}&nbsp&nbsp

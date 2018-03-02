@@ -1,4 +1,4 @@
-var chosenImage = "/img/default_profile_pic_no_bckgrnd.png";
+var chosenImage = "/img/wine_default.png";
 
 define(function (require, exports, module) {
 

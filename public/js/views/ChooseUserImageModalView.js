@@ -1,4 +1,4 @@
-var chosenImage = "/img/default_profile_pic_no_bckgrnd.png";
+var chosenImage = "/img/wine_default.png";
 
 define(function (require, exports, module) {
 
@@ -48,13 +48,14 @@ define(function (require, exports, module) {
         save: function (event) {
 
             this.parent.model.set('image', chosenImage);
+            this.parent.$('#updateProfileBtn').prop("disabled", false);
             console.log(this.parent.model.get('image'));
             if(this.update){
                 $("#editProfileImage").attr('src', this.parent.model.get('image'));
             }else{
                 $("#userImage").attr('src', this.parent.model.get('image'));
             }
-
+            this.destroyChooseUserImageModal();
             return this;
         },
 

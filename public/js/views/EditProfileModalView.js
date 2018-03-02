@@ -112,6 +112,7 @@ define(function (require, exports, module) {
             }
             $( event.target ).blur();
             console.log( editProfileTagList );
+            self.$('#updateProfileBtn').prop("disabled", false);
             return this;
         },
 

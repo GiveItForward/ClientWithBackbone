@@ -23,6 +23,11 @@ define(function (require, exports, module) {
         fetchByDonateUid: function (options) {
             this.url = rootUrl.url + "api/requests/donateuid";
             return Backbone.Collection.prototype.fetch.call(this, options);
+        },
+
+        fetchByFilter: function (options) {
+            this.url = rootUrl.url + "api/requests/filter";
+            return Backbone.Collection.prototype.fetch.call(this, options);
         }
     });
     return RequestCollection;

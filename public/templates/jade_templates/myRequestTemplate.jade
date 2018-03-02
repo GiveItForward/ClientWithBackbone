@@ -39,7 +39,7 @@ for request in locals.models
                                             if request.get("thankYou") === ''
                                                 a#sayThankYouBtn.thankyoubtn.btn.turquoisebtn.whitetext(data-rid='#{request.get("rid")}', data-duid='#{request.get("duid")}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
                                             else
-                                                a#viewThankYouBtn.thankyoubtn.btn.greybtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+                                                a#viewThankYouBtn.thankyoubtn.btn.purplebtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
                                         else
-                                            button#editRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#editRequestModal', data-backdrop='static') edit
-                                            button#deleteRequestBtn.editrequestbtn.greybtn(data-rid='#{request.get("rid")}') delete
+                                            button#editRequestBtn.editrequestbtn.purplebtn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#editRequestModal', data-backdrop='static') edit
+                                            button#deleteRequestBtn.editrequestbtn.winebtn(data-rid='#{request.get("rid")}') delete

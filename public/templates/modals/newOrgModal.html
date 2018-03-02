@@ -1,0 +1,37 @@
+<div class="modal fade" id="newOrgModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header dimgreytext">
+                <button id="exitNewOrgModal" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Organization</h4>
+            </div>
+            <div class="modal-body">
+                <label>Your Organization's name:</label>
+                <input type="text" class="neworgname"/>
+                <label>Describe your org:</label>
+                <textarea id="newOrgDescription" class="neworgdescription" rows="4" cols="60"></textarea>
+                <label>Website:</label>
+                <input type="text" class="neworgname"/>
+                <label>Phone number:</label>
+                <input type="text" class="neworgname"/>
+                <label>Address:</label>
+                <input type="text" class="neworgname"/>
+                <label>Email:</label>
+                <input type="text" class="neworgname"/>
+                <!--<div class="row text-center">-->
+                    <!--<div class="col-md-3"></div>-->
+                    <!--<div class="col-md-6">-->
+                        <!--<img id="newOrgImage" src="/img/u_logo.png" style="height:80%; width:80%;">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <label id="newOrgErrorLabel" style="color: red"></label>
+                <button id="cancelNewOrgBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
+                <button id="createOrgBtn" class="btn turquoisebtn">Create Org</button>
+            </div>
+        </div>
+    </div>
+</div>

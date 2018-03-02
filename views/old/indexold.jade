@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    #rightCol
+        #landingContainer.container
+            .btn-group
+                button#loginBtn.leftroundbtn.greybtn.selected Log In
+                button#signupBtn.rightroundbtn.greybtn Sign Up
+            #inputdiv
+                input#username.round(type='text', name='username', placeholder='username or email')
+                input#password.round(type='password', placeholder='password')
+                label#loginErrorLabel(style=" color: red")
+                button#loginSubmitBtn.btn.round.turquoisebtn.mainbtn Log In
+                i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
+

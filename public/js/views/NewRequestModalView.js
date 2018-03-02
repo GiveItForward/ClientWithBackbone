@@ -80,19 +80,19 @@ define(function (require, exports, module) {
             self.model.set("tag1", new tag1Obj());
 
             if('bills' === currTag){
-                self.model.set("image", '/img/bills_icon.png');
+                self.model.set("image", '/img/turquoise_bills.png');
             } else if('carRepairs' === currTag){
-                self.model.set("image", '/img/car_repair_icon.png');
+                self.model.set("image", '/img/turquoise_car.png');
             } else if('clothing' === currTag){
-                self.model.set("image", '/img/clothing_icon.png');
+                self.model.set("image", '/img/purple_clothes.png');
             }  else if('forAChild' === currTag){
-                self.model.set("image", '/img/forachild_icon.png');
+                self.model.set("image", '/img/yellow_baby.png');
             }  else if('groceries' === currTag){
-                self.model.set("image", '/img/groceries_icon.png');
+                self.model.set("image", '/img/yellow_food.png');
             } else if('rent' === currTag){
                 self.model.set("image", '/img/rent_icon.png');
             } else if('schoolRelated' === currTag){
-                self.model.set("image", '/img/school_icon.png');
+                self.model.set("image", '/img/purple_school.png');
             }
 
             $('#newRequestImage').attr('src', self.model.get('image'));

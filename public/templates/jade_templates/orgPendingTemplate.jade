@@ -1,0 +1,23 @@
+for org in locals.models
+    .row
+        .col-md-12
+            .panel.roundorg
+                .form-inline
+                    .container
+                        .requestmargin
+                            .row
+                                #orgImage.col-md-2.text-center
+                                    img.orglogopending(src='#{org.get("image")}')
+                                    button#approveOrgBtn.orgapprovebtn.turquoisebtn(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') approve
+                                    button#denyOrgBtn.orgdenybtn.winebtn(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') deny
+                                .col-md-10.text-center
+                                    a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
+                                    .orgDescriptionDiv
+                                        #orgBio.orgmessage.panel-body #{org.get("description")}
+                                    .row.topborder
+                                        .col-md-6
+                                            a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}
+                                            #orgPhone #{org.get("phone")}
+                                            #orgEmail #{org.get("email")}
+                                        .col-md-6
+                                            #orgAddress #{org.get("address")}

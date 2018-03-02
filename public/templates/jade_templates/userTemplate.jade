@@ -4,26 +4,35 @@ for user in locals.models
             .panel.roundrequest
                 .form-inline
                     .container
-                        .requestmargin.text-center
+                        .requestmargin
                             .row
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
                                  .col-md-11
                                     a.requestusername(target="_blank", href='#') @#{user.get("username")}
+                                    .form-inline.tags
+                                        for tag in user.get("tags")
+                                            if tag.tagname !== ''
+                                                if tag.verifiedBy !== ''
+                                                    .verifytag
+                                                        | ##{tag.tagname}
+                                                    //button#updateVerifiedTagsBtn.verifybtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
+                                                    button#unverifyTagBtn(type='submit', style='border: 0; background: transparent', data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}')
+                                                        img(src='/img/marooncheckmark.png', width='40', height='40', alt='submit')
+                                                    //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+                                                    //    input#verifyTag(type='checkbox', name='verifiedtag', checked="checked")
+                                                    //    label(for='verifiedtag')
+                                                else
+                                                    .verifytag
+                                                        | ##{tag.tagname}
+                                                    button#verifyTagBtn.verifybtn.purplebtn(data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') verify
+                                                    //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
+                                                    //    input#verifyTag(type='checkbox')
+                                                    //    label(for='verifiedtag')
                             .row.topborder
-                                .col-md-12.text-center
-                                    | #{user.get("bio")}
-                                    br
-                                    for tag in user.get("tags")
-                                        if tag.tagname !== ''
-                                            if tag.verifiedBy !== ''
-                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-                                                    input#verifyTag(type='checkbox', checked="checked",)
-                                                | &nbsp##{tag.tagname}&nbsp&nbsp
-                                            else
-                                                a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-                                                    input#verifyTag(type='checkbox')
-                                                | &nbsp##{tag.tagname}&nbsp&nbsp
-                            .row
-                                .col-md-12.text-center
-                                    button#updateVerifiedTagsBtn.thankyoubtn.turquoisebtn update
+                                .col-md-12
+                                    .userbiodiv.text-center
+                                        | #{user.get("bio")}
+                            //.row
+                            //    .col-md-12.text-center
+                            //        button#updateVerifiedTagsBtn.thankyoubtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') update tags

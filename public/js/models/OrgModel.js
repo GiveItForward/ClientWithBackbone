@@ -12,20 +12,11 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
 
-            if(options.name) {
-
-                this.set("name", options.name);
-                this.url = rootUrl.url + "api/organizations/"
-                // this.url = "http://localhost:3000/api/organizations/" ;
-                // this.url = "http://giveitforward.us/api/organizations/" ;
-
-
-            } else {
-                this.set("name", undefined);
-                this.set("email", undefined);
-                this.set("website", undefined);
-                this.set("phoneNumber", undefined);
-                this.set("image", undefined);
+            if(options.oid) {
+                this.set("oid", options.oid);
+            }
+            if(options.path) {
+                this.url = rootUrl.url + "api/organizations/" + options.path;
             }
         }
     });

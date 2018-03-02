@@ -2,8 +2,8 @@ console.log("in Home View file");
 //The HomeView's model is the UserModel
 var searchUserTagsList = [];
 var searchRequestTagsList = [];
-var lowOrHigh = '';
-var newOrOld = '';
+var price = '';
+var age = '';
 
 define(function (require, exports, module) {
 
@@ -13,10 +13,11 @@ define(function (require, exports, module) {
     var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
+    var NewOrgModalView = require("views/NewOrgModalView");
+    var EditOrgModalView = require("views/EditOrgModalView");
     var NewRequestModalView = require("views/NewRequestModalView");
     var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
-    // var NotificationsModalView = require("views/NotificationsModalView");
     var EditProfileModalView = require("views/EditProfileModalView");
     var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
@@ -43,8 +44,10 @@ define(function (require, exports, module) {
     var selectTagsTemplate = require("jade!templates/jade_templates/selectTagsTemplate");
     var orgFeedAdminTemplate = require("jade!templates/jade_templates/orgFeedAdminTemplate");
     var orgFeedOrgTemplate = require("jade!templates/jade_templates/orgFeedOrgTemplate");
+    var orgMyOrgTemplate = require("jade!templates/jade_templates/orgMyOrgTemplate");
     var orgFeedTemplate = require("jade!templates/jade_templates/orgFeedTemplate");
     var orgTemplate = require("jade!templates/jade_templates/orgTemplate");
+    var orgPendingTemplate = require("jade!templates/jade_templates/orgPendingTemplate");
     var userFeedTemplate = require("jade!templates/jade_templates/userFeedTemplate");
     var userTemplate = require("jade!templates/jade_templates/userTemplate");
     var userAdminTemplate = require("jade!templates/jade_templates/userAdminTemplate");
@@ -70,6 +73,7 @@ define(function (require, exports, module) {
             "click #old"                        : "toggleOld",
             "click #low"                        : "toggleLow",
             "click #high"                       : "toggleHigh",
+            "click #goFilterRequests"           : "goFilterRequests",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
             "click #myProfileBtn"               : "renderMyProfile",
@@ -77,7 +81,15 @@ define(function (require, exports, module) {
             "click #changePasswordBtn"          : "changePassword",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
-            "click #adminBtn"                   : "renderAdmin",
+            "click #unverifyTagBtn"             : "unverifyTag",
+            "click #verifyTagBtn"               : "verifyTag",
+            "click #elevateUserOrgBtn"          : "elevateUserOrg",
+            "click #elevateUserAdminBtn"        : "elevateUserAdmin",
+            "click #deleteUserBtn"              : "deleteUser",
+            "click #approveOrgBtn"              : "approveOrg",
+            "click #denyOrgBtn"                 : "denyOrg",
+            "click #newOrgBtn"                  : "newOrg",
+            "click #editOrgBtn"                 : "editOrg",
             "click #newRequestBtn"              : "newRequest",
             "click #editRequestBtn"             : "editRequest",
             "click #deleteRequestBtn"           : "deleteRequest",
@@ -99,8 +111,8 @@ define(function (require, exports, module) {
                     withCredentials: true
                 },
                 success: function (collection) {
-                    console.log('tag names from db: ');
-                    console.log(collection.models);
+                    // console.log('tag names from db: ');
+                    // console.log(collection.models);
                     self.tagCollection = collection;
                     self.render();
                 }
@@ -108,7 +120,6 @@ define(function (require, exports, module) {
         },
 
         render: function () {
-            console.log("in home view render");
             var self = this;
             self.$el.html(homeTemplate);
             console.log(self.model);
@@ -129,9 +140,6 @@ define(function (require, exports, module) {
         renderHome: function () {
             var self = this;
             self.renderTopHomeBar();
-
-            console.log("in home view renderHome");
-
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("selected");
             self.$('#homeContainer').html(requestFeedTemplate);
@@ -150,13 +158,7 @@ define(function (require, exports, module) {
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
-            //todo, not this but add tabs to orgs
-            // if(self.model.get('isAdmin')){
-            //     $("#adminBtn").addClass("turquoisebtncol");
-            //     $("#adminBtn").addClass("btn");
-            //     $("#adminBtn").attr("href", "#");
-            //     $("#adminBtn").text("Admin");
-            // }
+
             if(self.model.get('orgId') > 0 || self.model.get('isAdmin')){
                 $("#usersBtn").addClass("turquoisebtncol");
                 $("#usersBtn").addClass("btn");
@@ -216,8 +218,6 @@ define(function (require, exports, module) {
         },
 
         renderOrgs: function () {
-            console.log("in home view renderOrgs");
-            //todo orgs need div on description and admin needs approve/deny btns
             var self = this;
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
@@ -251,24 +251,38 @@ define(function (require, exports, module) {
                     },
                     success: function (collection) {
                         console.log(collection.models);
-                        self.$('#pendingOrgCol').html(orgTemplate(collection));
+                        self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
                     }
                 });
             }
 
+            var myOid = self.model.get('orgId');
+            console.log(myOid);
+            if(myOid > 0){
+                var myOrgModel = new OrgModel({
+                    path: 'byoid',
+                    oid: myOid
+                });
+                myOrgModel.fetch({
+                    headers: {"oid": myOid},
+                    success: function (model) {
+                        console.log(model);
+                        var collect = new Backbone.Collection();
+                        collect.add(model);
+                        self.$('#myOrgCol').html(orgMyOrgTemplate(collect));
+                    }
+                });
+            }
             return this;
         },
 
         renderMyProfile: function () {
-            console.log("in home view renderMyProfile");
             var self = this;
-            console.log(self.model);
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("selected");
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
-            // console.log(tags);
             var tagList = "";
             _.each(tags, function(tag) {
                 if(tag.tagname !== ''){
@@ -292,7 +306,6 @@ define(function (require, exports, module) {
         },
 
         editProfile: function () {
-            console.log("in edit profile function");
             var self = this;
             var container = document.createDocumentFragment();
             var editProfileModalView = new EditProfileModalView({
@@ -306,7 +319,6 @@ define(function (require, exports, module) {
         },
 
         changePassword: function () {
-            console.log("in change password function");
             var self = this;
             var container = document.createDocumentFragment();
             var changePasswordModalView = new ChangePasswordModalView({
@@ -319,8 +331,6 @@ define(function (require, exports, module) {
         },
 
         deleteAccount: function () {
-            console.log("in delete account function");
-
             bootbox.confirm({
                 message: "Are you sure you want to DELETE your account?",
                 callback: function (result) {
@@ -332,7 +342,6 @@ define(function (require, exports, module) {
         },
 
         renderUsers: function () {
-            console.log("in render users function");
             var self = this;
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
@@ -358,19 +367,166 @@ define(function (require, exports, module) {
             return this;
         },
 
-        renderAdmin: function () {
-            console.log("in render admin function");
+        verifyTag: function (event) {
             var self = this;
-            self.renderTopHomeBar();
-            self.removeSelectedFromAll();
-            $("#adminBtn").addClass("selected");
-            self.$('#homeContainer').html(userFeedTemplate);
+            var usernameToVerifiy = $(event.currentTarget).attr('data-username');
+            var uidToVerifiy = $(event.currentTarget).attr('data-uid');
+            var tagNameToVerify = $(event.currentTarget).attr('data-tagname');
+            var tagIdToVerify = $(event.currentTarget).attr('data-tid');
 
-            return this;
+            //todo get tags to verify
+            bootbox.confirm({
+                message: "Would you like to verify the tag #" + tagNameToVerify + " for " + usernameToVerifiy + "?",
+                callback: function (result) {
+                    if(result){
+                        var verifyUserModel = new UserModel({
+                            path: 'verifytag',
+                            uid: uidToVerifiy});
+                        console.log(verifyUserModel);
+                        verifyUserModel.save({
+                            headers: {
+                                uid: uidToVerifiy,
+                                tid: tagIdToVerify,
+                                oid: self.model.get('orgId')
+                            },
+                            success: function (collection, response, options) {
+                                console.log("request was saved");
+                                self.renderUsers();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem saving this verification.');
+                                console.log(response);
+                            }
+                        });
+                    }
+                }
+            });
         },
 
+        unverifyTag: function (event) {
+            var self = this;
+            var usernameToUnverifiy = $(event.currentTarget).attr('data-username');
+            var uidToUnverifiy = $(event.currentTarget).attr('data-uid');
+            var tagNameToUnverify = $(event.currentTarget).attr('data-tagname');
+            var tagIdToUnverify = $(event.currentTarget).attr('data-tid');
+
+            //todo get tags to verify
+            bootbox.confirm({
+                message: "Would you like to REMOVE the verification of the tag #" + tagNameToUnverify + " for " + usernameToUnverifiy + "?",
+                callback: function (result) {
+                    if(result){
+                        var unverifyUserModel = new UserModel({
+                            path: 'verifytag',
+                            uid: uidToUnverifiy
+                        });
+                        console.log(unverifyUserModel);
+                        unverifyUserModel.save({
+                            headers: {
+                                uid: uidToUnverifiy,
+                                tid: tagIdToUnverify,
+                                oid: ''
+                            },
+                            success: function (collection, response, options) {
+                                console.log("request was saved");
+                                self.renderUsers();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem undoing this verification.');
+                                console.log(response);
+                            }
+                        });
+                    }
+                }
+            });
+        },
+
+        elevateUserOrg: function (event) {
+            var self = this;
+            var usernameToOrg = $(event.currentTarget).attr('data-username');
+            var uidToOrg = $(event.currentTarget).attr('data-uid');
+
+            bootbox.confirm({
+                message: "Would you like to elevate " + usernameToOrg + " to an ORG User?",
+                callback: function (result) {
+                    // if(result){
+                    //     var userOrgModel = new UserModel({
+                    //         path: 'promote/org',
+                    //         rid: uidToOrg,
+                    //         oid: //todo
+                    //     });
+                    //     console.log(requestModel);
+                    //     requestModel.destroy({
+                    //         success: function (model) {
+                    //              self.renderUsers();
+                    //         },
+                    //         error: function(model, response, options){
+                    //             bootbox.alert('There was a problem promoting this user.');
+                    //             console.log(response);
+                    //         }
+                    //     });
+                    // }
+                }
+            });
+        },
+
+        elevateUserAdmin: function (event) {
+            var self = this;
+            var usernameToAdmin = $(event.currentTarget).attr('data-username');
+            var uidToAdmin = $(event.currentTarget).attr('data-uid');
+
+            bootbox.confirm({
+                message: "Would you like to elevate " + usernameToAdmin + " to an ADMIN User?",
+                callback: function (result) {
+                    // if(result){
+                    //     var userAdminModel = new UserModel({
+                    //         path: 'promote/admin',
+                    //         rid: uidToAdmin
+                    //     });
+                    //     userAdminModel.save({
+                    //         success: function (model) {
+
+                                // self.renderUsers();
+                    //         },
+                    //         error: function(model, response, options){
+                    //             bootbox.alert('There was a problem promoting this user.');
+                    //             console.log(response);
+                    //         }
+                    //     });
+                    // }
+                }
+            });
+        },
+
+        deleteUser: function (event) {
+            var self = this;
+            var usernameToDelete = $(event.currentTarget).attr('data-username');
+            var uidToDelete = $(event.currentTarget).attr('data-uid');
+
+            bootbox.confirm({
+                message: "Are you sure you want to DELETE user " + usernameToDelete + "?",
+                callback: function (result) {
+                    // if(result){
+                    //     var userModelToDelete = new UserModel({
+                    //         path: 'delete',
+                    //         rid: uidToDelete
+                    //     });
+
+                    //     userModelToDelete.destroy({
+                    //         success: function (model) {
+                    //             self.renderUsers();
+                    //         },
+                    //         error: function(model, response, options){
+                    //             bootbox.alert('There was a problem deleting this user.');
+                    //             console.log(response);
+                    //         }
+                    //     });
+                    // }
+                }
+            });
+        },
+
+
         renderMyRequests: function () {
-            console.log("in home view renderMyrequests");
             var self = this;
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
 
@@ -401,8 +557,6 @@ define(function (require, exports, module) {
         },
 
         renderMyDonations: function () {
-            console.log("in home view renderMyDonations");
-
             var self = this;
             console.log(self.model.get('uid'));
             self.$('#myDonationHistory').html(myDonationFeedTemplate);
@@ -436,9 +590,7 @@ define(function (require, exports, module) {
         },
 
         renderMyNotifications: function () {
-            console.log("in home view renderMyNotifications");
             var self = this;
-
             var notificationCollection = new NotificationCollection();
 
             notificationCollection.fetch({
@@ -462,8 +614,31 @@ define(function (require, exports, module) {
             return this;
         },
 
+        newOrg: function () {
+            var self = this;
+            var container = document.createDocumentFragment();
+            var newOrgModalView = new NewOrgModalView({
+                parent: self,
+                model: new OrgModel({ path: 'create'})
+            });
+            container.appendChild(newOrgModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
+        editOrg: function () {
+            var self = this;
+            var container = document.createDocumentFragment();
+            var editOrgModalView = new EditOrgModalView({
+                parent: self,
+                model: new OrgModel({ path: 'update'})
+            });
+            container.appendChild(editOrgModalView.render().el);
+            $('body').append(container);
+            return this;
+        },
+
         newRequest: function () {
-            console.log("in newRequest function");
             var self = this;
             var container = document.createDocumentFragment();
             var newRequestModalView = new NewRequestModalView({
@@ -476,7 +651,6 @@ define(function (require, exports, module) {
         },
 
         editRequest: function (event) {
-            console.log("in edit Request function");
             var self = this;
             var ridToEdit = $(event.currentTarget).attr('data-rid');
             console.log(ridToEdit);
@@ -492,7 +666,6 @@ define(function (require, exports, module) {
         },
 
         deleteRequest: function (event) {
-            console.log("in deleteRequest function");
             var self = this;
             var ridToDelete = $(event.currentTarget).attr('data-rid');
             console.log(ridToDelete);
@@ -522,35 +695,71 @@ define(function (require, exports, module) {
             return this;
         },
 
+        approveOrg: function (event) {
+            var self = this;
+            var oidToApprove = $(event.currentTarget).attr('data-oid');
+            var nameToApprove = $(event.currentTarget).attr('data-name');
+            console.log(oidToApprove);
+
+            bootbox.confirm({
+                message: "Are you sure you want to APPROVE the org " + nameToApprove + "?",
+                callback: function (result) {
+                    if(result){
+                        var orgToApproveModel = new OrgModel({
+                            path: 'approve',
+                            oid: oidToApprove
+                        });
+                        console.log(orgToApproveModel);
+                        orgToApproveModel.save({
+                            success: function (model) {
+                                self.renderOrgs();
+                                console.log(model);
+                            },
+                            error: function(err){
+                                console.log('there was some error in approving this org.');
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+            });
+            return this;
+        },
+
+        denyOrg: function (event) {
+            var self = this;
+            var oidToDeny = $(event.currentTarget).attr('data-oid');
+            var nameToDeny = $(event.currentTarget).attr('data-name');
+            console.log(oidToDeny);
+
+            bootbox.confirm({
+                message: "Are you sure you want to DENY and DELETE the org " + nameToDeny + "?",
+                callback: function (result) {
+                    if(result){
+                        var orgToDenyModel = new OrgModel({
+                            path: 'delete',
+                            oid: oidToDeny
+                        });
+
+                        orgToDenyModel.destroy({
+                            success: function (model) {
+                                self.renderOrgs();
+                                console.log(model);
+                            },
+                            error: function(err){
+                                console.log('there was some error in deleting this org.');
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+            });
+            return this;
+        },
+
         otherProfile: function (event) {
-            console.log("in other profile function");
             var self = this;
             var otherUid = $(event.currentTarget).attr( 'data-uid' );
-            console.log("current uid: ");
-            console.log(otherUid);
-
-            // var otherUserModel = new UserModel({
-            //     path: 'byuid/'
-            // });
-            //
-            // otherUserModel.fetch({
-            //     headers: { "uid": otherUid },
-            //     success: function (model) {
-            //         console.log("other user model");
-            //         console.log(model);
-            //
-            //         var container = document.createDocumentFragment();
-            //         var otherProfileModalView = new OtherProfileModalView({
-            //             parent: self,
-            //             model: model
-            //         });
-            //         container.appendChild(otherProfileModalView.render().el);
-            //         $('body').append(container);
-            //     },
-            //     error: function(err){
-            //         console.log("error occurred in getting the other username");
-            //     }
-            // });
 
             var container = document.createDocumentFragment();
             var otherProfileModalView = new OtherProfileModalView({
@@ -563,7 +772,6 @@ define(function (require, exports, module) {
         },
 
         sayThankYou: function (event) {
-            console.log("in say thank you function");
             var self = this;
             //get current request rid, duid (username)
             var currentRid = $(event.currentTarget).attr('data-rid');
@@ -600,12 +808,9 @@ define(function (require, exports, module) {
         },
 
         viewThankYou: function (event) {
-            console.log("in view thank you function");
             var self = this;
             var note = $(event.currentTarget).attr( 'data-note' );
-            console.log(note);
             var date = $(event.currentTarget).attr( 'data-date' );
-            console.log(date);
             var rUsername = $(event.currentTarget).attr( 'data-rUsername' );
             console.log(rUsername);
             var container = document.createDocumentFragment();
@@ -623,14 +828,15 @@ define(function (require, exports, module) {
         updateSearchUserTags: function (event) {
             // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
             var $target = $(event.currentTarget),
-                val = $target.attr( 'data-value' ),
+                name = $target.attr( 'data-name' ),
+                utid = parseInt($target.attr( 'data-tid' )),
                 $inp = $target.find( 'input' ),
                 idx;
-            if ( ( idx = searchUserTagsList.indexOf( val ) ) > -1 ) {
+            if ( ( idx = searchUserTagsList.indexOf( utid ) ) > -1 ) {
                 searchUserTagsList.splice( idx, 1 );
                 setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
             } else {
-                searchUserTagsList.push( val );
+                searchUserTagsList.push( utid );
                 setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
             }
             $( event.target ).blur();
@@ -641,14 +847,15 @@ define(function (require, exports, module) {
         updateSearchRequestTags: function (event) {
             // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
             var $target = $(event.currentTarget),
-                val = $target.attr( 'data-value' ),
+                name = $target.attr( 'data-name' ),
+                rtid = parseInt($target.attr( 'data-tid' )),
                 $inp = $target.find( 'input' ),
                 idx;
-            if ( ( idx = searchRequestTagsList.indexOf( val ) ) > -1 ) {
+            if ( ( idx = searchRequestTagsList.indexOf( rtid ) ) > -1 ) {
                 searchRequestTagsList.splice( idx, 1 );
                 setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
             } else {
-                searchRequestTagsList.push( val );
+                searchRequestTagsList.push( rtid );
                 setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
             }
             $( event.target ).blur();
@@ -657,55 +864,83 @@ define(function (require, exports, module) {
         },
 
         updateOrderBy: function (event) {
-            console.log("in updateOrderBy");
             return this;
         },
 
         toggleNew: function () {
             if($("#new").prop('checked') === true){
                 $("#old").prop('checked', false);
-                newOrOld = 'new';
+                age = 'new';
             }else{
                 $("#new").prop('checked', false);
-                newOrOld = '';
+                age = '';
             }
-            console.log(newOrOld);
+            console.log(age);
             return this;
         },
 
         toggleOld: function () {
             if($("#old").prop('checked') === true){
                 $("#new").prop('checked', false);
-                newOrOld = 'old';
+                age = 'old';
             }else{
                 $("#old").prop('checked', false);
-                newOrOld = '';
+                age = '';
             }
-            console.log(newOrOld);
+            console.log(age);
             return this;
         },
 
         toggleLow: function () {
-            if($("#low").prop('checked') == true){
+            if($("#low").prop('checked') === true){
                 $("#high").prop('checked', false);
-                lowOrHigh = 'low';
+                price = 'low';
             }else{
                 $("#low").prop('checked', false);
-                lowOrHigh = '';
+                price = '';
             }
-            console.log(lowOrHigh);
+            console.log(price);
             return this;
         },
 
         toggleHigh: function () {
             if($("#high").prop('checked') === true){
                 $("#low").prop('checked', false);
-                lowOrHigh = 'high';
+                price = 'high';
             }else{
                 $("#high").prop('checked', false);
-                lowOrHigh = '';
+                price = '';
             }
-            console.log(lowOrHigh);
+            console.log(price);
+            return this;
+        },
+
+        goFilterRequests: function () {
+            var self = this;
+
+            console.log(age);
+            console.log(price);
+            console.log(searchUserTagsList);
+            console.log(searchRequestTagsList);
+
+            var filteredRequestCollection = new RequestCollection();
+            filteredRequestCollection.fetchByFilter({
+                headers: {
+                    "age": age,
+                    "price": price,
+                    "rtags": searchRequestTagsList,
+                    "utags": searchUserTagsList
+                },
+                success: function (collection) {
+                    console.log(collection.models);
+                    self.$('#requestCol').html(requestTemplate(collection));
+                    self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
+                },
+                error: function(err){
+                    console.log("error when filtering");
+                    console.log(err);
+                }
+            });
             return this;
         },
 
@@ -725,11 +960,9 @@ define(function (require, exports, module) {
                             },
                             success: function (collection, response, options) {
                                 window.location.href = rootUrl.url;
-                                // window.location.href = 'http://localhost:3000/';
                             },
                             error: function(model, response, options){
                                 window.location.href = rootUrl.url + 'home';
-                                // window.location.href = 'http://localhost:3000/home';
                             }
                         });
                     }

@@ -1,32 +1,36 @@
 #searchByUserTags
     for tag in locals.models
         li
-            a(href='#', data-value='#{tag.get("tagname")}', data-group='usertags', tabindex='-1')
+            a(href='#', data-name='#{tag.get("tagname")}', data-tid='#{tag.get("tid")}', data-group='usertags', tabindex='-1')
                 input(type='checkbox')
             | &nbsp;##{tag.get("tagname")}
 .dropdown-divider
 #searchByRequestTags
     li
-        a(href='#', data-value='bills', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='bills', data-tid=1, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#bills
     li
-        a(href='#', data-value='carRepair', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='carRepairs', data-tid=2, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#carRepair
     li
-        a(href='#', data-value='clothing', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='clothing', data-tid=3, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#clothing
     li
-        a(href='#', data-value='forAChild', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='forAChild', data-tid=4, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#forAChild
     li
-        a(href='#', data-value='groceries', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='groceries', data-tid=5, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#groceries
     li
-        a(href='#', data-value='rent', data-group='requesttags', tabindex='-1')
+        a(href='#', data-name='rent', data-tid=6, data-group='requesttags', tabindex='-1')
             input(type='checkbox')
         | &nbsp;#rent
+    li
+        a(href='#', data-name='schoolRelated', data-tid=7, data-group='requesttags', tabindex='-1')
+            input(type='checkbox')
+        | &nbsp;#schoolRelated

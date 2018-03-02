@@ -14,7 +14,7 @@ a:hover {
 span[data-title]:hover:after {
   content: attr(data-title);
   padding: 5px ;
-  background-color: black;
+  background-color: #002A26;
   color: #fff;
   border-radius: 6px;
   position: absolute;
@@ -34,8 +34,9 @@ body{
   color: white !important;
 }
 
+
 .purpletext {
-  color: #5F3E5B;
+  color: #840E8C;
 }
 
 .turquoisetext {
@@ -53,16 +54,17 @@ body{
 
 #titleheading {
   font-size: 34pt;
-  color:white;
-  text-shadow: 4px 4px 4px #007F64;
+  font-weight: bold;
+  color:#007F64;
+  text-shadow: 2px 2px 2px #002A26;
 }
 
 .titleheading2 {
   font-size: 24pt;
-  color:#00947D;
+  color:#840E8C;
   font-family: cursive;
   font-weight: bold;
-  text-shadow: 2px 2px 2px #002A26;
+  text-shadow: 2px 2px 2px #3C0740;
   margin: 2%;
 }
 
@@ -79,7 +81,7 @@ body{
 .logomini {
   width: 70px;
   height: 70px;
-  margin: 5px;
+  margin: 15px;
 }
 
 #profilepicmini {
@@ -129,7 +131,8 @@ body{
   height: 300px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
-  box-shadow: 4px 4px 10px 4px #00947D;
+  /*box-shadow: 4px 4px 10px 4px #840E8C;*/
+  box-shadow: 4px 4px 10px 4px dimgrey;
   /*margin-top: 10px;*/
 }
 
@@ -142,7 +145,8 @@ body{
   height: 350px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
-  box-shadow: 4px 4px 10px 4px #00947D;
+  /*box-shadow: 4px 4px 10px 4px #840E8C;*/
+  box-shadow: 4px 4px 10px 4px dimgrey;
   /*margin-top: 10px;*/
 }
 
@@ -154,8 +158,8 @@ body{
   width: 95%;
   height: 375px;
   margin: 2%;
-  /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
-  box-shadow: 4px 4px 10px 4px #00947D;
+  /*box-shadow: 4px 4px 10px 4px #840E8C;*/
+  box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
 .mydonationpanel{
@@ -167,7 +171,8 @@ body{
   height: 430px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
-  box-shadow: 4px 4px 10px 4px #00947D;
+  /*box-shadow: 4px 4px 10px 4px #840E8C;*/
+  box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
 .otherroundrequest{
@@ -178,7 +183,8 @@ body{
   width: 100%;
   height: 375px;
   margin: 2%;
-  box-shadow: 4px 4px 10px 4px #00947D;
+  /*box-shadow: 4px 4px 10px 4px #840E8C;*/
+  box-shadow: 4px 4px 10px 4px dimgrey;
   /*margin-top: 10px;*/
 }
 
@@ -355,13 +361,29 @@ body{
 }
 
 .winebtn {
-  background-color: #760709; //wine
+  /*background-color: #760709;*/
+  background: linear-gradient(to top, #7C0000, #B74343);
+  border: 1px solid #B74343;
   color:white;
 }
 
+.winebtn:hover {
+  background: #B74343;
+  text-decoration: none;
+  filter: none;
+}
+
 .turquoisebtn {
-  background-color: #007F64;
+  /*background-color: #007F64;*/
+  background: linear-gradient(to top, #002A26, #00947D);
+  border: 1px solid #00947D;
   color:white;
+}
+
+.turquoisebtn:hover {
+  background: #00947D;
+  text-decoration: none;
+  filter: none;
 }
 
 .orangebtn {
@@ -371,13 +393,28 @@ body{
 }
 
 .purplebtn {
-  background-color: #5F3E5B;
+  /*background-color: #840E8C;*/
+  background: linear-gradient(to top, #3C0740, #840E8C);
+  border: 1px solid #840E8C;
   color:white;
 }
 
+.purplebtn:hover {
+  background: #840E8C;
+  text-decoration: none;
+  filter: none;
+}
+
 .greybtn{
-  background-color: dimgrey;
+  background: linear-gradient(to top, #262626, dimgrey);
+  border: 1px solid dimgrey;
   color:white;
+}
+
+.greybtn:hover {
+  background: dimgrey;
+  text-decoration: none;
+  filter: none;
 }
 
 .greybtncol{
@@ -388,7 +425,7 @@ body{
   border-bottom: 1px solid lightgray;
 }
 
-.turquoisebtncol{
+.turquoisebtncol {
   /*background-color: #00947D;*/
   background: linear-gradient(to right, #002A26, #00947D);
   color:white;
@@ -397,7 +434,8 @@ body{
   border-radius: 0;
   /*border-top: 1px solid #FBF9F7;*/
   /*border-bottom: 1px solid #FBF9F7;*/
-  /*margin-left: -1px;*/
+  margin-left: -1px !important;
+  border-right: none;
   padding: 5%;
 }
 
@@ -453,7 +491,7 @@ body{
 }
 
 .bottom-row-org{
-  background: linear-gradient(dimgray, lightgrey);
+  /*background: linear-gradient(dimgray, lightgrey);*/
   width: 100vw;
   height: 100vh;
 }
@@ -493,6 +531,20 @@ body{
   /*height: calc(100vh - 100px);*/
   width: 100%;
   height: 80%;
+  overflow-y: scroll;
+}
+
+.myprofilebottom{
+  width: 100%;
+  height: 80%;
+  padding-bottom: 10%;
+  overflow-y: scroll;
+}
+
+.orgscroll{
+  position: relative;
+  width: 100%;
+  height: 85%;
   overflow-y: scroll;
 }
 
@@ -540,7 +592,7 @@ body{
 
 .requestuserimage{
   width: 50px;
-  height: 75px;
+  height: 70px;
   margin-left: 10%;
 }
 
@@ -563,10 +615,10 @@ body{
 }
 
 .requestimage {
-  width: 70%;
-  height: 70%;
-  margin-left: 30%;
-  margin-top: 10%;
+  width: 100px;
+  height: 100px;
+  /*margin-left: 30%;*/
+  margin-top: 5%;
 }
 
 .otherrequestimage {
@@ -583,6 +635,15 @@ body{
 .requestmessagediv{
   width: 100%;
   height: 120px;
+  background-color: #F3E9F4;
+  overflow-y: scroll;
+  border-radius: 25px;
+  padding:2%;
+}
+
+.userbiodiv{
+  width: 100%;
+  height: 90px;
   background-color: #F3E9F4;
   overflow-y: scroll;
   border-radius: 25px;
@@ -621,13 +682,27 @@ body{
 
 
 .roundgivebtn{
-  background-color: lightgrey;
-  border-color: dimgrey;
+  /*background-color: lightgrey;*/
+  /*border-color: dimgrey;*/
+  background: linear-gradient(to right, #404040, #bfbfbf);
+  border: 1px solid #bfbfbf;
   border-radius: 20px;
   padding: 10px;
   height: 70px;
   width: 80px;
+  font-size: 18pt;
+  font-weight:bold;
+  text-shadow: 2px 2px 2px dimgrey;
+  color:white;
   margin: 30%;
+}
+
+.roundgivebtn:hover {
+  background: #bfbfbf;
+  font-size: 24pt;
+  font-weight:bold;
+  color:black;
+  filter: none;
 }
 
 .otherroundgivebtn{
@@ -648,12 +723,34 @@ body{
   margin-top: 2%;
 }
 
+.elevateuserbtn {
+  border-radius: 25px;
+  padding: 5px;
+  height: 60px;
+  width: 100px;
+  margin-top: 2%;
+}
+
 .thankyoubtn {
   border-radius: 25px;
   padding: 5px;
   height: 55px;
   width: 105px;
   margin-top: 1%;
+}
+
+.verifytag {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.verifybtn {
+  border-radius: 25px;
+  padding: 5px;
+  /*height: 35px;*/
+  /*width: 55px;*/
+  margin-left: 2px;
+  margin-right: 2%;
 }
 
 .otherthankyoubtn {
@@ -670,6 +767,30 @@ body{
   height: 60px;
   width: 100%;
   margin-top: 0;
+}
+
+.orgapprovebtn {
+  border-radius: 25px;
+  padding: 5px;
+  height: 40px;
+  width: 90px;
+  margin-top: 15%;
+}
+
+.orgdenybtn {
+  border-radius: 25px;
+  padding: 5px;
+  height: 40px;
+  width: 80px;
+  margin-top: 10%;
+}
+
+.orgupdatebtn {
+  border-radius: 25px;
+  padding: 10px;
+  height: 45px;
+  width: 100px;
+  margin-top: 15%;
 }
 
 .viewThankYouLabel {
@@ -699,10 +820,11 @@ body{
 .homebtn{
   /*background-color: lightgrey;*/
   /*background-color: #FFCE0C;*/
-  background: linear-gradient(to bottom right, dimgrey, lightgrey);
-  /*background: linear-gradient(to bottom right, #840E8C, #FBF9F7);*/
+  /*background: linear-gradient(to bottom right, dimgrey, lightgrey);*/
+  background: linear-gradient(to right, #404040, #bfbfbf);
   border-radius: 0;
   outline: none;
+  margin-left: -1px;
   /*padding: 10px;*/
   width: 100%;
 }
@@ -721,12 +843,66 @@ body{
   background: linear-gradient(to right, #002A26, #00947D);
 }
 
+.landingbar{
+  height: 100px;
+  width: 100vw;
+}
+
+.confettibackground{
+  background-image: url("../img/Confetti.png");
+  background-size: contain;
+  height: 100vh;
+  width: 100vw;
+}
+
+.circlediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: white;
+  border-radius: 50%;
+  border: 5px solid #CB9E0A;
+  height: 450px;
+  width: 450px;
+  margin-top: 10%;
+  margin-left: 10%;
+  padding: 8%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
+.logodiv{
+  height: 350px;
+  width: 350px;
+  /*margin-top: 5%;*/
+}
+
+.logindiv{
+  padding: 2%;
+}
+
+.signupdiv{
+  margin-top: 25%;
+}
+
+.loginerrordiv{
+  background-color: white;
+  border-radius: 25px;
+  padding: 1%;
+}
+
+.grayshadow{
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
 
 .winebackground{
   background-color: #760709;
 }
 
 .orglogo {
+  width: 130px;
+  height: 130px;
+  margin-top: 50%;
+}
+
+.orglogopending {
   width: 130px;
   height: 130px;
   margin-top: 20%;
@@ -764,10 +940,10 @@ body{
 }
 
 .icon-mini {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   margin-right: 2%;
-  margin-left: 10%;
+  margin-left: 15%;
 }
 
 .icon-margin {
@@ -784,11 +960,34 @@ body{
   text-align: left;
 }
 
+.neworgname{
+  border-radius: 25px;
+  padding: 10px;
+  width: 445px;
+  margin-bottom: 10px;
+}
+
+.neworgdescription {
+  border-radius: 25px;
+  margin-bottom: 10px;
+  padding: 2%;
+  height: 150px;
+  width: 445px;
+  vertical-align: top;
+  text-align: left;
+}
+
 .requesttags {
   border-radius: 25px;
   /*margin: 1%;*/
   padding: 2%;
   width: 90%;
+}
+
+.historytags{
+  height: 25px;
+  width: 90%;
+  overflow-x: scroll;
 }
 
 .open {
@@ -805,7 +1004,8 @@ body{
 
 .totalDonationsMessage {
   /*color: white;*/
-  color: #007F64;
+  font-size: 18pt;
+  color: #002A26;
   /*text-shadow: 2px 2px 2px #002A26;*/
   /*padding-top: 2%;*/
   /*padding-bottom: 2%;*/
@@ -813,8 +1013,8 @@ body{
 
 .totalDonations {
   /*color: white;*/
-  color: #00947D;
-  text-shadow: 2px 2px 2px #002A26;
+  color: #002A26;
+  text-shadow: 2px 2px 2px #00947D;
   /*padding-top: 2%;*/
   /*padding-bottom: 5%;*/
   font-size: 20pt;
@@ -915,6 +1115,7 @@ body{
   height: 150px;
   border-radius: 25px;
   background-color: #F3E9F4;
+  padding: 5px;
   overflow-y: scroll;
 }
 
@@ -937,25 +1138,28 @@ body{
 }
 
 .nav-tabs .nav-link.active {
-  border-top: 1px solid dimgray;
-  border-left: 1px solid dimgray;
-  border-right: 1px solid dimgray;
+  border-top: 1px solid #3C0740;
+  border-left: 1px solid #3C0740;
+  border-right: 1px solid #3C0740;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: white;
+  background: white;
   /*background-color: #F3E9F4;*/
-  color: #007F64;
+  color: #3C0740;
+  font-weight: bold;
 }
 
 
 .nav-tabs .nav-link {
-  border-top: 1px solid dimgray;
-  border-left: 1px solid dimgray;
-  border-right: 1px solid dimgray;
+  border-top: 1px solid #3C0740;
+  border-left: 1px solid #3C0740;
+  border-right: 1px solid #3C0740;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   /*background-color: #007F64;*/
-  background-color: #840E8C;
+  /*background-color: #840E8C;*/
+  background: linear-gradient(to bottom, #3C0740, #840E8C);
   color: white;
 }
 
@@ -969,8 +1173,9 @@ body{
   border-radius: 25px;
   padding: 5px;
   /*width: 90%;*/
-  height: 500px;
+  height: 450px;
   margin-top: 10%;
+  margin-bottom: 10%;
   /*margin-left: 5%;*/
   box-shadow: 4px 4px 10px 4px #00947D;
 }
@@ -981,11 +1186,40 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 500px;
+  height: 450px;
   margin-top: 5%;
+  margin-bottom: 5%;
   box-shadow: 4px 4px 10px 4px #00947D;
 }
 
 .errorLabel {
   color: red;
+}
+
+/*#verifyTag input[type=checkbox] {*/
+  /*display:none;*/
+/*}*/
+
+input[type=checkbox] + label
+{
+  /*background: blue;*/
+  background: linear-gradient(to bottom, #3C0740, #840E8C);
+  height: 40px;
+  width: 60px;
+  border-radius: 25%;
+  display:inline-block;
+  padding: 0 0 0 0px;
+}
+input[type=checkbox]:checked + label
+{
+  /*background: red;*/
+  background: linear-gradient(to top, #7C0000, #B74343);
+  border-radius: 25%;
+  /*background: url('../img/marooncheckmark.png');*/
+  /*span(data-title='Verified by #{tag.verifiedBy}')*/
+  /*img.checkmark(src='/img/marooncheckmark.png')*/
+  height: 40px;
+  width: 60px;
+  display:inline-block;
+  padding: 0 0 0 0px;
 }

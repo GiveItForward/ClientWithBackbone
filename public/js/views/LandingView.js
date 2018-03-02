@@ -1,3 +1,5 @@
+var onIndex = true;
+
 define(function (require, exports, module) {
 
     var $ = require("jquery");
@@ -16,21 +18,28 @@ define(function (require, exports, module) {
 
     var LandingView = Backbone.View.extend({
 
-        el: '#rightCol',
+        el: 'body',
 
         model: new UserModel({
             path: "login"
         }),
 
         events: {
-            "click #signupBtn"          : "renderSignup",
+            // "click #signupBtn"          : "renderSignup",
             "click #loginSubmitBtn"     : "login",
+            "click #createAccountBtn"   : "createAccount",
+            "keyup #username"           : "updateLoginModel",
             "keyup #password"           : "enterLogin",
-            "keyup"                     : "updateModel",
-            "change"                    : "updateModel"
+            "change #username"          : "updateLoginModel",
+            "change #password"          : "enterLogin",
+            "keyup"                     : "updateSignupModel",
+            "change"                    : "updateSignupModel"
         },
 
         initialize: function () {
+            this.signupModel = new UserModel({
+                path: "create"
+            });
             this.render();
         },
 
@@ -39,22 +48,23 @@ define(function (require, exports, module) {
             var self = this;
             // self.$el.html(indexTemplate());
             self.$('#loginSubmitBtn').prop("disabled", true);
+            self.$('#createAccountBtn').prop("disabled", true);
             return this;
         },
 
-        renderLogin: function () {
-            $("#signupBtn").removeClass("selected");
-            $("#loginBtn").addClass("selected");
-            var self = this;
-            self.$('#inputdiv').html(loginTemplate());
-            self.$('#loginSubmitBtn').prop("disabled", true);
-            return this;
-        },
+        // renderLogin: function () {
+        //     $("#signupBtn").removeClass("selected");
+        //     $("#loginBtn").addClass("selected");
+        //     var self = this;
+        //     self.$('#inputdiv').html(loginTemplate());
+        //     self.$('#loginSubmitBtn').prop("disabled", true);
+        //     return this;
+        // },
 
-        updateModel: function () {
+        updateLoginModel: function () {
             var self = this;
             self.model.set("username", $("#username").val());
-            self.model.set("password", $("#password").val());// todo this will be hashed/encrypted
+            self.model.set("password", $("#password").val());
 
             if(!self.model.get("username") || !self.model.get("password")){
                 self.$('#loginSubmitBtn').prop("disabled", true);
@@ -68,7 +78,7 @@ define(function (require, exports, module) {
             $('#loginSpinner').delay(100).queue(function () {
                 $(this).css('display', 'inline-block');
             });
-            self.updateModel();
+            self.updateLoginModel();
             console.log("logging in...");
             // self.model = new UserModel({
             //     path: 'login'
@@ -87,15 +97,16 @@ define(function (require, exports, module) {
                 },
                 success: function () {
                     self.model.set("password", undefined);
-                    new HomeView({
-                        model: self.model
+                    onIndex = false;
+                     new HomeView({
+                         model: self.model
                     });
                     $('#loginSpinner').clearQueue();
                     $('#loginSpinner').css('display', 'none');
                 },
                 error: function(err){
-                    self.renderLogin(); // but render the login with an error message! TODO
-                    $('#loginErrorLabel').html("The username or password was incorrect.");
+                    // self.renderLogin(); // but render the login with an error message! TODO
+                    $('#loginErrorLabel').html("The email or password was incorrect.");
                     console.log("error occurred in login" + err);
                     if(err === 401){
                         $('#loginErrorLabel').html("401! 401!");
@@ -107,22 +118,111 @@ define(function (require, exports, module) {
 
         enterLogin: function (e) {
             var self = this;
+            self.updateLoginModel();
             if ( e.keyCode === 13 ) { // 13 is enter key
                 self.login();
             }
             return this;
         },
 
-        renderSignup: function () {
+        updateSignupModel: function () {
+            if (onIndex) {
+                var self = this;
+                self.signupModel.set("username", $("#newUsername").val());
+                self.signupModel.set("firstname", $("#newFirstname").val());
+                self.signupModel.set("lastname", $("#newLastname").val());
+                self.signupModel.set("email", $("#newEmail").val());
+
+                if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
+                    self.signupModel.set("password", sha256($("#newPassword").val()));
+                }
+
+                if (!self.signupModel.get("username") || !self.signupModel.get("email") || !self.signupModel.get("password")) {
+                    self.$('#createAccountBtn').prop("disabled", true);
+                } else {
+                    self.$('#createAccountBtn').prop("disabled", false);
+                }
+            }
+        },
+
+        createAccount: function () {
             var self = this;
-            new SignUpView();
-            // $("#signupBtn").addClass("selected");
-            // $("#loginBtn").removeClass("selected");
-            //
-            // self.$('#inputdiv').html(signupTemplate);
-            // self.$('#createAccountBtn').prop("disabled", true);
+            self.updateSignupModel();
+            console.log("creating account...");
+            // console.log($("#newUsername").val());
+            // console.log($("#newEmail").val());
+            // console.log($("#newPassword").val());
+            // console.log($("#newVerifyPassword").val());
+
+            if($("#newPassword").val() === $("#newVerifyPassword").val()){
+                self.signupModel.set("username", $("#newUsername").val());
+                self.signupModel.set("firstname", $("#newFirstname").val());
+                self.signupModel.set("lastname", $("#newLastname").val());
+                self.signupModel.set("password", sha256($("#newPassword").val()));
+                self.signupModel.set("email", $("#newEmail").val());
+                self.signupModel.set("bio", '');
+                self.signupModel.set("image", 'img/profile/wine_default.png');
+                self.signupModel.set("tags", []);
+                console.log("backbone signup model");
+                console.log(self.signupModel);
+
+                self.signupModel.save( null, {
+                    wait: true,
+                    success: function(model, response) {
+                        console.log('success');
+                        console.log("model from json");
+                        console.log(model);
+                        onIndex = false;
+                        new HomeView({
+                            model: model
+                        });
+                    },
+                    error: function(model, response) {
+                        console.log(model);
+                        console.log(response);
+                    }
+                });
+            }else{
+                bootbox.alert("Passwords do not match.");
+            }
             return this;
-        }
+        },
+
+        // save: function () {
+        //     var self = this;
+        //     console.log("in sign up save function");
+        //
+        //     console.log("backbone signup model");
+        //     console.log(self.signupModel);
+        //
+        //     self.signupModel.save( null, {
+        //         wait: true,
+        //         success: function(model, response) {
+        //             console.log('success');
+        //             console.log("model from json");
+        //             console.log(model);
+        //             new HomeView({
+        //                 model: model
+        //             });
+        //         },
+        //         error: function(model, response) {
+        //             console.log(model);
+        //             console.log(response);
+        //         }
+        //     });
+        //     return this;
+        // },
+
+        // renderSignup: function () {
+        //     var self = this;
+        //     new SignUpView();
+        //     // $("#signupBtn").addClass("selected");
+        //     // $("#loginBtn").removeClass("selected");
+        //     //
+        //     // self.$('#inputdiv').html(signupTemplate);
+        //     // self.$('#createAccountBtn').prop("disabled", true);
+        //     return this;
+        // }
     });
 
     return LandingView;

@@ -14,22 +14,49 @@ html(lang='en')
   body
     .container-fluid
       .row
-        .col-md-6.leftcol
-          .absoluteCenter
-            //img.logo(src="/img/maroon_highlight.png")
-            img.logo(src="/img/turquoise_shadow.png")
-            #titleheading Give It Forward
-            a(href="/contactUs")
-              | contact us&nbsp;
-            | |
-            a(href="/aboutUs")
-              |  about us&nbsp;
-            | |
-            a(href="/moreHelp")
-              |  more help
-            //- .footer
-            //-   hr
-            //-   p © GiveItForward 2017
-        .col-md-6.rightcol
-          .absoluteCenter
+        .col-md-12.turquoisebackground.landingbar
+            #inputdiv.logindiv.form-inline
+                input#username.roundmedium(type='text', name='username', placeholder='username or email')
+                input#password.roundmedium(type='password', placeholder='password')
+                label#loginErrorLabel(style=" color: red")
+                button#loginSubmitBtn.btn.roundmediumbtn.purplebtn Log In
+                i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
+      .row
+        .col-md-12.confettibackground
+          .row
+            .col-md-6.text-center
+                .circlediv.text-center
+                    .logodiv
+                        img.logo(src="/img/turquoise_shadow.png")
+                        #titleheading Give It Forward
+
+            .col-md-6
+              .absoluteCenter
+                  .row.signupdiv
+                      .col-md-6
+                          input#newFirstname.roundhalf(type='text', placeholder='firstname')
+                      .col-md-6
+                          input#newLastname.roundhalf(type='text', placeholder='lastname')
+                  input#newUsername.round(type='text', placeholder='username')
+                  input#newEmail.round(type='text', placeholder='email')
+                  input#newPassword.round(type='password', placeholder='password')
+                  input#newVerifyPassword.round(type='password', placeholder='verify password')
+                  button#createAccountBtn.btn.round.turquoisebtn Create Account
+        //  .absoluteCenter
+        //    //img.logo(src="/img/maroon_highlight.png")
+        //    img.logo(src="/img/turquoise_shadow.png")
+        //    #titleheading Give It Forward
+        //    a(href="/contactUs")
+        //      | contact us&nbsp;
+        //    | |
+        //    a(href="/aboutUs")
+        //      |  about us&nbsp;
+        //    | |
+        //    a(href="/moreHelp")
+        //      |  more help
+        //    //- .footer
+        //    //-   hr
+        //    //-   p © GiveItForward 2017
+        //.col-md-6.rightcol
+        //  .absoluteCenter
             block content
