@@ -702,6 +702,12 @@ define(function (require, exports, module) {
                         });
                         console.log(requestModel);
                         requestModel.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "rid": ridToDelete
+                            },
                             success: function (collection, response, options) {
                                 console.log("request was deleted");
                                 self.renderMyRequests();
