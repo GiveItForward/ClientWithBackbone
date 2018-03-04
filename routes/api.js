@@ -38,7 +38,7 @@ router.get('/users/login', function(req, res, next) {
                 session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 res.send(body);
             } else {
-                res.sendStatus(401);
+                res.status(response.statusCode).send(body);
             }
         });
     }
@@ -53,7 +53,7 @@ router.post('/paypal/verify/*', function(req, res, next) {
 
     console.log("in paypal verify: POST");
 
-    console.log(req.url)
+    console.log(req.url);
 
     res.redirect("/home");
 
