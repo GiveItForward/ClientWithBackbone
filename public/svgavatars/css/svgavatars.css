@@ -7,7 +7,7 @@
 *******************************************************************************************/
 
 #svgAvatars {
-	max-width: 960px;
+	max-width: 400px;
 	margin: 0 auto;
 }
 #svga-container,
@@ -33,7 +33,7 @@
 	padding-right: 15px;
 	padding-top: 20px;
 	font-size: 14px;
-	font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	width: 100%;
 	min-width:240px;
