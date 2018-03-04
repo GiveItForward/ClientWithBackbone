@@ -1289,6 +1289,11 @@ body{
   overflow-y: scroll;
 }
 
+#createAvatarModal {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
 .notificationsPanel{
   color: black;
   background-color: white;

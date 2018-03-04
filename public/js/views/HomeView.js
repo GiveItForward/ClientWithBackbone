@@ -21,6 +21,7 @@ define(function (require, exports, module) {
     var EditProfileModalView = require("views/EditProfileModalView");
     var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
+    var CreateAvatarModalView = require("views/CreateAvatarModalView");
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
@@ -79,6 +80,7 @@ define(function (require, exports, module) {
             "click #myProfileBtn"               : "renderMyProfile",
             "click #editProfileBtn"             : "editProfile",
             "click #changePasswordBtn"          : "changePassword",
+            "click #createAvatarBtn"            : "createAvatar",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
@@ -316,6 +318,20 @@ define(function (require, exports, module) {
             });
             container.appendChild(editProfileModalView.render().el);
             $('body').append(container);
+            return this;
+        },
+
+        createAvatar: function() {
+            var self = this;
+            self.$('#mainHomeContainer').html("<div id=\"svgAvatars\"></div>");
+            //
+            // var container = document.createDocumentFragment();
+            // var createAvatarModalView = new CreateAvatarModalView({
+            //     parent: self,
+            //     model: self.model,
+            // });
+            // container.appendChild(createAvatarModalView.render().el);
+            // $('body').append(container);
             return this;
         },
 
