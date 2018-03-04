@@ -55,6 +55,8 @@ router.post('/paypal/verify/*', function(req, res, next) {
 
     console.log(req.url)
 
+    res.redirect("/home");
+
     // verify hash from database
 
     // var hashOptions = {
@@ -98,117 +100,216 @@ router.post('/paypal/verify/*', function(req, res, next) {
 
 });
 
+//
+// router.get('/requests/paypal', function(req, res, next) {
+//
+//     session = req.session;
+//
+//     setupCORSResponse(res, req.headers.origin);
+//
+//
+//     if(session.email && session.userObject){
+//         session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
+//
+//         var options = {
+//             url: baseUrl.tomcat_url + "/users/byuid",
+//             headers: req.headers
+//         };
+//
+//         // request for the requester email
+//         request(options, function(error, response, body){
+//             if(response.statusCode === 200){
+//                 var userBody = parser.parse(body);
+//                 var requestorsEmail = userBody.email;
+//                 var amount = req.header('amt');
+//                 var userDBHash = 'hash';
+//
+//
+//                 // // todo - temporary take out later
+//                 // var requestBody;
+//                 //
+//                 // var options = {
+//                 //     url: baseUrl.tomcat_url + "/requests/fulfill",
+//                 //     headers: req.headers
+//                 // };
+//                 //
+//                 // request(options, function(error, response, body){
+//                 //     if(response.statusCode === 200){
+//                 //         res.send("home");
+//                 //     } else {
+//                 //         res.sendStatus(response);
+//                 //     }
+//                 // }); // take out to here
+//
+//
+//                 var hashOptions = {
+//                     url: baseUrl.tomcat_url + "/users/gethash",
+//                     headers: req.headers
+//                 }
+//
+//                 // get the paypal hash from db
+//                 request(hashOptions, function(error, response, body) {
+//                     if(response.statusCode === 200) {
+//
+//                         // set up paypal configuration
+//                         var payload = {
+//                             requestEnvelope: {
+//                                 errorLanguage:  'en_US'
+//                             },
+//                             // ipnNotificationUrl: baseUrl.paypal_url + "/api/paypal/verify", // need IPN Handler for this to work
+//                             actionType:     'PAY',
+//                             currencyCode:   'USD',
+//                             feesPayer:      'SENDER',
+//                             memo:           'Donating $' + amount + ' to ' + userBody.username + ' via Give It Forward',
+//                             cancelUrl:      baseUrl.paypal_url + "/home",
+//                             returnUrl:      baseUrl.paypal_url + "/api/paypal/verify/" + userDBHash,
+//                             receiverList: {
+//                                 receiver: [
+//                                     {
+//                                         email:  'primary@test.com',
+//                                         amount: amount
+//                                     }
+//                                 ]
+//                             }
+//                         };
+//
+//
+//                         paypalSdk.pay(payload, function (err, paypalResponse) {
+//                             if (err) {
+//                                 res.end(err); // TODO - better error handling here
+//                             } else if(paypalResponse.responseEnvelope.ack === 'Success') {
+//
+//                                 res.send(paypalResponse.paymentApprovalUrl);
+//
+//                                 // var requestBody;
+//                                 //
+//                                 // var options = {
+//                                 //     url: baseUrl.tomcat_url + "/requests/fulfill",
+//                                 //     headers: req.headers
+//                                 // };
+//                                 //
+//                                 // request(options, function(error, response, body){
+//                                 //     if(response.statusCode === 200){
+//                                 //         requestBody = parser.parse(body);
+//                                 //         req.session.userObject.donateCount += 1;
+//                                 //         res.send(paypalResponse.paymentApprovalUrl);
+//                                 //     } else {
+//                                 //         console.log("issue with recording fulfilled request");
+//                                 //         res.send(response)
+//                                 //     }
+//                                 // });
+//
+//                             }
+//                         });
+//
+//
+//                     } else {
+//                         res.status(paypalResponse.statusCode).send(err);
+//                     }
+//                 });
+//             } else {
+//                 console.log("issue with recording fulfilled request");
+//                 res.status(response.statusCode).send(body);
+//             }
+//         });
+//     } else {
+//         res.sendStatus(401);
+//     }
+// });
+
 
 router.get('/requests/paypal', function(req, res, next) {
 
-    session = req.session;
-
     setupCORSResponse(res, req.headers.origin);
 
+    session = req.session;
 
+
+    console.log("\nINSIDE /requests/paypal\n");
     if(session.email && session.userObject){
-        session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
+        console.log("\tINSIDE session");
+
+        session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
 
         var options = {
             url: baseUrl.tomcat_url + "/users/byuid",
             headers: req.headers
         };
 
+        console.log(options);
+
         // request for the requester email
         request(options, function(error, response, body){
+            console.log("\tINSIDE first request");
+            console.log(response);
+            console.log(body);
+
             if(response.statusCode === 200){
                 var userBody = parser.parse(body);
                 var requestorsEmail = userBody.email;
                 var amount = req.header('amt');
-                var userDBHash = 'hash';
+                var randomDBHash = 'hash';
+
+                console.log("\nIN REQUESTING USER OBJ\n");
+                console.log(body);
 
 
-                // // todo - temporary take out later
-                // var requestBody;
-                //
-                // var options = {
-                //     url: baseUrl.tomcat_url + "/requests/fulfill",
-                //     headers: req.headers
-                // };
-                //
-                // request(options, function(error, response, body){
-                //     if(response.statusCode === 200){
-                //         res.send("home");
-                //     } else {
-                //         res.sendStatus(response);
-                //     }
-                // }); // take out to here
-
-
-                var hashOptions = {
-                    url: baseUrl.tomcat_url + "/users/gethash",
-                    headers: req.headers
-                }
-
-                // get the paypal hash from db
-                request(hashOptions, function(error, response, body) {
-                    if(response.statusCode === 200) {
-
-                        // set up paypal configuration
-                        var payload = {
-                            requestEnvelope: {
-                                errorLanguage:  'en_US'
-                            },
-                            // ipnNotificationUrl: baseUrl.paypal_url + "/api/paypal/verify", // need IPN Handler for this to work
-                            actionType:     'PAY',
-                            currencyCode:   'USD',
-                            feesPayer:      'SENDER',
-                            memo:           'Donating $' + amount + ' to ' + userBody.username + ' via Give It Forward',
-                            cancelUrl:      baseUrl.paypal_url + "/home",
-                            returnUrl:      baseUrl.paypal_url + "/api/paypal/verify/" + userDBHash,
-                            receiverList: {
-                                receiver: [
-                                    {
-                                        email:  'primary@test.com',
-                                        amount: amount
-                                    }
-                                ]
+                // set up paypal configuration
+                var payload = {
+                    requestEnvelope: {
+                        errorLanguage:  'en_US'
+                    },
+                    // ipnNotificationUrl: baseUrl.paypal_url + "/api/paypal/verify", // need IPN Handler for this to work
+                    actionType:     'PAY',
+                    currencyCode:   'USD',
+                    feesPayer:      'SENDER',
+                    memo:           'Donating $' + amount + ' to ' + userBody.username + ' via Give It Forward',
+                    cancelUrl:      baseUrl.paypal_url + "/home",
+                    returnUrl:      baseUrl.paypal_url + "/home",
+                    receiverList: {
+                        receiver: [
+                            {
+                                email:  'primary@test.com',
+                                amount: amount
                             }
-                        };
+                        ]
+                    }
+                };
 
-
-                        paypalSdk.pay(payload, function (err, paypalResponse) {
-                            if (err) {
-                                res.end(err); // TODO - better error handling here
-                            } else if(paypalResponse.responseEnvelope.ack === 'Success') {
-
-                                res.send(paypalResponse.paymentApprovalUrl);
-
-                                // var requestBody;
-                                //
-                                // var options = {
-                                //     url: baseUrl.tomcat_url + "/requests/fulfill",
-                                //     headers: req.headers
-                                // };
-                                //
-                                // request(options, function(error, response, body){
-                                //     if(response.statusCode === 200){
-                                //         requestBody = parser.parse(body);
-                                //         req.session.userObject.donateCount += 1;
-                                //         res.send(paypalResponse.paymentApprovalUrl);
-                                //     } else {
-                                //         console.log("issue with recording fulfilled request");
-                                //         res.send(response)
-                                //     }
-                                // });
-
-                            }
-                        });
-
-
+                paypalSdk.pay(payload, function (err, paypalResponse) {
+                    if (err) {
+                        res.end(err); // TODO - better error handling here
                     } else {
-                        console.log(error)
-                        req.send(response)
+                        if(paypalResponse.responseEnvelope.ack === 'Success') {
+
+
+                            var requestBody;
+
+                            // todo - this needs to happen upon actual payment from paypal.
+                            var options = {
+                                url: baseUrl.tomcat_url + "/requests/fulfill",
+                                headers: req.headers
+                            };
+
+                            request(options, function(error, response, body){
+                                if(response.statusCode === 200){
+                                    requestBody = parser.parse(body);
+                                    req.session.userObject.donateCount += 1;
+                                    res.send(paypalResponse.paymentApprovalUrl);
+                                } else {
+                                    console.log("issue with recording fulfilled request");
+                                    res.sendStatus(500);
+                                }
+                            });
+                        }
                     }
                 });
             } else {
-                console.log("issue with recording fulfilled request");
-                res.send(response)
+                console.log("\nIN REQUESTING USER OBJ\n");
+                console.log(response.statusCode);
+
+                console.log(body);
+                res.status(response.statusCode).send(body);
             }
         });
     } else {
@@ -408,7 +509,7 @@ function setupCORSResponse(res, origin){
     }
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid, duid');
     // return res;
 };
 
