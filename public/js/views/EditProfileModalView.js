@@ -19,8 +19,8 @@ define(function (require, exports, module) {
         el: editProfileModal,
 
         events: {
-            "click #cancelEditProfileBtn"    : "destroyCreateAvatarModal",
-            "click #exitEditProfileModal"    : "destroyCreateAvatarModal",
+            "click #cancelEditProfileBtn"    : "destroyEditProfileModal",
+            "click #exitEditProfileModal"    : "destroyEditProfileModal",
             "click #updateProfileBtn"        : "save",
             "click #changeImage"             : "changeImage",
             "click .dropdown-menu a"         : "updateEditProfileTags",
@@ -169,7 +169,7 @@ define(function (require, exports, module) {
                     console.log(model);
                     self.parent.model = model;
                     self.parent.renderMyProfile();
-                    self.destroyCreateAvatarModal();
+                    self.destroyEditProfileModal();
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -181,7 +181,7 @@ define(function (require, exports, module) {
             return this;
         },
 
-        destroyCreateAvatarModal: function () {
+        destroyEditProfileModal: function () {
             var self = this;
             $('#editProfileModal').fadeOut('slow', function () {
                 self.undelegateEvents();

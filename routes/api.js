@@ -393,7 +393,8 @@ router.post('/users/create', function(req, res, next) {
         method: 'post',
         body: req.body,
         url: baseUrl.tomcat_url + req.url,
-        json: true
+        json: true,
+        headers: req.headers
     };
 
     request(options, function(error, response, body){
@@ -420,7 +421,8 @@ router.post('/*', function(req, res, next) {
             method: 'post',
             body: req.body,
             url: baseUrl.tomcat_url + req.url,
-            json: true
+            json: true,
+            headers: req.headers
         };
 
         request(options, function (error, response, body) {
@@ -446,7 +448,8 @@ router.put('/*', function(req, res, next) {
             method: 'put',
             body: req.body,
             url: baseUrl.tomcat_url + req.url,
-            json: true
+            json: true,
+            headers: req.headers
         };
 
         request(options, function (error, response, body) {
@@ -479,7 +482,8 @@ router.delete('/*', function(req, res, next) {
             method: 'delete',
             body: req.body,
             url: baseUrl.tomcat_url + req.url,
-            json: true
+            json: true,
+            headers: req.headers
         };
 
         request(options, function (error, response, body) {

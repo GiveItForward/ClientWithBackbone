@@ -323,7 +323,7 @@ define(function (require, exports, module) {
 
         createAvatar: function() {
             var self = this;
-            self.$('#mainHomeContainer').html("<div id=\"svgAvatars\"></div>");
+            // self.$('#mainHomeContainer').html("<div id=\"svgAvatars\"></div>");
             //
             // var container = document.createDocumentFragment();
             // var createAvatarModalView = new CreateAvatarModalView({

@@ -15,8 +15,8 @@ define(function (require, exports, module) {
         el: createAvatarModal,
 
         events: {
-            "click #cancelCreateAvatarBtn"    : "destroyCreateAvatarModal",
-            "click #exitCreateAvatarModal"    : "destroyCreateAvatarModal",
+            "click #cancelCreateAvatarBtn"    : "destroyEditProfileModal",
+            "click #exitCreateAvatarModal"    : "destroyEditProfileModal",
         },
 
         initialize: function (options) {
@@ -32,7 +32,7 @@ define(function (require, exports, module) {
             return this;
         },
 
-        destroyCreateAvatarModal: function () {
+        destroyEditProfileModal: function () {
             var self = this;
             $('#editProfileModal').fadeOut('slow', function () {
                 self.undelegateEvents();
