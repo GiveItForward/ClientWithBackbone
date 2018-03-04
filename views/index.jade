@@ -10,38 +10,54 @@ html(lang='en')
     script(type='text/javascript', src='/js/require.js', data-main='/js/main.js')
     //script(type='text/javascript', src='/js/require.js', data-main='/js/main-optimized.min.js')
 
+    // for the image generator
+    // CSS
+    link(href='svgavatars/css/spectrum.css', rel='stylesheet')
+    link(href='svgavatars/css/svgavatars.css', rel='stylesheet')
+    link(href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,500,700&subset=latin,cyrillic-ext,cyrillic,latin-ext', rel='stylesheet', type='text/css')
+    // JavaScript
+    script(src='lib/jquery.js')
+    script(src='svgavatars/js/svg.min.js')
+    script(src='svgavatars/js/spectrum.min.js')
+    script(src='svgavatars/js/jquery.scrollbar.min.js')
+    script(src='svgavatars/js/canvg/rgbcolor.js')
+    script(src='svgavatars/js/canvg/StackBlur.js')
+    script(src='svgavatars/js/canvg/canvg.js')
+    // Place here 2 svgAvatars scripts
+    script(src='svgavatars/js/svgavatars.en.js')
+    script(src='svgavatars/js/svgavatars.core.min.js')
+
     block js
   body
     #svgAvatars
+    .container-fluid
+      .row
+        .col-md-12.turquoisebackground.landingbar
+          #inputdiv.logindiv.form-inline
+            input#username.roundmedium(type='text', name='username', placeholder='email')
+            input#password.roundmedium(type='password', placeholder='password')
+            button#loginSubmitBtn.btn.roundmediumbtn.purplebtn Log In
+            .loginerrordiv
+              label#loginErrorLabel(style=" color: red")
+            i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
+      .row
+        .col-md-12.confettibackground
+          .row
+            .col-md-6.text-center
+              .circlediv.text-center
+                .logodiv
+                  img.logo(src="/img/turquoise_shadow.png")
+                  #titleheading Give It Forward
 
-    //.container-fluid
-    //  .row
-    //    .col-md-12.turquoisebackground.landingbar
-    //      #inputdiv.logindiv.form-inline
-    //        input#username.roundmedium(type='text', name='username', placeholder='email')
-    //        input#password.roundmedium(type='password', placeholder='password')
-    //        button#loginSubmitBtn.btn.roundmediumbtn.purplebtn Log In
-    //        .loginerrordiv
-    //          label#loginErrorLabel(style=" color: red")
-    //        i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
-    //  .row
-    //    .col-md-12.confettibackground
-    //      .row
-    //        .col-md-6.text-center
-    //          .circlediv.text-center
-    //            .logodiv
-    //              img.logo(src="/img/turquoise_shadow.png")
-    //              #titleheading Give It Forward
-    //
-    //        .col-md-6
-    //          .absoluteCenter
-    //            .row.signupdiv
-    //              .col-md-6
-    //                input#newFirstname.roundhalf.grayshadow(type='text', placeholder='firstname')
-    //              .col-md-6
-    //                input#newLastname.roundhalf.grayshadow(type='text', placeholder='lastname')
-    //            input#newUsername.round.grayshadow(type='text', placeholder='username')
-    //            input#newEmail.round.grayshadow(type='text', placeholder='email')
-    //            input#newPassword.round.grayshadow(type='password', placeholder='password')
-    //            input#newVerifyPassword.round.grayshadow(type='password', placeholder='verify password')
-    //            button#createAccountBtn.btn.round.turquoisebtn.grayshadow Create Account
+            .col-md-6
+              .absoluteCenter
+                .row.signupdiv
+                  .col-md-6
+                    input#newFirstname.roundhalf.grayshadow(type='text', placeholder='firstname')
+                  .col-md-6
+                    input#newLastname.roundhalf.grayshadow(type='text', placeholder='lastname')
+                input#newUsername.round.grayshadow(type='text', placeholder='username')
+                input#newEmail.round.grayshadow(type='text', placeholder='email')
+                input#newPassword.round.grayshadow(type='password', placeholder='password')
+                input#newVerifyPassword.round.grayshadow(type='password', placeholder='verify password')
+                button#createAccountBtn.btn.round.turquoisebtn.grayshadow Create Account
