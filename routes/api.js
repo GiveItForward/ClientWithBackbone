@@ -244,13 +244,11 @@ router.get('/tags', function(req, res, next) {
         headers: req.headers
     };
 
-    var session = req.session;
-
     request(options, function(error, response, body){
         if(response.statusCode === 200){
             res.send(body);
         } else {
-            res.send(response);
+            res.status(response.statusCode).send(body);
         }
     });
 });
@@ -270,9 +268,9 @@ router.get('/*', function(req, res, next) {
 
         request(options, function (error, response, body) {
             if(response.statusCode === 200){
-                res.send(body)
+                res.send(body);
             } else {
-                res.sendStatus(response);
+                res.status(response.statusCode).send(body);
             }
         });
     } else {
@@ -303,7 +301,7 @@ router.post('/users/create', function(req, res, next) {
             session.userObject = body;
             res.send(body);
         } else {
-            res.send(response)
+            res.status(response.statusCode).send(body);
         }
     });
 
@@ -326,9 +324,9 @@ router.post('/*', function(req, res, next) {
 
         request(options, function (error, response, body) {
             if(response.statusCode === 200){
-                res.send(body)
+                res.send(body);
             } else {
-                res.send(response)
+                res.status(response.statusCode).send(body);
             }
         });
     } else {
@@ -352,9 +350,10 @@ router.put('/*', function(req, res, next) {
 
         request(options, function (error, response, body) {
             if(response.statusCode === 200){
-                res.send(body)
+                res.send(body);
             } else {
-                res.send(response)
+                res.status(response.statusCode).send(body);
+
             }
         });
     } else {
@@ -384,9 +383,10 @@ router.delete('/*', function(req, res, next) {
 
         request(options, function (error, response, body) {
             if(response.statusCode === 200){
-                res.send(body)
+                res.send(body);
             } else {
-                res.send(response)
+                res.status(response.statusCode).send(body);
+
             }
         });
     } else {

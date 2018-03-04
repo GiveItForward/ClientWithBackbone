@@ -357,10 +357,9 @@ define(function (require, exports, module) {
                     console.log(collection.models);
                     if(self.model.get('isAdmin')){
                         self.$('#usersCol').html(userAdminTemplate(collection));
-                    }else{
+                    }else {
                         self.$('#usersCol').html(userTemplate(collection));
                     }
-
 
                 }
             });
@@ -485,7 +484,7 @@ define(function (require, exports, module) {
                     //     userAdminModel.save({
                     //         success: function (model) {
 
-                                // self.renderUsers();
+                    // self.renderUsers();
                     //         },
                     //         error: function(model, response, options){
                     //             bootbox.alert('There was a problem promoting this user.');
