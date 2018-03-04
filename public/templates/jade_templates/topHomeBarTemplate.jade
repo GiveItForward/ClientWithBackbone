@@ -1,8 +1,13 @@
-.row.topHomeBar
+.row
     #usernameDisplay.col-md-9.titleheading2
+    //.col-md-9
+        .mediumcirclediv
+            img#myImageDisplay.myImageDisplay(src='')
     .col-md-2.icon-margin.form-inline
-        img.icon-mini(src='/img/purple_shadow_logo.png')
-        #donateCount
-        img.icon-mini(src='/img/purple_gift.png')
+        span.receivecountspan(data-title='My Fulfilled Requests')
+            img.icon-mini(src='/img/purple_gift.png')
         #receiveCount
+        span.donatecountspan(data-title='My Donations')
+            img.icon-mini(src='/img/purple_shadow_logo.png')
+        #donateCount
 #homeContainer.container-fluid

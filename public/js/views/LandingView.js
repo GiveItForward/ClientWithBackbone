@@ -167,6 +167,9 @@ define(function (require, exports, module) {
                 console.log(self.signupModel);
 
                 self.signupModel.save( null, {
+                    xhrFields: {
+                        withCredentials: true
+                    },
                     wait: true,
                     success: function(model, response) {
                         console.log('success');

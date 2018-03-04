@@ -9,6 +9,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var sayThankYouModal = require("text!templates/modals/sayThankYouModal.html");
+    var UserModel = require("models/UserModel");
 
     var SayThankYouModalView = Backbone.View.extend({
 
@@ -25,7 +26,8 @@ define(function (require, exports, module) {
         initialize: function (options) {
             console.log("in thank you modal view init");
             this.parent = options.parent;
-            this.model = options.model
+            this.model = options.model,
+            this.duid = options.duid
             // this.render();
         },
 
@@ -35,11 +37,38 @@ define(function (require, exports, module) {
             self.el = sayThankYouModal;
             self.setElement(this.el);
             console.log(self.model);
-            // self.$('#sayThankYouLabel').html('Write your Thank You message to ' ' here:');
+            // self.$('#sayThankYouLabel').html('Write your Thank You message to ' + self.donateUsername + ' here:');
+            self.setDonateUsername();
             self.$('#createThankYouBtn').prop("disabled", true);
 
             return this;
         },
+
+        setDonateUsername: function () {
+            var self = this;
+            var donateUserModel = new UserModel({
+                path: 'byuid',
+                uid: self.duid
+            });
+            donateUserModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "uid": self.duid
+                },
+                success: function (model) {
+                    donateUserModel = model;
+                    self.$('#sayThankYouLabel').html('Write your Thank You message to ' + model.get('username') + ' here:');
+                },
+                error: function(err){
+                    console.log("error occurred in getting the donate username");
+                }
+            });
+            return this;
+        },
+
+
 
         updateThankYouModel: function () {
             var self = this;

@@ -1,23 +1,26 @@
-.leftcol a:link {
-  color: white;
-}
+/*.leftcol a:link {*/
+  /*color: white;*/
+/*}*/
 
-.leftcol a:visited {
-  color: white;
-}
+/*.leftcol a:visited {*/
+  /*color: white;*/
+/*}*/
 
-a:hover {
-  color: skyblue !important;
-}
+/*a:hover {*/
+  /*color: skyblue !important;*/
+/*}*/
+
+
 
 /*hover over checkmark*/
 span[data-title]:hover:after {
   content: attr(data-title);
   padding: 5px ;
-  background-color: #002A26;
-  color: #fff;
-  border-radius: 6px;
+  background-color: #3C0740;
+  color: white;
+  border-radius: 25px;
   position: absolute;
+  opacity: 1.0;
 }
 
 body{
@@ -60,12 +63,12 @@ body{
 }
 
 .titleheading2 {
-  font-size: 24pt;
+  font-size: 18pt;
   color:#840E8C;
-  font-family: cursive;
+  /*font-family: cursive;*/
   font-weight: bold;
-  text-shadow: 2px 2px 2px #3C0740;
-  margin: 2%;
+  /*text-shadow: 2px 2px 0 #3C0740;*/
+  margin: 1%;
 }
 
 #requestfeed {
@@ -79,9 +82,9 @@ body{
 }
 
 .logomini {
-  width: 70px;
-  height: 70px;
-  margin: 15px;
+  width: 60px;
+  height: 60px;
+  /*margin: 15px;*/
 }
 
 #profilepicmini {
@@ -127,7 +130,7 @@ body{
   background-color: white;
   border-radius: 25px;
   padding: 5px;
-  width: 80%;
+  width: 85%;
   height: 300px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
@@ -225,7 +228,7 @@ body{
 .orderbybtn{
   border-radius: 25px;
   /*padding: 5%;*/
-  width: 150px;
+  width: 160px;
   margin-left: 15%;
 }
 
@@ -368,8 +371,9 @@ body{
 }
 
 .winebtn:hover {
-  background: #B74343;
+  /*background: #B74343;*/
   text-decoration: none;
+  font-size: 14pt;
   filter: none;
 }
 
@@ -377,12 +381,14 @@ body{
   /*background-color: #007F64;*/
   background: linear-gradient(to top, #002A26, #00947D);
   border: 1px solid #00947D;
+  box-shadow: 4px 4px 10px 4px dimgrey;
   color:white;
 }
 
 .turquoisebtn:hover {
-  background: #00947D;
+  /*background: #00947D;*/
   text-decoration: none;
+  font-size: 14pt;
   filter: none;
 }
 
@@ -400,8 +406,9 @@ body{
 }
 
 .purplebtn:hover {
-  background: #840E8C;
+  /*background: #840E8C;*/
   text-decoration: none;
+  font-size: 14pt;
   filter: none;
 }
 
@@ -420,6 +427,7 @@ body{
 .greybtncol{
   background-color: dimgrey;
   color:white;
+  text-shadow: 4px 4px 5px #002A26;
   border-radius: 0;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
@@ -429,7 +437,7 @@ body{
   /*background-color: #00947D;*/
   background: linear-gradient(to right, #002A26, #00947D);
   color:white;
-  text-shadow: 2px 2px 5px #002A26;
+  text-shadow: 4px 4px 5px #002A26;
   font-size: 18pt;
   border-radius: 0;
   /*border-top: 1px solid #FBF9F7;*/
@@ -437,6 +445,14 @@ body{
   margin-left: -1px !important;
   border-right: none;
   padding: 5%;
+}
+
+.turquoisebtncol:hover {
+  font-size: 24pt;
+  font-weight:bold;
+  color:white;
+  text-shadow: 6px 6px 6px #002A26;
+  filter: none;
 }
 
 .selected {
@@ -464,8 +480,8 @@ body{
 }
 
 .topHomeBar{
-  /*background: linear-gradient(#FFCE0C, #FBF9F7);*/
-  /*width: 100vw;*/
+  background: lightgrey;
+  width: 100%;
 }
 
 .middle-row{
@@ -484,8 +500,8 @@ body{
 
 .bottom-row{
   /*padding-top: 150px;*/
-  background-color: lightgrey;
-  /*background-color: #FBF9F7;*/
+  /*background-color: lightgrey;*/
+  background-color: #e6e6e6;
   width: 100vw;
   height: 100vh;
 }
@@ -591,15 +607,52 @@ body{
 }
 
 .requestuserimage{
-  width: 50px;
-  height: 70px;
-  margin-left: 10%;
+  width: 40px;
+  height: 50px;
+  /*margin-left: 5%;*/
+}
+
+.smallcirclediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid #CB9E0A;
+  height: 75px;
+  width: 75px;
+  /*margin-top: 10%;*/
+  /*margin-left: 10%;*/
+  padding: 15%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
+.mediumcirclediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid #840E8C;
+  height: 45px;
+  width: 45px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+  padding: 6px;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
+.myImageDisplay{
+  height: 25px;
+  width: 25px;
 }
 
 .requestusername{
   font-weight: bold;
   font-size: 18pt;
   color: #0000EE !important; /*link blue*/
+}
+
+.requestusername:hover{
+  font-size: 20pt;
+  color: #3C0740;
 }
 
 .myhistoryuserimage{
@@ -684,17 +737,19 @@ body{
 .roundgivebtn{
   /*background-color: lightgrey;*/
   /*border-color: dimgrey;*/
-  background: linear-gradient(to right, #404040, #bfbfbf);
-  border: 1px solid #bfbfbf;
+  background: linear-gradient(to right, #404040, #a6a6a6);
+  border: 1px solid #a6a6a6;
   border-radius: 20px;
   padding: 10px;
   height: 70px;
-  width: 80px;
+  width: 100px;
   font-size: 18pt;
   font-weight:bold;
   text-shadow: 2px 2px 2px dimgrey;
+  box-shadow: 4px 4px 10px 4px dimgrey;
   color:white;
-  margin: 30%;
+  margin-top: 50%;
+  margin-left:15%;
 }
 
 .roundgivebtn:hover {
@@ -706,13 +761,26 @@ body{
 }
 
 .otherroundgivebtn{
-  background-color: lightgrey;
-  border-color: dimgrey;
+  background: linear-gradient(to right, #404040, #a6a6a6);
+  border: 1px solid #a6a6a6;
   border-radius: 20px;
   padding: 10px;
   height: 70px;
-  width: 80px;
+  width: 100px;
+  font-size: 18pt;
+  font-weight:bold;
+  text-shadow: 2px 2px 2px dimgrey;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+  color:white;
   margin: 3%;
+}
+
+.otherroundgivebtn:hover {
+  background: #bfbfbf;
+  font-size: 24pt;
+  font-weight:bold;
+  color:black;
+  filter: none;
 }
 
 .editrequestbtn {
@@ -734,8 +802,8 @@ body{
 .thankyoubtn {
   border-radius: 25px;
   padding: 5px;
-  height: 55px;
-  width: 105px;
+  height: 60px;
+  width: 110px;
   margin-top: 1%;
 }
 
@@ -756,14 +824,19 @@ body{
 .otherthankyoubtn {
   border-radius: 25px;
   /*padding: 7%;*/
+  /*height: 60px;*/
+  /*width: 110px;*/
+  /*margin: 3%;*/
+  padding: 5px;
   height: 60px;
   width: 110px;
-  margin: 3%;
+  margin-top: 1%;
 }
 
 .viewthankyoubtn {
   border-radius: 25px;
-  padding: 7%;
+  /*padding: 7%;*/
+  padding: 5px;
   height: 60px;
   width: 100%;
   margin-top: 0;
@@ -817,21 +890,39 @@ body{
   height: 100%;
 }
 
+.homecirclediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: white;
+  border-radius: 50%;
+  border: 5px solid #CB9E0A;
+  height: 110px;
+  width: 110px;
+  margin-top: 5%;
+  margin-left: 25%;
+  padding: 20px;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
 .homebtn{
   /*background-color: lightgrey;*/
-  /*background-color: #FFCE0C;*/
+  /*background-color: #CB9E0A;*/
   /*background: linear-gradient(to bottom right, dimgrey, lightgrey);*/
-  background: linear-gradient(to right, #404040, #bfbfbf);
+  /*background: linear-gradient(to right, #404040, lightgrey);*/
+  background: linear-gradient(to right, #002A26, #00947D);
   border-radius: 0;
   outline: none;
   margin-left: -1px;
   /*padding: 10px;*/
-  width: 100%;
+  /*width: 101% !important;*/
 }
 
 .lightgreybackground{
-  background-color: lightgrey;
-  /*background-color: #daa520;*/
+  /*background-color: lightgrey;*/
+  background-color: #e6e6e6;
+}
+
+.lightpurplebackground{
+  background-color: #F3E9F4;
 }
 
 .dimgreybackground{
@@ -923,6 +1014,13 @@ body{
   margin-left: 1%;
 }
 
+.topborderyellow {
+  border-top: 5px ridge #CB9E0A;
+  /*margin-top: 1%;*/
+  margin-left: 1%;
+  margin-right: 2%;
+}
+
 .btn-col {
   padding: 0;
   margin: 0;
@@ -943,6 +1041,16 @@ body{
   height: 30px;
   width: 30px;
   margin-right: 2%;
+  margin-left: 15%;
+}
+
+.receivecountspan {
+  margin-right: 5%;
+  /*margin-left: 15%;*/
+}
+
+.donatecountspan {
+  margin-right: 5%;
   margin-left: 15%;
 }
 
@@ -1107,6 +1215,10 @@ body{
   font-size: 14pt;
 }
 
+.requesttime {
+  font-size: 14pt;
+}
+
 .myProfileInfo {
   margin-left: 5%;
 }
@@ -1116,6 +1228,16 @@ body{
   border-radius: 25px;
   background-color: #F3E9F4;
   padding: 5px;
+  overflow-y: scroll;
+}
+
+.requestdescriptiondiv{
+  height: 150px;
+  border-radius: 25px;
+  /*background-color: #F3E9F4;*/
+  padding: 5px;
+  margin: 1%;
+  text-align: center;
   overflow-y: scroll;
 }
 

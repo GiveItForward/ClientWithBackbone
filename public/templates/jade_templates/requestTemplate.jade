@@ -7,7 +7,8 @@ for request in locals.models
                         .requestmargin
                             .row
                                 .col-md-1
-                                    img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
+                                    .smallcirclediv.text-center
+                                        img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
                                 .col-md-11
                                     .row
                                         .col-md-12.form-inline
@@ -22,18 +23,19 @@ for request in locals.models
                                                     else
                                                         | &nbsp
                                     .row
-                                        .col-md-9
-                                        .col-md-3
+                                        .col-md-8
+                                        .col-md-4.requesttime
                                             #requestDate posted on #{request.get("requestTime")}
                             .row.topborder
-                                .col-md-3.text-center
+                                .col-md-2
                                     if request.get("tag1") !== ''
                                         .tags
-                                            b &nbsp##{request.get("tag1").tagname}
+                                            b ##{request.get("tag1").tagname}
                                     #requestImage
                                         img.requestimage(src='#{request.get("image")}')
-                                .col-md-7
-                                    #requestDescription.requestmessage #{request.get("description")}
+                                .col-md-8
+                                    .requestdescriptiondiv
+                                        #requestDescription.requestmessage #{request.get("description")}
                                 .col-md-2
                                     button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
 

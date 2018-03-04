@@ -143,6 +143,7 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("selected");
             self.$('#homeContainer').html(requestFeedTemplate);
+            // self.$('#mainHomeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
 
@@ -171,7 +172,9 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
+            $("#usernameDisplay").html("@" + self.model.get("username"));
+            // $("#myImageDisplay").attr('src', self.model.get("image"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
             return this;
@@ -188,9 +191,6 @@ define(function (require, exports, module) {
             var currRequest = new RequestModel({
                 path: 'paypal'
             });
-
-
-
 
             currRequest.fetch({
                 reset: true,
@@ -230,8 +230,6 @@ define(function (require, exports, module) {
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
 
-
-
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
                 xhrFields: {
@@ -264,6 +262,9 @@ define(function (require, exports, module) {
                     oid: myOid
                 });
                 myOrgModel.fetch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
                     headers: {"oid": myOid},
                     success: function (model) {
                         console.log(model);
@@ -382,7 +383,10 @@ define(function (require, exports, module) {
                             path: 'verifytag',
                             uid: uidToVerifiy});
                         console.log(verifyUserModel);
-                        verifyUserModel.save({
+                        verifyUserModel.save(null, {
+                            xhrFields: {
+                                withCredentials: true
+                            },
                             headers: {
                                 uid: uidToVerifiy,
                                 tid: tagIdToVerify,
@@ -420,6 +424,9 @@ define(function (require, exports, module) {
                         });
                         console.log(unverifyUserModel);
                         unverifyUserModel.save({
+                            xhrFields: {
+                                withCredentials: true
+                            },
                             headers: {
                                 uid: uidToUnverifiy,
                                 tid: tagIdToUnverify,
@@ -777,11 +784,18 @@ define(function (require, exports, module) {
             console.log(currentRid);
             var duid = $(event.currentTarget).attr('data-duid');
             console.log(duid);
+
             // var donateUserModel = new UserModel({
             //     path: 'byuid',
             //     uid: duid
             // });
             // donateUserModel.fetch({
+            //     xhrFields: {
+            //         withCredentials: true
+            //     },
+            //     headers: {
+            //         "uid": duid
+            //     },
             //     success: function (model) {
             //
             //         donateUserModel = model;
@@ -792,14 +806,15 @@ define(function (require, exports, module) {
             //         console.log("error occurred in getting the donate username");
             //     }
             // });
+
             var container = document.createDocumentFragment();
             var sayThankYouModalView = new SayThankYouModalView({
                 parent: self,
                 model: new ThankYouModel({
                     path: 'create',
-                    rid: currentRid
-                }),
-                // donateUsername: donateUserModel.get('username')
+                    rid: currentRid,
+                    duid: duid
+                })
             });
             container.appendChild(sayThankYouModalView.render().el);
             $('body').append(container);
@@ -924,6 +939,9 @@ define(function (require, exports, module) {
 
             var filteredRequestCollection = new RequestCollection();
             filteredRequestCollection.fetchByFilter({
+                xhrFields: {
+                    withCredentials: true
+                },
                 headers: {
                     "age": age,
                     "price": price,
