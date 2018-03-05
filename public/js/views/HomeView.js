@@ -738,7 +738,7 @@ define(function (require, exports, module) {
                             oid: oidToApprove
                         });
                         console.log(orgToApproveModel);
-                        orgToApproveModel.save({
+                        orgToApproveModel.save(null, {
                             success: function (model) {
                                 self.renderOrgs();
                                 console.log(model);
@@ -770,6 +770,12 @@ define(function (require, exports, module) {
                         });
 
                         orgToDenyModel.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "oid": oidToDeny
+                            },
                             success: function (model) {
                                 self.renderOrgs();
                                 console.log(model);
