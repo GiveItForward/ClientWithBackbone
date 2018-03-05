@@ -175,7 +175,7 @@ define(function (require, exports, module) {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
             // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
-            $("#usernameDisplay").html("@" + self.model.get("username"));
+            $("#usernameDisplay").html(self.model.get("username"));
             // $("#myImageDisplay").attr('src', self.model.get("image"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -293,7 +293,7 @@ define(function (require, exports, module) {
                 }
             });
             $("#myImage").attr('src', self.model.get("image"));
-            $("#myUsername").html('@' + self.model.get("username"));
+            $("#myUsername").html(self.model.get("username"));
             $("#myFirstName").html(self.model.get("firstname"));
             $("#myLastName").html(self.model.get("lastname"));
             $("#myEmail").html(self.model.get("email"));

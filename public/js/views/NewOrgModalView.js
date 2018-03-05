@@ -10,6 +10,8 @@ define(function (require, exports, module) {
 
     var newOrgModal = require("text!templates/modals/newOrgModal.html");
 
+    var ChooseOrgImageModalView = require("views/ChooseOrgImageModalView");
+
     var NewOrgModalView = Backbone.View.extend({
 
         el: newOrgModal,
@@ -17,6 +19,7 @@ define(function (require, exports, module) {
         events: {
             "click #cancelNewOrgBtn"     : "destroyNewOrgModal",
             "click #exitNewOrgModal"     : "destroyNewOrgModal",
+            "click #newOrgImage"             : "newOrgImage",
             // "click #createRequestBtn"        : "save",
             // "change input[type=radio]"       : "updateRequestTags",
             // "keyup"                          : "updateModel",
@@ -35,6 +38,18 @@ define(function (require, exports, module) {
             self.setElement(this.el);
             // self.renderTagList();
             // self.$('#createRequestBtn').prop("disabled", true);
+            return this;
+        },
+
+        newOrgImage: function () {
+            var self = this;
+            var container = document.createDocumentFragment();
+            var chooseOrgImageModalView = new ChooseOrgImageModalView({
+                parent: self,
+                update: true
+            });
+            container.appendChild(chooseOrgImageModalView.render().el);
+            $('body').append(container);
             return this;
         },
 

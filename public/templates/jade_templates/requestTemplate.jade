@@ -12,7 +12,7 @@ for request in locals.models
                                 .col-md-11
                                     .row
                                         .col-md-12.form-inline
-                                            a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
+                                            a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
                                             #requestTags.tags
                                                 for tag in request.get("rUser").tags
                                                     if tag.tagname !== ''

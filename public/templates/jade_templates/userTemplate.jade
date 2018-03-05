@@ -9,7 +9,7 @@ for user in locals.models
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
                                  .col-md-11
-                                    a.requestusername(target="_blank", href='#') @#{user.get("username")}
+                                    a.requestusername(target="_blank", href='#') #{user.get("username")}
                                     .form-inline.tags
                                         for tag in user.get("tags")
                                             if tag.tagname !== ''

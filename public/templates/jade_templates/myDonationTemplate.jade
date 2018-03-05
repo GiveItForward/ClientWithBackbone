@@ -9,7 +9,7 @@ for request in locals.models
                                 .col-md-12
                                     .form-inline
                                         img.myhistoryuserimage(src='#{request.get("rUser").image}')
-                                        a#otherProfileLink.myhistoryusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') @#{request.get("rUser").username}
+                                        a#otherProfileLink.myhistoryusername.btn(data-rid='#{request.get("rid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
                             .row.text-center
                                 .historytags.form-inline
                                     for tag in request.get("rUser").tags

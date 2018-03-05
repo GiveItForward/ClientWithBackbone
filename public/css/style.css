@@ -367,6 +367,7 @@ body{
   /*background-color: #760709;*/
   background: linear-gradient(to top, #7C0000, #B74343);
   border: 1px solid #B74343;
+  box-shadow: 4px 4px 10px 4px dimgrey;
   color:white;
 }
 
@@ -402,6 +403,7 @@ body{
   /*background-color: #840E8C;*/
   background: linear-gradient(to top, #3C0740, #840E8C);
   border: 1px solid #840E8C;
+  box-shadow: 4px 4px 10px 4px dimgrey;
   color:white;
 }
 
@@ -415,6 +417,7 @@ body{
 .greybtn{
   background: linear-gradient(to top, #262626, dimgrey);
   border: 1px solid dimgrey;
+  box-shadow: 4px 4px 10px 4px dimgrey;
   color:white;
 }
 
@@ -501,7 +504,7 @@ body{
 .bottom-row{
   /*padding-top: 150px;*/
   /*background-color: lightgrey;*/
-  background-color: #e6e6e6;
+  /*background-color: #e6e6e6;*/
   width: 100vw;
   height: 100vh;
 }
@@ -862,7 +865,7 @@ body{
   border-radius: 25px;
   padding: 10px;
   height: 45px;
-  width: 100px;
+  width: 115px;
   margin-top: 15%;
 }
 
@@ -1201,6 +1204,12 @@ body{
   margin: 1%;
 }
 
+.editOrgImage {
+  width: 120px;
+  height: 100px;
+  margin: 1%;
+}
+
 .myProfileMargin {
   margin-top: 3%;
   margin-left: 5%;
@@ -1286,6 +1295,14 @@ body{
 }
 
 #otherProfileModal {
+  overflow-y: scroll;
+}
+
+#newOrgModal {
+  overflow-y: scroll;
+}
+
+#editOrgModal {
   overflow-y: scroll;
 }
 

@@ -9,7 +9,7 @@ for request in locals.models
                                 .col-md-12
                                     .form-inline
                                         img.myhistoryuserimage(src='#{request.get("rUser").image}')
-                                        .myhistoryusername.padding-left(href='#') @#{request.get("rUser").username}
+                                        .myhistoryusername.padding-left(href='#') #{request.get("rUser").username}
                             .row.topborder
                                 .col-md-12.text-center
                                     if request.get("tag1") !== ''
