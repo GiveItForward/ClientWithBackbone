@@ -8,8 +8,8 @@ for user in locals.models
                             .row
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
-                                 .col-md-11
-                                    a.requestusername(target="_blank", href='#') #{user.get("username")}
+                                .col-md-11
+                                    a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
                                     .form-inline.tags
                                         for tag in user.get("tags")
                                             if tag.tagname !== ''
@@ -33,6 +33,10 @@ for user in locals.models
                                 .col-md-12
                                     .userbiodiv.text-center
                                         | #{user.get("bio")}
+
+
+
+                                        //a.requestusername(target="_blank", href='#') @#{user.get("username")}
                             //.row
                             //    .col-md-12.text-center
                             //        button#updateVerifiedTagsBtn.thankyoubtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') update tags

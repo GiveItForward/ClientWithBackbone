@@ -15,8 +15,12 @@ define(function (require, exports, module) {
         url : rootUrl.url + "api/organizations/",
 
         fetchPending: function (options) {
-
             this.url = rootUrl.url + "api/organizations/pending";
+            return Backbone.Collection.prototype.fetch.call(this, options);
+        },
+
+        fetchSearch: function (options) {
+            this.url = rootUrl.url + "api/organizations/search";
             return Backbone.Collection.prototype.fetch.call(this, options);
         }
 

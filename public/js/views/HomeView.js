@@ -75,6 +75,10 @@ define(function (require, exports, module) {
             "click #low"                        : "toggleLow",
             "click #high"                       : "toggleHigh",
             "click #goFilterRequests"           : "goFilterRequests",
+            "click #goSearchUsers"              : "goSearchUsers",
+            "click #goSearchOrgs"               : "goSearchOrgs",
+
+
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
             "click #myProfileBtn"               : "renderMyProfile",
@@ -85,7 +89,6 @@ define(function (require, exports, module) {
             "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
             "click #verifyTagBtn"               : "verifyTag",
-            "click #elevateUserOrgBtn"          : "elevateUserOrg",
             "click #elevateUserAdminBtn"        : "elevateUserAdmin",
             "click #deleteUserBtn"              : "deleteUser",
             "click #approveOrgBtn"              : "approveOrg",
@@ -471,38 +474,6 @@ define(function (require, exports, module) {
                 }
             });
         },
-        //
-        // elevateUserOrg: function (event) {
-        //     var self = this;
-        //     var usernameToOrg = $(event.currentTarget).attr('data-username');
-        //     var uidToOrg = $(event.currentTarget).attr('data-uid');
-        //
-        //     bootbox.confirm({
-        //         message: "Would you like to elevate " + usernameToOrg + " to an ORG User?",
-        //         callback: function (result) {
-        //             if(result){
-        //                 var userOrgModel = new UserModel({
-        //                     path: 'promote/org',
-        //                     uid: uidToOrg,
-        //                     oid: //todo
-        //                 });
-        //                 console.log(userOrgModel);
-        //                 userOrgModel.save({
-        //                     xhrFields: {
-        //                         withCredentials: true
-        //                     },
-        //                     success: function (model) {
-        //                          self.renderUsers();
-        //                     },
-        //                     error: function(model, response, options){
-        //                         bootbox.alert('There was a problem promoting this user.');
-        //                         console.log(response);
-        //                     }
-        //                 });
-        //             }
-        //         }
-        //     });
-        // },
 
         elevateUserAdmin: function (event) {
             var self = this;
@@ -1002,6 +973,58 @@ define(function (require, exports, module) {
                     console.log(err);
                 }
             });
+            return this;
+        },
+
+        goSearchOrgs: function () {
+            var self = this;
+
+            //get string from field
+            var searchString = "utah";
+            var searchOrgCollection = new OrgCollection();
+            searchOrgCollection.fetchSearch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "search": searchString
+                },
+                success: function (collection) {
+                    console.log(collection.models);
+                    self.$('#orgCol').html(orgTemplate(collection));
+                },
+                error: function(err){
+                    console.log("error when search orgs");
+                    console.log(err);
+                }
+            });
+            return this;
+        },
+
+        goSearchUsers: function () {
+            var self = this;
+
+            // var filteredRequestCollection = new RequestCollection();
+            // filteredRequestCollection.fetchByFilter({
+            //     xhrFields: {
+            //         withCredentials: true
+            //     },
+            //     headers: {
+            //         "age": age,
+            //         "price": price,
+            //         "rtags": searchRequestTagsList,
+            //         "utags": searchUserTagsList
+            //     },
+            //     success: function (collection) {
+            //         console.log(collection.models);
+            //         self.$('#requestCol').html(requestTemplate(collection));
+            //         self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
+            //     },
+            //     error: function(err){
+            //         console.log("error when filtering");
+            //         console.log(err);
+            //     }
+            // });
             return this;
         },
 
