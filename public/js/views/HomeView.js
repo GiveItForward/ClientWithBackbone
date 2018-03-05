@@ -439,14 +439,14 @@ define(function (require, exports, module) {
                             uid: uidToUnverifiy
                         });
                         console.log(unverifyUserModel);
-                        unverifyUserModel.save({
+                        unverifyUserModel.save(null, {
                             xhrFields: {
                                 withCredentials: true
                             },
                             headers: {
                                 uid: uidToUnverifiy,
                                 tid: tagIdToUnverify,
-                                oid: ''
+                                oid: self.model.get('orgId')
                             },
                             success: function (collection, response, options) {
                                 console.log("request was saved");
