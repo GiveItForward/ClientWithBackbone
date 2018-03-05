@@ -123,6 +123,7 @@ define(function (require, exports, module) {
 
         render: function () {
             var self = this;
+            self.setElement("#homeStuff");
             self.$el.html(homeTemplate);
             console.log(self.model);
             self.renderHome();
@@ -323,15 +324,18 @@ define(function (require, exports, module) {
 
         createAvatar: function() {
             var self = this;
-            // self.$('#mainHomeContainer').html("<div id=\"svgAvatars\"></div>");
-            //
-            // var container = document.createDocumentFragment();
-            // var createAvatarModalView = new CreateAvatarModalView({
-            //     parent: self,
-            //     model: self.model,
-            // });
-            // container.appendChild(createAvatarModalView.render().el);
-            // $('body').append(container);
+            // self.renderTopHomeBar();
+            // self.$('#homeContainer').html("<div id=\"svgAvatars\"></div>");
+
+            var container = document.createDocumentFragment();
+            var createAvatarModalView = new CreateAvatarModalView({
+                parent: self,
+                model: self.model,
+            });
+            container.appendChild(createAvatarModalView.render().el);
+            $('body').append(container);
+            $('#svgAvatars').show();
+            $('#svgAvatars').insertAfter('#avatarPlaceHolder');
             return this;
         },
 

@@ -1289,11 +1289,6 @@ body{
   overflow-y: scroll;
 }
 
-#createAvatarModal {
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-
 .notificationsPanel{
   color: black;
   background-color: white;
@@ -1349,4 +1344,10 @@ input[type=checkbox]:checked + label
   width: 60px;
   display:inline-block;
   padding: 0 0 0 0px;
+}
+
+
+.avatar-modal {
+  min-width: 950px;
+  max-height: 100%;
 }
