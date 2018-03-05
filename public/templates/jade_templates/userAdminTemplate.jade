@@ -26,8 +26,8 @@ for user in locals.models
                             .row
                                 .col-md-12.text-center
                                     .btn-group
-                                        button#elevateUserOrgBtn.elevateuserbtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to org user
-                                        button#elevateUserAdminBtn.elevateuserbtn.turquoisebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
+                                        //button#elevateUserOrgBtn.elevateuserbtn.turquoisebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to org user
+                                        button#elevateUserAdminBtn.elevateuserbtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
                                         button#deleteUserBtn.elevateuserbtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') delete user
 
 

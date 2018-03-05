@@ -19,25 +19,24 @@ define(function (require, exports, module) {
         events: {
             "click #cancelNewOrgBtn"     : "destroyNewOrgModal",
             "click #exitNewOrgModal"     : "destroyNewOrgModal",
-            "click #newOrgImage"             : "newOrgImage",
-            // "click #createRequestBtn"        : "save",
-            // "change input[type=radio]"       : "updateRequestTags",
-            // "keyup"                          : "updateModel",
-            // "change"                         : "updateModel"
+            "click #newOrgImage"         : "newOrgImage",
+            "click #createOrgBtn"        : "saveNewOrg",
+            "keyup"                      : "updateNewOrgModel",
+            "change"                     : "updateNewOrgModel"
         },
 
         initialize: function (options) {
             this.parent = options.parent;
-            // $('#requestErrorLabel').html('');
-            // this.model.set('image', '/img/other_help_icon.png');
+            this.model = new OrgModel({path: 'create'});
+            $('#newOrgErrorLabel').html('');
         },
 
         render: function () {
             var self = this;
             self.el = newOrgModal;
             self.setElement(this.el);
-            // self.renderTagList();
-            // self.$('#createRequestBtn').prop("disabled", true);
+            // this.$('#editOrgImage').attr('src', '');
+            self.$('#createOrgBtn').prop("disabled", true);
             return this;
         },
 
@@ -46,134 +45,66 @@ define(function (require, exports, module) {
             var container = document.createDocumentFragment();
             var chooseOrgImageModalView = new ChooseOrgImageModalView({
                 parent: self,
-                update: true
+                update: false
             });
             container.appendChild(chooseOrgImageModalView.render().el);
             $('body').append(container);
             return this;
         },
 
-        // renderTagList: function () {
-        //     var self = this;
-        //
-        //     var requestTagCollection = new RequestTagCollection();
-        //     requestTagCollection.fetch({
-        //         success: function (collection) {
-        //             console.log('tag names from db: ')
-        //             console.log(collection.models);
-        //             var newRequestTagsHtml = self.getnewRequestTagsHtml(collection.models);
-        //             self.$('#newRequestTags').html(newRequestTagsHtml);
-        //         }
-        //     });
-        //     return this;
-        // },
-        //
-        //
-        // getnewRequestTagsHtml: function (models) {
-        //     var tagString = '';
-        //     _.each(models, function(model) {
-        //         tagString += '<input type="radio" name="newRequestTag" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '"> #' + model.get("tagname") + '<br>';
-        //     });
-        //     return tagString;
-        // },
-        //
-        // updateRequestTags: function (event) {
-        //
-        //     var self = this;
-        //     var currTag = $(event.currentTarget).attr('data-value');
-        //     var currTid = $(event.currentTarget).attr('data-tid');
-        //     console.log(currTag);
-        //     console.log(currTid);
-        //
-        //     var tag1Obj = Backbone.Model.extend({
-        //         defaults: {
-        //             tagname: currTag,
-        //             tid: currTid
-        //         }
-        //     });
-        //     self.model.set("tag1", new tag1Obj());
-        //
-        //     if('bills' === currTag){
-        //         self.model.set("image", '/img/bills_icon.png');
-        //     } else if('carRepairs' === currTag){
-        //         self.model.set("image", '/img/car_repair_icon.png');
-        //     } else if('clothing' === currTag){
-        //         self.model.set("image", '/img/clothing_icon.png');
-        //     }  else if('forAChild' === currTag){
-        //         self.model.set("image", '/img/forachild_icon.png');
-        //     }  else if('groceries' === currTag){
-        //         self.model.set("image", '/img/groceries_icon.png');
-        //     } else if('rent' === currTag){
-        //         self.model.set("image", '/img/rent_icon.png');
-        //     } else if('schoolRelated' === currTag){
-        //         self.model.set("image", '/img/school_icon.png');
-        //     }
-        //
-        //     $('#newRequestImage').attr('src', self.model.get('image'));
-        //     return this;
-        // },
-        //
-        // updateModel: function () {
-        //     var self = this;
-        //     self.model.set("description", $("#newRequestDescription").val());
-        //     // var amount = $("#newRequestAmount").val();
-        //     if(isNaN($("#newRequestAmount").val())){
-        //         $('#requestAmountErrorLabel').html('Please enter a number in the amount field.');
-        //         // }else if($("#newRequestAmount").val() > 500){
-        //         //     $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
-        //     }else{//is a number and < 500
-        //         $('#requestAmountErrorLabel').html('');
-        //         self.model.set("amount", $("#newRequestAmount").val());
-        //     }
-        //
-        //     if(!self.model.get("description") || !self.model.get("amount")){
-        //         self.$('#createRequestBtn').prop("disabled", true);
-        //     }else{
-        //         if(self.model.get("amount") > 500){
-        //             self.model.set("amount", undefined);
-        //             self.$('#createRequestBtn').prop("disabled", true);
-        //             $('#requestAmountErrorLabel').html('Please make your request amount less than $500.');
-        //         }else {
-        //             self.$('#createRequestBtn').prop("disabled", false);
-        //             $('#requestAmountErrorLabel').html('');
-        //         }
-        //     }
-        // },
-        //
-        // save: function () {
-        //     var self = this;
-        //     console.log("in createRequest function");
-        //
-        //     console.log("user id is: " + self.parent.model.get("uid"));
-        //     console.log($("#newRequestDescription").val());
-        //     console.log($("#newRequestAmount").val());
-        //     console.log($("#newRequestTags").val());
-        //     console.log($("#newRequestTags").val().length);
-        //     var rUserObj = Backbone.Model.extend({
-        //         defaults: {
-        //             uid: self.parent.model.get("uid")
-        //         }
-        //     });
-        //     self.model.set('rUser', new rUserObj());
-        //     self.updateModel();
-        //
-        //     console.log(self.model);
-        //     self.model.save(null, {
-        //         wait: true,
-        //         success: function(model, response) {
-        //             console.log(model);
-        //             console.log('success in saving new request');
-        //             self.parent.renderHome();
-        //             self.destroyNewRequestModal();
-        //         },
-        //         error: function(model, response) {
-        //             console.log(model);
-        //             console.log(response);
-        //             $('#requestErrorLabel').html('There was a problem saving your request.');
-        //         }});
-        //
-        //     // return this;
-        // },
+
+        updateNewOrgModel: function () {
+            var self = this;
+            self.model.set("name", $("#newOrgName").val());
+            self.model.set("description", $("#newOrgDescription").val());
+            self.model.set("website", $("#newOrgWebsite").val());
+            self.model.set("phone", $("#newOrgPhone").val());
+            self.model.set("address", $("#newOrgAddress").val());
+            self.model.set("email", $("#newOrgEmail").val());
+            self.model.set("image", $("#newOrgImage").attr('src')); //being set in chooseImageModal
+
+            if(!self.model.get("name") || !self.model.get("description") || !self.model.get("website")
+                || !self.model.get("phone") || !self.model.get("address") || !self.model.get("email")){
+                self.$('#createRequestBtn').prop("disabled", true);
+            }else{
+                 self.$('#createOrgBtn').prop("disabled", false);
+            }
+        },
+
+        saveNewOrg: function () {
+            var self = this;
+            console.log("in createRequest function");
+
+            console.log("user id is: " + self.parent.model.get("uid"));
+            console.log($("#newRequestDescription").val());
+            console.log($("#newRequestAmount").val());
+            console.log($("#newRequestTags").val());
+            console.log($("#newRequestTags").val().length);
+            var rUserObj = Backbone.Model.extend({
+                defaults: {
+                    uid: self.parent.model.get("uid")
+                }
+            });
+            self.model.set('rUser', new rUserObj());
+            self.updateModel();
+
+            console.log(self.model);
+            self.model.save(null, {
+                wait: true,
+                success: function(model, response) {
+                    console.log(model);
+                    console.log('success in saving new request');
+                    self.parent.renderHome();
+                    self.destroyNewRequestModal();
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem saving your request.');
+                }});
+
+            // return this;
+        },
 
         destroyNewOrgModal: function () {
             var self = this;

@@ -123,6 +123,7 @@ define(function (require, exports, module) {
 
         render: function () {
             var self = this;
+            self.setElement("#homeStuff");
             self.$el.html(homeTemplate);
             console.log(self.model);
             self.renderHome();
@@ -142,14 +143,13 @@ define(function (require, exports, module) {
         renderHome: function () {
             var self = this;
             self.renderTopHomeBar();
+            $("#topDisplay").html("Request Feed");
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("selected");
             self.$('#homeContainer').html(requestFeedTemplate);
             // self.$('#mainHomeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
-
-
 
             requestCollection.fetch({
                 xhrFields: {
@@ -174,9 +174,8 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            // $("#usernameDisplay").html("Welcome, " + self.model.get("username"));
             $("#usernameDisplay").html(self.model.get("username"));
-            // $("#myImageDisplay").attr('src', self.model.get("image"));
+
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
             return this;
@@ -222,6 +221,7 @@ define(function (require, exports, module) {
         renderOrgs: function () {
             var self = this;
             self.renderTopHomeBar();
+            $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
             if(self.model.get('isAdmin')) {
@@ -251,13 +251,14 @@ define(function (require, exports, module) {
                     },
                     success: function (collection) {
                         console.log(collection.models);
-                        self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
+                        if(collection.model.length > 0){
+                            self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
+                        }
                     }
                 });
             }
 
             var myOid = self.model.get('orgId');
-            console.log(myOid);
             if(myOid > 0){
                 var myOrgModel = new OrgModel({
                     path: 'byoid',
@@ -289,7 +290,12 @@ define(function (require, exports, module) {
             var tagList = "";
             _.each(tags, function(tag) {
                 if(tag.tagname !== ''){
-                    tagList += "#" + tag.tagname + " ";
+                    tagList += "#" + tag.tagname;
+                    if(tag.verifiedBy !== ""){
+                        tagList += '<span data-title="Verified by "' + tag.verifiedBy + '"><img class="checkmark" src="/img/marooncheckmark.png"/></span>  ';
+                    }else{
+                        tagList += '  ';
+                    }
                 }
             });
             $("#myImage").attr('src', self.model.get("image"));
@@ -323,15 +329,18 @@ define(function (require, exports, module) {
 
         createAvatar: function() {
             var self = this;
-            // self.$('#mainHomeContainer').html("<div id=\"svgAvatars\"></div>");
-            //
-            // var container = document.createDocumentFragment();
-            // var createAvatarModalView = new CreateAvatarModalView({
-            //     parent: self,
-            //     model: self.model,
-            // });
-            // container.appendChild(createAvatarModalView.render().el);
-            // $('body').append(container);
+            // self.renderTopHomeBar();
+            // self.$('#homeContainer').html("<div id=\"svgAvatars\"></div>");
+
+            var container = document.createDocumentFragment();
+            var createAvatarModalView = new CreateAvatarModalView({
+                parent: self,
+                model: self.model,
+            });
+            container.appendChild(createAvatarModalView.render().el);
+            $('body').append(container);
+            $('#svgAvatars').show();
+            $('#svgAvatars').insertAfter('#avatarPlaceHolder');
             return this;
         },
 
@@ -361,6 +370,7 @@ define(function (require, exports, module) {
         renderUsers: function () {
             var self = this;
             self.renderTopHomeBar();
+            $("#topDisplay").html("Users");
             self.removeSelectedFromAll();
             $("#usersBtn").addClass("selected");
             self.$('#homeContainer').html(userFeedTemplate);
@@ -461,35 +471,38 @@ define(function (require, exports, module) {
                 }
             });
         },
-
-        elevateUserOrg: function (event) {
-            var self = this;
-            var usernameToOrg = $(event.currentTarget).attr('data-username');
-            var uidToOrg = $(event.currentTarget).attr('data-uid');
-
-            bootbox.confirm({
-                message: "Would you like to elevate " + usernameToOrg + " to an ORG User?",
-                callback: function (result) {
-                    // if(result){
-                    //     var userOrgModel = new UserModel({
-                    //         path: 'promote/org',
-                    //         rid: uidToOrg,
-                    //         oid: //todo
-                    //     });
-                    //     console.log(requestModel);
-                    //     requestModel.destroy({
-                    //         success: function (model) {
-                    //              self.renderUsers();
-                    //         },
-                    //         error: function(model, response, options){
-                    //             bootbox.alert('There was a problem promoting this user.');
-                    //             console.log(response);
-                    //         }
-                    //     });
-                    // }
-                }
-            });
-        },
+        //
+        // elevateUserOrg: function (event) {
+        //     var self = this;
+        //     var usernameToOrg = $(event.currentTarget).attr('data-username');
+        //     var uidToOrg = $(event.currentTarget).attr('data-uid');
+        //
+        //     bootbox.confirm({
+        //         message: "Would you like to elevate " + usernameToOrg + " to an ORG User?",
+        //         callback: function (result) {
+        //             if(result){
+        //                 var userOrgModel = new UserModel({
+        //                     path: 'promote/org',
+        //                     uid: uidToOrg,
+        //                     oid: //todo
+        //                 });
+        //                 console.log(userOrgModel);
+        //                 userOrgModel.save({
+        //                     xhrFields: {
+        //                         withCredentials: true
+        //                     },
+        //                     success: function (model) {
+        //                          self.renderUsers();
+        //                     },
+        //                     error: function(model, response, options){
+        //                         bootbox.alert('There was a problem promoting this user.');
+        //                         console.log(response);
+        //                     }
+        //                 });
+        //             }
+        //         }
+        //     });
+        // },
 
         elevateUserAdmin: function (event) {
             var self = this;
@@ -499,22 +512,25 @@ define(function (require, exports, module) {
             bootbox.confirm({
                 message: "Would you like to elevate " + usernameToAdmin + " to an ADMIN User?",
                 callback: function (result) {
-                    // if(result){
-                    //     var userAdminModel = new UserModel({
-                    //         path: 'promote/admin',
-                    //         rid: uidToAdmin
-                    //     });
-                    //     userAdminModel.save({
-                    //         success: function (model) {
+                    if(result){
+                        var userAdminModel = new UserModel({
+                            path: 'promote/admin',
+                            uid: uidToAdmin
+                        });
+                        userAdminModel.save({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function (model) {
 
-                    // self.renderUsers();
-                    //         },
-                    //         error: function(model, response, options){
-                    //             bootbox.alert('There was a problem promoting this user.');
-                    //             console.log(response);
-                    //         }
-                    //     });
-                    // }
+                    self.renderUsers();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem promoting this user.');
+                                console.log(response);
+                            }
+                        });
+                    }
                 }
             });
         },

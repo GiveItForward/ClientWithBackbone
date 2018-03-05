@@ -1,4 +1,4 @@
-var chosenImage = "/img/org/student_purple.png";
+var chosenOrgImage = "/img/org/student_purple.png";
 
 define(function (require, exports, module) {
 
@@ -15,16 +15,14 @@ define(function (require, exports, module) {
         el: chooseOrgImageModal,
 
         events: {
-            "click #cancelChooseOrgImageBtn"  : "destroyChooseOrgImageModal",
-            "click #exitChooseOrgImageBtn"    : "destroyChooseOrgImageModal",
-            "click #imageBtnGroup button"      : "getOrgImage",
-            "click #chooseUserImageBtn"        : "save"
-            // "keyup"                     : "updateModel",
-            // "change"                    : "updateModel"
+            "click #cancelChooseOrgImageBtn"    : "destroyChooseOrgImageModal",
+            "click #exitChooseOrgImageBtn"      : "destroyChooseOrgImageModal",
+            "click #orgImageBtnGroup button"    : "getOrgImage",
+            "click #chooseOrgImageBtn"         : "save"
         },
 
         initialize: function (options) {
-            console.log("in choose uorgser image modal view init");
+            console.log("in choose org image modal view init");
             this.parent = options.parent;
             this.update = options.update;
             // this.render();
@@ -41,21 +39,22 @@ define(function (require, exports, module) {
         getOrgImage: function (event) {
             console.log("you clicked an image.....");
             // console.log($(event.currentTarget).attr('data-image'));
-            chosenImage = $(event.currentTarget).attr('data-image');
+            chosenOrgImage = $(event.currentTarget).attr('data-image');
             return this;
         },
 
-        save: function (event) {
-
-            // this.parent.model.set('image', chosenImage);
-            // this.parent.$('#updateProfileBtn').prop("disabled", false);
-            // console.log(this.parent.model.get('image'));
-            // if(this.update){
-            //     $("#editProfileImage").attr('src', this.parent.model.get('image'));
-            // }else{
-            //     $("#userImage").attr('src', this.parent.model.get('image'));
-            // }
-            // this.destroyChooseOrgImageModal();
+        save: function () {
+            console.log("in save");
+            console.log(chosenOrgImage);
+            this.parent.model.set('image', chosenOrgImage);
+            this.parent.$('#updateOrgBtn').prop("disabled", false);
+            console.log(this.parent.model.get('image'));
+            if(this.update){
+                $("#editOrgImage").attr('src', this.parent.model.get('image'));
+            }else{
+                $("#newOrgImage").attr('src', this.parent.model.get('image'));
+            }
+            this.destroyChooseOrgImageModal();
             return this;
         },
 

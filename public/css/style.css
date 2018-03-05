@@ -63,12 +63,13 @@ body{
 }
 
 .titleheading2 {
-  font-size: 18pt;
+  font-size: 20pt;
   color:#840E8C;
   /*font-family: cursive;*/
   font-weight: bold;
   /*text-shadow: 2px 2px 0 #3C0740;*/
-  margin: 1%;
+  margin-top: 1%;
+  margin-left: 5%;
 }
 
 #requestfeed {
@@ -305,8 +306,8 @@ body{
 }
 
 .logo > .absoluteCenter{
-  width:250;
-  height:250;
+  width:250px;
+  height:250px;
 }
 
 /*img.profilepic > .absoluteCenter{
@@ -692,6 +693,7 @@ body{
   width: 100%;
   height: 120px;
   background-color: #F3E9F4;
+  /*background-color: white;*/
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
@@ -900,7 +902,7 @@ body{
   border: 5px solid #CB9E0A;
   height: 110px;
   width: 110px;
-  margin-top: 5%;
+  margin-top: 2%;
   margin-left: 25%;
   padding: 20px;
   box-shadow: 4px 4px 10px 4px dimgrey;
@@ -944,6 +946,7 @@ body{
 
 .confettibackground{
   background-image: url("../img/Confetti.png");
+  /*background: linear-gradient(to right, #002A26, #00947D);*/
   background-size: contain;
   height: 100vh;
   width: 100vw;
@@ -1306,18 +1309,13 @@ body{
   overflow-y: scroll;
 }
 
-#createAvatarModal {
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-
 .notificationsPanel{
   color: black;
   background-color: white;
   border-radius: 25px;
   padding: 5px;
   /*width: 90%;*/
-  height: 450px;
+  height: 500px;
   margin-top: 10%;
   margin-bottom: 10%;
   /*margin-left: 5%;*/
@@ -1330,7 +1328,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 450px;
+  height: 500px;
   margin-top: 5%;
   margin-bottom: 5%;
   box-shadow: 4px 4px 10px 4px #00947D;
@@ -1366,4 +1364,9 @@ input[type=checkbox]:checked + label
   width: 60px;
   display:inline-block;
   padding: 0 0 0 0px;
+}
+
+.avatar-modal {
+  min-width: 950px;
+  max-height: 100%;
 }

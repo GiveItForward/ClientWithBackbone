@@ -179,6 +179,7 @@ define(function (require, exports, module) {
                         new HomeView({
                             model: model
                         });
+                        // window.location.href = "www.google.com";
                     },
                     error: function(model, response) {
                         console.log(model);
