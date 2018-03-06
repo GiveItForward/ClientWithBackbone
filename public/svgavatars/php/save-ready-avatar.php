@@ -42,6 +42,15 @@ if ( ( $data && strrpos( $filename, 'png', -3 ) !== false ) || ( $data && strrpo
 
     # You can place here an additional PHP code, for example,
     # to store links of saved avatars in your database
+//    $uid = $_POST['uid'];
+    $uid = 1;
+    $db = pg_connect("host=54.227.151.133 port=5432 dbname=postgres user=admin password=sarabookenziejen");
+    $result = pg_query($db, "UPDATE users SET photo = 'ready-avatars/" . $filename . "' WHERE uid = '" . $uid . "'");
+    if (!$result) {
+        echo "Update failed!!";
+    } else {
+        echo "Update successful;";
+    }
 
     # Please DO NOT store in your database files itselves!
     # Just link to them! 
