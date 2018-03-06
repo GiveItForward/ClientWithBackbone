@@ -140,6 +140,17 @@ body{
   /*margin-top: 10px;*/
 }
 
+.rounduseradmin{
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 85%;
+  height: 335px;
+  margin: 2%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
 .roundorg{
   color: black;
   background-color: white;
@@ -654,6 +665,11 @@ body{
   color: #0000EE !important; /*link blue*/
 }
 
+.username{
+  /*font-weight: bold;*/
+  font-size: 14pt;
+}
+
 .requestusername:hover{
   font-size: 20pt;
   color: #3C0740;
@@ -701,11 +717,12 @@ body{
 
 .userbiodiv{
   width: 100%;
-  height: 90px;
+  height: 120px;
   background-color: #F3E9F4;
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
+  margin: 1%;
 }
 
 .otherProfileBioDiv{
@@ -945,8 +962,8 @@ body{
 }
 
 .confettibackground{
-  background-image: url("../img/Confetti.png");
-  /*background: linear-gradient(to right, #002A26, #00947D);*/
+  /*background-image: url("../img/Confetti.png");*/
+  background-image: url("../img/BackgroundWhite.png");
   background-size: contain;
   height: 100vh;
   width: 100vw;

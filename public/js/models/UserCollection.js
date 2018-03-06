@@ -12,12 +12,12 @@ define(function (require, exports, module) {
 
         model: UserModel,
 
-        url : rootUrl.url + "api/users"
+        url : rootUrl.url + "api/users",
 
-        // fetch: function (params, options) {
-        //     options.url = "" + params;
-        //     return Backbone.Collection.prototype.fetch.call(this, options);
-        // }
+        fetchSearch: function (options) {
+            this.url = rootUrl.url + "api/users/search";
+            return Backbone.Collection.prototype.fetch.call(this, options);
+        }
 
     });
     return UserCollection;

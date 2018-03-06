@@ -978,53 +978,66 @@ define(function (require, exports, module) {
 
         goSearchOrgs: function () {
             var self = this;
+            var searchOrgString = $('#searchOrgs').val();
 
-            //get string from field
-            var searchString = "utah";
-            var searchOrgCollection = new OrgCollection();
-            searchOrgCollection.fetchSearch({
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "search": searchString
-                },
-                success: function (collection) {
-                    console.log(collection.models);
-                    self.$('#orgCol').html(orgTemplate(collection));
-                },
-                error: function(err){
-                    console.log("error when search orgs");
-                    console.log(err);
-                }
-            });
-            return this;
+            if(searchOrgString.trim() !== ''){
+                var searchOrgCollection = new OrgCollection();
+                searchOrgCollection.fetchSearch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {
+                        "search": searchOrgString
+                    },
+                    success: function (collection) {
+                        console.log(collection.models);
+                        if(collection.models.length > 0){
+                            self.$('#orgCol').html(orgTemplate(collection));
+                        }else{
+                            self.$('#orgCol').html('No Orgs matched your search.');
+                        }
+                    },
+                    error: function(err){
+                        console.log("error when search orgs");
+                        console.log(err);
+                    }
+                });
+                return this;
+            }
         },
 
         goSearchUsers: function () {
             var self = this;
+            var searchUserString = $('#searchUsers').val();
 
-            // var filteredRequestCollection = new RequestCollection();
-            // filteredRequestCollection.fetchByFilter({
-            //     xhrFields: {
-            //         withCredentials: true
-            //     },
-            //     headers: {
-            //         "age": age,
-            //         "price": price,
-            //         "rtags": searchRequestTagsList,
-            //         "utags": searchUserTagsList
-            //     },
-            //     success: function (collection) {
-            //         console.log(collection.models);
-            //         self.$('#requestCol').html(requestTemplate(collection));
-            //         self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
-            //     },
-            //     error: function(err){
-            //         console.log("error when filtering");
-            //         console.log(err);
-            //     }
-            // });
+            if(searchUserString.trim() !== ''){
+                var searchUserCollection = new UserCollection();
+                searchUserCollection.fetchSearch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {
+                        "search": searchUserString
+                    },
+                    success: function (collection) {
+                        console.log(collection.models);
+                        if(collection.models.length > 0){
+                            if(self.model.get('isAdmin')){
+                                self.$('#usersCol').html(userAdminTemplate(collection));
+                            }else{
+                                self.$('#usersCol').html(userTemplate(collection));
+                            }
+                        }else{
+                            self.$('#usersCol').html('No users matched your search.');
+                        }
+                    },
+                    error: function(err){
+                        console.log("error when search orgs");
+                        console.log(err);
+                    }
+                });
+                return this;
+            }
             return this;
         },
 

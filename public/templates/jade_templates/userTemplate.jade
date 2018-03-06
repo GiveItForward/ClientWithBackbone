@@ -9,7 +9,13 @@ for user in locals.models
                                 .col-md-1
                                     img.requestuserimage(src='#{user.get("image")}')
                                 .col-md-11
-                                    a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
+                                    .row.form-inline
+                                        .col-md-4
+                                            a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
+                                        .col-md-4
+                                        .col-md-4.text-right
+                                            .username #{user.get("firstname")} #{user.get("lastname")}
+                                            .username #{user.get("email")}
                                     .form-inline.tags
                                         for tag in user.get("tags")
                                             if tag.tagname !== ''
