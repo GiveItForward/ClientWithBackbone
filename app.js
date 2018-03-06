@@ -12,6 +12,7 @@ var contactUs = require('./routes/contactUs');
 var aboutUs = require('./routes/aboutUs');
 var api = require('./routes/api');
 var home = require("./routes/home");
+var svgAvatars = require('./routes/svgAvatars');
 
 
 
@@ -90,6 +91,7 @@ app.use('/aboutUs', aboutUs);
 app.use('/contactUs', contactUs);
 app.use('/api', api);
 app.use('/home', home);
+app.use('/svgavatars', svgAvatars);
 
 
 // catch 404 and forward to error handler
