@@ -5,7 +5,7 @@ router.post('/*', function(req, res, next) {
 
     console.log("IN SVG SHIT");
     console.log(req);
-    res.sendStatus(200);
+    res.status(200).send(req.body);
 });
 
 module.exports = router;
