@@ -13,8 +13,12 @@
 $filename = $_POST['filename'];
 $data = $_POST['imgdata'];
 
+echo '<script>console.log("IN TOP OF READY SAVE")</script>';
+
 /*cheking, that file is exactly png or svg*/
 if ( ( $data && strrpos( $filename, 'png', -3 ) !== false ) || ( $data && strrpos( $filename, 'svg', -3 ) !== false ) ) {
+    echo '<script>console.log("IN SVG OR PNG")</script>';
+
     if ( strrpos( $filename, 'png', -3 ) !== false ) {
         list( $type, $data ) = explode( ';', $data );
         list( $base, $data ) = explode( ',', $data );
@@ -29,6 +33,8 @@ if ( ( $data && strrpos( $filename, 'png', -3 ) !== false ) || ( $data && strrpo
         }
     } elseif ( strrpos( $filename, 'svg', -3 ) !== false ) {
         $data = stripcslashes( $data );
+
+        echo '<script>console.log("IN SVG OR PNG")</script>';
 
         /*cheking that image data is SVG*/
         if ( strpos( $data, '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"' ) !== false && strrpos($data, '</svg>', -6) !== false ) {
