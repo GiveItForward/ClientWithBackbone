@@ -8,7 +8,7 @@ router.post('/*', function(req, res, next) {
     console.log("IN SVG SHIT");
     console.log(req.body.imgdata);
 
-    fs.writeFile("/svgavatars/ready-avatars/" + req.body.filename, req.body.imgdata, function(err) {
+    fs.writeFile(__dirname + "/svgavatars/ready-avatars/" + req.body.filename, req.body.imgdata, function(err) {
         if(err) {
             return console.log(err);
             res.status(200).send("error");
