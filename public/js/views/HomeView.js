@@ -105,7 +105,23 @@ define(function (require, exports, module) {
             "click #logoutBtn"                  : "logout"
         },
 
+
+        // run scripts on the fly
+        getScripts: function(scripts, callback) {
+            var progress = 0;
+            scripts.forEach(function(script) {
+                $.getScript(script, function () {
+                    if (++progress == scripts.length) callback();
+                });
+            });
+        },
+
         initialize: function (options) {
+
+            this.getScripts(["svgavatars/js/svg.min.js", "svgavatars/js/spectrum.min.js", "svgavatars/js/jquery.scrollbar.min.js", "svgavatars/js/canvg/rgbcolor.js", "svgavatars/js/canvg/StackBlur.js", "svgavatars/js/canvg/canvg.js",  "svgavatars/js/svgavatars.en.js", "svgavatars/js/svgavatars.core.min.js"], function () {
+                // do something... or nothing... what ever you want
+            });
+
             console.log("in home view init *******************");
             var self = this;
             console.log(self.model);
