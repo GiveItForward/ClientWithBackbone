@@ -973,6 +973,10 @@ define(function (require, exports, module) {
                     console.log(err);
                 }
             });
+
+            //Clear these lists for the next search.
+            searchRequestTagsList =[];
+            searchUserTagsList = [];
             return this;
         },
 
