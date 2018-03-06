@@ -271,7 +271,7 @@ define(function (require, exports, module) {
                     },
                     success: function (collection) {
                         console.log(collection.models);
-                        if(collection.model.length > 0){
+                        if(collection.models.length > 0){
                             self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
                         }
                     }
