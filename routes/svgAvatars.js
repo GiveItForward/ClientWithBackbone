@@ -27,12 +27,10 @@ router.post('/*', function(req, res, next) {
 
                 request(options, function (error, response, body) {
                     if (response.statusCode === 200) {
-                        var user = parser.parse(session.userObject);
+                        var user = parser.parse(body);
 
-                        console.log("USER SESSION OBJ");
-                        console.log("\n\n" + user)
-                        user.image = '/svgavatars/ready-avatars/' + req.body.filename;
                         session.userObject = user;
+                        console.log(user);
                         res.status(200).send("saved");
                     } else {
                         res.status(200).send("error");
