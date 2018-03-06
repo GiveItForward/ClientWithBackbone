@@ -171,7 +171,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 375px;
+  height: 400px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #840E8C;*/
   box-shadow: 4px 4px 10px 4px dimgrey;
@@ -622,21 +622,34 @@ body{
 }
 
 .requestuserimage{
-  width: 40px;
-  height: 50px;
-  /*margin-left: 5%;*/
+  width: 70px;
+  height: 70px;
+  border-radius: 25%;
 }
 
 .smallcirclediv{
   /*background: linear-gradient(to right, #404040, #bfbfbf);*/
-  background-color: white;
-  border-radius: 50%;
+  background-color: transparent;
+  border-radius: 25%;
   border: 3px solid #CB9E0A;
-  height: 75px;
-  width: 75px;
+  height: 85px;
+  width: 85px;
   /*margin-top: 10%;*/
   /*margin-left: 10%;*/
-  padding: 15%;
+  padding: 12%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
+.myprofileimagediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 145px;
+  width: 145px;
+  /*margin-top: 10%;*/
+  /*margin-left: 10%;*/
+  padding: 12%;
   box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
@@ -676,8 +689,8 @@ body{
 }
 
 .myhistoryuserimage{
-  width: 25px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   /*margin-left: 10%;*/
 }
 
@@ -722,7 +735,7 @@ body{
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
-  margin: 1%;
+  margin: 5px;
 }
 
 .otherProfileBioDiv{
@@ -1213,13 +1226,23 @@ body{
 }
 
 .myProfileImage {
-  width: 90px;
+  width: 120px;
   height: 120px;
-  /*margin: 5%;*/
+  border-radius: 25%;
+}
+
+.editProfileImageDiv {
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 105px;
+  width: 105px;
+  padding: 10%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
 .editProfileImage {
-  width: 65px;
+  width: 90px;
   height: 90px;
   margin: 1%;
 }
@@ -1277,10 +1300,20 @@ body{
   margin-left: 10%;
 }
 
+.otherProfileImageDiv {
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 110px;
+  width: 110px;
+  padding: 5%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
 .otherProfileImage {
-  width: 60px;
+  width: 90px;
   height: 90px;
-  /*margin-left: 50%;*/
+  border-radius: 25%;
 }
 
 .otherProfileDescription {

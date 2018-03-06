@@ -15,7 +15,7 @@ define(function (require, exports, module) {
         el: createAvatarModal,
 
         events: {
-            "click #cancelCreateAvatarBtn"    : "destroyEditProfileModal",
+            "click #closeCreateAvatarBtn"    : "destroyEditProfileModal",
             "click #exitCreateAvatarModal"    : "destroyEditProfileModal",
         },
 
@@ -42,8 +42,10 @@ define(function (require, exports, module) {
                 self.remove();
                 Backbone.View.prototype.remove.call(self);
             });
+
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
+            self.parent.renderMyProfile();
         }
     });
     return CreateAvatarModalView;

@@ -90,6 +90,7 @@ define(function (require, exports, module) {
             "click #unverifyTagBtn"             : "unverifyTag",
             "click #verifyTagBtn"               : "verifyTag",
             "click #elevateUserAdminBtn"        : "elevateUserAdmin",
+            "click #demoteUserAdminBtn"        : "demoteUserAdmin",
             "click #deleteUserBtn"              : "deleteUser",
             "click #approveOrgBtn"              : "approveOrg",
             "click #denyOrgBtn"                 : "denyOrg",
@@ -177,7 +178,7 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            $("#usernameDisplay").html(self.model.get("username"));
+            $("#usernameDisplay").html("Hi, " + self.model.get("username"));
 
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -287,6 +288,7 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("selected");
+
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
@@ -316,6 +318,7 @@ define(function (require, exports, module) {
 
             return this;
         },
+
 
         editProfile: function () {
             var self = this;
@@ -555,7 +558,12 @@ define(function (require, exports, module) {
                     });
                     console.log("My requests: ");
                     console.log(collection.models);
-                    self.$('#myRequestCol').html(myRequestTemplate(collection));
+                    if(collection.models.length > 0){
+                        self.$('#myRequestCol').html(myRequestTemplate(collection));
+                    }else{
+                        self.$('#myRequestCol').html("There is no history available.");
+                    }
+
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -587,8 +595,12 @@ define(function (require, exports, module) {
                         total += model.get("amount");
                     });
                     self.$('#totalDonations').html('$' + total);
-                    self.$('#myDonationCol').html(myDonationTemplate(collection));
-                    self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
+                    if(collection.models.length > 0){
+                        self.$('#myDonationCol').html(myDonationTemplate(collection));
+                    }else{
+                        self.$('#myDonationCol').html("There is no history available.");
+                    }
+                    // self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -612,8 +624,12 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
+                    if(collection.models.length > 0){
+                        self.$('#notifications').html(notificationTemplate(collection));
+                    }else{
+                        self.$('#notifications').html("You have no notifications at this time.");
+                    }
 
-                    self.$('#notifications').html(notificationTemplate(collection));
                 },
                 error: function(model, response) {
                     console.log(model);
