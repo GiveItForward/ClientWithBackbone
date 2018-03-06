@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require('fs');
 var request = require('request');
 var baseUrl = require('./baseUrl');
+var parser = require('json-parser');
+
 
 router.post('/*', function(req, res, next) {
 
@@ -25,9 +27,12 @@ router.post('/*', function(req, res, next) {
 
                 request(options, function (error, response, body) {
                     if (response.statusCode === 200) {
+                        var user = parser.parse(session.userObject);
+
                         console.log("USER SESSION OBJ");
-                        console.log("\n\n" + session.userObject)
-                        session.userObject.image = '/svgavatars/ready-avatars/' + req.body.filename;
+                        console.log("\n\n" + user)
+                        user.image = '/svgavatars/ready-avatars/' + req.body.filename;
+                        session.userObject = user;
                         res.status(200).send("saved");
                     } else {
                         res.status(200).send("error");
