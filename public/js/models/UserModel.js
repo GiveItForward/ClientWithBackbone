@@ -4,8 +4,6 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
-    var rootUrl = require("./RootUrl");
-
     var UserModel = Backbone.Model.extend({
 
         idAttribute: "uid",
@@ -17,7 +15,7 @@ define(function (require, exports, module) {
 
         setUrl: function(option){
 
-            this.url = rootUrl.url + 'api/users/' + option;
+            this.url = '/api/users/' + option;
         }
     });
     return UserModel;

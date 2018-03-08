@@ -4,8 +4,6 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
-    var rootUrl = require("./RootUrl");
-
     var RequestModel = Backbone.Model.extend({
 
         idAttribute: "rid",
@@ -13,7 +11,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
 
             if(options.path === "create") {
-                this.url = rootUrl.url + "api/requests/create";
+                this.url = "/api/requests/create";
                 this.set("rid", undefined);
                 this.set("ruid", undefined);
                 this.set("description", undefined);
@@ -21,15 +19,15 @@ define(function (require, exports, module) {
                 this.set("image", undefined);
                 // this.set("fulfilled", false);
             } else if(options.path === 'paypal'){
-                this.url = rootUrl.url + "api/requests/paypal";
+                this.url = "/api/requests/paypal";
             }else if (options.path === 'rid'){
-                this.url = rootUrl.url + "api/requests/rid"
+                this.url = "/api/requests/rid"
             }else if (options.path === 'update'){
-                this.url = rootUrl.url + "api/requests/update"
+                this.url = "/api/requests/update"
             }else if (options.path === 'delete'){
-                this.url = rootUrl.url + "api/requests/delete"
+                this.url = "/api/requests/delete"
             } else {
-                this.url = rootUrl.url + "api/requests";
+                this.url = "/api/requests";
             }
         }
     });

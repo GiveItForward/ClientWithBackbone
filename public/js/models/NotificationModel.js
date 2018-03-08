@@ -4,8 +4,6 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
-    var rootUrl = require("./RootUrl");
-
     var NotificationModel = Backbone.Model.extend({
 
         idAttribute: "nid",
@@ -15,7 +13,7 @@ define(function (require, exports, module) {
             if(options.nid) {
 
                 this.set("nid", options.nid);
-                this.url = rootUrl.url + "api/notifications/";
+                this.url = "/api/notifications/";
 
 
             } else {

@@ -25,7 +25,7 @@ define(function (require, exports, module) {
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
-    var rootUrl = require("models/RootUrl");
+    // var rootUrl = require("models/RootUrl");
 
     var UserModel = require("models/UserModel");
     var UserCollection = require("models/UserCollection");
@@ -1088,10 +1088,10 @@ define(function (require, exports, module) {
                                 withCredentials: true
                             },
                             success: function (collection, response, options) {
-                                window.location.href = rootUrl.url;
+                                window.location.href = "/home";
                             },
                             error: function(model, response, options){
-                                window.location.href = rootUrl.url + 'home';
+                                window.location.href = "/home";
                             }
                         });
                     }

@@ -4,18 +4,16 @@ define(function (require, exports, module) {
     var _ = require("underscore");
     var Backbone = require("backbone");
 
-    var rootUrl = require("./RootUrl");
-
     var UserModel = require("./UserModel");
 
     var UserCollection = Backbone.Collection.extend({
 
         model: UserModel,
 
-        url : rootUrl.url + "api/users",
+        url : "/api/users",
 
         fetchSearch: function (options) {
-            this.url = rootUrl.url + "api/users/search";
+            this.url = "/api/users/search";
             return Backbone.Collection.prototype.fetch.call(this, options);
         }
 
