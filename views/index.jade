@@ -18,34 +18,34 @@ html(lang='en')
   body
     #svgAvatars(style={display: 'none'})
     #homeStuff
-    .container-fluid
-      .row
-        .col-md-12.turquoisebackground.landingbar
-          #inputdiv.logindiv.form-inline
-            input#username.roundmedium(type='text', name='username', placeholder='email')
-            input#password.roundmedium(type='password', placeholder='password')
-            button#loginSubmitBtn.btn.roundmediumbtn.purplebtn Log In
-            .loginerrordiv
-              label#loginErrorLabel(style=" color: red")
-            i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
-      .row
-        .col-md-12.confettibackground
-          .row
-            .col-md-6.text-center
-              .circlediv.text-center
-                .logodiv
-                  img.logo(src="/img/turquoise_shadow.png")
-                  #titleheading Give It Forward
+      .container-fluid
+        .row
+          .col-md-12.turquoisebackground.landingbar
+            #inputdiv.logindiv.form-inline
+              input#username.roundmedium(type='text', name='username', placeholder='email')
+              input#password.roundmedium(type='password', placeholder='password')
+              button#loginSubmitBtn.btn.roundmediumbtn.purplebtn Log In
+              .loginerrordiv
+                label#loginErrorLabel(style=" color: red")
+              i#loginSpinner(tabindex="-1").fa.fa-spinner.fa-spin.fa-5x.text-center
+        .row
+          .col-md-12.confettibackground
+            .row
+              .col-md-6.text-center
+                .circlediv.text-center
+                  .logodiv
+                    img.logo(src="/img/turquoise_shadow.png")
+                    #titleheading Give It Forward
 
-            .col-md-6
-              .absoluteCenter
-                .row.signupdiv
-                  .col-md-6
-                    input#newFirstname.roundhalf.grayshadow(type='text', placeholder='firstname')
-                  .col-md-6
-                    input#newLastname.roundhalf.grayshadow(type='text', placeholder='lastname')
-                input#newUsername.round.grayshadow(type='text', placeholder='username')
-                input#newEmail.round.grayshadow(type='text', placeholder='email')
-                input#newPassword.round.grayshadow(type='password', placeholder='password')
-                input#newVerifyPassword.round.grayshadow(type='password', placeholder='verify password')
-                button#createAccountBtn.btn.round.turquoisebtn.grayshadow Create Account
+              .col-md-6
+                .absoluteCenter
+                  .row.signupdiv
+                    .col-md-6
+                      input#newFirstname.roundhalf.grayshadow(type='text', placeholder='firstname')
+                    .col-md-6
+                      input#newLastname.roundhalf.grayshadow(type='text', placeholder='lastname')
+                  input#newUsername.round.grayshadow(type='text', placeholder='username')
+                  input#newEmail.round.grayshadow(type='text', placeholder='email')
+                  input#newPassword.round.grayshadow(type='password', placeholder='password')
+                  input#newVerifyPassword.round.grayshadow(type='password', placeholder='verify password')
+                  button#createAccountBtn.btn.round.turquoisebtn.grayshadow Create Account

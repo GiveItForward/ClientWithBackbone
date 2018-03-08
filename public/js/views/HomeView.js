@@ -25,8 +25,6 @@ define(function (require, exports, module) {
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
-    // var rootUrl = require("models/RootUrl");
-
     var UserModel = require("models/UserModel");
     var UserCollection = require("models/UserCollection");
     var RequestModel = require("models/RequestModel");
