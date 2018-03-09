@@ -74,9 +74,9 @@ define(function (require, exports, module) {
             "click #high"                       : "toggleHigh",
             "click #goFilterRequests"           : "goFilterRequests",
             "click #goSearchUsers"              : "goSearchUsers",
+            "keyup #searchUsers"                : "enterGoSearchUsers",
             "click #goSearchOrgs"               : "goSearchOrgs",
-
-
+            "keyup #searchOrgs"                 : "enterGoSearchOrgs",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
             "click #myProfileBtn"               : "renderMyProfile",
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
             "click #unverifyTagBtn"             : "unverifyTag",
             "click #verifyTagBtn"               : "verifyTag",
             "click #elevateUserAdminBtn"        : "elevateUserAdmin",
-            "click #demoteUserAdminBtn"        : "demoteUserAdmin",
+            "click #demoteUserAdminBtn"         : "demoteUserAdmin",
             "click #deleteUserBtn"              : "deleteUser",
             "click #approveOrgBtn"              : "approveOrg",
             "click #denyOrgBtn"                 : "denyOrg",
@@ -257,7 +257,11 @@ define(function (require, exports, module) {
                 },
                 success: function (collection) {
                     console.log(collection.models);
-                    self.$('#orgCol').html(orgTemplate(collection));
+                    if(collection.models.length > 0){
+                        self.$('#orgCol').html(orgTemplate(collection));
+                    }else{
+                        self.$('#orgCol').html("There are no approved orgs at this time.");
+                    }
                 }
             });
 
@@ -271,6 +275,8 @@ define(function (require, exports, module) {
                         console.log(collection.models);
                         if(collection.models.length > 0){
                             self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
+                        }else{
+                            self.$('#pendingOrgCol').html("There are no pending orgs at this time.");
                         }
                     }
                 });
@@ -427,7 +433,6 @@ define(function (require, exports, module) {
                     }else {
                         self.$('#usersCol').html(userTemplate(collection));
                     }
-
                 }
             });
             return this;
@@ -1063,6 +1068,14 @@ define(function (require, exports, module) {
             }
         },
 
+        enterGoSearchOrgs: function (e) {
+            var self = this;
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.goSearchOrgs();
+            }
+            return this;
+        },
+
         goSearchUsers: function () {
             var self = this;
             var searchUserString = $('#searchUsers').val();
@@ -1089,11 +1102,18 @@ define(function (require, exports, module) {
                         }
                     },
                     error: function(err){
-                        console.log("error when search orgs");
+                        console.log("error when search users");
                         console.log(err);
                     }
                 });
-                return this;
+            }
+            return this;
+        },
+
+        enterGoSearchUsers: function (e) {
+            var self = this;
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.goSearchUsers();
             }
             return this;
         },

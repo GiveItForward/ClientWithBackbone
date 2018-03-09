@@ -19,7 +19,7 @@ define(function (require, exports, module) {
         events: {
             "click #cancelNewOrgBtn"     : "destroyNewOrgModal",
             "click #exitNewOrgModal"     : "destroyNewOrgModal",
-            "click #newOrgImage"         : "newOrgImage",
+            "click #chooseOrgImage"      : "newOrgImage",
             "click #createOrgBtn"        : "saveNewOrg",
             "keyup"                      : "updateNewOrgModel",
             "change"                     : "updateNewOrgModel"
@@ -28,6 +28,7 @@ define(function (require, exports, module) {
         initialize: function (options) {
             this.parent = options.parent;
             this.model = new OrgModel({path: 'create'});
+            console.log(this.model);
             $('#newOrgErrorLabel').html('');
         },
 
@@ -63,9 +64,11 @@ define(function (require, exports, module) {
             self.model.set("email", $("#newOrgEmail").val());
             self.model.set("image", $("#newOrgImage").attr('src')); //being set in chooseImageModal
 
+            console.log(this.model);
+
             if(!self.model.get("name") || !self.model.get("description") || !self.model.get("website")
                 || !self.model.get("phone") || !self.model.get("address") || !self.model.get("email")){
-                self.$('#createRequestBtn').prop("disabled", true);
+                self.$('#createOrgBtn').prop("disabled", true);
             }else{
                  self.$('#createOrgBtn').prop("disabled", false);
             }
@@ -73,34 +76,30 @@ define(function (require, exports, module) {
 
         saveNewOrg: function () {
             var self = this;
-            console.log("in createRequest function");
+            console.log("in create org function");
+            console.log(this.model);
 
-            console.log("user id is: " + self.parent.model.get("uid"));
-            console.log($("#newRequestDescription").val());
-            console.log($("#newRequestAmount").val());
-            console.log($("#newRequestTags").val());
-            console.log($("#newRequestTags").val().length);
-            var rUserObj = Backbone.Model.extend({
-                defaults: {
-                    uid: self.parent.model.get("uid")
-                }
-            });
-            self.model.set('rUser', new rUserObj());
-            self.updateModel();
+            self.updateNewOrgModel();
 
             console.log(self.model);
             self.model.save(null, {
                 wait: true,
+                headers: {
+                    "uid": self.parent.model.get('uid')
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(model, response) {
                     console.log(model);
-                    console.log('success in saving new request');
-                    self.parent.renderHome();
-                    self.destroyNewRequestModal();
+                    console.log('success in saving new orgs');
+                    self.parent.renderOrgs();
+                    self.destroyNewOrgModal();
                 },
                 error: function(model, response) {
                     console.log(model);
                     console.log(response);
-                    $('#requestErrorLabel').html('There was a problem saving your request.');
+                    $('#newOrgErrorLabel').html('There was a problem saving your org.');
                 }});
 
             // return this;

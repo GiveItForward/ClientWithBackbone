@@ -183,7 +183,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 430px;
+  height: 445px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
   /*box-shadow: 4px 4px 10px 4px #840E8C;*/
@@ -409,6 +409,18 @@ body{
   background-color: #F7882F;
   color:white;
   text-shadow: 2px 2px 2px #00947D;
+}
+
+.loginbtn {
+  background: linear-gradient(to top, #3C0740, #840E8C);
+  border: 1px solid #840E8C;
+  color:white;
+}
+
+.loginbtn:hover {
+  text-decoration: none;
+  font-size: 14pt;
+  filter: none;
 }
 
 .purplebtn {
@@ -676,6 +688,7 @@ body{
   font-weight: bold;
   font-size: 18pt;
   color: #0000EE !important; /*link blue*/
+  margin-left:5px;
 }
 
 .username{

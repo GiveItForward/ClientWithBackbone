@@ -28,6 +28,7 @@ define(function (require, exports, module) {
             // "click #signupBtn"          : "renderSignup",
             "click #loginSubmitBtn"     : "login",
             "click #createAccountBtn"   : "createAccount",
+            "keyup #newVerifyPassword"  : "enterSignup",
             "keyup #username"           : "updateLoginModel",
             "keyup #password"           : "enterLogin",
             "change #username"          : "updateLoginModel",
@@ -192,41 +193,15 @@ define(function (require, exports, module) {
             return this;
         },
 
-        // save: function () {
-        //     var self = this;
-        //     console.log("in sign up save function");
-        //
-        //     console.log("backbone signup model");
-        //     console.log(self.signupModel);
-        //
-        //     self.signupModel.save( null, {
-        //         wait: true,
-        //         success: function(model, response) {
-        //             console.log('success');
-        //             console.log("model from json");
-        //             console.log(model);
-        //             new HomeView({
-        //                 model: model
-        //             });
-        //         },
-        //         error: function(model, response) {
-        //             console.log(model);
-        //             console.log(response);
-        //         }
-        //     });
-        //     return this;
-        // },
+        enterSignup: function (e) {
+            var self = this;
+            self.updateSignupModel();
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.createAccount();
+            }
+            return this;
+        }
 
-        // renderSignup: function () {
-        //     var self = this;
-        //     new SignUpView();
-        //     // $("#signupBtn").addClass("selected");
-        //     // $("#loginBtn").removeClass("selected");
-        //     //
-        //     // self.$('#inputdiv').html(signupTemplate);
-        //     // self.$('#createAccountBtn').prop("disabled", true);
-        //     return this;
-        // }
     });
 
     return LandingView;
