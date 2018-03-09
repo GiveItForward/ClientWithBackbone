@@ -10,7 +10,7 @@ define(function (require, exports, module) {
 
         model: UserModel,
 
-        url : "/api/users",
+        url : "/api/users/active",
 
         fetchSearch: function (options) {
             this.url = "/api/users/search";

@@ -376,12 +376,30 @@ define(function (require, exports, module) {
             return this;
         },
 
-        deleteAccount: function () {
+        deleteAccount: function (event) {
+            var self = this;
+            console.log("DELET ACCOUNT");
             bootbox.confirm({
                 message: "Are you sure you want to DELETE your account?",
                 callback: function (result) {
                     if(result){
-                        bootbox.alert("Your account is pretend deleted. buh-bye now!")
+                        self.model.setUrl('delete');
+
+                        self.model.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "uid": self.model.get('uid')
+                            },
+                            success: function (model) {
+                                self.logout();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem deleting your account.');
+                                console.log(response);
+                            }
+                        });
                     }
                 }
             });
@@ -396,6 +414,8 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(userFeedTemplate);
 
             var userCollection = new UserCollection();
+            console.log("USER COLLECTION: ")
+            console.log(userCollection.url);
             userCollection.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -527,26 +547,33 @@ define(function (require, exports, module) {
             var self = this;
             var usernameToDelete = $(event.currentTarget).attr('data-username');
             var uidToDelete = $(event.currentTarget).attr('data-uid');
+            console.log("\nIN DELETE USER");
+            console.log("UID: " + uidToDelete)
 
             bootbox.confirm({
                 message: "Are you sure you want to DELETE user " + usernameToDelete + "?",
                 callback: function (result) {
-                    // if(result){
-                    //     var userModelToDelete = new UserModel({
-                    //         path: 'delete',
-                    //         rid: uidToDelete
-                    //     });
+                    if(result){
+                        var userModelToDelete = new UserModel({});
+                        userModelToDelete.set('uid', uidToDelete);
+                        userModelToDelete.setUrl('delete');
 
-                    //     userModelToDelete.destroy({
-                    //         success: function (model) {
-                    //             self.renderUsers();
-                    //         },
-                    //         error: function(model, response, options){
-                    //             bootbox.alert('There was a problem deleting this user.');
-                    //             console.log(response);
-                    //         }
-                    //     });
-                    // }
+                        userModelToDelete.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "uid": uidToDelete
+                            },
+                            success: function (model) {
+                                self.renderUsers();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem deleting this user.');
+                                console.log(response);
+                            }
+                        });
+                    }
                 }
             });
         },

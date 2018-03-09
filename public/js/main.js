@@ -1,14 +1,6 @@
 require.config({
    paths: {
        jquery : '../lib/jquery',
-       // svg: '../svgavatars/js/svg.min.js',
-       // specturm: '../svgavatars/js/spectrum.min.js',
-       // scrollbar: '../svgavatars/js/jquery.scrollbar.min.js',
-       // rgbcolor: '../svgavatars/js/canvg/rgbcolor.js',
-       // stackblur: '../svgavatars/js/canvg/StackBlur.js',
-       // canvg: '../svgavatars/js/canvg/canvg.js',
-       // svgavatarsen: '../svgavatars/js/svgavatars.en.js',
-       // svgavatagscore: '../svgavatars/js/svgavatars.core.min.js',
        underscore: '../lib/underscore-min',
        backbone: '../lib/backbone-min',
        bootstrap: '../lib/bootstrap.bundle.min',
