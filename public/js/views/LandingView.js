@@ -76,9 +76,6 @@ define(function (require, exports, module) {
 
         login: function () {
             var self = this;
-            $('#loginSpinner').delay(100).queue(function () {
-                $(this).css('display', 'inline-block');
-            });
             self.updateLoginModel();
             console.log("logging in...");
             // self.model = new UserModel({
@@ -87,7 +84,7 @@ define(function (require, exports, module) {
             var hashPassword = sha256($("#password").val());
             // console.log(hashPassword);
 
-
+            $('#loginSpinner').css('display', 'block');
             self.model.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -102,7 +99,6 @@ define(function (require, exports, module) {
                      new HomeView({
                          model: self.model
                     });
-                    $('#loginSpinner').clearQueue();
                     $('#loginSpinner').css('display', 'none');
                 },
                 error: function(err){

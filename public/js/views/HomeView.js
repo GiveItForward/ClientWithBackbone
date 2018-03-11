@@ -116,7 +116,10 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
 
-            this.getScripts(["svgavatars/js/svg.min.js", "svgavatars/js/spectrum.min.js", "svgavatars/js/jquery.scrollbar.min.js", "svgavatars/js/canvg/rgbcolor.js", "svgavatars/js/canvg/StackBlur.js", "svgavatars/js/canvg/canvg.js",  "svgavatars/js/svgavatars.en.js", "svgavatars/js/svgavatars.core.min.js"], function () {
+            this.getScripts(["svgavatars/js/svg.min.js", "svgavatars/js/spectrum.min.js",
+                "svgavatars/js/jquery.scrollbar.min.js", "svgavatars/js/canvg/rgbcolor.js",
+                "svgavatars/js/canvg/StackBlur.js", "svgavatars/js/canvg/canvg.js",
+                "svgavatars/js/svgavatars.en.js", "svgavatars/js/svgavatars.core.min.js"], function () {
                 // do something... or nothing... what ever you want
             });
 
@@ -169,12 +172,15 @@ define(function (require, exports, module) {
 
             var requestCollection = new RequestCollection();
 
+            $('#requestFeedSpinner').css('display', 'block');
+
             requestCollection.fetch({
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function (collection) {
                     console.log(collection.models);
+                    $('#requestFeedSpinner').css("display", "none");
                     self.$('#requestCol').html(requestTemplate(collection));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
@@ -206,6 +212,7 @@ define(function (require, exports, module) {
             var ruseruid = element.attr("data-ruser-uid");
             var amount = element.attr("data-amount");
             console.log("in home view paypal");
+            $('#paypalSpinner').css('display', "block");
 
             var currRequest = new RequestModel({
                 path: 'paypal'
@@ -228,7 +235,6 @@ define(function (require, exports, module) {
                 },
                 error: function (model, response, options){
                     console.log(response.responseText);
-                    self.model.set('donateCount', self.model.get('donateCount') + 1);
                     window.location.href = response.responseText;
                 }
             });
@@ -242,6 +248,9 @@ define(function (require, exports, module) {
             $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
+            // $('<div class="fa-5x">\n' +
+            //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
+            //     '</div>').insertBefore('#homeContainer');
             if(self.model.get('isAdmin')) {
                 self.$('#homeContainer').html(orgFeedAdminTemplate);
             }else if(self.model.get('orgId') > 0 ) {
@@ -249,6 +258,7 @@ define(function (require, exports, module) {
             }else{
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
+            $('#orgSpinner').css('display', 'block');
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
@@ -262,6 +272,7 @@ define(function (require, exports, module) {
                     }else{
                         self.$('#orgCol').html("There are no approved orgs at this time.");
                     }
+                    $('#orgSpinner').css('display', 'none');
                 }
             });
 
@@ -422,12 +433,15 @@ define(function (require, exports, module) {
             var userCollection = new UserCollection();
             console.log("USER COLLECTION: ")
             console.log(userCollection.url);
+
+            $('#homeLoginSpinner').css('display', 'block');
             userCollection.fetch({
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function (collection) {
                     console.log(collection.models);
+                    $("#homeLoginSpinner").css('display', 'none');
                     if(self.model.get('isAdmin')){
                         self.$('#usersCol').html(userAdminTemplate(collection));
                     }else {
@@ -591,6 +605,7 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
 
 
+            $('#myRequestSpinner').css("display", "block");
             requestCollection.fetchByRequestUid({
                 xhrFields: {
                     withCredentials: true
@@ -599,6 +614,7 @@ define(function (require, exports, module) {
                     "uid": self.model.get('uid')
                 },
                 success: function (collection) {
+                    $('#myRequestSpinner').css("display", "none");
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
                     });
@@ -612,6 +628,7 @@ define(function (require, exports, module) {
 
                 },
                 error: function(model, response) {
+                    $('#myRequestSpinner').css("display", "none");
                     console.log(model);
                     console.log(response);
                 }
