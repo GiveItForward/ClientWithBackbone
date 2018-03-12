@@ -171,7 +171,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 375px;
+  height: 400px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #840E8C;*/
   box-shadow: 4px 4px 10px 4px dimgrey;
@@ -183,7 +183,7 @@ body{
   border-radius: 25px;
   padding: 5px;
   width: 95%;
-  height: 430px;
+  height: 445px;
   margin: 2%;
   /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
   /*box-shadow: 4px 4px 10px 4px #840E8C;*/
@@ -411,6 +411,18 @@ body{
   text-shadow: 2px 2px 2px #00947D;
 }
 
+.loginbtn {
+  background: linear-gradient(to top, #3C0740, #840E8C);
+  border: 1px solid #840E8C;
+  color:white;
+}
+
+.loginbtn:hover {
+  text-decoration: none;
+  font-size: 14pt;
+  filter: none;
+}
+
 .purplebtn {
   /*background-color: #840E8C;*/
   background: linear-gradient(to top, #3C0740, #840E8C);
@@ -622,21 +634,34 @@ body{
 }
 
 .requestuserimage{
-  width: 40px;
-  height: 50px;
-  /*margin-left: 5%;*/
+  width: 70px;
+  height: 70px;
+  border-radius: 25%;
 }
 
 .smallcirclediv{
   /*background: linear-gradient(to right, #404040, #bfbfbf);*/
-  background-color: white;
-  border-radius: 50%;
+  background-color: transparent;
+  border-radius: 25%;
   border: 3px solid #CB9E0A;
-  height: 75px;
-  width: 75px;
+  height: 85px;
+  width: 85px;
   /*margin-top: 10%;*/
   /*margin-left: 10%;*/
-  padding: 15%;
+  padding: 12%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
+.myprofileimagediv{
+  /*background: linear-gradient(to right, #404040, #bfbfbf);*/
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 145px;
+  width: 145px;
+  /*margin-top: 10%;*/
+  /*margin-left: 10%;*/
+  padding: 12%;
   box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
@@ -663,6 +688,7 @@ body{
   font-weight: bold;
   font-size: 18pt;
   color: #0000EE !important; /*link blue*/
+  margin-left:5px;
 }
 
 .username{
@@ -676,8 +702,8 @@ body{
 }
 
 .myhistoryuserimage{
-  width: 25px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   /*margin-left: 10%;*/
 }
 
@@ -722,7 +748,7 @@ body{
   overflow-y: scroll;
   border-radius: 25px;
   padding:2%;
-  margin: 1%;
+  margin: 5px;
 }
 
 .otherProfileBioDiv{
@@ -1213,13 +1239,23 @@ body{
 }
 
 .myProfileImage {
-  width: 90px;
+  width: 120px;
   height: 120px;
-  /*margin: 5%;*/
+  border-radius: 25%;
+}
+
+.editProfileImageDiv {
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 105px;
+  width: 105px;
+  padding: 10%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
 }
 
 .editProfileImage {
-  width: 65px;
+  width: 90px;
   height: 90px;
   margin: 1%;
 }
@@ -1277,10 +1313,20 @@ body{
   margin-left: 10%;
 }
 
+.otherProfileImageDiv {
+  background-color: transparent;
+  border-radius: 25%;
+  border: 3px solid #CB9E0A;
+  height: 110px;
+  width: 110px;
+  padding: 5%;
+  box-shadow: 4px 4px 10px 4px dimgrey;
+}
+
 .otherProfileImage {
-  width: 60px;
+  width: 90px;
   height: 90px;
-  /*margin-left: 50%;*/
+  border-radius: 25%;
 }
 
 .otherProfileDescription {
@@ -1386,4 +1432,152 @@ input[type=checkbox]:checked + label
 .avatar-modal {
   min-width: 950px;
   max-height: 100%;
+}
+
+/* Absolute Center Spinner */
+.loading-spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* Transparent Overlay */
+.loading-spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+
+/* Absolute Center Spinner */
+.loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }

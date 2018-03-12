@@ -7,10 +7,12 @@
                         a.nav-link.active(href='#orgColTab', data-toggle='tab') Approved Orgs
                     li.nav-item
                         a.nav-link(href='#pendingOrgTab', data-toggle='tab') Pending Orgs
+                .fa-5x
+                    i#homeLoginSpineer(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
                 .tab-content
                     #orgColTab.tab-pane.active
                         br
-                        #orgCol.activeTabDiv There are no approved orgs at this time.
+                        #orgCol.activeTabDiv
                     #pendingOrgTab.tab-pane
                         br
-                        #pendingOrgCol There are no pending orgs at this time.
+                        #pendingOrgCol

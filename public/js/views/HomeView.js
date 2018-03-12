@@ -25,8 +25,6 @@ define(function (require, exports, module) {
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
     var LandingView = require("views/LandingView");
 
-    var rootUrl = require("models/RootUrl");
-
     var UserModel = require("models/UserModel");
     var UserCollection = require("models/UserCollection");
     var RequestModel = require("models/RequestModel");
@@ -76,9 +74,9 @@ define(function (require, exports, module) {
             "click #high"                       : "toggleHigh",
             "click #goFilterRequests"           : "goFilterRequests",
             "click #goSearchUsers"              : "goSearchUsers",
+            "keyup #searchUsers"                : "enterGoSearchUsers",
             "click #goSearchOrgs"               : "goSearchOrgs",
-
-
+            "keyup #searchOrgs"                 : "enterGoSearchOrgs",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
             "click #myProfileBtn"               : "renderMyProfile",
@@ -90,6 +88,7 @@ define(function (require, exports, module) {
             "click #unverifyTagBtn"             : "unverifyTag",
             "click #verifyTagBtn"               : "verifyTag",
             "click #elevateUserAdminBtn"        : "elevateUserAdmin",
+            "click #demoteUserAdminBtn"         : "demoteUserAdmin",
             "click #deleteUserBtn"              : "deleteUser",
             "click #approveOrgBtn"              : "approveOrg",
             "click #denyOrgBtn"                 : "denyOrg",
@@ -104,7 +103,26 @@ define(function (require, exports, module) {
             "click #logoutBtn"                  : "logout"
         },
 
+
+        // run scripts on the fly
+        getScripts: function(scripts, callback) {
+            var progress = 0;
+            scripts.forEach(function(script) {
+                $.getScript(script, function () {
+                    if (++progress == scripts.length) callback();
+                });
+            });
+        },
+
         initialize: function (options) {
+
+            this.getScripts(["svgavatars/js/svg.min.js", "svgavatars/js/spectrum.min.js",
+                "svgavatars/js/jquery.scrollbar.min.js", "svgavatars/js/canvg/rgbcolor.js",
+                "svgavatars/js/canvg/StackBlur.js", "svgavatars/js/canvg/canvg.js",
+                "svgavatars/js/svgavatars.en.js", "svgavatars/js/svgavatars.core.min.js"], function () {
+                // do something... or nothing... what ever you want
+            });
+
             console.log("in home view init *******************");
             var self = this;
             console.log(self.model);
@@ -154,18 +172,45 @@ define(function (require, exports, module) {
 
             var requestCollection = new RequestCollection();
 
+            $('#requestFeedSpinner').css('display', 'block');
+
             requestCollection.fetch({
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function (collection) {
                     console.log(collection.models);
+                    $('#requestFeedSpinner').css("display", "none");
                     self.$('#requestCol').html(requestTemplate(collection));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
 
-            if(self.model.get('orgId') > 0 || self.model.get('isAdmin')){
+            var myOid = self.model.get('orgId');
+            if(myOid > 0){
+                var myOrgModel = new OrgModel({
+                    path: 'byoid',
+                    oid: myOid
+                });
+                myOrgModel.fetch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {"oid": myOid},
+                    success: function (model) {
+                        console.log(model);
+                        self.orgModel = model;
+                        if(self.orgModel.get('approved')){
+                            $("#usersBtn").addClass("turquoisebtncol");
+                            $("#usersBtn").addClass("btn");
+                            $("#usersBtn").attr("href", "#");
+                            $("#usersBtn").text("Users");
+                        }
+                    }
+                });
+            }
+
+            if(self.model.get('isAdmin')){
                 $("#usersBtn").addClass("turquoisebtncol");
                 $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
@@ -177,7 +222,7 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            $("#usernameDisplay").html(self.model.get("username"));
+            $("#usernameDisplay").html("Hi, " + self.model.get("username"));
 
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -191,6 +236,7 @@ define(function (require, exports, module) {
             var ruseruid = element.attr("data-ruser-uid");
             var amount = element.attr("data-amount");
             console.log("in home view paypal");
+            $('#paypalSpinner').css('display', "block");
 
             var currRequest = new RequestModel({
                 path: 'paypal'
@@ -213,7 +259,6 @@ define(function (require, exports, module) {
                 },
                 error: function (model, response, options){
                     console.log(response.responseText);
-                    self.model.set('donateCount', self.model.get('donateCount') + 1);
                     window.location.href = response.responseText;
                 }
             });
@@ -227,6 +272,9 @@ define(function (require, exports, module) {
             $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("selected");
+            // $('<div class="fa-5x">\n' +
+            //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
+            //     '</div>').insertBefore('#homeContainer');
             if(self.model.get('isAdmin')) {
                 self.$('#homeContainer').html(orgFeedAdminTemplate);
             }else if(self.model.get('orgId') > 0 ) {
@@ -234,6 +282,7 @@ define(function (require, exports, module) {
             }else{
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
+            $('#orgSpinner').css('display', 'block');
 
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
@@ -242,7 +291,12 @@ define(function (require, exports, module) {
                 },
                 success: function (collection) {
                     console.log(collection.models);
-                    self.$('#orgCol').html(orgTemplate(collection));
+                    if(collection.models.length > 0){
+                        self.$('#orgCol').html(orgTemplate(collection));
+                    }else{
+                        self.$('#orgCol').html("There are no approved orgs at this time.");
+                    }
+                    $('#orgSpinner').css('display', 'none');
                 }
             });
 
@@ -254,8 +308,10 @@ define(function (require, exports, module) {
                     },
                     success: function (collection) {
                         console.log(collection.models);
-                        if(collection.model.length > 0){
+                        if(collection.models.length > 0){
                             self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
+                        }else{
+                            self.$('#pendingOrgCol').html("There are no pending orgs at this time.");
                         }
                     }
                 });
@@ -277,6 +333,9 @@ define(function (require, exports, module) {
                         var collect = new Backbone.Collection();
                         collect.add(model);
                         self.$('#myOrgCol').html(orgMyOrgTemplate(collect));
+                        if(!self.orgModel.get('approved')){
+                            self.$('#pendingMessage').html("Your organization is pending approval.");
+                        }
                     }
                 });
             }
@@ -287,6 +346,7 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("selected");
+
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
@@ -316,6 +376,7 @@ define(function (require, exports, module) {
 
             return this;
         },
+
 
         editProfile: function () {
             var self = this;
@@ -359,12 +420,30 @@ define(function (require, exports, module) {
             return this;
         },
 
-        deleteAccount: function () {
+        deleteAccount: function (event) {
+            var self = this;
+            console.log("DELET ACCOUNT");
             bootbox.confirm({
                 message: "Are you sure you want to DELETE your account?",
                 callback: function (result) {
                     if(result){
-                        bootbox.alert("Your account is pretend deleted. buh-bye now!")
+                        self.model.setUrl('delete');
+
+                        self.model.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "uid": self.model.get('uid')
+                            },
+                            success: function (model) {
+                                self.logout();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem deleting your account.');
+                                console.log(response);
+                            }
+                        });
                     }
                 }
             });
@@ -379,18 +458,22 @@ define(function (require, exports, module) {
             self.$('#homeContainer').html(userFeedTemplate);
 
             var userCollection = new UserCollection();
+            console.log("USER COLLECTION: ")
+            console.log(userCollection.url);
+
+            $('#homeLoginSpinner').css('display', 'block');
             userCollection.fetch({
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function (collection) {
                     console.log(collection.models);
+                    $("#homeLoginSpinner").css('display', 'none');
                     if(self.model.get('isAdmin')){
                         self.$('#usersCol').html(userAdminTemplate(collection));
                     }else {
                         self.$('#usersCol').html(userTemplate(collection));
                     }
-
                 }
             });
             return this;
@@ -510,26 +593,33 @@ define(function (require, exports, module) {
             var self = this;
             var usernameToDelete = $(event.currentTarget).attr('data-username');
             var uidToDelete = $(event.currentTarget).attr('data-uid');
+            console.log("\nIN DELETE USER");
+            console.log("UID: " + uidToDelete)
 
             bootbox.confirm({
                 message: "Are you sure you want to DELETE user " + usernameToDelete + "?",
                 callback: function (result) {
-                    // if(result){
-                    //     var userModelToDelete = new UserModel({
-                    //         path: 'delete',
-                    //         rid: uidToDelete
-                    //     });
+                    if(result){
+                        var userModelToDelete = new UserModel({});
+                        userModelToDelete.set('uid', uidToDelete);
+                        userModelToDelete.setUrl('delete');
 
-                    //     userModelToDelete.destroy({
-                    //         success: function (model) {
-                    //             self.renderUsers();
-                    //         },
-                    //         error: function(model, response, options){
-                    //             bootbox.alert('There was a problem deleting this user.');
-                    //             console.log(response);
-                    //         }
-                    //     });
-                    // }
+                        userModelToDelete.destroy({
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                "uid": uidToDelete
+                            },
+                            success: function (model) {
+                                self.renderUsers();
+                            },
+                            error: function(model, response, options){
+                                bootbox.alert('There was a problem deleting this user.');
+                                console.log(response);
+                            }
+                        });
+                    }
                 }
             });
         },
@@ -542,6 +632,7 @@ define(function (require, exports, module) {
             var requestCollection = new RequestCollection();
 
 
+            $('#myRequestSpinner').css("display", "block");
             requestCollection.fetchByRequestUid({
                 xhrFields: {
                     withCredentials: true
@@ -550,14 +641,21 @@ define(function (require, exports, module) {
                     "uid": self.model.get('uid')
                 },
                 success: function (collection) {
+                    $('#myRequestSpinner').css("display", "none");
                     _.each(collection.models, function(model) {
                         console.log(model.toJSON());
                     });
                     console.log("My requests: ");
                     console.log(collection.models);
-                    self.$('#myRequestCol').html(myRequestTemplate(collection));
+                    if(collection.models.length > 0){
+                        self.$('#myRequestCol').html(myRequestTemplate(collection));
+                    }else{
+                        self.$('#myRequestCol').html("There is no history available.");
+                    }
+
                 },
                 error: function(model, response) {
+                    $('#myRequestSpinner').css("display", "none");
                     console.log(model);
                     console.log(response);
                 }
@@ -587,8 +685,12 @@ define(function (require, exports, module) {
                         total += model.get("amount");
                     });
                     self.$('#totalDonations').html('$' + total);
-                    self.$('#myDonationCol').html(myDonationTemplate(collection));
-                    self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
+                    if(collection.models.length > 0){
+                        self.$('#myDonationCol').html(myDonationTemplate(collection));
+                    }else{
+                        self.$('#myDonationCol').html("There is no history available.");
+                    }
+                    // self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -612,8 +714,12 @@ define(function (require, exports, module) {
                 success: function (collection) {
                     console.log("My notifications: ");
                     console.log(collection.models);
+                    if(collection.models.length > 0){
+                        self.$('#notifications').html(notificationTemplate(collection));
+                    }else{
+                        self.$('#notifications').html("You have no notifications at this time.");
+                    }
 
-                    self.$('#notifications').html(notificationTemplate(collection));
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -1010,6 +1116,14 @@ define(function (require, exports, module) {
             }
         },
 
+        enterGoSearchOrgs: function (e) {
+            var self = this;
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.goSearchOrgs();
+            }
+            return this;
+        },
+
         goSearchUsers: function () {
             var self = this;
             var searchUserString = $('#searchUsers').val();
@@ -1036,11 +1150,18 @@ define(function (require, exports, module) {
                         }
                     },
                     error: function(err){
-                        console.log("error when search orgs");
+                        console.log("error when search users");
                         console.log(err);
                     }
                 });
-                return this;
+            }
+            return this;
+        },
+
+        enterGoSearchUsers: function (e) {
+            var self = this;
+            if ( e.keyCode === 13 ) { // 13 is enter key
+                self.goSearchUsers();
             }
             return this;
         },
@@ -1060,10 +1181,10 @@ define(function (require, exports, module) {
                                 withCredentials: true
                             },
                             success: function (collection, response, options) {
-                                window.location.href = rootUrl.url;
+                                window.location.href = "/home";
                             },
                             error: function(model, response, options){
-                                window.location.href = rootUrl.url + 'home';
+                                window.location.href = "/home";
                             }
                         });
                     }

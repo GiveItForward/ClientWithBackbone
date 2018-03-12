@@ -120,7 +120,7 @@ define(function (require, exports, module) {
             var self = this;
             self.model.set("firstname", $("#editFirst").val());
             self.model.set("lastname", $("#editLast").val());
-            self.model.set("image", $("#editProfileImage").attr('src')); //being set in chooseImageModal
+            // self.model.set("image", $("#editProfileImage").attr('src')); //being set in chooseImageModal
             self.model.set("bio", $("#editBio").val());
             self.model.set("tags", editProfileTagList);
             console.log(self.model);

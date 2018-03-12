@@ -11,6 +11,8 @@ define(function (require, exports, module) {
     var UserModel = require("models/UserModel");
     var RequestCollection = require("models/RequestCollection");
 
+    var ViewThankYouModalView = require("views/ViewThankYouModalView");
+
     var otherRequestTemplate = require("jade!templates/jade_templates/otherRequestTemplate");
 
 
@@ -21,7 +23,7 @@ define(function (require, exports, module) {
         events: {
             "click #closeOtherProfileBtn"       : "destroyOtherProfileModal",
             "click #exitOtherProfileModal"      : "destroyOtherProfileModal",
-            "click #otherProfileTabs"           : "handleTabs"
+            "click #viewThankYouBtn"            : "viewOtherThankYou"
         },
 
         initialize: function (options) {
@@ -120,10 +122,21 @@ define(function (require, exports, module) {
             return this;
         },
 
-        handleTabs: function (event) {
+        viewOtherThankYou: function (event) {
             var self = this;
-
-
+            var note = $(event.currentTarget).attr( 'data-note' );
+            var date = $(event.currentTarget).attr( 'data-date' );
+            var rUsername = $(event.currentTarget).attr( 'data-rUsername' );
+            console.log(rUsername);
+            var container = document.createDocumentFragment();
+            var viewThankYouModalView = new ViewThankYouModalView({
+                parent: self,
+                note: note,
+                date: date,
+                rUsername: rUsername
+            });
+            container.appendChild(viewThankYouModalView.render().el);
+            $('body').append(container);
             return this;
         },
 
