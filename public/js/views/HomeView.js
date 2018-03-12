@@ -186,7 +186,31 @@ define(function (require, exports, module) {
                 }
             });
 
-            if(self.model.get('orgId') > 0 || self.model.get('isAdmin')){
+            var myOid = self.model.get('orgId');
+            if(myOid > 0){
+                var myOrgModel = new OrgModel({
+                    path: 'byoid',
+                    oid: myOid
+                });
+                myOrgModel.fetch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {"oid": myOid},
+                    success: function (model) {
+                        console.log(model);
+                        self.orgModel = model;
+                        if(self.orgModel.get('approved')){
+                            $("#usersBtn").addClass("turquoisebtncol");
+                            $("#usersBtn").addClass("btn");
+                            $("#usersBtn").attr("href", "#");
+                            $("#usersBtn").text("Users");
+                        }
+                    }
+                });
+            }
+
+            if(self.model.get('isAdmin')){
                 $("#usersBtn").addClass("turquoisebtncol");
                 $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
@@ -309,6 +333,9 @@ define(function (require, exports, module) {
                         var collect = new Backbone.Collection();
                         collect.add(model);
                         self.$('#myOrgCol').html(orgMyOrgTemplate(collect));
+                        if(!self.orgModel.get('approved')){
+                            self.$('#pendingMessage').html("Your organization is pending approval.");
+                        }
                     }
                 });
             }
