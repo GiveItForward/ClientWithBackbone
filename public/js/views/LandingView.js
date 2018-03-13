@@ -101,13 +101,9 @@ define(function (require, exports, module) {
                     });
                     $('#loginSpinner').css('display', 'none');
                 },
-                error: function(err){
-                    // self.renderLogin(); // but render the login with an error message! TODO
-                    $('#loginErrorLabel').html("The email or password was incorrect.");
-                    console.log("error occurred in login" + err);
-                    if(err === 401){
-                        $('#loginErrorLabel').html("401! 401!");
-                    }
+                error: function(model, response, options){
+                    $('#loginSpinner').css('display', 'none');
+                    $('#loginErrorLabel').html(response.responseText);
                 }
             });
             return this;

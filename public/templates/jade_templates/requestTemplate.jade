@@ -1,4 +1,4 @@
-for request in locals.models
+for request in locals.collection.models
     .row
         .col-md-12
             .panel.roundrequest
@@ -37,4 +37,7 @@ for request in locals.models
                                     .requestdescriptiondiv
                                         #requestDescription.requestmessage #{request.get("description")}
                                 .col-md-2
-                                    button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
+                                    if request.get("rUser").uid !== locals.myUid
+                                        button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
+                                    else
+                                        button#giveBtn.roundgivebtn.btn(disabled='', data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}

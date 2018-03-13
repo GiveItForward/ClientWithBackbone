@@ -180,9 +180,12 @@ define(function (require, exports, module) {
                     withCredentials: true
                 },
                 success: function (collection) {
-                    console.log(collection.models);
+                    var collectionWithMyID = {
+                        collection: collection,
+                        myUid: self.model.get('uid')
+                    }
                     $('#requestFeedSpinner').css("display", "none");
-                    self.$('#requestCol').html(requestTemplate(collection));
+                    self.$('#requestCol').html(requestTemplate(collectionWithMyID));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
             });
@@ -199,7 +202,6 @@ define(function (require, exports, module) {
                     },
                     headers: {"oid": myOid},
                     success: function (model) {
-                        console.log(model);
                         self.orgModel = model;
                         if(self.orgModel.get('approved')){
                             $("#usersBtn").addClass("turquoisebtncol");
@@ -236,7 +238,6 @@ define(function (require, exports, module) {
             var rid = element.attr("data-rid");
             var ruseruid = element.attr("data-ruser-uid");
             var amount = element.attr("data-amount");
-            console.log("in home view paypal");
             $('#paypalSpinner').css('display', "block");
 
             var currRequest = new RequestModel({
