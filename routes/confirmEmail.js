@@ -10,7 +10,7 @@ router.get('/*', function(req, res, next) {
 
 
     var options = {
-        url: baseUrl.tomcat_url + req.url
+        url: baseUrl.tomcat_url + "/confirm" +  req.url
     };
 
     request(options, function (error, response, body) {
