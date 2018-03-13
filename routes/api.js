@@ -387,7 +387,7 @@ router.post('/users/create', function(req, res, next) {
 
     setupCORSResponse(res, req.headers.origin);
 
-    session = req.session;
+    // session = req.session;
 
     var options = {
         method: 'post',
@@ -399,9 +399,9 @@ router.post('/users/create', function(req, res, next) {
 
     request(options, function(error, response, body){
         if(response.statusCode === 200){
-            session.email = body.email;
-            session.userObject = body;
-            session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
+            // session.email = body.email;
+            // session.userObject = body;
+            // session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
             res.send(body);
         } else {
             res.status(response.statusCode).send(body);

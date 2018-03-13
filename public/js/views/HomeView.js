@@ -116,6 +116,7 @@ define(function (require, exports, module) {
 
         initialize: function (options) {
 
+            // load the avatar scripts once they have logged in.
             this.getScripts(["svgavatars/js/svg.min.js", "svgavatars/js/spectrum.min.js",
                 "svgavatars/js/jquery.scrollbar.min.js", "svgavatars/js/canvg/rgbcolor.js",
                 "svgavatars/js/canvg/StackBlur.js", "svgavatars/js/canvg/canvg.js",

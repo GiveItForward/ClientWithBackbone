@@ -169,14 +169,16 @@ define(function (require, exports, module) {
                     },
                     wait: true,
                     success: function(model, response) {
-                        console.log('success');
-                        console.log("model from json");
-                        console.log(model);
-                        onIndex = false;
-                        new HomeView({
-                            model: model
-                        });
-                        // window.location.href = "www.google.com";
+                        $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
+                            "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
+                            "</div>");
+                        // console.log('success');
+                        // console.log("model from json");
+                        // console.log(model);
+                        // onIndex = false;
+                        // new HomeView({
+                        //     model: model
+                        // });
                     },
                     error: function(model, response) {
                         console.log(model);
