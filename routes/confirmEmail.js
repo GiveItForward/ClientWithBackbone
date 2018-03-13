@@ -4,7 +4,7 @@ var request = require("request");
 
 var router = express.Router();
 
-router.get('/confirm/*', function(req, res, next) {
+router.get('/*', function(req, res, next) {
 
     console.log("CONFIRM ID");
 
