@@ -34,7 +34,9 @@ define(function (require, exports, module) {
             "change #username"          : "updateLoginModel",
             "change #password"          : "enterLogin",
             "keyup"                     : "updateSignupModel",
-            "change"                    : "updateSignupModel"
+            "change"                    : "updateSignupModel",
+            "click #sendEmailBtn"       : "sendForgotPasswordEmail",
+            "keyup #forgottenPasswordEmail": "toggleSendEmailButton"
         },
 
         initialize: function () {
@@ -50,6 +52,7 @@ define(function (require, exports, module) {
             // self.$el.html(indexTemplate());
             self.$('#loginSubmitBtn').prop("disabled", true);
             self.$('#createAccountBtn').prop("disabled", true);
+            self.$('#sendEmailBtn').prop("disabled", true);
             return this;
         },
 
@@ -168,17 +171,13 @@ define(function (require, exports, module) {
                         $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
                             "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
                             "</div>");
-                        // console.log('success');
-                        // console.log("model from json");
-                        // console.log(model);
-                        // onIndex = false;
-                        // new HomeView({
-                        //     model: model
-                        // });
+                        onIndex = false;
                     },
                     error: function(model, response) {
-                        console.log(model);
-                        console.log(response);
+                        $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
+                            "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
+                            "<p>Message from server: " + response.responseText +"</p>" +
+                            "</div>");
                     }
                 });
             }else{
@@ -194,6 +193,24 @@ define(function (require, exports, module) {
                 self.createAccount();
             }
             return this;
+        },
+
+        sendForgotPasswordEmail: function() {
+            var self = this;
+
+            $('#forgotPasswordModalBody').html("<div class=\"alert alert-success\">\n" +
+                "  <strong>Success! Check your email.</strong>" +
+                "<p>We just sent an email to you with a link to reset your password!</p>" +
+                "</div>");
+        },
+
+        toggleSendEmailButton: function() {
+            var self = this;
+            if(self.$('#forgottenPasswordEmail').val() !== ""){
+                self.$('#sendEmailBtn').prop("disabled", false);
+            } else {
+                self.$('#sendEmailBtn').prop("disabled", true);
+            }
         }
 
     });
