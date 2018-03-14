@@ -988,7 +988,6 @@ body{
 }
 
 .confettibackground{
-  /*background-image: url("../img/Confetti.png");*/
   background-image: url("../img/BackgroundWhite.png");
   background-size: contain;
   height: 100vh;

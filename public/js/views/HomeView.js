@@ -183,7 +183,7 @@ define(function (require, exports, module) {
                     var collectionWithMyID = {
                         collection: collection,
                         myUid: self.model.get('uid')
-                    }
+                    };
                     $('#requestFeedSpinner').css("display", "none");
                     self.$('#requestCol').html(requestTemplate(collectionWithMyID));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
@@ -1073,7 +1073,11 @@ define(function (require, exports, module) {
                 },
                 success: function (collection) {
                     console.log(collection.models);
-                    self.$('#requestCol').html(requestTemplate(collection));
+                    var collectionWithMyID = {
+                        collection: collection,
+                        myUid: self.model.get('uid')
+                    };
+                    self.$('#requestCol').html(requestTemplate(collectionWithMyID));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 },
                 error: function(err){
