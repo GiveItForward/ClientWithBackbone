@@ -257,11 +257,11 @@ define(function (require, exports, module) {
                 },
                 success: function (model, response, options) {
                     console.log("success on request fulfill");
+                    window.location.href = model.get('redirectUrl');
 
                 },
                 error: function (model, response, options){
-                    console.log(response.responseText);
-                    window.location.href = response.responseText;
+                    bootbox.alert('There was a problem donating. Try again later.');
                 }
             });
 

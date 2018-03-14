@@ -18,7 +18,6 @@ var session;
 // this will be used for sessions
 router.get('/users/login', function(req, res, next) {
 
-
     setupCORSResponse(res, req.headers.origin);
     session = req.session;
 
@@ -224,11 +223,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
     session = req.session;
 
-
-    console.log("\nINSIDE /requests/paypal\n");
     if(session.email && session.userObject){
-        console.log("\tINSIDE session");
-
         session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
 
         var options = {
@@ -236,23 +231,14 @@ router.get('/requests/paypal', function(req, res, next) {
             headers: req.headers
         };
 
-        console.log(options);
-
         // request for the requester email
         request(options, function(error, response, body){
-            console.log("\tINSIDE first request");
-            console.log(response);
-            console.log(body);
 
             if(response.statusCode === 200){
                 var userBody = parser.parse(body);
                 var requestorsEmail = userBody.email;
                 var amount = req.header('amt');
                 var randomDBHash = 'hash';
-
-                console.log("\nIN REQUESTING USER OBJ\n");
-                console.log(body);
-
 
                 // set up paypal configuration
                 var payload = {
@@ -281,8 +267,6 @@ router.get('/requests/paypal', function(req, res, next) {
                         res.end(err); // TODO - better error handling here
                     } else {
                         if(paypalResponse.responseEnvelope.ack === 'Success') {
-
-
                             var requestBody;
 
                             // todo - this needs to happen upon actual payment from paypal.
@@ -295,20 +279,18 @@ router.get('/requests/paypal', function(req, res, next) {
                                 if(response.statusCode === 200){
                                     requestBody = parser.parse(body);
                                     req.session.userObject.donateCount += 1;
-                                    res.send(paypalResponse.paymentApprovalUrl);
+                                    var responseObj = {
+                                        redirectUrl: paypalResponse.paymentApprovalUrl
+                                    };
+                                    res.status(200).send(JSON.stringify(responseObj));
                                 } else {
-                                    console.log("issue with recording fulfilled request");
-                                    res.sendStatus(500);
+                                    res.status(500).send("Error redirecting to Paypal.");
                                 }
                             });
                         }
                     }
                 });
             } else {
-                console.log("\nIN REQUESTING USER OBJ\n");
-                console.log(response.statusCode);
-
-                console.log(body);
                 res.status(response.statusCode).send(body);
             }
         });
@@ -352,6 +334,30 @@ router.get('/tags', function(req, res, next) {
             res.status(response.statusCode).send(body);
         }
     });
+});
+
+
+router.get('/forgotpassword', function(req, res, next) {
+
+    setupCORSResponse(res, req.headers.origin);
+
+    console.log("IN FORGOT PASSWORD");
+    var options = {
+        url: baseUrl.tomcat_url + req.url,
+        headers: req.headers
+    };
+
+    request(options, function (error, response, body) {
+        if(response.statusCode === 200){
+            var responseObj = {
+                message: "SUCCESS"
+            };
+            res.status(200).send(JSON.stringify(responseObj));
+        } else {
+            res.status(response.statusCode).send(body);
+        }
+    });
+
 });
 
 router.get('/*', function(req, res, next) {
@@ -412,7 +418,6 @@ router.post('/users/create', function(req, res, next) {
 });
 
 router.post('/*', function(req, res, next) {
-    console.log("IN POST\n" + req);
     setupCORSResponse(res, req.headers.origin);
 
     session = req.session;
@@ -467,16 +472,8 @@ router.put('/*', function(req, res, next) {
 });
 
 router.delete('/*', function(req, res, next) {
-
-
     setupCORSResponse(res, req.headers.origin);
-
-
     session = req.session;
-
-    console.log("\n\n\tDELETE:\n");
-    console.log(session.sessionID);
-
 
     if(session.email && session.userObject){
         var options = {

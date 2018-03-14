@@ -79,6 +79,9 @@ define(function (require, exports, module) {
 
         login: function () {
             var self = this;
+            self.model = new UserModel({
+                path: "login"
+            });
             self.updateLoginModel();
             console.log("logging in...");
             // self.model = new UserModel({
@@ -197,11 +200,31 @@ define(function (require, exports, module) {
 
         sendForgotPasswordEmail: function() {
             var self = this;
+            self.model = new UserModel({});
+            self.model.url = '/api/forgotpassword';
+            console.log($('#forgottenPasswordEmail'));
+            self.model.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "email": $('#forgottenPasswordEmail').val()
+                },
+                success: function () {
+                    $('#forgotPasswordModalBody').html("<div class=\"alert alert-success\">\n" +
+                        "  <strong>Success! Check your email.</strong>" +
+                        "<p>We just sent an email to you with a link to reset your password!</p>" +
+                        "</div>");
+                },
+                error: function(model, response, options){
+                    $('#forgotPasswordModalBody').html("<div class=\"alert alert-danger\">\n" +
+                        "  <strong>Error!</strong>" +
+                        "<p>Error when trying to reset password</p>" +
+                        "<p>Message From Server: <br>" + response.responseText + "</p>" +
+                        "</div>");
+                }
+            });
 
-            $('#forgotPasswordModalBody').html("<div class=\"alert alert-success\">\n" +
-                "  <strong>Success! Check your email.</strong>" +
-                "<p>We just sent an email to you with a link to reset your password!</p>" +
-                "</div>");
         },
 
         toggleSendEmailButton: function() {
