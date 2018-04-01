@@ -1,4 +1,4 @@
 for note in locals.models
     .row.notificationrow
         .col-md-12
-            | #{note.get("message")}
+            a#notificationLink(href='#', data-toggle='modal', data-target='#notificationModal', data-backdrop='static') #{note.get("message")}

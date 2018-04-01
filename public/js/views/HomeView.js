@@ -19,6 +19,7 @@ define(function (require, exports, module) {
     var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
     var EditProfileModalView = require("views/EditProfileModalView");
+    var NotificationModalView = require("views/NotificationModalView");
     var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var CreateAvatarModalView = require("views/CreateAvatarModalView");
@@ -83,6 +84,7 @@ define(function (require, exports, module) {
             "click #editProfileBtn"             : "editProfile",
             "click #changePasswordBtn"          : "changePassword",
             "click #createAvatarBtn"            : "createAvatar",
+            "click #notificationLink"           : "notification",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
@@ -728,6 +730,18 @@ define(function (require, exports, module) {
                     console.log(response);
                 }
             });
+            return this;
+        },
+
+        notification: function () {
+            var self = this;
+            var container = document.createDocumentFragment();
+            var notificationModalView = new NotificationModalView({
+                parent: self,
+                // model: new RequestModel({ path: 'create'})
+            });
+            container.appendChild(notificationModalView.render().el);
+            $('body').append(container);
             return this;
         },
 
