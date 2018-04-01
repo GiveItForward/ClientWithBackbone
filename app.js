@@ -11,6 +11,7 @@ var api = require('./routes/api');
 var home = require("./routes/home");
 var svgAvatars = require('./routes/svgAvatars');
 var confirmEmail = require("./routes/confirmEmail");
+var resetPassword = require("./routes/resetPassword");
 
 
 var session = require('express-session');
@@ -87,6 +88,7 @@ app.use('/api', api);
 app.use('/home', home);
 app.use('/svgavatars', svgAvatars);
 app.use('/confirm', confirmEmail);
+app.use('/resetpassword', resetPassword);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
