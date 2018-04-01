@@ -7,9 +7,6 @@ var bodyParser = require('body-parser');
 
 
 var index = require('./routes/index');
-var moreHelp = require('./routes/moreHelp');
-var contactUs = require('./routes/contactUs');
-var aboutUs = require('./routes/aboutUs');
 var api = require('./routes/api');
 var home = require("./routes/home");
 var svgAvatars = require('./routes/svgAvatars');
@@ -87,9 +84,6 @@ if (environment === 'production'){
 
 app.use('/', index);
 app.use('/index', index);
-app.use('/moreHelp', moreHelp);
-app.use('/aboutUs', aboutUs);
-app.use('/contactUs', contactUs);
 app.use('/api', api);
 app.use('/home', home);
 app.use('/svgavatars', svgAvatars);
