@@ -24,7 +24,15 @@ define(function (require, exports, module) {
         initialize: function (options) {
             console.log("in new notifications modal view init");
             this.parent = options.parent;
-            // this.render();
+            this.nid = options.nid;
+            // rid - Your donation was FULFILLED by jen (should say request)
+            this.rid = 2; //113 doesn't have thank you
+            // tid - You received a THANK YOU from boo
+
+            // Your TAGS were VERIFIED by Women's Resource Center
+            // You have been promoted to an admin.
+            // Your organization, LGBT Resource Center, has been approved!
+
         },
 
         render: function () {
@@ -32,6 +40,7 @@ define(function (require, exports, module) {
             var self = this;
             self.el = notificationModal;
             self.setElement(this.el);
+            $('#notificationDiv').html("Notes from the modal view");
             return this;
         },
 

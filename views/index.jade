@@ -22,8 +22,8 @@ block content
                     button#sendEmailBtn.btn.btn-primary(type='button') Send email
     #homeStuff
         .container-fluid
-            .row
-                .col-md-12.turquoisebackground.landingbar
+            .row.turquoisebackground.landingbar
+                .col-md-8
                     #inputdiv.logindiv.form-inline
                         input#username.roundmedium(type='text', name='username', placeholder='email')
                         input#password.roundmedium(type='password', placeholder='password')
@@ -34,6 +34,8 @@ block content
                             label#loginErrorLabel(style=" color: red")
                         .fa-2x
                             i#loginSpinner(style="display: none").fas.fa-spinner.fa-spin
+                 .col-md-4
+                     #googleSignin.g-signin2.padding-top(data-longtitle='true', data-onsuccess='onSignIn')
             .row
                 .col-md-12.confettibackground
                     .row

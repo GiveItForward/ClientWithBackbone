@@ -733,15 +733,56 @@ define(function (require, exports, module) {
             return this;
         },
 
-        notification: function () {
+        notification: function (event) {
             var self = this;
-            var container = document.createDocumentFragment();
-            var notificationModalView = new NotificationModalView({
-                parent: self,
-                // model: new RequestModel({ path: 'create'})
+            var message = $(event.currentTarget).attr('data-message');
+            console.log(message);
+
+            var requestModel = new RequestModel({ path: 'rid'});
+            requestModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "rid": 2 //113
+                },
+                success: function (model) {
+                    console.log(model);
+                    console.log(model.get(0).thankYou);
+
+                    if(model.get(0).thankYou !== ""){
+
+                        var note = model.get(0).thankYou.note;
+                        var date = model.get(0).thankYou.date;
+                        var rUsername = model.get(0).rUser.username;
+                        var container = document.createDocumentFragment();
+                        var viewThankYouModalView = new ViewThankYouModalView({
+                            parent: self,
+                            note: note,
+                            date: date,
+                            rUsername: rUsername
+                        });
+                        container.appendChild(viewThankYouModalView.render().el);
+                        $('body').append(container);
+
+                    }else{
+
+                        var container = document.createDocumentFragment();
+                        var notificationModalView = new NotificationModalView({
+                            parent: self,
+                            // model: new RequestModel({ path: 'rid'})
+                        });
+                        container.appendChild(notificationModalView.render().el);
+                        $('body').append(container);
+
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                    bootbox.alert("There was an error getting your notification.");
+                }
             });
-            container.appendChild(notificationModalView.render().el);
-            $('body').append(container);
+
             return this;
         },
 
