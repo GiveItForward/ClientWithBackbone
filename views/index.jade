@@ -65,17 +65,17 @@ block content
                     button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
 
     #homeStuff
-        nav.navbar.navbar-default.navbar-static-top(style='width:100%;margin:auto')
-            .container-fluid(style='width:101%;height:100%;')
+        nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
+            .container-fluid
                 .navbar-header
                     a.navbar-brand(href='http://giveitforward.us')
-                        img(style='max-width:180px; margin: -5px;', src='/img/logo.png', alt='Give It Forward')
-                ul.nav.navbar-nav
+                        img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
+                ul.nav.navbar-nav(style='font-size: 1.4em;')
                     li
                         a(href='#about') About
                     li
                         a(href='#us') Meet the Developers
-                ul.nav.navbar-nav.navbar-right
+                ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
                     li
                         a(data-toggle='modal', data-target='#signupModal')
                             span.glyphicon.glyphicon-user
