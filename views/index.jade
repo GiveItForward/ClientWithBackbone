@@ -52,7 +52,7 @@ block content
                              var id_token = googleUser.getAuthResponse().id_token;
                              console.log("ID Token: " + id_token);
                              
-                             $('#googleIn', this.fileView.$el).trigger("click");
+                             document.getElementById("googleIn").click();
                          };
             .row
                 .col-md-12.confettibackground
