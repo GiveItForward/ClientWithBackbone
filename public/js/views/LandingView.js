@@ -80,7 +80,7 @@ define(function (require, exports, module) {
         },
 
         onSignIn: function () { //google signin
-
+            console.log("in landing view onSignIn");
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();
             console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -93,32 +93,12 @@ define(function (require, exports, module) {
             // The ID token you need to pass to your backend:
             var id_token = googleUser.getAuthResponse().id_token;
             console.log("ID Token: " + id_token);
-            // $('#loginSpinner').css('display', 'block');
-            // self.model.fetch({
-            //     xhrFields: {
-            //         withCredentials: true
-            //     },
-            //     headers: {
-            //         "email": $("#username").val(),
-            //         "password": hashPassword
-            //     },
-            //     success: function () {
-            //         self.model.set("password", undefined);
-            //         onIndex = false;
-            //         new HomeView({
-            //             model: self.model
-            //         });
-            //         $('#loginSpinner').css('display', 'none');
-            //     },
-            //     error: function(model, response, options){
-            //         $('#loginSpinner').css('display', 'none');
-            //         $('#loginErrorLabel').html(response.responseText);
-            //     }
-            // });
+
             return this;
         },
 
         login: function () {
+            console.log("in landing view login");
             var self = this;
             self.model = new UserModel({
                 path: "login"
