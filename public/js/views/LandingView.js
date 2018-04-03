@@ -82,7 +82,8 @@ define(function (require, exports, module) {
 
         googleIn: function (googleUser) { //google signin
             console.log("in landing view googleIn");
-            backbone.alert("In the landing view google in.");
+
+            bootbox.prompt("Please enter a username: ", function(result){ console.log(result); });
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();
             console.log("ID: " + profile.getId()); // Don't send this directly to your server!
