@@ -1,3 +1,4 @@
+console.log("in Landing View file");
 var onIndex = true;
 
 define(function (require, exports, module) {
@@ -27,7 +28,7 @@ define(function (require, exports, module) {
         events: {
             // "click #signupBtn"          : "renderSignup",
             "click #loginSubmitBtn"     : "login",
-            // "click #googleSignin"       : "onSignIn",
+            "click #googleIn"           : "googleIn",
             "click #createAccountBtn"   : "createAccount",
             "keyup #newVerifyPassword"  : "enterSignup",
             "keyup #username"           : "updateLoginModel",
@@ -79,8 +80,9 @@ define(function (require, exports, module) {
             }
         },
 
-        onSignIn: function () { //google signin
-            console.log("in landing view onSignIn");
+        googleIn: function (googleUser) { //google signin
+            console.log("in landing view googleIn");
+            backbone.alert("In the landing view google in.");
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();
             console.log("ID: " + profile.getId()); // Don't send this directly to your server!
