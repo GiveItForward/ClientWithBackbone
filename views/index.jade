@@ -3,7 +3,7 @@ extend layout
 block content
     #svgAvatars(style={display: 'none'})
     // Forgot password Modal
-    #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-hidden='true', aria-labelledby="forgotPasswordModal")
+    #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-labelledby="forgotPasswordModal")
         .modal-dialog
             // Modal content
             .modal-content
@@ -17,7 +17,7 @@ block content
                 .modal-footer
                     button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
 
-    #loginModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal", aria-hidden='true',)
+    #loginModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal")
         .modal-dialog
             // Modal content
             .modal-content
@@ -36,7 +36,7 @@ block content
                     span.psw
                         a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
 
-    #signupModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal", aria-hidden='true',)
+    #signupModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal")
         .modal-dialog
             // Modal content
             .modal-content
@@ -71,8 +71,6 @@ block content
                     a.navbar-brand(href='http://giveitforward.us')
                         img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
                 ul.nav.navbar-nav(style='font-size: 1.4em;')
-                    li
-                        a(href='#about') About
                     li
                         a(href='#us') Meet the Developers
                 ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
@@ -122,22 +120,6 @@ block content
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Next
                 .col-md-3
-
-            #about.row
-                .col-md-1
-                .col-md-11
-                    h1 Welcome
-                    p Here at Give It Forward we are dedicated to helping others.
-                    h2 Our Purpose...
-                    ul
-                        li Donate small day-to-day amounts
-                        li Stay connected
-                        li Milk
-                    h2 Our Goal...
-                        ul
-                            li Quick access to help.
-                            li Quick and easy ways to give back.
-                            li Educate the community on how to give back.
         .container(style='width:100%;')
             #more.row(style='margin: 5% auto;')
                 .col-md-2
