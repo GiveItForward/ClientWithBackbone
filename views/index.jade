@@ -35,8 +35,8 @@ block content
                         .fa-2x
                             i#loginSpinner(style="display: none").fas.fa-spinner.fa-spin
                  .col-md-4
+                     input#googleIn(type='checkbox', style='display:none')
                      #googleSignin.g-signin2.padding-top(data-longtitle='true', data-onsuccess='onSignIn')
-                     input#googleIn(type='checkbox')
                      script.
                          function onSignIn(googleUser) {
                              // Useful data for your client-side scripts:
