@@ -82,7 +82,8 @@ define(function (require, exports, module) {
 
         googleIn: function (googleUser) { //google signin
             console.log("in landing view googleIn");
-
+            console.log("googleUser");
+            console.log(googleUser);
             bootbox.prompt("Please enter a username: ", function(result){ console.log(result); });
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();
