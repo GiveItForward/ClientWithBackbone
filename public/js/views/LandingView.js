@@ -80,10 +80,15 @@ define(function (require, exports, module) {
             }
         },
 
-        googleIn: function (googleUser) { //google signin
+        googleIn: function (event) { //google signin
             console.log("in landing view googleIn");
-            console.log("googleUser");
-            console.log(googleUser);
+            console.log("event");
+            var firstname = $(event.currentTarget).attr('data-firstname');
+            var lastname = $(event.currentTarget).attr('data-lastname');
+            var email = $(event.currentTarget).attr('data-email');
+            console.log("firstname");
+            console.log("lastname");
+            console.log("email");
             bootbox.prompt("Please enter a username: ", function(result){ console.log(result); });
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();

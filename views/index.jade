@@ -35,7 +35,7 @@ block content
                         .fa-2x
                             i#loginSpinner(style="display: none").fas.fa-spinner.fa-spin
                  .col-md-4
-                     input#googleIn(type='checkbox', style='display:none')
+                     input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email)
                      #googleSignin.g-signin2.padding-top(data-longtitle='true', data-onsuccess='onSignIn')
                      script.
                          function onSignIn(googleUser) {
@@ -53,7 +53,10 @@ block content
                              var id_token = googleUser.getAuthResponse().id_token;
                              console.log("ID Token: " + id_token);
 
-                             document.getElementById("googleIn").click(googleUser);
+                             document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
+                             document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
+                             document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
+                             document.getElementById("googleIn").click(event);
                          };
             .row
                 .col-md-12.confettibackground
