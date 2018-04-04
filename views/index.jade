@@ -17,13 +17,14 @@ block content
                 .modal-footer
                     button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
 
-    #loginModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal")
+    #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
         .modal-dialog
             // Modal content
             .modal-content
                 .modal-header
                     img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
-                    button.close(type='button', data-dismiss='modal') ×
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
                 .modal-body
                     .form-group
                         label(for='username') Username:
@@ -36,7 +37,7 @@ block content
                     span.psw
                         a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
 
-    #signupModal.modal(tabindex='-1', role='dialog', aria-labelledby="loginModal")
+    #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
         .modal-dialog
             // Modal content
             .modal-content
@@ -75,21 +76,23 @@ block content
                         a(href='#us') Meet the Developers
                 ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
                     li
-                        a(data-toggle='modal', data-target='#signupModal')
+                        a(href='#', data-toggle='modal', data-target='#signupModal')
                             span.glyphicon.glyphicon-user
                             |  Sign Up
                     li
-                        a(data-toggle='modal', data-target='#loginModal')
+                        a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
                             span.glyphicon.glyphicon-log-in
                             |  Login
         .container.background.turquoise-angles(style='width:100%;')
             .row
                 .col-md-12.text-center
                     h1 Everyday People Helping Everyday People
+                    a.btn.btn-lg.btn-success(href='#', data-toggle='modal', data-target='#loginModal')
+                        | Click to open Modal
             .row
                 .col-md-3
                 .col-md-6
-                    #myCarousel.carousel.slide(data-ride='carousel', style='width:100%;margin: 5% auto;')
+                    #myCarousel.carousel.slide(data-ride='carousel', style='width:100%;margin: 5% auto;margin-bottom:10%;')
                         // Indicators
                         ol.carousel-indicators
                             li.active(data-target='#myCarousel', data-slide-to='0')
