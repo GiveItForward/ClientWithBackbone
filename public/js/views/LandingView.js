@@ -82,6 +82,8 @@ define(function (require, exports, module) {
             console.log(email);
             console.log(idtoken);
             var hashToken = sha256(idtoken);
+            console.log('hash token:');
+            console.log(hashToken);
 
             var googleUserModel = new UserModel({
                 path: "login"
