@@ -112,7 +112,10 @@ define(function (require, exports, module) {
                         firstname: firstname,
                         lastname: lastname,
                         email: email,
-                        password: hashToken
+                        password: hashToken,
+                        bio: '',
+                        image: 'img/profile/wine_default.png',
+                        tags: []
                     });
 
                     bootbox.prompt("Please enter a username: ", function(result){
