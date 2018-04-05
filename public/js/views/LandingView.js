@@ -26,20 +26,19 @@ define(function (require, exports, module) {
         }),
 
         events: {
-            // "click #signupBtn"          : "renderSignup",
-            "click #loginSubmitBtn"     : "login",
-            "click #googleIn"           : "googleIn",
-            "click #createAccountBtn"   : "createAccount",
-            "keyup #newVerifyPassword"  : "enterSignup",
-            "keyup #username"           : "updateLoginModel",
-            "keyup #password"           : "enterLogin",
-            "change #username"          : "updateLoginModel",
-            "change #password"          : "enterLogin",
-            "keyup"                     : "updateSignupModel",
-            "change"                    : "updateSignupModel",
-            "click #sendEmailBtn"       : "sendForgotPasswordEmail",
-            "keyup #forgottenPasswordEmail": "toggleSendEmailButton",
-            "click #resetPasswordBtn"   : "sendResetPassword"
+            "click #loginSubmitBtn"         : "login",
+            "click #googleIn"               : "googleIn",
+            "click #createAccountBtn"       : "createAccount",
+            "keyup #newVerifyPassword"      : "enterSignup",
+            "keyup #username"               : "updateLoginModel",
+            "keyup #password"               : "enterLogin",
+            "change #username"              : "updateLoginModel",
+            "change #password"              : "enterLogin",
+            "keyup"                         : "updateSignupModel",
+            "change"                        : "updateSignupModel",
+            "click #sendEmailBtn"           : "sendForgotPasswordEmail",
+            "keyup #forgottenPasswordEmail" : "toggleSendEmailButton",
+            "click #resetPasswordBtn"       : "sendResetPassword"
         },
 
         initialize: function () {
@@ -58,15 +57,6 @@ define(function (require, exports, module) {
             self.$('#sendEmailBtn').prop("disabled", true);
             return this;
         },
-
-        // renderLogin: function () {
-        //     $("#signupBtn").removeClass("selected");
-        //     $("#loginBtn").addClass("selected");
-        //     var self = this;
-        //     self.$('#inputdiv').html(loginTemplate());
-        //     self.$('#loginSubmitBtn').prop("disabled", true);
-        //     return this;
-        // },
 
         updateLoginModel: function () {
             var self = this;
@@ -91,8 +81,69 @@ define(function (require, exports, module) {
             console.log(lastname);
             console.log(email);
             console.log(idtoken);
-            bootbox.prompt("Please enter a username: ", function(result){ console.log(result); });
-            
+            var hashToken = sha256(idtoken);
+
+            var googleUserModel = new UserModel({
+                path: "login"
+            });
+            $('#loginSpinner').css('display', 'block');
+            googleUserModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "email": email,
+                    "password": hashToken,
+                    "google": true
+                },
+                success: function (model) {
+                    googleUserModel.set("password", undefined);
+                    onIndex = false;
+                    new HomeView({
+                        model: model
+                    });
+                    $('#loginSpinner').css('display', 'none');
+                },
+                error: function(model, response, options){
+                    $('#loginSpinner').css('display', 'none');
+
+                    var googleUserSignupModel = new UserModel({
+                        path: "signup",
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        password: hashToken
+                    });
+
+                    bootbox.prompt("Please enter a username: ", function(result){
+                        console.log(result);
+                        //TODO check for empty string?
+                        googleUserSignupModel.set("username", result);
+                    });
+
+                    googleUserSignupModel.save( null, {
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        headers: {
+                            "google": true
+                        },
+                        wait: true,
+                        success: function(model, response) {
+                            $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
+                                "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
+                                "</div>");
+                            onIndex = false;
+                        },
+                        error: function(model, response) {
+                            $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
+                                "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
+                                "<p>Message from server: " + response.responseText +"</p>" +
+                                "</div>");
+                        }
+                    });
+                }
+            });
 
             return this;
         },
@@ -118,7 +169,8 @@ define(function (require, exports, module) {
                 },
                 headers: {
                     "email": $("#username").val(),
-                    "password": hashPassword
+                    "password": hashPassword,
+                    "google": false
                 },
                 success: function () {
                     self.model.set("password", undefined);
@@ -189,6 +241,9 @@ define(function (require, exports, module) {
                 self.signupModel.save( null, {
                     xhrFields: {
                         withCredentials: true
+                    },
+                    headers: {
+                        "google": false
                     },
                     wait: true,
                     success: function(model, response) {
