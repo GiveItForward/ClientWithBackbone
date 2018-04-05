@@ -117,29 +117,30 @@ define(function (require, exports, module) {
 
                     bootbox.prompt("Please enter a username: ", function(result){
                         console.log(result);
-                        //TODO check for empty string?
-                        googleUserSignupModel.set("username", result);
-                    });
+                        if(result !== ''){
+                            googleUserSignupModel.set("username", result);
 
-                    googleUserSignupModel.save( null, {
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        headers: {
-                            "google": true
-                        },
-                        wait: true,
-                        success: function(model, response) {
-                            $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
-                                "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
-                                "</div>");
-                            onIndex = false;
-                        },
-                        error: function(model, response) {
-                            $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
-                                "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
-                                "<p>Message from server: " + response.responseText +"</p>" +
-                                "</div>");
+                            googleUserSignupModel.save( null, {
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                headers: {
+                                    "google": true
+                                },
+                                wait: true,
+                                success: function(model, response) {
+                                    $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
+                                        "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
+                                        "</div>");
+                                    onIndex = false;
+                                },
+                                error: function(model, response) {
+                                    $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
+                                        "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
+                                        "<p>Message from server: " + response.responseText +"</p>" +
+                                        "</div>");
+                                }
+                            });
                         }
                     });
                 }

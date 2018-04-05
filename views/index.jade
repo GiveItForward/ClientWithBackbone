@@ -45,7 +45,6 @@ block content
 
                              // The ID token you need to pass to your backend:
                              var id_token = googleUser.getAuthResponse().id_token;
-                             console.log("ID Token: " + id_token);
 
                              document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
                              document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
