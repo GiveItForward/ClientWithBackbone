@@ -1,88 +1,24 @@
 extend layout
 
 block content
-    #svgAvatars(style={display: 'none'})
-    // Forgot password Modal
-    #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-labelledby="forgotPasswordModal")
-        .modal-dialog
-            // Modal content
-            .modal-content
-                .modal-header
-                    img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
-                    button.close(type='button', data-dismiss='modal') ×
-                .modal-body
-                    .form-group
-                        label Enter your email address and we'll send you a link to reset your password
-                        input#forgottenPasswordEmail.form-control(type='email', placeholder='enter email', name='email')
-                .modal-footer
-                    button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
-
-    #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
-        .modal-dialog
-            // Modal content
-            .modal-content
-                .modal-header
-                    img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
-                    button.close(type='button', data-dismiss='modal', aria-label='Close')
-                        span(aria-hidden='true') ×
-                .modal-body
-                    .form-group
-                        label(for='username') Username:
-                        input#username.form-control(type='username', placeholder='Enter username', name='username')
-                    .form-group
-                        label(for='password') Password:
-                        input#password.form-control(type='password', placeholder='Enter password', name='password')
-                .modal-footer
-                    button.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal', data-target='#loginSubmitBtn') Log in
-                    span.psw
-                        a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
-
-    #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
-        .modal-dialog
-            // Modal content
-            .modal-content
-                .modal-header
-                    img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
-                    button.close(type='button', data-dismiss='modal') ×
-                .modal-body
-                    .form-group
-                        label(for='newFirstname') First name:
-                        input#newFirstname.form-control(type='first name', placeholder='first name', name='first name')
-                    .form-group
-                        label(for='newLastname') Last name:
-                        input#newLastname.form-control(type='last name', placeholder='last name', name='last name')
-                    .form-group
-                        label(for='newUsername') Username:
-                        input#newUsername.form-control(type='username', placeholder='Enter username', name='username')
-                    .form-group
-                        label(for='newEmail') Email:
-                        input#newEmail.form-control(type='email', placeholder='Enter email', name='email')
-                    .form-group
-                        label(for='newPassword') Password:
-                        input#newPassword.form-control(type='password', placeholder='Enter password', name='password')
-                    .form-group
-                        label(for='newVerifyPassword') Confirm password:
-                        input#newVerifyPassword.form-control(type='username', placeholder='Re-enter password', name='confirm password')
-                    button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
-
+    nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href='http://giveitforward.us')
+                    img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
+            ul.nav.navbar-nav(style='font-size: 1.4em;')
+                li
+                    a(href='#us') Meet the Developers
+            ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
+                li
+                    a(href='#', data-toggle='modal', data-target='#signupModal')
+                        span.glyphicon.glyphicon-user
+                        |  Sign Up
+                li
+                    a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
+                        span.glyphicon.glyphicon-log-in
+                        |  Login
     #homeStuff
-        nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
-            .container-fluid
-                .navbar-header
-                    a.navbar-brand(href='http://giveitforward.us')
-                        img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
-                ul.nav.navbar-nav(style='font-size: 1.4em;')
-                    li
-                        a(href='#us') Meet the Developers
-                ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
-                    li
-                        a(href='#', data-toggle='modal', data-target='#signupModal')
-                            span.glyphicon.glyphicon-user
-                            |  Sign Up
-                    li
-                        a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
-                            span.glyphicon.glyphicon-log-in
-                            |  Login
         .container.background.turquoise-angles(style='width:100%;')
             .row
                 .col-md-12.text-center
@@ -180,3 +116,67 @@ block content
                     .col-md-1
         .footer
             p Footer information aboug giveitforward.us goes here.
+        #svgAvatars(style={display: 'none'})
+        // Forgot password Modal
+        #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-labelledby="forgotPasswordModal")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal') ×
+                    .modal-body
+                        .form-group
+                            label Enter your email address and we'll send you a link to reset your password
+                            input#forgottenPasswordEmail.form-control(type='email', placeholder='enter email', name='email')
+                    .modal-footer
+                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
+
+        #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        .form-group
+                            label(for='username') Username:
+                            input#username.form-control(type='username', placeholder='Enter username', name='username')
+                        .form-group
+                            label(for='password') Password:
+                            input#password.form-control(type='password', placeholder='Enter password', name='password')
+                    .modal-footer
+                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal') Log in
+                        span.psw
+                            a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
+
+        #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal') ×
+                    .modal-body
+                        .form-group
+                            label(for='newFirstname') First name:
+                            input#newFirstname.form-control(type='first name', placeholder='first name', name='first name')
+                        .form-group
+                            label(for='newLastname') Last name:
+                            input#newLastname.form-control(type='last name', placeholder='last name', name='last name')
+                        .form-group
+                            label(for='newUsername') Username:
+                            input#newUsername.form-control(type='username', placeholder='Enter username', name='username')
+                        .form-group
+                            label(for='newEmail') Email:
+                            input#newEmail.form-control(type='email', placeholder='Enter email', name='email')
+                        .form-group
+                            label(for='newPassword') Password:
+                            input#newPassword.form-control(type='password', placeholder='Enter password', name='password')
+                        .form-group
+                            label(for='newVerifyPassword') Confirm password:
+                            input#newVerifyPassword.form-control(type='username', placeholder='Re-enter password', name='confirm password')
+                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
+

@@ -1,62 +1,67 @@
-.row.myProfileMargin.myProfileFont
-    .col-md-1
-        .myprofileimagediv.text-center
-            img#myImage.myProfileImage(src='/img/wine_default.png')
-    .col-md-4.myProfileInfo
-        .form-inline
-            #myFirstName.font-weight-bold Firstname
-            | &nbsp
-            #myLastName.font-weight-bold Lastname
-        #myUsername.turquoisetext.font-weight-bold username
-        #myEmail my@email.com
-        #memberSince Member Since: 2017
-        .btn-group
-            button.btn.roundmediumbtn.turquoisebtn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                | update info
-            .dropdown-menu
-                a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
-                a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
-                a#createAvatarBtn.dropdown-item(href='#', data-toggle='modal', data-target='#createAvatarModal', data-backdrop='static') create avatar
-                .dropdown-divider
-                a#deleteAccountBtn.dropdown-item(href='#', data-toggle='modal', data-target='#deleteAccountModal', data-backdrop='static') delete account
-    .col-md-5#myBio.myBioDiv.text-center
 .row
-    .col-md-6
-        #myTags.myTags.myProfileFont.font-weight-bold
-    .col-md-1
-    .col-md-3.icon-margin.form-inline
-            img.myProfileDonateIcon(src='/img/gift_icon.png')
-            #receiveCount.myProfileFont
-            img.myProfileDonateIcon(src='/img/donate_icon.png')
-            #donateCount.myProfileFont
-.row.topborder
-    .col-md-12.myprofilebottom
-        .row
-            .col-md-4
-                .notificationsPanel.scroll
-                    .row.notificationrow
-                        .h4 Notifications
-                    #notifications
-                        .row.notificationrow
-                            | userX fulfilled your request!
-                            br
-                            a(href='#') Say &quot;Thank You&quot;
-                        .row.notificationrow
-                            | some notification
-                        .row.notificationrow
-                            | some notification
-            .col-md-8
-                .myHistoryPanel.scroll
-                    #myHistory.container
-                        ul.nav.nav-tabs.justify-content-center
-                            li.nav-item.active
-                                a.nav-link.active(href='#myRequests', data-toggle='tab') Request History
-                            li.nav-item
-                                a.nav-link(href='#myDonations', data-toggle='tab') Donation History
-                        .tab-content
-                            #myRequests.tab-pane.active
-                                br
-                                #myRequestHistory There is no request history available.
-                            #myDonations.tab-pane
-                                br
-                                #myDonationHistory There is no donation history available.
+    .col-md-8.col-md-offset-2
+        .panel.panel-default
+            .panel-body
+                .row
+                    .col-md-3
+                        img#myImage.img-thumbnail(src='/img/wine_default.png')
+                    .col-md-1
+                        h2#myUsername username
+//.row
+//    .col-md-4.myProfileInfo
+//        .form-inline
+//            #myFirstName.font-weight-bold Firstname
+//            | &nbsp
+//            #myLastName.font-weight-bold Lastname
+//        #myEmail my@email.com
+//        #memberSince Member Since: 2017
+//        .btn-group
+//            button.btn.roundmediumbtn.turquoisebtn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+//                | update info
+//            .dropdown-menu
+//                a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
+//                a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
+//                a#createAvatarBtn.dropdown-item(href='#', data-toggle='modal', data-target='#createAvatarModal', data-backdrop='static') create avatar
+//                .dropdown-divider
+//                a#deleteAccountBtn.dropdown-item(href='#', data-toggle='modal', data-target='#deleteAccountModal', data-backdrop='static') delete account
+//    .col-md-5#myBio.myBioDiv.text-center
+//.row
+//    .col-md-6
+//        #myTags.myTags.myProfileFont.font-weight-bold
+//    .col-md-1
+//    .col-md-3.icon-margin.form-inline
+//            img.myProfileDonateIcon(src='/img/gift_icon.png')
+//            #receiveCount.myProfileFont
+//            img.myProfileDonateIcon(src='/img/donate_icon.png')
+//            #donateCount.myProfileFont
+//.row.topborder
+//    .col-md-12.myprofilebottom
+//        .row
+//            .col-md-4
+//                .notificationsPanel.scroll
+//                    .row.notificationrow
+//                        .h4 Notifications
+//                    #notifications
+//                        .row.notificationrow
+//                            | userX fulfilled your request!
+//                            br
+//                            a(href='#') Say &quot;Thank You&quot;
+//                        .row.notificationrow
+//                            | some notification
+//                        .row.notificationrow
+//                            | some notification
+//            .col-md-8
+//                .myHistoryPanel.scroll
+//                    #myHistory.container
+//                        ul.nav.nav-tabs.justify-content-center
+//                            li.nav-item.active
+//                                a.nav-link.active(href='#myRequests', data-toggle='tab') Request History
+//                            li.nav-item
+//                                a.nav-link(href='#myDonations', data-toggle='tab') Donation History
+//                        .tab-content
+//                            #myRequests.tab-pane.active
+//                                br
+//                                #myRequestHistory There is no request history available.
+//                            #myDonations.tab-pane
+//                                br
+//                                #myDonationHistory There is no donation history available.

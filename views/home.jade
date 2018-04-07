@@ -1,9 +1,46 @@
-extend layout
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        title Give It Forward
 
-block js
-    script(type='text/javascript').
-        var userInfo = !{JSON.stringify(user)}
+        link(href='/css/style.css', rel='stylesheet')
+        link(rel='shortcut icon', href='/ico/favicon.png?')
 
-    block js
-body
-    block content
+        link(href='svgavatars/css/spectrum.css', rel='stylesheet')
+        link(href='svgavatars/css/svgavatars.css', rel='stylesheet')
+
+        //script(type='text/javascript', src='https://use.fontawesome.com/releases/v5.0.9/js/all.js')
+
+        // Latest compiled and minified CSS
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+
+         // Require Js CAUTION:: THIS LIBRARY MUST BE AFTER JQUERY! OR ELSE JQUERY WILL GET OVER WRITTEN!
+        script(type='text/javascript', src='/js/require.js', data-main='/js/reentry.js')
+
+        // Latest compiled JavaScript
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+
+        block js
+            script(type='text/javascript').
+                var userInfo = !{JSON.stringify(user)}
+    body
+        block content
+            nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
+                .container-fluid
+                    .navbar-header
+                        a.navbar-brand(href='http://giveitforward.us')
+                            img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
+                    ul.nav.navbar-nav(style='font-size: 1.4em;')
+                        li
+                            a(href='#us') Meet the Developers
+                    ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
+                        li
+                            a(href='#', data-toggle='modal', data-target='#signupModal')
+                                span.glyphicon.glyphicon-user
+                                |  Sign Up
+                        li
+                            a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
+                                span.glyphicon.glyphicon-log-in
+                                |  Login
+            #homeStuff
