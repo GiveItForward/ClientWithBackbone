@@ -359,12 +359,12 @@ define(function (require, exports, module) {
                 }
             });
             $("#myImage").attr('src', self.model.get("image"));
-            $("#myUsername").html(self.model.get("username"));
-            $("#myFirstName").html(self.model.get("firstname"));
-            $("#myLastName").html(self.model.get("lastname"));
-            $("#myEmail").html(self.model.get("email"));
-            $("#myTags").html(tagList);
-            $("#myBio").html(self.model.get("bio"));
+            $("#myUsername").text(self.model.get("username"));
+            $("#myFirstName").text(self.model.get("firstname"));
+            $("#myLastName").text(self.model.get("lastname"));
+            $("#myEmail").text(self.model.get("email"));
+            $("#myTags").text(tagList);
+            $("#myBio").text(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderMyRequests();

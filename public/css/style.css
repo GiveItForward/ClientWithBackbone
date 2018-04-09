@@ -44,12 +44,25 @@
     background-color: #00947D;
 }
 
+.light-turquoise {
+    background-color: #00947d52;
+}
+
 .orange {
     background-color: #F7882F;
 }
 
 .yellow {
     background-color: #FFCE0C;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-color: #00947D;
+    background-color: #00947d52 !important;
+    color: white;
 }
 
 
