@@ -35,6 +35,11 @@
     /*color: #007F64;*/
 }
 
+
+.off-white {
+    background-color: #F8F8F8;
+}
+
 .turquoise {
     background-color: #00947D;
 }
@@ -121,6 +126,41 @@
     width: 60px;
     height: 80px;
 }
+
+.request-panel{
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    width: 100%;
+    border-style: solid;
+    border-color: #E7E7E7;
+    margin-bottom: 2%;
+}
+
+.topborder {
+    border-top: 5px ridge;
+    border-color:  #840E8C;
+    margin: 1%;
+}
+
+.requestuserimage{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #F8F8F8;
+}
+
+.requestdescriptiondiv{
+    /*height: 150px;*/
+    border-radius: 5px;
+    /*background-color: #F3E9F4;*/
+    padding: 1%;
+    margin: 1%;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+
 
 
 
@@ -248,19 +288,7 @@
     /*margin: 10px;*/
 }
 
-.roundrequest{
-    color: black;
-    background-color: white;
-    border-radius: 25px;
-    padding: 5px;
-    width: 85%;
-    height: 300px;
-    margin: 2%;
-    /*box-shadow: 4px 4px 10px 4px #FFCE0C;*/
-    /*box-shadow: 4px 4px 10px 4px #840E8C;*/
-    box-shadow: 4px 4px 10px 4px dimgrey;
-    /*margin-top: 10px;*/
-}
+
 
 .rounduseradmin{
     color: black;
@@ -290,7 +318,7 @@
 .myrequestpanel{
     color: black;
     background-color: white;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 5px;
     width: 95%;
     height: 400px;
@@ -714,10 +742,6 @@
     margin-top: 15px;
 }
 
-.requestmargin{
-    margin: 2%;
-}
-
 .requesting{
     font-weight: bold;
     font-size: 18px;
@@ -742,12 +766,6 @@
     font-weight: bold;
     font-size: 18px;
     margin: 1%;
-}
-
-.requestuserimage{
-    width: 70px;
-    height: 70px;
-    border-radius: 25%;
 }
 
 .smallcirclediv{
@@ -1137,12 +1155,6 @@
     margin: 2%;
 }
 
-.topborder {
-    border-top: 5px ridge #840E8C;
-    margin-top: 1%;
-    margin-left: 1%;
-}
-
 .btn-col {
     padding: 0;
     margin: 0;
@@ -1353,10 +1365,6 @@
     font-size: 14pt;
 }
 
-.requesttime {
-    font-size: 14pt;
-}
-
 .myProfileInfo {
     margin-left: 5%;
 }
@@ -1366,16 +1374,6 @@
     border-radius: 25px;
     background-color: #F3E9F4;
     padding: 5px;
-    overflow-y: scroll;
-}
-
-.requestdescriptiondiv{
-    height: 150px;
-    border-radius: 25px;
-    /*background-color: #F3E9F4;*/
-    padding: 5px;
-    margin: 1%;
-    text-align: center;
     overflow-y: scroll;
 }
 
