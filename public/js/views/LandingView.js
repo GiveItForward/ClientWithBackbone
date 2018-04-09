@@ -122,6 +122,9 @@ define(function (require, exports, module) {
                         if(result !== ''){
                             googleUserSignupModel.set("username", result);
 
+                            console.log('googleUserSignupModel: ');
+                            console.log(googleUserSignupModel);
+
                             googleUserSignupModel.save( null, {
                                 xhrFields: {
                                     withCredentials: true
@@ -136,6 +139,7 @@ define(function (require, exports, module) {
                                     });
                                 },
                                 error: function(model, response) {
+                                    console.log(model);
                                     $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
                                         "  <strong>Error!</strong> <p>Error signing up with google.<br></p>" +
                                         "<p>Message from server: " + response.responseText +"</p>" +
@@ -207,7 +211,7 @@ define(function (require, exports, module) {
                 self.signupModel.set("lastname", $("#newLastname").val());
                 self.signupModel.set("email", $("#newEmail").val());
 
-                if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
+                if (($("#newPassword").val() !== '') && $("#newPassword").val() === $("#newVerifyPassword").val()) {
                     self.signupModel.set("password", sha256($("#newPassword").val()));
                 }
 
