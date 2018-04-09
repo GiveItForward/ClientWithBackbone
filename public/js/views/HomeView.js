@@ -204,20 +204,16 @@ define(function (require, exports, module) {
                     success: function (model) {
                         self.orgModel = model;
                         if(self.orgModel.get('approved')){
-                            $("#usersBtn").addClass("turquoisebtncol");
-                            $("#usersBtn").addClass("btn");
                             $("#usersBtn").attr("href", "#");
-                            $("#usersBtn").text("Users");
+                            $("#usersBtn").text("users");
                         }
                     }
                 });
             }
 
             if(self.model.get('isAdmin')){
-                $("#usersBtn").addClass("turquoisebtncol");
-                $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
-                $("#usersBtn").text("Users");
+                $("#usersBtn").text("users");
             }
             return this;
         },
