@@ -34,7 +34,6 @@ require.config({
         modals: '../templates/modals',
         jade: './jade',
         sha256: '../lib/sha256.min',
-        fontawesome: '../lib/fontawesome-all.min.js'
         // aws: 'https://sdk.amazonaws.com/js/aws-sdk-2.183.0.min'
     }
 });
