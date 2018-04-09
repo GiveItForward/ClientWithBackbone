@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var bootstrap = require("bootstrap");
+    // var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
     var UserModel = require("models/UserModel");

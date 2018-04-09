@@ -16,7 +16,6 @@ block content
                         input#forgottenPasswordEmail.form-control(type='email', placeholder='enter email', name='email')
                 .modal-footer
                     button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
-
     #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
         .modal-dialog
             // Modal content
@@ -34,9 +33,8 @@ block content
                         input#password.form-control(type='password', placeholder='Enter password', name='password')
                 .modal-footer
                     button.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal', data-target='#loginSubmitBtn') Log in
-                    span.psw
-                        a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
-
+                    //span.psw
+                    //    a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
     #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
         .modal-dialog
             // Modal content
@@ -64,7 +62,6 @@ block content
                         label(for='newVerifyPassword') Confirm password:
                         input#newVerifyPassword.form-control(type='username', placeholder='Re-enter password', name='confirm password')
                     button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
-
     #homeStuff
         nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
             .container-fluid
@@ -87,8 +84,6 @@ block content
             .row
                 .col-md-12.text-center
                     h1 Everyday People Helping Everyday People
-                    a.btn.btn-lg.btn-success(href='#', data-toggle='modal', data-target='#loginModal')
-                        | Click to open Modal
             .row
                 .col-md-3
                 .col-md-6
