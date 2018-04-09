@@ -1,6 +1,7 @@
 extend layout
 
 block content
+    #svgAvatars(style={display: 'none'})
     #homeStuff
         nav.navbar.navbar-default.navbar-static-top(style='margin:auto')
             .container-fluid
@@ -114,7 +115,6 @@ block content
                     .col-md-1
         .footer
             p Footer information aboug giveitforward.us goes here.
-        #svgAvatars(style={display: 'none'})
         // Forgot password Modal
         #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-labelledby="forgotPasswordModal")
             .modal-dialog
