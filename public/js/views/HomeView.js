@@ -83,6 +83,7 @@ define(function (require, exports, module) {
             "click #editProfileBtn"             : "editProfile",
             "click #changePasswordBtn"          : "changePassword",
             "click #createAvatarBtn"            : "createAvatar",
+            // "click #createAvatarListItem"       : "createAvatarTab",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
@@ -402,6 +403,14 @@ define(function (require, exports, module) {
             $('body').append(container);
             $('#svgAvatars').show();
             $('#svgAvatars').insertAfter('#avatarPlaceHolder');
+            return this;
+        },
+
+
+        createAvatarTab: function() {
+            $('#svgAvatars').insertAfter('#avatarPlaceHolder2');
+            $('#svgAvatars').show();
+            $("html, body").animate({ scrollTop: $("#svgAvatars").scrollTop() }, 1000);
             return this;
         },
 

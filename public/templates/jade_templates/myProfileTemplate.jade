@@ -5,30 +5,40 @@
             .row
                 .panel.panel-default
                     .panel-body
-                        .row
-                            .col-md-3
-                                img#myImage.img-thumbnail(src='/img/wine_default.png')
-                            .col-md-7
-                                h1#myUsername username
-                            .col-md-2
-                                .container-fluid
-                                    .row
-                                        p presents
-                                    .row
-                                        .dropdown
-                                            button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                                                | Edit Profile
-                                                span.caret
-                                            ul.dropdown-menu(aria-labelledby='dropdownMenu1')
-                                                li
-                                                    a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
-                                                li
-                                                    a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
-                                                li
-                                                    a#createAvatarBtn.dropdown-item(href='#', data-toggle='modal', data-target='#createAvatarModal', data-backdrop='static') create avatar
-                                                li.divider(role='separator')
-                                                li
-                                                    a#deleteAccountBtn.dropdown-item(href='#', data-toggle='modal', data-target='#deleteAccountModal', data-backdrop='static') delete account
+                        .container-fluid
+                            .row
+                                .col-md-3
+                                    img#myImage.img-thumbnail(src='/img/wine_default.png')
+                                .col-md-5
+                                    h1#myUsername(style="padding-left: 15px") username
+                                .col-md-4
+                                    .container-fluid
+                                        .row
+                                            .col-md
+                                                .dropdown.pull-right(style="margin-top: 20px")
+                                                    button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                                                        | Edit Profile
+                                                        span.caret
+                                                    ul.dropdown-menu(aria-labelledby='dropdownMenu1')
+                                                        li
+                                                            a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
+                                                        li
+                                                            a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
+                                                        //li
+                                                            a#createAvatarBtn.dropdown-item(href='#', data-toggle='modal', data-target='#createAvatarModal', data-backdrop='static') create avatar
+                                                        li.divider(role='separator')
+                                                        li
+                                                            a#deleteAccountBtn.dropdown-item(href='#', data-toggle='modal', data-target='#deleteAccountModal', data-backdrop='static') delete account
+                                        .row(style="margin-bottom:50px")
+                                        .row
+                                            .col-md
+                                                .span.pull-right
+                                                    .iconbox.yellow.whitetext(style='display: inline-block;')
+                                                        i.fas.fa-gift.fa-2x
+                                                        #receiveCount
+                                                    .iconbox.orange.whitetext(style='display: inline-block;')
+                                                        i.fas.fa-angle-double-right.fa-2x
+                                                        #donateCount
             .row
                 ul.nav.nav-tabs
                     li.nav-item.active
@@ -37,34 +47,63 @@
                         a.nav-link(href='#myRequests', data-toggle='tab') Request History
                     li.nav-item
                         a.nav-link(href='#myDonations', data-toggle='tab') Donation History
+                    li.nav-item
+                        a#createAvatarBtn(href='#', data-toggle='modal', data-target='#createAvatarModal', data-backdrop='static') Create New Avatar
                 .tab-content
                     #about.tab-pane.active.fade-in
                         ul.list-group
                             li.list-group-item
-                                #myFirstName
-                            li#myLastName.list-group-item
-                            li#myEmail.list-group-item
-                            li#memberSince.list-group-item Member Since:
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase First Name:
+                                        .col-md-9
+                                            #myFirstName
+                            li.list-group-item
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase Last Name:
+                                        .col-md-9
+                                            #myLastName
+                            li.list-group-item
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase Email:
+                                        .col-md-9
+                                            #myEmail
+                            li.list-group-item
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase Member Since:
+                                        .col-md-9
+                                            #memberSince 2017
+                            li.list-group-item
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase Bio:
+                                        .col-md-9
+                                            #myBio
+                            li.list-group-item
+                                .container-fluid
+                                    .row
+                                        .col-md-3
+                                            .text-uppercase Tags:
+                                        .col-md-9
+                                            #myTags
                     #myRequests.tab-pane.fade
                         br
                         #myRequestHistory There is no request history available.
                     #myDonations.tab-pane.fade
                         br
                         #myDonationHistory There is no donation history available.
+                    #createAvatarLi.tab-pane.fade
+                        //#avatarPlaceHolder2
 
 
-
-    //    .col-md-5#myBio.myBioDiv.text-center
-    //.row
-    //    .col-md-6
-    //        #myTags.myTags.myProfileFont.font-weight-bold
-    //    .col-md-1
-    //    .col-md-3.icon-margin.form-inline
-    //            img.myProfileDonateIcon(src='/img/gift_icon.png')
-    //            #receiveCount.myProfileFont
-    //            img.myProfileDonateIcon(src='/img/donate_icon.png')
-    //            #donateCount.myProfileFont
-    //.row.topborder
     //    .col-md-12.myprofilebottom
     //        .row
     //            .col-md-4
