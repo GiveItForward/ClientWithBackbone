@@ -1,4 +1,4 @@
-.row
+.row(style='margin-bottom:2%;margin-top:1%;')
     //#usernameDisplay.col-md-9.titleheading2
     .col-md-2
         .span(align="center")
@@ -9,25 +9,27 @@
                 i.fas.fa-angle-double-right.fa-2x
                 #donateCount
     .col-md-8
-        .input-group
-            .input-group-btn.search-panel
-                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                    span#search_concept Filter by
-                    span.caret
-                ul.dropdown-menu(role='menu')
-                    // dynamically load tags into the filter box.
-                    #searchByTags
-                    li.divider
-                    li
-                        a(href='#all') All
-            input#search_param(type='hidden', name='search_param', value='all')
-            input.form-control(type='text', name='x', placeholder='Search term...')
-            span.input-group-btn
-                button.btn.btn-default(type='button')
-                    span.glyphicon.glyphicon-search
+        .row(style='height:40px;')
+        .row
+            .input-group
+                .input-group-btn.search-panel
+                    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                        span#search_concept Filter by
+                        span.caret
+                    ul.dropdown-menu(role='menu')
+                        // dynamically load tags into the filter box.
+                        #searchByTags
+                        li.divider
+                        li
+                            a(href='#all') All
+                input#search_param(type='hidden', name='search_param', value='all')
+                input.form-control(type='text', name='x', placeholder='Search term...')
+                span.input-group-btn
+                    button.btn.btn-default(type='button')
+                        span.glyphicon.glyphicon-search
     .col-md-2
         .span(align="center")
             button#newRequestBtn.iconbox.turquoise.whitetext(data-toggle='modal', data-target='#newRequestModal')
                 i.fas.fa-plus(style='width:100%;top-padding:-1%;')
                 | new
-#homeContainer.container-fluid
+#homeContainer.container-fluid.off-white
