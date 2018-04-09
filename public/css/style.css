@@ -15,6 +15,9 @@
     color: white !important;
 }
 
+.blacktext {
+    color: black !important;
+}
 .purpletext {
     color: #840E8C;
 }
@@ -93,6 +96,10 @@
     width: 38px;
 }
 
+.below-navbar{
+    padding-top: 100px;
+}
+
 .titlebutton{
     border: none;
     padding: 10% 5%;
@@ -103,6 +110,24 @@
     display: block;
     /*margin: 5% auto;*/
 }
+
+.iconbox{
+    border: none;
+    padding: 10px 5px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    display: block;
+    width: 60px;
+    height: 80px;
+}
+
+
+
+
+
+
+
 
 .profile-header > div {
     display: inline-block;
@@ -615,13 +640,13 @@
     /*background: linear-gradient(#840E8C, #FBF9F7);*/
 }
 
-.bottom-row{
-    /*padding-top: 150px;*/
-    /*background-color: lightgrey;*/
-    /*background-color: #e6e6e6;*/
-    width: 100vw;
-    height: 100vh;
-}
+/*.bottom-row{*/
+    /*!*padding-top: 150px;*!*/
+    /*!*background-color: lightgrey;*!*/
+    /*!*background-color: #e6e6e6;*!*/
+    /*width: 100vw;*/
+    /*height: 100vh;*/
+/*}*/
 
 .bottom-row-org{
     /*background: linear-gradient(dimgray, lightgrey);*/
@@ -683,10 +708,6 @@
 
 .border-bottom {
     border-bottom: 1px solid #404040;
-}
-
-.padding-top{
-    padding-top: 10px;
 }
 
 .margin-top{
@@ -1122,13 +1143,6 @@
     margin-left: 1%;
 }
 
-.topborderyellow {
-    border-top: 5px ridge #CB9E0A;
-    /*margin-top: 1%;*/
-    margin-left: 1%;
-    margin-right: 2%;
-}
-
 .btn-col {
     padding: 0;
     margin: 0;
@@ -1152,15 +1166,15 @@
     margin-left: 15%;
 }
 
-.receivecountspan {
-    margin-right: 5%;
-    /*margin-left: 15%;*/
-}
+/*.receivecountspan {*/
+    /*margin-right: 5%;*/
+    /*!*margin-left: 15%;*!*/
+/*}*/
 
-.donatecountspan {
-    margin-right: 5%;
-    margin-left: 15%;
-}
+/*.donatecountspan {*/
+    /*margin-right: 5%;*/
+    /*margin-left: 15%;*/
+/*}*/
 
 .icon-margin {
     margin: 1%;
@@ -1247,26 +1261,26 @@
     width: 80%;
 }
 
-.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
-    display: block;
-}
+/*.bootstrap-select.show>.dropdown-menu>.dropdown-menu {*/
+    /*display: block;*/
+/*}*/
 
-.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
-    display:none;
-}
+/*.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{*/
+    /*display:none;*/
+/*}*/
 
-.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
-    display: block;
-    width: 100%;
-    padding: 3px 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: #292b2c;
-    text-align: inherit;
-    white-space: nowrap;
-    background: 0 0;
-    border: 0;
-}
+/*.bootstrap-select > .dropdown-menu > .dropdown-menu li a{*/
+    /*display: block;*/
+    /*width: 100%;*/
+    /*padding: 3px 1.5rem;*/
+    /*clear: both;*/
+    /*font-weight: 400;*/
+    /*color: #292b2c;*/
+    /*text-align: inherit;*/
+    /*white-space: nowrap;*/
+    /*background: 0 0;*/
+    /*border: 0;*/
+/*}*/
 
 
 .choosetags {
@@ -1277,13 +1291,13 @@
     font-size: 14pt;
 }
 
-.searchtags {
-    border-radius: 25px;
-    padding: 2%;
-    border: 2px solid dimgray;
-    /*width: 445px;*/
-    font-size: 14pt;
-}
+/*.searchtags {*/
+    /*border-radius: 25px;*/
+    /*padding: 2%;*/
+    /*border: 2px solid dimgray;*/
+    /*!*width: 445px;*!*/
+    /*font-size: 14pt;*/
+/*}*/
 
 .imagebtn {
     border-radius: 25px;

@@ -2,7 +2,7 @@ extend layout
 
 block content
     #homeStuff
-        nav.navbar.navbar-default.navbar-static-top.navbar-md(style='margin:auto')
+        nav.navbar.navbar-default.navbar-fixed-top.navbar-md(style='margin:auto')
             .container-fluid
                 .navbar-header
                     a.navbar-brand(href='http://giveitforward.us')
@@ -19,7 +19,7 @@ block content
                         a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
                             span.glyphicon.glyphicon-log-in
                             |  Login
-        .container.background.turquoise-angles(style='width:100%;')
+        .container.below-navbar.background.turquoise-angles(style='width:100%;')
             .row
                 .col-md-12.text-center
                     h1 Everyday People Helping Everyday People

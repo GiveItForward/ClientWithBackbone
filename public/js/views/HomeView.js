@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     var OrgCollection = require("models/OrgCollection");
     var ThankYouModel = require("models/ThankYouModel");
 
-    var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
+    var navbarTemplate = require("jade!templates/jade_templates/navbarTemplate");
     var topHomeBarTemplate = require("jade!templates/jade_templates/topHomeBarTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
@@ -146,7 +146,7 @@ define(function (require, exports, module) {
         render: function () {
             var self = this;
             self.setElement("#homeStuff");
-            self.$el.html(homeTemplate);
+            self.$el.html(navbarTemplate);
             console.log(self.model);
             self.renderHome();
             return this;
@@ -169,7 +169,6 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
-            // self.$('#mainHomeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
 
@@ -221,7 +220,7 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            $("#usernameDisplay").html("Hi, " + self.model.get("username"));
+            // $("#usernameDisplay").html("Hi, " + self.model.get("username"));
 
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -626,7 +625,6 @@ define(function (require, exports, module) {
         renderMyRequests: function () {
             var self = this;
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
-
             var requestCollection = new RequestCollection();
 
 
