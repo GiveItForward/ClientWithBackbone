@@ -104,6 +104,13 @@
     /*margin: 5% auto;*/
 }
 
+.profile-header > div {
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+    margin: -2px;
+}
+
 /*hover over checkmark*/
 /*span[data-title]:hover:after {*/
   /*content: attr(data-title);*/
