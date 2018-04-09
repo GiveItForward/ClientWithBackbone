@@ -80,10 +80,8 @@ define(function (require, exports, module) {
             console.log(firstname);
             console.log(lastname);
             console.log(email);
+            console.log('id token:');
             console.log(idtoken);
-            var hashToken = sha256(idtoken);
-            console.log('hash token:');
-            console.log(hashToken);
 
             var googleUserModel = new UserModel({
                 path: "login"
@@ -95,11 +93,10 @@ define(function (require, exports, module) {
                 },
                 headers: {
                     "email": email,
-                    "password": hashToken,
+                    "token": idtoken,
                     "google": true
                 },
                 success: function (model) {
-                    googleUserModel.set("password", undefined);
                     onIndex = false;
                     new HomeView({
                         model: model
@@ -114,7 +111,7 @@ define(function (require, exports, module) {
                         firstname: firstname,
                         lastname: lastname,
                         email: email,
-                        password: hashToken,
+                        password: '',
                         bio: '',
                         image: 'img/profile/wine_default.png',
                         tags: []
@@ -134,14 +131,13 @@ define(function (require, exports, module) {
                                 },
                                 wait: true,
                                 success: function(model, response) {
-                                    $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
-                                        "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
-                                        "</div>");
-                                    onIndex = false;
+                                    new HomeView({
+                                        model: model
+                                    });
                                 },
                                 error: function(model, response) {
                                     $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
-                                        "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
+                                        "  <strong>Error!</strong> <p>Error signing up with google.<br></p>" +
                                         "<p>Message from server: " + response.responseText +"</p>" +
                                         "</div>");
                                 }
