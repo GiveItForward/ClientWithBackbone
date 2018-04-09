@@ -1,13 +1,39 @@
+nav.navbar.navbar-default.navbar-fixed-top.navbar-md(style='margin:auto')
+    .container-fluid
+        .navbar-header
+            a.navbar-brand(href='http://giveitforward.us')
+                img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
+        ul.nav.navbar-nav(style='font-size: 1.4em;')
+            li
+                a#homeBtn(href='#') Requests
+            li
+                a#orgsBtn(href='#') Orgs
+        ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
+            li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                    | me
+                    span.caret
+                ul.dropdown-menu
+                    li
+                        a#myProfileBtn(href='#') profile
+                    li
+                        a#usersBtn users
+                    //li.divider(role='separator')
+                    //li
+                    //    a#logoutBtn(href='#')sign out
 .container-fluid
-    .row
-        //.col-md-2.btn-group-vertical.btn-col.turquoisebackground
-        //    a.btn.homebtn(href='#')
-        //        .homecirclediv
-        //            img#logoMini.logomini(src='/img/turquoise_shadow.png')
-        a#homeBtn.btn.selected(href='#') Requests
-        a#orgsBtn.btn(href='#') Orgs
-        a#myProfileBtn.btn(href='#') My Profile
-        a#myOrgProfileBtn
-        a#usersBtn
-        a#logoutBtn.btn(href='#') Log Out
-        #mainHomeContainer
+    #mainHomeContainer
+
+//.container-fluid
+//    .row
+//        //.col-md-2.btn-group-vertical.btn-col.turquoisebackground
+//        //    a.btn.homebtn(href='#')
+//        //        .homecirclediv
+//        //            img#logoMini.logomini(src='/img/turquoise_shadow.png')
+//        a#homeBtn.btn.selected(href='#') Requests
+//        a#orgsBtn.btn(href='#') Orgs
+//        a#myProfileBtn.btn(href='#') My Profile
+//        a#myOrgProfileBtn
+//        a#usersBtn
+//        a#logoutBtn.btn(href='#') Log Out
+//        #mainHomeContainer

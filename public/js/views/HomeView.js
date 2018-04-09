@@ -153,13 +153,13 @@ define(function (require, exports, module) {
         },
 
         removeSelectedFromAll: function () {
-            $("#homeBtn").removeClass("selected");
-            $("#orgsBtn").removeClass("selected");
-            $("#usersBtn").removeClass("selected");
-            $("#adminBtn").removeClass("selected");
-            $("#myProfileBtn").removeClass("selected");
-            $("#myRequestsBtn").removeClass("selected");
-            $("#myDonationsBtn").removeClass("selected");
+            $("#homeBtn").removeClass("active");
+            $("#orgsBtn").removeClass("active");
+            $("#usersBtn").removeClass("active");
+            $("#adminBtn").removeClass("active");
+            $("#myProfileBtn").removeClass("active");
+            $("#myRequestsBtn").removeClass("active");
+            $("#myDonationsBtn").removeClass("active");
         },
 
         renderHome: function () {
@@ -167,7 +167,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Request Feed");
             self.removeSelectedFromAll();
-            $("#homeBtn").addClass("selected");
+            $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
             // self.$('#mainHomeContainer').html(requestFeedTemplate);
 
@@ -273,7 +273,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
-            $("#orgsBtn").addClass("selected");
+            $("#orgsBtn").addClass("active");
             // $('<div class="fa-5x">\n' +
             //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
             //     '</div>').insertBefore('#homeContainer');
@@ -347,7 +347,7 @@ define(function (require, exports, module) {
         renderMyProfile: function () {
             var self = this;
             self.removeSelectedFromAll();
-            $("#myProfileBtn").addClass("selected");
+            $("#myProfileBtn").addClass("active");
 
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
@@ -456,7 +456,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Users");
             self.removeSelectedFromAll();
-            $("#usersBtn").addClass("selected");
+            $("#usersBtn").addClass("active");
             self.$('#homeContainer').html(userFeedTemplate);
 
             var userCollection = new UserCollection();

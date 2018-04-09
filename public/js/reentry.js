@@ -8,7 +8,6 @@ require.config({
         jadeRuntime: '../../node_modules/jade-runtime',
         templates: '../templates',
         modals: '../templates/modals',
-        signupView: '../../views/signup',
         jade: './jade',
         sha256: '../lib/sha256.min',
         fontawesome: '../lib/fontawesome-all.min.js'
@@ -33,7 +32,7 @@ require.config({
         // },
         bootstrap: {
             deps: [
-                'jquery',
+                'jquery'
                 // 'popper'
             ],
             exports: 'bootstrap'

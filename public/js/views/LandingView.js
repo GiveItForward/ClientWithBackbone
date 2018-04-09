@@ -10,11 +10,9 @@ define(function (require, exports, module) {
 
     var UserModel = require("models/UserModel");
     var HomeView = require("views/HomeView");
-    var SignUpView = require("views/SignUpView");
+    // var SignUpView = require("views/SignUpView");
 
     var sha256 = require("sha256");
-
-    var loginTemplate = require("jade!templates/jade_templates/loginTemplate");
 
     var LandingView = Backbone.View.extend({
 
@@ -25,7 +23,6 @@ define(function (require, exports, module) {
         }),
 
         events: {
-            // "click #signupBtn"          : "renderSignup",
             "click #loginSubmitBtn"     : "login",
             "click #createAccountBtn"   : "createAccount",
             "keyup #newVerifyPassword"  : "enterSignup",
@@ -50,21 +47,11 @@ define(function (require, exports, module) {
 
         render: function () {
             var self = this;
-            // self.$el.html(indexTemplate());
             self.$('#loginSubmitBtn').prop("disabled", true);
             self.$('#createAccountBtn').prop("disabled", true);
             self.$('#sendEmailBtn').prop("disabled", true);
             return this;
         },
-
-        // renderLogin: function () {
-        //     $("#signupBtn").removeClass("selected");
-        //     $("#loginBtn").addClass("selected");
-        //     var self = this;
-        //     self.$('#inputdiv').html(loginTemplate());
-        //     self.$('#loginSubmitBtn').prop("disabled", true);
-        //     return this;
-        // },
 
         updateLoginModel: function () {
             var self = this;
@@ -85,11 +72,7 @@ define(function (require, exports, module) {
             });
             self.updateLoginModel();
             console.log("logging in...");
-            // self.model = new UserModel({
-            //     path: 'login'
-            // });
             var hashPassword = sha256($("#password").val());
-            // console.log(hashPassword);
 
             $('#loginSpinner').css('display', 'block');
             self.model.fetch({
@@ -149,10 +132,6 @@ define(function (require, exports, module) {
             var self = this;
             self.updateSignupModel();
             console.log("creating account...");
-            // console.log($("#newUsername").val());
-            // console.log($("#newEmail").val());
-            // console.log($("#newPassword").val());
-            // console.log($("#newVerifyPassword").val());
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.signupModel.set("username", $("#newUsername").val());
