@@ -1,3 +1,4 @@
+console.log("in Landing View file");
 var onIndex = true;
 
 define(function (require, exports, module) {
@@ -23,18 +24,19 @@ define(function (require, exports, module) {
         }),
 
         events: {
-            "click #loginSubmitBtn"     : "login",
-            "click #createAccountBtn"   : "createAccount",
-            "keyup #newVerifyPassword"  : "enterSignup",
-            "keyup #username"           : "updateLoginModel",
-            "keyup #password"           : "enterLogin",
-            "change #username"          : "updateLoginModel",
-            "change #password"          : "enterLogin",
-            "keyup"                     : "updateSignupModel",
-            "change"                    : "updateSignupModel",
-            "click #sendEmailBtn"       : "sendForgotPasswordEmail",
-            "keyup #forgottenPasswordEmail": "toggleSendEmailButton",
-            "click #resetPasswordBtn"   : "sendResetPassword"
+            "click #loginSubmitBtn"         : "login",
+            "click #googleIn"               : "googleIn",
+            "click #createAccountBtn"       : "createAccount",
+            "keyup #newVerifyPassword"      : "enterSignup",
+            "keyup #username"               : "updateLoginModel",
+            "keyup #password"               : "enterLogin",
+            "change #username"              : "updateLoginModel",
+            "change #password"              : "enterLogin",
+            "keyup"                         : "updateSignupModel",
+            "change"                        : "updateSignupModel",
+            "click #sendEmailBtn"           : "sendForgotPasswordEmail",
+            "keyup #forgottenPasswordEmail" : "toggleSendEmailButton",
+            "click #resetPasswordBtn"       : "sendResetPassword"
         },
 
         initialize: function () {
@@ -65,7 +67,88 @@ define(function (require, exports, module) {
             }
         },
 
+        googleIn: function (event) { //google signin
+            console.log("in landing view googleIn");
+            // console.log(event);
+            var firstname = $(event.currentTarget).attr('data-firstname');
+            var lastname = $(event.currentTarget).attr('data-lastname');
+            var email = $(event.currentTarget).attr('data-email');
+            var idtoken = $(event.currentTarget).attr('data-idtoken');
+            console.log(firstname);
+            console.log(lastname);
+            console.log(email);
+            console.log('id token:');
+            console.log(idtoken);
+
+            var googleUserModel = new UserModel({
+                path: "login"
+            });
+            $('#loginSpinner').css('display', 'block');
+            googleUserModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "email": email,
+                    "token": idtoken,
+                    "google": true
+                },
+                success: function (model) {
+                    onIndex = false;
+                    new HomeView({
+                        model: model
+                    });
+                    $('#loginSpinner').css('display', 'none');
+                },
+                error: function(model, response, options){
+                    $('#loginSpinner').css('display', 'none');
+
+                    var googleUserSignupModel = new UserModel({
+                        path: "signup",
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        password: '',
+                        bio: '',
+                        image: 'img/profile/wine_default.png',
+                        tags: []
+                    });
+
+                    bootbox.prompt("Please enter a username: ", function(result){
+                        console.log(result);
+                        if(result !== ''){
+                            googleUserSignupModel.set("username", result);
+
+                            googleUserSignupModel.save( null, {
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                headers: {
+                                    "google": true
+                                },
+                                wait: true,
+                                success: function(model, response) {
+                                    new HomeView({
+                                        model: model
+                                    });
+                                },
+                                error: function(model, response) {
+                                    $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
+                                        "  <strong>Error!</strong> <p>Error signing up with google.<br></p>" +
+                                        "<p>Message from server: " + response.responseText +"</p>" +
+                                        "</div>");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            return this;
+        },
+
         login: function () {
+            console.log("in landing view login");
             var self = this;
             self.model = new UserModel({
                 path: "login"
@@ -81,7 +164,8 @@ define(function (require, exports, module) {
                 },
                 headers: {
                     "email": $("#username").val(),
-                    "password": hashPassword
+                    "password": hashPassword,
+                    "google": false
                 },
                 success: function () {
                     self.model.set("password", undefined);
@@ -148,6 +232,9 @@ define(function (require, exports, module) {
                 self.signupModel.save( null, {
                     xhrFields: {
                         withCredentials: true
+                    },
+                    headers: {
+                        "google": false
                     },
                     wait: true,
                     success: function(model, response) {

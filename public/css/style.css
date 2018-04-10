@@ -56,7 +56,7 @@
     background-color: #FFCE0C;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     border-top: transparent;
     border-right: transparent;
     border-left: transparent;
@@ -190,21 +190,18 @@
     right: 10px;
 }
 
-
-
-
-
-
-
-
-
-
 .profile-header > div {
     display: inline-block;
     vertical-align: bottom;
     float: none;
     margin: -2px;
 }
+
+
+
+
+
+
 
 /*hover over checkmark*/
 /*span[data-title]:hover:after {*/
@@ -445,13 +442,6 @@
     width: 100px;
     margin: 5px;
 }
-
-/*.roundminibtn{*/
-/*border-radius: 25px;*/
-/*padding: 2%;*/
-/*margin-left: 6%;*/
-/*}*/
-
 .gobtn{
     border-radius: 25px;
     /*padding: 2%;*/

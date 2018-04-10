@@ -1,4 +1,4 @@
-<div class="modal fade" id="notificationsModal" role="dialog">
+<div class="modal fade" id="notificationModal" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header dimgreytext">
@@ -7,20 +7,15 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <div class="row notificationrow">
-                        @userX fulfilled your request!
+                    <div id="notificationDiv" class="row">
+                        Somebody did something for you and that's how you got here.
                         <br>
                         <a href="#">Say "Thank You"</a>
-                    </div>
-                    <div class="row notificationrow">
-                        some notification
-                    </div>
-                    <div class="row notificationrow">
-                        some notification
                     </div>
                 </div>
             <div class="modal-footer">
                 <button id="cancelBtn" class="btn greybtn" data-dismiss="modal">Close</button>
+                <button id="deleteNotificationBtn" class="btn winebtn" data-dismiss="modal">Delete Notification</button>
             </div>
         </div>
     </div>
