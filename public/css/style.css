@@ -61,8 +61,12 @@
     border-right: transparent;
     border-left: transparent;
     border-color: #00947D;
-    background-color: #00947d52 !important;
-    color: white;
+    background-color: #00ae93 !important;
+    color: #00947D;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background-color: #00ae93;
 }
 
 
@@ -174,6 +178,16 @@
     margin: 1%;
     text-align: center;
     overflow-y: scroll;
+}
+
+.label{
+    background: red;
+    font-size: 14px;
+    padding: 4px;
+    line-height: 10px;
+    position: absolute;
+    display: block;
+    right: 10px;
 }
 
 
