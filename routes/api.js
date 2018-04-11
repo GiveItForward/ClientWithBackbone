@@ -406,13 +406,12 @@ router.post('/users/create', function(req, res, next) {
     request(options, function(error, response, body){
         if(response.statusCode === 200){
 
-            if (req.headers.google == true) {
+            if (req.header('google') === "true") {
                 var user = body;
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
             }
-
             res.send(body);
         } else {
             res.status(response.statusCode).send(body);
