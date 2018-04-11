@@ -393,7 +393,7 @@ router.post('/users/create', function(req, res, next) {
 
     setupCORSResponse(res, req.headers.origin);
 
-    // session = req.session;
+    session = req.session;
 
     var options = {
         method: 'post',
