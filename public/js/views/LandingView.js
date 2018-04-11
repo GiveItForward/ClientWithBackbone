@@ -104,7 +104,7 @@ define(function (require, exports, module) {
                     $('#loginSpinner').css('display', 'none');
 
                     var googleUserSignupModel = new UserModel({
-                        path: "signup",
+                        path: "create",
                         firstname: firstname,
                         lastname: lastname,
                         email: email,
