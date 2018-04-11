@@ -1,43 +1,39 @@
 for request in locals.collection.models
     .row
-        .col-md-12
-            .panel.roundrequest
-                .form-inline
-                    .container
-                        .requestmargin
-                            .row
-                                .col-md-1
-                                    .smallcirclediv.text-center
-                                        img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
-                                .col-md-11
-                                    .row
-                                        .col-md-12.form-inline
-                                            a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
-                                            #requestTags.tags
-                                                for tag in request.get("rUser").tags
-                                                    if tag.tagname !== ''
-                                                        b &nbsp##{tag.tagname}
-                                                    if tag.verifiedBy !== ''
-                                                        span(data-title='Verified by #{tag.verifiedBy}')
-                                                            img.checkmark(src='/img/marooncheckmark.png')
-                                                    else
-                                                        | &nbsp
-                                    .row
-                                        .col-md-8
-                                        .col-md-4.requesttime
-                                            #requestDate posted on #{request.get("requestTime")}
-                            .row.topborder
-                                .col-md-2
-                                    if request.get("tag1") !== ''
-                                        .tags
-                                            b ##{request.get("tag1").tagname}
-                                    #requestImage
-                                        img.requestimage(src='#{request.get("image")}')
-                                .col-md-8
-                                    .requestdescriptiondiv
-                                        #requestDescription.requestmessage #{request.get("description")}
-                                .col-md-2
-                                    if request.get("rUser").uid !== locals.myUid
-                                        button#giveBtn.roundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
-                                    else
-                                        button#giveBtn.roundgivebtn.btn(disabled='', data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
+        .col-md-10
+            .request-panel.form-inline
+                .row.form-inline(style='margin:1%;')
+                    img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
+                    a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
+                    #requestTags.tags(style="display: inline-block;")
+                        for tag in request.get("rUser").tags
+                            if tag.tagname !== ''
+                                b &nbsp##{tag.tagname}
+                            if tag.verifiedBy !== ''
+                                span(data-title='Verified by #{tag.verifiedBy}')
+                                    img.checkmark(src='/img/marooncheckmark.png')
+                            else
+                                | &nbsp
+                    .row
+                        .col-md-8
+                        .col-md-4
+                            #requestDate(style='font-size:14pt;') posted on #{request.get("requestTime")}
+                .row.topborder
+                    .col-md-2
+                        if request.get("tag1") !== ''
+                            .tags
+                                b ##{request.get("tag1").tagname}
+                        #requestImage
+                            img.requestimage(src='#{request.get("image")}')
+                    .col-md-8
+                        .requestdescriptiondiv
+                            #requestDescription.requestmessage #{request.get("description")}
+                    .col-md-2(align="center")
+                        if request.get("rUser").uid !== locals.myUid
+                            button#giveBtn.iconbox.orange.whitetext(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}')
+                                i.fas.fa-angle-double-right.fa-2x(style='width:100%;top-padding:-1%;')
+                                | $#{request.get("amount")}
+                        else
+                            button#giveBtn.iconbox.orange.whitetext(disabled='', data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}', style='margin-top: 1%;')
+                                i.fas.fa-angle-double-right.fa-2x(style='width:100%;top-padding:-1%;')
+                                | $#{request.get("amount")}
