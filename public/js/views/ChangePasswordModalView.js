@@ -35,13 +35,10 @@ define(function (require, exports, module) {
 
         save: function () {
             var self = this;
-            console.log("in update password function");
 
-            console.log("user id is: " + self.parent.model.get("uid"));
             console.log($("#oldPassword").val());
             console.log($("#changePassword").val());
             console.log($("#verifyChangePassword").val());
-            console.log("what should this model look like???");
 
             if($("#changePassword").val() != $("#verifyChangePassword").val()){
                 $('#changePasswordErrorLabel').html('Your passwords do not match.');
