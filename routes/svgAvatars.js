@@ -20,7 +20,7 @@ router.post('/*', function(req, res, next) {
                 console.log("The file was saved!");
                 var options = {
                     method: 'post',
-                    body: '/svgavatars/ready-avatars/svg' + session.userObject.uid + ".svg",
+                    body: '/svgavatars/ready-avatars/' + req.body.filename,
                     url: baseUrl.tomcat_url + "/svgavatars",
                     headers: {uid: session.userObject.uid}
                 };
