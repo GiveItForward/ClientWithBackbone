@@ -2,75 +2,193 @@ extend layout
 
 block content
     #svgAvatars(style={display: 'none'})
-    // Forgot password Modal
-    #forgotPasswordModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true', aria-labelledby="forgotPasswordModal")
-        .modal-dialog.modal-dialog-centered(role='document')
-            .modal-content
-                .modal-header
-                    img.modal-title(src='/img/turquoise_shadow.png', height='30', width='30')
-                    h5.modal-title Forgot Password
-                    button.close(type='button', data-dismiss='modal', aria-label='Cancel')
-                        span(aria-hidden='true') ×
-                .modal-body
-                    #forgotPasswordModalBody
-                        form
-                            .form-group
-                                label Enter your email address and we'll send you a link to reset your password
-                                incput#forgottenPasswordEmail.form-control(type='email', placeholder='enter email')
-                .modal-footer
-                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
-                    button#sendEmailBtn.btn.btn-primary(type='button') Send email
     #homeStuff
-        .container-fluid
-            .row.turquoisebackground.landingbar
-                .col-md-8
-                    #inputdiv.logindiv.form-inline
-                        input#username.roundmedium(type='text', name='username', placeholder='email')
-                        input#password.roundmedium(type='password', placeholder='password')
-                        button#loginSubmitBtn.btn.roundmediumbtn.loginbtn Log In
-                        span
-                            a(href='#', style='color: rgb(0, 148, 125)', data-toggle='modal', data-target='#forgotPasswordModal') Forgot password?
-                        .loginerrordiv
-                            label#loginErrorLabel(style=" color: red")
-                        .fa-2x
-                            i#loginSpinner(style="display: none").fas.fa-spinner.fa-spin
-                 .col-md-4
-                     input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
-                     #googleSignin.g-signin2.padding-top(data-longtitle='true', data-onsuccess='onSignIn')
-                     script.
-                         function onSignIn(googleUser) {
-                             // Useful data for your client-side scripts:
-                             console.log('inline jade function');
-                             var profile = googleUser.getBasicProfile();
+        nav.navbar.navbar-default.navbar-static-top(style='margin:auto')
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href='http://giveitforward.us')
+                        img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
+                ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
+                    li
+                        input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
+                        #googleSignin.g-signin2(data-onsuccess='onSignIn', style='margin-top:5%;margin-right:2%;')
+                        script.
+                            function onSignIn(googleUser) {
+                                // Useful data for your client-side scripts:
+                                console.log('inline jade function');
+                                var profile = googleUser.getBasicProfile();
 
-                             // The ID token you need to pass to your backend:
-                             var id_token = googleUser.getAuthResponse().id_token;
+                                // The ID token you need to pass to your backend:
+                                var id_token = googleUser.getAuthResponse().id_token;
 
-                             document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
-                             document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
-                             document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
-                             document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
-                             document.getElementById("googleIn").click(event);
-                         };
+                                document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
+                                document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
+                                document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
+                                document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
+                                document.getElementById("googleIn").click(event);
+                            };
+                    li
+                        a(href='#', data-toggle='modal', data-target='#signupModal')
+                            span.glyphicon.glyphicon-user
+                            |  Sign Up
+                    li
+                        a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
+                            span.glyphicon.glyphicon-log-in
+                            |  Login
+        .container.background.turquoise-angles(style='width:100%;')
             .row
-                .col-md-12.confettibackground
-                    .row
-                        .col-md-6.text-center
-                            .circlediv.text-center
-                                .logodiv
-                                    img.logo(src="/img/turquoise_shadow.png")
-                                    #titleheading Give It Forward
+                .col-md-12.text-center
+                    h1 Everyday People Helping Everyday People
+            .row
+                .col-md-3
+                .col-md-6
+                    #myCarousel.carousel.slide(data-ride='carousel', style='width:100%;margin: 5% auto;margin-bottom:10%;')
+                        // Indicators
+                        ol.carousel-indicators
+                            li.active(data-target='#myCarousel', data-slide-to='0')
+                            li(data-target='#myCarousel', data-slide-to='1')
+                            li(data-target='#myCarousel', data-slide-to='2')
+                        // Wrapper for slides
+                        .carousel-inner
+                            .item.active
+                                img(src='/img/landing/student.jpg', alt='Students', style='width:100%;')
+                                .carousel-caption
+                                    h3 Helping Sudents
+                            .item
+                                img(src='/img/landing/parent.jpg', alt='Parents', style='width:100%;')
+                                .carousel-caption
+                                    h3 Helping Parents
+                            .item
+                                img(src='/img/landing/park.jpg', alt='People', style='width:100%;')
+                                .carousel-caption
+                                    h3 Helping People
+                        // Left and right controls
+                        a.left.carousel-control(href='#myCarousel', data-slide='prev')
+                            span.glyphicon.glyphicon-chevron-left
+                            span.sr-only Previous
+                        a.right.carousel-control(href='#myCarousel', data-slide='next')
+                            span.glyphicon.glyphicon-chevron-right
+                            span.sr-only Next
+                .col-md-3
+        .container(style='width:100%;')
+            #more.row(style='margin: 5% auto;')
+                .col-md-2
+                .col-md-2
+                    button.titlebutton.yellow
+                        i.fas.fa-lightbulb.fa-10x(style='width:100%;padding:5%;')
+                        | Website Tutorial
+                .col-md-1
+                .col-md-2
+                    button.titlebutton.turquoise
+                        i.fas.fa-angle-double-right.fa-10x(style='width:100%;padding:5%;')
+                        | Meet the Developers
+                .col-md-1
+                .col-md-2
+                    button.titlebutton.orange
+                        i.fas.fa-hands-helping.fa-10x(style='width:100%;padding:5%;')
+                        | Other Resources
+                .col-md-2
+        .container.background.weave(style='width:100%;')
+            #us.row
+                .col-md-1
+                .col-md-11
+                    h1 Meet the Developers.
+                .row(style='margin:5% auto;')
+                    .col-md-1
+                    .col-md-2
+                        img.img-circle.maxwidth(src='/img/landing/sara.jpg', alt='Jen Simons', style='width:100%;')
+                    .col-md-8
+                        h4 Jen Simons
+                        p Lectus dis vehicula hendrerit ridiculus nec luctus erat taciti orci hendrerit felis eu hac condimentum eros montes curabitur nam sapien. Donec posuere lacus, nulla nostra class ac fames libero accumsan magna viverra. Posuere sed luctus gravida ante dis elementum pretium gravida parturient inceptos penatibus curabitur, molestie. Nunc tempus, nascetur. Penatibus, tortor. Venenatis nullam commodo mattis turpis nibh sagittis gravida fames placerat ornare feugiat primis non. Mollis. Nulla libero et duis aliquam praesent amet montes etiam vulputate diam fusce. Dictumst consequat volutpat condimentum pretium ipsum lectus placerat nascetur sociis venenatis mattis vulputate etiam nonummy. Placerat suscipit odio auctor nonummy. Dui sapien.
+                    .col-md-1
+                .row(style='margin:5% auto;')
+                    .col-md-1
+                    .col-md-2
+                        img.img-circle.maxwidth(src='/img/landing/sara.jpg', alt='Boo Chalhoub', style='width:100%;')
+                    .col-md-8
+                        h4 Boo Chalhoub
+                        p I come from a family of intelligent, strong women who have always encouraged me to challenge myself and absorb as much knowledge as possible.  Throughout my childhood I sought out projects that melded analytical thinking with creativity, which originally landed me as an architecture major. I didn’t love it completely and found my true passion when I took my first CS class and never looked back.  Since then I have continued to challenge myself in the major as well as in my jobs as a TA and a software developer.  As well as a computer scientist, I am an avid soccer fan, violin player, and graphite artist.
+                    .col-md-1
+                .row(style='margin:5% auto;')
+                    .col-md-1
+                    .col-md-2
+                        img.img-circle.maxwidth(src='/img/landing/kenzie.jpeg', alt='Makenzie Elliott', style='width:100%;')
+                    .col-md-8
+                        h4 Makenzie Elliott
+                        p Lectus dis vehicula hendrerit ridiculus nec luctus erat taciti orci hendrerit felis eu hac condimentum eros montes curabitur nam sapien. Donec posuere lacus, nulla nostra class ac fames libero accumsan magna viverra. Posuere sed luctus gravida ante dis elementum pretium gravida parturient inceptos penatibus curabitur, molestie. Nunc tempus, nascetur. Penatibus, tortor. Venenatis nullam commodo mattis turpis nibh sagittis gravida fames placerat ornare feugiat primis non. Mollis. Nulla libero et duis aliquam praesent amet montes etiam vulputate diam fusce. Dictumst consequat volutpat condimentum pretium ipsum lectus placerat nascetur sociis venenatis mattis vulputate etiam nonummy. Placerat suscipit odio auctor nonummy. Dui sapien.
+                    .col-md-1
+                .row(style='margin:5% auto;')
+                    .col-md-1
+                    .col-md-2
+                        img.img-circle.maxwidth(src='/img/landing/sara.jpg', alt='Sara Adamson', style='width:100%;')
+                    .col-md-8
+                        h4 Sara Adamson
+                        p As a young child I was always curious about the world. I used to pester my dad with endless questions about how computers work. I remember he once tried to use a light switch to explain binary to me. When I was about 10 I started my own business called “Dude My Computer’s Broken”. I’ve come a long way since then but I’ve still got a lot to learn. I’m looking forward to my future as a software developer and innovator.
+                    .col-md-1
+        //.footer
+        //    p Footer information aboug giveitforward.us goes here.
+        // Forgot password Modal
+        #forgotPasswordModal.modal(tabindex='-1', role='dialog', aria-labelledby="forgotPasswordModal")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal') ×
+                    .modal-body
+                        .form-group
+                            label Enter your email address and we'll send you a link to reset your password
+                            input#forgottenPasswordEmail.form-control(type='email', placeholder='enter email', name='email')
+                    .modal-footer
+                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
 
-                        .col-md-6
-                            .absoluteCenter
-                                #signupColumn
-                                    .row.signupdiv
-                                        .col-md-6
-                                            input#newFirstname.roundhalf.grayshadow(type='text', placeholder='firstname')
-                                        .col-md-6
-                                            input#newLastname.roundhalf.grayshadow(type='text', placeholder='lastname')
-                                    input#newUsername.round.grayshadow(type='text', placeholder='username')
-                                    input#newEmail.round.grayshadow(type='text', placeholder='email')
-                                    input#newPassword.round.grayshadow(type='password', placeholder='password')
-                                    input#newVerifyPassword.round.grayshadow(type='password', placeholder='verify password')
-                                    button#createAccountBtn.btn.round.turquoisebtn.grayshadow Create Account
+        #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        .form-group
+                            label(for='username') Username:
+                            input#username.form-control(type='username', placeholder='Enter username', name='username')
+                        .form-group
+                            label(for='password') Password:
+                            input#password.form-control(type='password', placeholder='Enter password', name='password')
+                    .modal-footer
+                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal') Log in
+                        span.psw
+                            a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
+
+        #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        img(style='max-width:180px; margin:-5px; float:left;', src='/img/logo.png', alt='Give It Forward')
+                        button.close(type='button', data-dismiss='modal') ×
+                    .modal-body
+                        .form-group
+                            label(for='newFirstname') First name:
+                            input#newFirstname.form-control(type='first name', placeholder='first name', name='first name')
+                        .form-group
+                            label(for='newLastname') Last name:
+                            input#newLastname.form-control(type='last name', placeholder='last name', name='last name')
+                        .form-group
+                            label(for='newUsername') Username:
+                            input#newUsername.form-control(type='username', placeholder='Enter username', name='username')
+                        .form-group
+                            label(for='newEmail') Email:
+                            input#newEmail.form-control(type='email', placeholder='Enter email', name='email')
+                        .form-group
+                            label(for='newPassword') Password:
+                            input#newPassword.form-control(type='password', placeholder='Enter password', name='password')
+                        .form-group
+                            label(for='newVerifyPassword') Confirm password:
+                            input#newVerifyPassword.form-control(type='username', placeholder='Re-enter password', name='confirm password')
+                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
+    #footer
+        .footer.turquoise
+            p Footer information aboug giveitforward.us goes here.

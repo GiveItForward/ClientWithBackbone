@@ -1,38 +1,5 @@
-.row.padding-top.topborderyellow
-    .col-sm-7
-        .form-inline
-            .button-group
-                button.btn.searchtagsbtn.turquoisebtn.dropdown-toggle(type='button', data-toggle='dropdown')
-                    | search requests by tags
-                    span.caret
-                ul#searchByTags.dropdown-menu.searchtags
-            .button-group
-                button.btn.orderbybtn.turquoisebtn.dropdown-toggle(type='button', data-toggle='dropdown')
-                    | order requests
-                    span.caret
-                ul#orderBy.dropdown-menu.searchtags
-                    li
-                        a(href='#', data-value='new', tabindex='-1')
-                            input#new(type='checkbox')
-                        | &nbsp;new to old
-                    li
-                        a(href='#', data-value='old', tabindex='-1')
-                            input#old(type='checkbox')
-                        | &nbsp;old to new
-                    .dropdown-divider
-                    li
-                        a(href='#', data-value='low', tabindex='-1')
-                            input#low(type='checkbox')
-                        | &nbsp;low to high
-                    li
-                        a(href='#', data-value='high', tabindex='-1')
-                            input#high(type='checkbox')
-                        | &nbsp;high to low
-            button#goFilterRequests.btn.gobtn.turquoisebtn go
-    .col-sm-5
-        a#newRequestBtn.newrequestbtn.btn.turquoisebtn.whitetext(data-toggle='modal', data-target='#newRequestModal', data-backdrop='static') + new request
-.row.bottom-row
+.row
     .fa-5x
         i#requestFeedSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
     #paypalSpinner(style='display: none').loading
-    #requestCol.col-md-10.scroll Loading...
+    #requestCol.col-md-10.col-md-offset-1.scroll Loading...

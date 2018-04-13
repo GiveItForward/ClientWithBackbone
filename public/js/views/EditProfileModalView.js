@@ -19,13 +19,14 @@ define(function (require, exports, module) {
         el: editProfileModal,
 
         events: {
-            "click #cancelEditProfileBtn"    : "destroyEditProfileModal",
-            "click #exitEditProfileModal"    : "destroyEditProfileModal",
-            "click #updateProfileBtn"        : "save",
-            "click #changeImage"             : "changeImage",
-            "click .dropdown-menu a"         : "updateEditProfileTags",
-            "keyup"                          : "updateEditProfileModel",
-            "change"                         : "updateEditProfileModel"
+            "click #cancelEditProfileBtn"   : "destroyEditProfileModal",
+            "click #exitEditProfileModal"   : "destroyEditProfileModal",
+            "click #updateProfileBtn"       : "save",
+            "click #editProfileImage"       : "changeImage",
+            "click .dropdown-menu a"        : "updateEditProfileTags",
+            "click .deleteTag"              : "deleteTag",
+            "keyup"                         : "updateEditProfileModel",
+            "change"                        : "updateEditProfileModel"
         },
 
         initialize: function (options) {
@@ -50,9 +51,9 @@ define(function (require, exports, module) {
             self.$('#editProfileImage').attr('src', self.model.get('image'));
             self.$('#editFirst').val(self.model.get('firstname'));
             self.$('#editLast').val(self.model.get('lastname'));
-            // self.$('#editUsername').attr(self.model.get('username'));
-            self.$('#editBio').html(self.model.get('bio'));
-
+            self.$('#editUsername').val(self.model.get('username'));
+            self.$('#editBio').val(self.model.get('bio'));
+            self.$('#editEmail').val(self.model.get('email'));
             self.$('#updateProfileBtn').prop("disabled", true);
             console.log(editProfileTagList);
             return this;
@@ -60,9 +61,8 @@ define(function (require, exports, module) {
 
         renderEditTagList: function (oldTags) {
             var self = this;
-            console.log('oldTags: ');
-            console.log(oldTags);
             var tagString = '';
+            var currTagsString = '';
             _.each(self.collection.models, function(model) {
                 var contained = false;
                 contained = _.find(oldTags, function(tag) {
@@ -71,17 +71,36 @@ define(function (require, exports, module) {
                     }
                 });
                 if(contained){
-                    console.log("model === oldTag");
-                    tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
-                        '<input id="' + model.get("tagname") + '" type="checkbox" checked="true" name="editProfileTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+                    currTagsString += '<button type="button" class="btn btn-default light-yellow deleteTag" aria-label="Close" style="border-radius:25px;" data-value="' + model.get("tagname") + '">' + model.get("tagname") +
+                        '<span aria-hidden="true">  &times;</span>' +
+                        '</button>'
                 }else{
-                    console.log("model !== oldTag");
-                    tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" data-tid="' + model.get("tid") + '" tabindex="-1">\n' +
-                        '<input id="' + model.get("tagname") + '" type="checkbox" name="editProfileTag"/></a>&nbsp;#' + model.get('tagname') + '</li>';
+                    tagString += '<li><a href="#" data-value="' + model.get("tagname") + '" tabindex="-1">' + model.get('tagname') + '</a></li>'
                 }
             });
             self.$('#editRequestTags').html(tagString);
+            self.$('#currentTags').html(currTagsString);
             return this;
+        },
+
+        deleteTag: function(event) {
+            var self = this;
+
+            var target = $(event.currentTarget),
+                val = target.attr( 'data-value' ),
+                $inp = target.find( 'input' ),
+                idx;
+            if ( ( idx = editProfileTagList.indexOf( val ) ) > -1 ) {
+                editProfileTagList.splice( idx, 1 );
+                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+            } else {
+                editProfileTagList.push( val );
+                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            }
+
+            self.$('#editRequestTags').append('<li><a href="#" data-value="' + val + '" tabindex="-1" data-value="' + val + '">' + val + '</a></li>');
+            target.remove();
+            self.$('#updateProfileBtn').prop("disabled", false);
         },
 
 
@@ -98,20 +117,17 @@ define(function (require, exports, module) {
         },
 
         updateEditProfileTags: function (event) {
-            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
-            var $target = $(event.currentTarget),
-                val = $target.attr( 'data-value' ),
-                $inp = $target.find( 'input' ),
-                idx;
-            if ( ( idx = editProfileTagList.indexOf( val ) ) > -1 ) {
-                editProfileTagList.splice( idx, 1 );
-                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-            } else {
-                editProfileTagList.push( val );
-                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
-            }
-            $( event.target ).blur();
-            console.log( editProfileTagList );
+            var self = this;
+            var target = $(event.currentTarget);
+
+            editProfileTagList.push( target.attr('data-value') );
+
+            target.remove();
+
+            self.$('#currentTags').append('<button type="button" class="btn btn-default light-yellow deleteTag" aria-label="Close" style="border-radius:25px;" data-value="' + target.attr('data-value') + '">' + target.attr('data-value') +
+            '<span aria-hidden="true">  &times;</span>' +
+            '</button>');
+
             self.$('#updateProfileBtn').prop("disabled", false);
             return this;
         },

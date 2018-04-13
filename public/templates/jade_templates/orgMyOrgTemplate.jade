@@ -1,25 +1,24 @@
 for org in locals.models
     .row
-        .col-md-12
-            .panel.roundorg
-                .form-inline
-                    .container
-                        .requestmargin
-                            .row
-                                #orgImage.col-md-2.text-center
-                                    img.orglogopending(src='#{org.get("image")}')
-                                    a#editOrgBtn.btn.orgupdatebtn.turquoisebtn.whitetext(href='#', data-toggle='modal', data-target='#editOrgModal', data-backdrop='static') update info
-                                .col-md-10.text-center
-                                    a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
-                                    .orgDescriptionDiv
-                                        #orgBio.orgmessage.panel-body #{org.get("description")}
-                                    .row.topborder
-                                        .col-md-6
-                                            a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}
-                                            #orgPhone #{org.get("phone")}
-                                            #orgEmail #{org.get("email")}
-                                        .col-md-6
-                                            #orgAddress #{org.get("address")}
-                            .row
-                                .col-md-12
-                                    #pendingMessage.errorLabel
+        .col-md-2
+        .col-md-8
+            .panel.form-inline
+                .row.form-inline(style='margin:1%;')
+                    #orgImage.col-md-2.text-center
+                        img.orglogo(src='#{org.get("image")}')
+                        a#editOrgBtn.horizontal-iconbox.orange.whitetext(href='#', data-toggle='modal', data-target='#editOrgModal', data-backdrop='static', style='margin-top: 6%;') update info
+                    .col-md-10.text-center
+                        a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
+                        .orgDescriptionDiv.off-white
+                            #orgBio.orgmessage.panel-body #{org.get("description")}
+                        .row.topborder
+                            .col-md-6
+                                a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}
+                                #orgPhone #{org.get("phone")}
+                                #orgEmail #{org.get("email")}
+                            .col-md-6
+                                #orgAddress #{org.get("address")}
+                .row
+                    .col-md-12
+                        #pendingMessage.errorLabel
+        .col-md-2

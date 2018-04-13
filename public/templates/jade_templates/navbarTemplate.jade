@@ -1,0 +1,40 @@
+nav.navbar.navbar-default.navbar-static-top.turquoise(style='margin:auto')
+    .container-fluid
+        a.nav.navbar-nav.navbar-left.whitetext(href='http://giveitforward.us', style='margin-top:0%;')
+            i.fas.fa-angle-double-right.fa-2x(style='display: inline-block;margin-right: 8px;')
+            h3(style='display: inline-block;') Give it Forward
+        ul.nav.navbar-nav.whitetext(style='margin-top:1%;font-size: 1.4em;')
+            li
+                a#homeBtn(href='#') requests
+            li
+                a#orgsBtn(href='#') orgs
+        ul.nav.navbar-nav.navbar-right.whitetext(style='font-size: 1.2em;')
+            //li.nav-icon-btn.nav-icon-btn-success.dropdown.open
+            //    a.dropdown-toggle(href='#messages', data-toggle='dropdown')
+            //
+            //        i.nav-icon.fa.fa-envelope
+            //        span.small-screen-text Income messages
+
+
+            li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                    span.label 10
+                    i.fas.fa-bell.fa-2x(style='margin-right:3px;')
+                ul.dropdown-menu.turquoise
+                    li
+                        a(href='#') notifications
+            li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                    i.fas.fa-user-circle.fa-2x(style='margin-right:3px;')
+                    | me
+                    span.caret
+                ul.dropdown-menu.turquoise
+                    li
+                        a#myProfileBtn(href='#') profile
+                    li
+                        a#usersBtn
+                    li.divider(role='separator')
+                    li
+                        a#logoutBtn(href='#') sign out
+.container-fluid.off-white
+    #mainHomeContainer

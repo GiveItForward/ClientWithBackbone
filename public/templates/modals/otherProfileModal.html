@@ -1,20 +1,23 @@
 <div class="modal fade" id="otherProfileModal" role="dialog">
     <div class="modal-dialog modal-md">
-        <div class="modal-content">
+        <div class="modal-content off-white">
             <div class="modal-header dimgreytext">
                 <button id="exitOtherProfileModal" type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 id="otherProfileModalTitle" class="modal-title">View Profile</h4>
+                <span>
+                    <div class="requestuserimage">
+                        <img id="otherProfileImage" class="requestuserimage" src="/img/profile/grey_default.png">
+                    </div>
+                    <h4 id="otherProfileModalTitle" class="modal-title">View Profile</h4>
+                </span>
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4 text-center">
-                        <div class="otherProfileImageDiv">
-                            <img id="otherProfileImage" class="otherProfileImage" src="/img/profile/grey_default.png">
-                        </div>
-                        <!--<label id="otherProfileUserName" class="requestusername"></label>-->
-                    </div>
-                    <div class="col-md-4"></div>
+                    <!--<div class="col-md-4"></div>-->
+                    <!--<div class="col-md-4 text-center">-->
+
+                        <!--&lt;!&ndash;<label id="otherProfileUserName" class="requestusername"></label>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4"></div>-->
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
@@ -32,7 +35,7 @@
                 <br>
                 <div class="row text-center">
                     <div class="col-md-12">
-                        <div id="exTab2" class="container">
+                        <div id="exTab2" class="row">
                             <ul class="nav nav-tabs justify-content-center">
                                 <li class="nav-item active">
                                     <a class="nav-link active" href="#1" data-toggle="tab">Request History</a>
@@ -43,15 +46,17 @@
                             </ul>
 
                             <div class="tab-content">
-                                <div class="tab-pane active" id="1">
-                                    <br>
-                                    <!--<h4>This is some request history for this user that isn't you.</h4>-->
-                                    <div id="otherRequestHistory">There is no request history available.</div>
-                                </div>
-                                <div class="tab-pane" id="2">
-                                    <br>
-                                    <!--<h4>This is some donation history for this user that isn't you.</h4>-->
-                                    <div id="otherDonationHistory">There is no donation history available.</div>
+                                <div class="col-md-12">
+                                    <div class="tab-pane active" id="1">
+                                        <br>
+                                        <!--<h4>This is some request history for this user that isn't you.</h4>-->
+                                        <div id="otherRequestHistory">There is no request history available.</div>
+                                    </div>
+                                    <div class="tab-pane" id="2">
+                                        <br>
+                                        <!--<h4>This is some donation history for this user that isn't you.</h4>-->
+                                        <div id="otherDonationHistory">There is no donation history available.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

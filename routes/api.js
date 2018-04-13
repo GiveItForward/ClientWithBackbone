@@ -393,7 +393,7 @@ router.post('/users/create', function(req, res, next) {
 
     setupCORSResponse(res, req.headers.origin);
 
-    // session = req.session;
+    session = req.session;
 
     var options = {
         method: 'post',
@@ -405,9 +405,13 @@ router.post('/users/create', function(req, res, next) {
 
     request(options, function(error, response, body){
         if(response.statusCode === 200){
-            // session.email = body.email;
-            // session.userObject = body;
-            // session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
+
+            if (req.header('google') === "true") {
+                var user = body;
+                session.email = user.email;
+                session.userObject = user;
+                session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
+            }
             res.send(body);
         } else {
             res.status(response.statusCode).send(body);
@@ -511,7 +515,7 @@ function setupCORSResponse(res, origin){
     }
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid, duid, search, age, price, rtags, utags');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, email, password, uid, username, bio, rid, amt, oid, duid, search, age, price, rtags, utags, google');
     // return res;
 };
 

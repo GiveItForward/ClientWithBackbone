@@ -37,7 +37,7 @@ define(function (require, exports, module) {
     var OrgCollection = require("models/OrgCollection");
     var ThankYouModel = require("models/ThankYouModel");
 
-    var homeTemplate = require("jade!templates/jade_templates/homeTemplate");
+    var navbarTemplate = require("jade!templates/jade_templates/navbarTemplate");
     var topHomeBarTemplate = require("jade!templates/jade_templates/topHomeBarTemplate");
     var requestFeedTemplate = require("jade!templates/jade_templates/requestFeedTemplate");
     var requestTemplate = require("jade!templates/jade_templates/requestTemplate");
@@ -84,7 +84,6 @@ define(function (require, exports, module) {
             "click #editProfileBtn"             : "editProfile",
             "click #changePasswordBtn"          : "changePassword",
             "click #createAvatarBtn"            : "createAvatar",
-            "click #notificationLink"           : "notification",
             "click #deleteAccountBtn"           : "deleteAccount",
             "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
@@ -148,20 +147,20 @@ define(function (require, exports, module) {
         render: function () {
             var self = this;
             self.setElement("#homeStuff");
-            self.$el.html(homeTemplate);
+            self.$el.html(navbarTemplate);
             console.log(self.model);
             self.renderHome();
             return this;
         },
 
         removeSelectedFromAll: function () {
-            $("#homeBtn").removeClass("selected");
-            $("#orgsBtn").removeClass("selected");
-            $("#usersBtn").removeClass("selected");
-            $("#adminBtn").removeClass("selected");
-            $("#myProfileBtn").removeClass("selected");
-            $("#myRequestsBtn").removeClass("selected");
-            $("#myDonationsBtn").removeClass("selected");
+            $("#homeBtn").removeClass("active");
+            $("#orgsBtn").removeClass("active");
+            $("#usersBtn").removeClass("active");
+            $("#adminBtn").removeClass("active");
+            $("#myProfileBtn").removeClass("active");
+            $("#myRequestsBtn").removeClass("active");
+            $("#myDonationsBtn").removeClass("active");
         },
 
         renderHome: function () {
@@ -169,9 +168,8 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Request Feed");
             self.removeSelectedFromAll();
-            $("#homeBtn").addClass("selected");
+            $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
-            // self.$('#mainHomeContainer').html(requestFeedTemplate);
 
             var requestCollection = new RequestCollection();
 
@@ -206,20 +204,16 @@ define(function (require, exports, module) {
                     success: function (model) {
                         self.orgModel = model;
                         if(self.orgModel.get('approved')){
-                            $("#usersBtn").addClass("turquoisebtncol");
-                            $("#usersBtn").addClass("btn");
                             $("#usersBtn").attr("href", "#");
-                            $("#usersBtn").text("Users");
+                            $("#usersBtn").text("users");
                         }
                     }
                 });
             }
 
             if(self.model.get('isAdmin')){
-                $("#usersBtn").addClass("turquoisebtncol");
-                $("#usersBtn").addClass("btn");
                 $("#usersBtn").attr("href", "#");
-                $("#usersBtn").text("Users");
+                $("#usersBtn").text("users");
             }
             return this;
         },
@@ -227,7 +221,7 @@ define(function (require, exports, module) {
         renderTopHomeBar: function () {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
-            $("#usernameDisplay").html("Hi, " + self.model.get("username"));
+            // $("#usernameDisplay").html("Hi, " + self.model.get("username"));
 
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -275,7 +269,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
-            $("#orgsBtn").addClass("selected");
+            $("#orgsBtn").addClass("active");
             // $('<div class="fa-5x">\n' +
             //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
             //     '</div>').insertBefore('#homeContainer');
@@ -349,7 +343,7 @@ define(function (require, exports, module) {
         renderMyProfile: function () {
             var self = this;
             self.removeSelectedFromAll();
-            $("#myProfileBtn").addClass("selected");
+            $("#myProfileBtn").addClass("active");
 
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
@@ -366,12 +360,12 @@ define(function (require, exports, module) {
                 }
             });
             $("#myImage").attr('src', self.model.get("image"));
-            $("#myUsername").html(self.model.get("username"));
-            $("#myFirstName").html(self.model.get("firstname"));
-            $("#myLastName").html(self.model.get("lastname"));
-            $("#myEmail").html(self.model.get("email"));
-            $("#myTags").html(tagList);
-            $("#myBio").html(self.model.get("bio"));
+            $("#myUsername").text(self.model.get("username"));
+            $("#myFirstName").text(self.model.get("firstname"));
+            $("#myLastName").text(self.model.get("lastname"));
+            $("#myEmail").text(self.model.get("email"));
+            $("#myTags").text(tagList);
+            $("#myBio").text(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderMyRequests();
@@ -409,6 +403,14 @@ define(function (require, exports, module) {
             $('body').append(container);
             $('#svgAvatars').show();
             $('#svgAvatars').insertAfter('#avatarPlaceHolder');
+            return this;
+        },
+
+
+        createAvatarTab: function() {
+            $('#svgAvatars').insertAfter('#avatarPlaceHolder2');
+            $('#svgAvatars').show();
+            $("html, body").animate({ scrollTop: $("#svgAvatars").scrollTop() }, 1000);
             return this;
         },
 
@@ -458,7 +460,7 @@ define(function (require, exports, module) {
             self.renderTopHomeBar();
             $("#topDisplay").html("Users");
             self.removeSelectedFromAll();
-            $("#usersBtn").addClass("selected");
+            $("#usersBtn").addClass("active");
             self.$('#homeContainer').html(userFeedTemplate);
 
             var userCollection = new UserCollection();
@@ -598,7 +600,7 @@ define(function (require, exports, module) {
             var usernameToDelete = $(event.currentTarget).attr('data-username');
             var uidToDelete = $(event.currentTarget).attr('data-uid');
             console.log("\nIN DELETE USER");
-            console.log("UID: " + uidToDelete)
+            console.log("UID: " + uidToDelete);
 
             bootbox.confirm({
                 message: "Are you sure you want to DELETE user " + usernameToDelete + "?",
@@ -632,7 +634,6 @@ define(function (require, exports, module) {
         renderMyRequests: function () {
             var self = this;
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
-
             var requestCollection = new RequestCollection();
 
 
