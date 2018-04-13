@@ -5,7 +5,7 @@ for request in locals.models
                 .row
                     .col-md-12
                         img.requestuserimage.pull-left(src='#{request.get("rUser").image}')
-                        h3.requestusername(href='#') #{request.get("rUser").username}
+                        h3(href='#') #{request.get("rUser").username}
                 .row
                     .col-md-12
                         | Requested&nbsp

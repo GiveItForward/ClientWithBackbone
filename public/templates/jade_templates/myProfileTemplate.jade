@@ -10,7 +10,13 @@
                                 .col-md-3
                                     img#myImage.img-thumbnail(src='/img/wine_default.png')
                                 .col-md-5
-                                    h1#myUsername(style="padding-left: 15px") username
+                                    .container-fluid
+                                        .row
+                                            h1#myUsername(style="padding-left: 15px") username
+                                        .row(style="bottom:60px")
+                                            i(style="padding-left: 15px") Your total donations this year:
+                                            i &nbsp
+                                                b#totalDonations
                                 .col-md-4
                                     .container-fluid
                                         .row
