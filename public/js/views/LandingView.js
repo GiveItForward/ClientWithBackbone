@@ -174,6 +174,7 @@ define(function (require, exports, module) {
                          model: self.model
                     });
                     $('#loginSpinner').css('display', 'none');
+                    $('#loginModal').modal("hide");
                 },
                 error: function(model, response, options){
                     $('#loginSpinner').css('display', 'none');
@@ -187,7 +188,7 @@ define(function (require, exports, module) {
             var self = this;
             self.updateLoginModel();
             if ( e.keyCode === 13 ) { // 13 is enter key
-                self.login();
+                $("#loginSubmitBtn").click();
             }
             return this;
         },

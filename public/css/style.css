@@ -56,29 +56,31 @@
     background-color: #FFCE0C;
 }
 
+/* Define style for tabs */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     border-top: transparent;
     border-right: transparent;
     border-left: transparent;
     border-color: #00947D;
     background-color: #00ae93 !important;
-    color: #00947D;
+    color: white;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background-color: #00ae93;
+    color: dimgray;
 }
 
 
 /* ELEMENTS */
 .header {
     background-color: #f1f1f1;
-    padding: 0px;
+    padding: 0;
     text-align: center;
 }
 
 .footer {
-    background-color: #F1F1F1;
+    /*background-color: #F1F1F1;*/
     text-align: center;
     padding: 10px;
 }
@@ -99,25 +101,6 @@
     width: 100%;
 }
 
-/*.navbar-md {*/
-    /*min-height:80px;*/
-/*}*/
-/*.navbar-md .navbar-brand,*/
-/*.navbar-md .navbar-nav>li>a {*/
-    /*padding-top:30px;*/
-    /*padding-bottom:30px*/
-/*}*/
-/*.navbar-md .navbar-brand {*/
-    /*height: 80px*/
-/*}*/
-/*.navbar-md .navbar-toggle {*/
-    /*margin: 12px 24px 12px 0px;*/
-    /*padding: 12px 14px 12px 20px;*/
-/*}*/
-/*.navbar-md .navbar-toggle .icon-bar {*/
-    /*width: 38px;*/
-/*}*/
-
 .nav.navbar-nav.navbar-right.whitetext li a {
     color: white;
 }
@@ -127,13 +110,14 @@
 
 .titlebutton{
     border: none;
-    padding: 10% 5%;
+    padding: 20px 10px;
     font-size: 20px;
     text-align: center;
     border-radius: 5px;
     color: white;
     display: block;
-    /*margin: 5% auto;*/
+    width: 200px;
+    height: 300px;
 }
 
 .iconbox{
@@ -145,6 +129,14 @@
     display: block;
     width: 60px;
     height: 80px;
+}
+.horizontal-iconbox{
+    border: none;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 .request-panel{
@@ -197,8 +189,10 @@
     margin: -2px;
 }
 
-
-
+.maxwidth {
+    max-width: 200px;
+    mas-height: 200px;
+}
 
 
 
@@ -297,10 +291,6 @@
     margin: 20px 0 0 15%;
 }
 
-.btn {
-    border-radius: 25px;
-}
-
 .round{
     border-radius: 25px;
     padding: 10px;
@@ -368,16 +358,16 @@
 }
 
 .otherroundrequest{
-    color: black;
-    background-color: white;
-    border-radius: 25px;
-    padding: 5px;
-    width: 100%;
-    height: 375px;
-    margin: 2%;
-    /*box-shadow: 4px 4px 10px 4px #840E8C;*/
-    box-shadow: 4px 4px 10px 4px dimgrey;
-    /*margin-top: 10px;*/
+    /*color: black;*/
+    /*background-color: white;*/
+    /*border-radius: 25px;*/
+    /*padding: 5px;*/
+    /*width: 100%;*/
+    /*height: 375px;*/
+    /*margin: 2%;*/
+    /*!*box-shadow: 4px 4px 10px 4px #840E8C;*!*/
+    /*box-shadow: 4px 4px 10px 4px dimgrey;*/
+    /*!*margin-top: 10px;*!*/
 }
 
 .roundthankyou{
@@ -688,20 +678,6 @@
     /*background: linear-gradient(#840E8C, #FBF9F7);*/
 }
 
-/*.bottom-row{*/
-    /*!*padding-top: 150px;*!*/
-    /*!*background-color: lightgrey;*!*/
-    /*!*background-color: #e6e6e6;*!*/
-    /*width: 100vw;*/
-    /*height: 100vh;*/
-/*}*/
-
-.bottom-row-org{
-    /*background: linear-gradient(dimgray, lightgrey);*/
-    width: 100vw;
-    height: 100vh;
-}
-
 .orgFeedAdminDiv {
     width: 100vw;
     height: 100vh;
@@ -902,19 +878,17 @@
 
 .otherProfileBioDiv{
     width: 100%;
-    height: 160px;
-    background-color: #F3E9F4;
+    /*height: 160px;*/
     overflow-y: scroll;
-    border-radius: 25px;
+    border-radius: 5px;
     padding:2%;
 }
 
 .orgDescriptionDiv{
     width: 100%;
-    height: 140px;
-    background-color: #F3E9F4;
+    /*height: 140px;*/
     overflow-y: scroll;
-    border-radius: 25px;
+    border-radius: 5px;
     /*padding:2%;*/
 }
 
@@ -1055,13 +1029,13 @@
     margin-top: 10%;
 }
 
-.orgupdatebtn {
-    border-radius: 25px;
-    padding: 10px;
-    height: 45px;
-    width: 115px;
-    margin-top: 15%;
-}
+/*.orgupdatebtn {*/
+    /*border-radius: 25px;*/
+    /*padding: 10px;*/
+    /*height: 45px;*/
+    /*width: 115px;*/
+    /*margin-top: 15%;*/
+/*}*/
 
 .viewThankYouLabel {
     color: #840E8C;
@@ -1155,24 +1129,15 @@
 }
 
 .orglogo {
-    width: 130px;
-    height: 130px;
-    margin-top: 50%;
-}
-
-.orglogopending {
-    width: 130px;
-    height: 130px;
-    margin-top: 20%;
+    max-width: 130px;
+    max-height: 130px;
+    width: 100%;
+    height: 100%;
 }
 
 .orgname{
     font-weight: bold;
     font-size: 24px;
-}
-
-.orgmessage{
-    margin: 2%;
 }
 
 .btn-col {
@@ -1404,15 +1369,15 @@
     margin-left: 10%;
 }
 
-.otherProfileImageDiv {
-    background-color: transparent;
-    border-radius: 25%;
-    border: 3px solid #CB9E0A;
-    height: 110px;
-    width: 110px;
-    padding: 5%;
-    box-shadow: 4px 4px 10px 4px dimgrey;
-}
+/*.otherProfileImageDiv {*/
+    /*background-color: transparent;*/
+    /*border-radius: 25%;*/
+    /*border: 3px solid #CB9E0A;*/
+    /*height: 110px;*/
+    /*width: 110px;*/
+    /*padding: 5%;*/
+    /*box-shadow: 4px 4px 10px 4px dimgrey;*/
+/*}*/
 
 .otherProfileImage {
     width: 90px;
@@ -1426,29 +1391,11 @@
 }
 
 /*.nav-tabs .nav-link.active {*/
-    /*border-top: 1px solid #3C0740;*/
-    /*border-left: 1px solid #3C0740;*/
-    /*border-right: 1px solid #3C0740;*/
-    /*border-top-left-radius: 25px;*/
-    /*border-top-right-radius: 25px;*/
-    /*background-color: white;*/
-    /*background: white;*/
-    /*!*background-color: #F3E9F4;*!*/
-    /*color: #3C0740;*/
-    /*font-weight: bold;*/
+    /*color: white;*/
 /*}*/
 
-
 /*.nav-tabs .nav-link {*/
-    /*border-top: 1px solid #3C0740;*/
-    /*border-left: 1px solid #3C0740;*/
-    /*border-right: 1px solid #3C0740;*/
-    /*border-top-left-radius: 25px;*/
-    /*border-top-right-radius: 25px;*/
-    /*!*background-color: #007F64;*!*/
-    /*!*background-color: #840E8C;*!*/
-    /*background: linear-gradient(to bottom, #3C0740, #840E8C);*/
-    /*color: white;*/
+    /*color: dimgray;*/
 /*}*/
 
 #otherProfileModal {
