@@ -3,20 +3,17 @@ define(function (require, exports, module) {
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var bootstrap = require("bootstrap");
-    var bootbox = require("bootbox");
-
     var createAvatarModal = require("text!templates/modals/createAvatarModal.html");
-
     var UserModel = require("models/UserModel");
+
 
     var CreateAvatarModalView = Backbone.View.extend({
 
         el: createAvatarModal,
 
         events: {
-            "click #closeCreateAvatarBtn"    : "destroyEditProfileModal",
-            "click #exitCreateAvatarModal"    : "destroyEditProfileModal",
+            "click #closeCreateAvatarBtn"    : "destroySVGAvatarModal",
+            "click #exitCreateAvatarModal"    : "destroySVGAvatarModal"
         },
 
         initialize: function (options) {
@@ -32,20 +29,36 @@ define(function (require, exports, module) {
             return this;
         },
 
-        destroyEditProfileModal: function () {
+        destroySVGAvatarModal: function () {
             var self = this;
-            $('#editProfileModal').fadeOut('slow', function () {
-                self.undelegateEvents();
-                self.$el.removeData().unbind();
-                requestTagList = [];
-                self.model = undefined;
-                self.remove();
-                Backbone.View.prototype.remove.call(self);
+
+            self.model.set('path', "byuid");
+
+            var requestModel = new UserModel({
+                path: 'byuid'
             });
 
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-            self.parent.renderMyProfile();
+
+
+            requestModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "uid": self.model.get("uid")
+                },
+                success: function (model) {
+
+                    self.parent.model = model;
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    self.parent.renderMyProfile();
+
+                },
+                error: function(err){
+                    console.log("error occurred in getting the user after editing");
+                }
+            });
         }
     });
     return CreateAvatarModalView;
