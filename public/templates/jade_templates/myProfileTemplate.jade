@@ -10,18 +10,24 @@
                                 .col-md-3
                                     img#myImage.img-thumbnail(src='/img/wine_default.png')
                                 .col-md-5
-                                    h1#myUsername(style="padding-left: 15px") username
+                                    .container-fluid
+                                        .row
+                                            h1#myUsername(style="padding-left: 15px") username
+                                        .row(style="bottom:60px")
+                                            i(style="padding-left: 15px") Your total donations this year:
+                                            i &nbsp
+                                                b#totalDonations
                                 .col-md-4
                                     .container-fluid
                                         .row
                                             .col-md
                                                 .dropdown.pull-right(style="margin-top: 20px")
                                                     button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                                                        | Edit Profile
+                                                        i.fas.fa-cog.fa-2x
                                                         span.caret
                                                     ul.dropdown-menu(aria-labelledby='dropdownMenu1')
                                                         li
-                                                            a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') update profile
+                                                            a#editProfileBtn.dropdown-item(href='#', data-toggle='modal', data-target='#editProfileModal', data-backdrop='static') edit profile
                                                         li
                                                             a#changePasswordBtn.dropdown-item(href='#', data-toggle='modal', data-target='#changePasswordModal', data-backdrop='static') change password
                                                         //li

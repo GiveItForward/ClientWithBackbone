@@ -48,6 +48,10 @@
     background-color: #00947d52;
 }
 
+.light-yellow {
+    background-color: #ffce0c8c;
+}
+
 .orange {
     background-color: #F7882F;
 }
@@ -71,6 +75,24 @@
     color: dimgray;
 }
 
+
+/* pins the image icon to the profile pic in edit profile*/
+.pin {
+    position: absolute; /* Takes this element out the document flow */
+    z-index:10; /* Just in case of z-index issues, remove if not needed */
+    padding-right: 15px;
+    padding-left: 15px;
+    bottom: 0px; /* Move pin2 30px down */
+    left: 90px;
+    pointer-events: none;
+}
+
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 
 /* ELEMENTS */
 .header {
@@ -152,7 +174,7 @@
 .topborder {
     border-top: 1px ridge;
     border-color:  darkgray;
-    margin: 2%;
+    margin: 9px;
 }
 
 .requestuserimage{
