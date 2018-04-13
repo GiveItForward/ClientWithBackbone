@@ -14,6 +14,7 @@ for request in locals.models
                         |  on #{request.get("requestTime")}
                         if request.get("duid") > 0
                             .fulfilled.pull-right FULFILLED
+                                i  on #{request.get("donateTime")}
                         else
                             .open.pull-right OPEN #{request.get("duid")}
                 .row.topborder
