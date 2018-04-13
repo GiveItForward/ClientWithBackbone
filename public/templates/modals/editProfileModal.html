@@ -7,45 +7,71 @@
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3">
-                        <img id="editProfileImage" class='editProfileImage' src="/img/default_profile_pic_no_bckgrnd.png">
-                    </div>
-                    <div class="col-md-3">
-                        <a class="btn changeimagebtn turquoisebtn whitetext" id="changeImage" data-toggle="modal" data-target="#chooseUserImageModal" data-backdrop="static">change image</a>
-                    </div>
-                    <div class="col-md-3"></div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-5 text-center">
-                        <input id="editFirst" class="roundmedium" type="text" placeholder="first name">
-                    </div>
-                    <div class="col-md-5 text-center">
-                        <input id="editLast" class="roundmedium" type="text" placeholder="last name">
-                    </div>
-                    <div class="col-md-1"></div>
-                </div>
-                <!--<div class="row">-->
-                    <!--<div class="col-md-12 text-center">-->
-                        <!--<input id="editUsername" class="roundmedium" type="text" placeholder="username">-->
-                    <!--</div>-->
-                <!--</div>-->
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <textarea id="editBio" class="bio" rows="4" cols="60" placeholder="bio"></textarea>
+                    <!--<div class="col-md-3"></div>-->
+                    <div class="col-md-8 col-md-offset-2">
+                        <input type="image" id="editProfileImage" class='img-thumbnail' src="/img/default_profile_pic_no_bckgrnd.png" alt="Submit Form" data-toggle="modal" data-target="#chooseUserImageModal" data-backdrop="static">
+                        <div type="button" style="font-size:4em; color:white">
+                            <i class="fas fa-camera pin"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="button-group dropup">
-                    <button class="btn round purplebtn dropdown-toggle" type="button" data-toggle="dropdown">tags<span class="caret"></span></button>
-                    <ul id="editRequestTags" class="dropdown-menu choosetags">
-                    </ul>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <br>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle light-turquoise" type="button" id="editTagDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    tags
+                                    <span class="caret"></span>
+                                </button>
+                                <ul id="editRequestTags" class="dropdown-menu scrollable-menu" style="overflow:auto;"></ul>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <br>
+                            <div class="btn-toolbar" role="toolbar" aria-label="current tags">
+                                <div id="currentTags">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon0">@</span>
+                                <input id="editUsername" type="text" disabled class="form-control" placeholder="" aria-describedby="basic-addon0">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon0.5">Email</span>
+                                <input id="editEmail" type="text" disabled class="form-control" placeholder="" aria-describedby="basic-addon0.5">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">First Name</span>
+                                <input id='editFirst' type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon2">Last Name</span>
+                                <input id='editLast' type="text" class="form-control" placeholder="" aria-describedby="basic-addon2">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3">Bio</span>
+                                <textarea id='editBio' class="form-control" aria-label="With textarea" aria-describedby="basic-addon3" style="width:100%; height:100%; resize:vertical; overflow:auto;"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <label id="editProfileErrorLabel" style="color: red"></label>
-                <button id="cancelEditProfileBtn" class="btn greybtn" data-dismiss="modal">Cancel</button>
-                <button id="updateProfileBtn" class="btn turquoisebtn">Update Profile</button>
+                <button id="cancelEditProfileBtn" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="updateProfileBtn" class="btn btn-primary">Update Profile</button>
             </div>
         </div>
     </div>

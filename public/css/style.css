@@ -48,6 +48,10 @@
     background-color: #00947d52;
 }
 
+.light-yellow {
+    background-color: #ffce0c8c;
+}
+
 .orange {
     background-color: #F7882F;
 }
@@ -56,19 +60,39 @@
     background-color: #FFCE0C;
 }
 
+
+/* nav bar custom colors */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     border-top: transparent;
     border-right: transparent;
     border-left: transparent;
     border-color: #00947D;
     background-color: #00ae93 !important;
-    color: #00947D;
+    color: white;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background-color: #00ae93;
 }
 
+
+/* pins the image icon to the profile pic in edit profile*/
+.pin {
+    position: absolute; /* Takes this element out the document flow */
+    z-index:10; /* Just in case of z-index issues, remove if not needed */
+    padding-right: 15px;
+    padding-left: 15px;
+    bottom: 0px; /* Move pin2 30px down */
+    left: 90px;
+    pointer-events: none;
+}
+
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 
 /* ELEMENTS */
 .header {
@@ -297,9 +321,9 @@
     margin: 20px 0 0 15%;
 }
 
-.btn {
-    border-radius: 25px;
-}
+/*.btn {*/
+    /*border-radius: 25px;*/
+/*}*/
 
 .round{
     border-radius: 25px;
