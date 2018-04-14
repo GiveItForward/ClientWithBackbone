@@ -38,20 +38,3 @@
                                             else
                                                 button#elevateUserAdminBtn.btn.btn-info(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
                                                 button#deleteUserBtn.btn.btn-danger(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') delete user
-
-
-
-
-
-//a.requestusername(target="_blank", href='#') @#{user.get("username")}
-
-//for tag in user.get("tags")
-//    if tag.tagname !== ''
-//        if tag.verifiedBy !== ''
-//            a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-//                input#verifyTag(type='checkbox', checked="checked",)
-//            | &nbsp##{tag.tagname}&nbsp&nbsp
-//        else
-//            a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
-//                input#verifyTag(type='checkbox')
-//            | &nbsp##{tag.tagname}&nbsp&nbsp

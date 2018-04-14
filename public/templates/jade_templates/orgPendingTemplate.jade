@@ -1,19 +1,19 @@
-for org in locals.models
-    .row
-        .col-md-12
-            .panel.roundorg
-                .form-inline
-                    .container
-                        .requestmargin
+.container-fluid
+    for org in locals.models
+        .row
+            .col-md-10.col-md-offset-1
+                .panel.panel-default
+                    .panel-body
+                        .container
                             .row
                                 #orgImage.col-md-2.text-center
                                     img.orglogopending(src='#{org.get("image")}')
-                                    button#approveOrgBtn.orgapprovebtn.turquoisebtn(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') approve
-                                    button#denyOrgBtn.orgdenybtn.winebtn(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') deny
+                                    button#approveOrgBtn.btn.turquoisebtn(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') approve
+                                    button#denyOrgBtn.btn.btn-danger(data-oid='#{org.get("oid")}', data-name='#{org.get("name")}') deny
                                 .col-md-10.text-center
                                     a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
                                     .orgDescriptionDiv
-                                        #orgBio.orgmessage.panel-body #{org.get("description")}
+                                        #orgBio #{org.get("description")}
                                     .row.topborder
                                         .col-md-6
                                             a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}

@@ -267,16 +267,12 @@ define(function (require, exports, module) {
             var self = this;
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
-            $("#orgsBtn").addClass("active");
-            // $('<div class="fa-5x">\n' +
-            //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
-            //     '</div>').insertBefore('#homeContainer');
             if(self.model.get('isAdmin')) {
-                self.$('#homeContainer').html(orgFeedAdminTemplate);
+                self.$('#searchBarDiv').html(orgFeedAdminTemplate);
             }else if(self.model.get('orgId') > 0 ) {
                 self.$('#homeContainer').html(orgFeedOrgTemplate);
             }else{
-                self.$('#homeContainer').html(orgFeedTemplate);
+                self.$('#searchBarDiv').html(orgFeedTemplate);
             }
             $('#orgSpinner').css('display', 'block');
 
