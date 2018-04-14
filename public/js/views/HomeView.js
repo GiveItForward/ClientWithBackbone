@@ -166,7 +166,6 @@ define(function (require, exports, module) {
         renderHome: function () {
             var self = this;
             self.renderTopHomeBar();
-            $("#topDisplay").html("Request Feed");
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
@@ -267,7 +266,6 @@ define(function (require, exports, module) {
         renderOrgs: function () {
             var self = this;
             self.renderTopHomeBar();
-            $("#topDisplay").html("Organizations");
             self.removeSelectedFromAll();
             $("#orgsBtn").addClass("active");
             // $('<div class="fa-5x">\n' +
@@ -406,14 +404,6 @@ define(function (require, exports, module) {
             return this;
         },
 
-
-        createAvatarTab: function() {
-            $('#svgAvatars').insertAfter('#avatarPlaceHolder2');
-            $('#svgAvatars').show();
-            $("html, body").animate({ scrollTop: $("#svgAvatars").scrollTop() }, 1000);
-            return this;
-        },
-
         changePassword: function () {
             var self = this;
             var container = document.createDocumentFragment();
@@ -458,10 +448,9 @@ define(function (require, exports, module) {
         renderUsers: function () {
             var self = this;
             self.renderTopHomeBar();
-            $("#topDisplay").html("Users");
             self.removeSelectedFromAll();
             $("#usersBtn").addClass("active");
-            self.$('#homeContainer').html(userFeedTemplate);
+            self.$('#searchBarDiv').html(userFeedTemplate);
 
             var userCollection = new UserCollection();
             console.log("USER COLLECTION: ")

@@ -60,6 +60,11 @@
     background-color: #FFCE0C;
 }
 
+/* color for disabled request button */
+#giveBtn:disabled {
+    background-color: lightgray;
+}
+
 /* Define style for tabs */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     border-top: transparent;
@@ -76,7 +81,7 @@
 }
 
 
-/* pins the image icon to the profile pic in edit profile*/
+/* pins the image icon to the profile pic in edit profile modal*/
 .pin {
     position: absolute; /* Takes this element out the document flow */
     z-index:10; /* Just in case of z-index issues, remove if not needed */
@@ -1227,6 +1232,13 @@
 }
 
 .requesttags {
+    border-radius: 25px;
+    /*margin: 1%;*/
+    padding: 2%;
+    width: 90%;
+}
+
+.orderby {
     border-radius: 25px;
     /*margin: 1%;*/
     padding: 2%;
