@@ -404,14 +404,6 @@ define(function (require, exports, module) {
             return this;
         },
 
-
-        createAvatarTab: function() {
-            $('#svgAvatars').insertAfter('#avatarPlaceHolder2');
-            $('#svgAvatars').show();
-            $("html, body").animate({ scrollTop: $("#svgAvatars").scrollTop() }, 1000);
-            return this;
-        },
-
         changePassword: function () {
             var self = this;
             var container = document.createDocumentFragment();
