@@ -1231,19 +1231,6 @@
     text-align: left;
 }
 
-.requesttags {
-    border-radius: 25px;
-    /*margin: 1%;*/
-    padding: 2%;
-    width: 90%;
-}
-
-.orderby {
-    border-radius: 25px;
-    /*margin: 1%;*/
-    padding: 2%;
-    width: 90%;
-}
 
 .historytags{
     height: 25px;

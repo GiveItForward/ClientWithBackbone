@@ -1,19 +1,14 @@
 .row
-    //.col-md-8
-    //    .row(style='height:40px;')
-    //    .row
-    //        .input-group
-    //            input#search_param(type='hidden', name='search_param', value='all')
-    //            input.form-control(type='text', name='x', placeholder='Search term...')
-    //            span.input-group-btn
-    //                button.btn.btn-default(type='button')
-    //                    span.glyphicon.glyphicon-search
-    .col-sm-9
-        .form-inline
-            input#searchUsers.round(type='text', placeholder='search for users')
-            a#goSearchUsers.btn.roundminibtn.turquoisebtn(href='#') go
-        .fa-5x
-            i#homeLoginSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
-    .col-sm-3
-.row.bottom-row
+    .col-md-8.col-md-offset-2
+        .container-fluid
+            .row(style='height:40px;')
+            .row
+                .input-group
+                    input#searchUsers.form-control(type='text', name='x', placeholder='search users...')
+                    span.input-group-btn
+                        button#goSearchUsers.btn.btn-default(type='button')
+                            span.glyphicon.glyphicon-search
+                .fa-5x
+                i#homeLoginSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
+.row(style='margin: 40px;')
     #usersCol.col-md-10.scroll

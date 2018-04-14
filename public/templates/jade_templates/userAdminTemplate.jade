@@ -1,42 +1,43 @@
-for user in locals.models
-    .row
-        .col-md-12
-            .panel.rounduseradmin
-                .form-inline
-                    .container
-                        .requestmargin
-                            .row
-                                .col-md-1
-                                    img.requestuserimage(src='#{user.get("image")}')
-                                .col-md-11
-                                    .row.form-inline
-                                        .col-md-4
-                                            a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
-                                        .col-md-4
-                                        .col-md-4.text-right
-                                            .username #{user.get("firstname")} #{user.get("lastname")}
-                                            .username #{user.get("email")}
-                                    #requestTags.form-inline.tags
-                                        for tag in user.get("tags")
-                                            if tag.tagname !== ''
-                                                | &nbsp##{tag.tagname}
-                                            if tag.verifiedBy !== ''
-                                                span(data-title='Verified by #{tag.verifiedBy}')
-                                                    img.checkmark(src='/img/marooncheckmark.png')
+.container-fluid
+    for user in locals.models
+        .row
+            .col-md-10.col-md-offset-1
+                .panel.panel-default
+                    .panel-body
+                            .container-fluid
+                                .row
+                                    .col-md-1
+                                        img.img-circle.requestuserimage(src='#{user.get("image")}')
+                                    .col-md-11
+                                        .row.form-inline
+                                            .col-md-4
+                                                a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
+                                            .col-md-4
+                                            .col-md-4.text-right
+                                                .username #{user.get("firstname")} #{user.get("lastname")}
+                                                .username #{user.get("email")}
+                                        #requestTags.form-inline.tags
+                                            for tag in user.get("tags")
+                                                if tag.tagname !== ''
+                                                    | &nbsp##{tag.tagname}
+                                                if tag.verifiedBy !== ''
+                                                    span(data-title='Verified by #{tag.verifiedBy}')
+                                                        img.checkmark(src='/img/marooncheckmark.png')
+                                                else
+                                                    | &nbsp
+                                .row.topborder
+                                    .col-md-12
+                                        br
+                                        .text-center
+                                            | #{user.get("bio")}
+                                .row
+                                    .col-md-12.text-right
+                                        .btn-group
+                                            if user.get("isAdmin")
+                                                b.font-italic This user is an admin.
                                             else
-                                                | &nbsp
-                            .row.topborder
-                                .col-md-12
-                                    .userbiodiv.text-center
-                                        | #{user.get("bio")}
-                            .row
-                                .col-md-12.text-center
-                                    .btn-group
-                                        if user.get("isAdmin")
-                                            b.font-italic This user is an admin.
-                                        else
-                                            button#elevateUserAdminBtn.elevateuserbtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
-                                            button#deleteUserBtn.elevateuserbtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') delete user
+                                                button#elevateUserAdminBtn.btn.btn-info(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') elevate to admin
+                                                button#deleteUserBtn.btn.btn-danger(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') delete user
 
 
 
