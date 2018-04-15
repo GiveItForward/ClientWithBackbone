@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var bootbox = require("bootbox");
 
     var RequestModel = require("models/RequestModel");
+    var NLPModel = require("models/NLPModel");
     var RequestTagCollection = require("models/RequestTagCollection");
 
     var newRequestModal = require("text!templates/modals/newRequestModal.html");
@@ -144,6 +145,9 @@ define(function (require, exports, module) {
             self.updateModel();
 
             console.log(self.model);
+
+            // checkDescriptionWithNLP(self.model.get('description'));
+
             self.model.save(null, {
                 wait: true,
                 success: function(model, response) {
@@ -159,6 +163,23 @@ define(function (require, exports, module) {
                 }});
 
             // return this;
+        },
+
+        checkDescriptionWithNLP: function (description) {
+            var nlpModel = new NLPModel({
+                stringToCheck: description
+            });
+            nlpModel.fetch({
+                success: function(model, response) {
+                    console.log(model);
+                    console.log('success in fetch of NLP model');
+                    //check booleans in model to allow save of request, or show warning
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem with the NLP model.');
+                }});
         },
 
         destroyNewRequestModal: function () {
