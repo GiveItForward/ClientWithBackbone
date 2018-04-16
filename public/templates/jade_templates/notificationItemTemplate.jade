@@ -1,7 +1,18 @@
 #notificationItem
     for note in locals.models
         li
-            a#notificationLink(href='#', data-message='#{note.get("message")}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') #{note.get("message")}
+            .panel.panel-default(style='margin-bottom: 5px;')
+                .panel-body
+                    .container-fluid
+                        .row
+                            .col-md-3
+                                a#notificationLink.blacktext(href='#', data-message='#{note.get("message")}', data-date='#{note.get("date")}', data-type='#{note.get("note-type")}') #{note.get("date")}
+                            .col-md-8
+                                i #{note.get("message")}
+                            .col-md-1
+                                i.fas.fa-circle.pull-right
+
+
 
 
 

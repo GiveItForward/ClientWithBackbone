@@ -1214,6 +1214,7 @@ define(function (require, exports, module) {
             var target = $(event.currentTarget);
             console.log("IN NOTIFICATION")
             console.log(target.attr( 'data-message' ));
+            console.log(target.attr( 'data-date' ));
         },
 
         logout: function () {
