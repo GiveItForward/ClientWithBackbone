@@ -336,6 +336,28 @@ router.get('/tags', function(req, res, next) {
     });
 });
 
+router.get('/resetpassword', function(req, res, next) {
+
+    setupCORSResponse(res, req.headers.origin);
+
+    console.log("IN RESET PASSWORD");
+    var options = {
+        url: baseUrl.tomcat_url + req.url,
+        headers: req.headers
+    };
+
+    request(options, function (error, response, body) {
+        if(response.statusCode === 200){
+            var responseObj = {
+                message: "SUCCESS"
+            };
+            res.status(200).send(JSON.stringify(responseObj));
+        } else {
+            res.status(response.statusCode).send(body);
+        }
+    });
+
+});
 
 router.get('/forgotpassword', function(req, res, next) {
 

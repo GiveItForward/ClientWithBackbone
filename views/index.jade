@@ -140,7 +140,7 @@ block content
                             label Enter your email address and we'll send you a link to reset your password
                             input#forgottenPasswordEmail.form-control(type='email', placeholder='enter email', name='email')
                     .modal-footer
-                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#sendEmailBtn') Send email
+                        button#sendEmailBtn.btn.btn-default(type='submit', data-dismiss='modal') Send email
 
         #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModal', aria-hidden='true')
             .modal-dialog
@@ -189,7 +189,7 @@ block content
                         .form-group
                             label(for='newVerifyPassword') Confirm password:
                             input#newVerifyPassword.form-control(type='username', placeholder='Re-enter password', name='confirm password')
-                        button.btn.btn-default(type='submit', data-dismiss='modal', data-target='#createAccountBtn') Sign up
+                        button#createAccountBtn.btn.btn-default(type='submit', data-dismiss='modal') Sign up
     #footer
         .footer.turquoise.whitetext
             p Footer information about giveitforward.us goes here.

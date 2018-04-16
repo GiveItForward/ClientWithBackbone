@@ -12,7 +12,8 @@ router.get('/*', function(req, res, next) {
         url: baseUrl.tomcat_url + "/resetpassword" +  req.url
     };
 
-    res.render('resetPassword', {hash: req.url});
+    console.log("url " + req.url);
+    res.render('resetPassword', {hashInfo: req.url});
 
 });
 

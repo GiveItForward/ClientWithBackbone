@@ -35,8 +35,7 @@ define(function (require, exports, module) {
             "keyup"                         : "updateSignupModel",
             "change"                        : "updateSignupModel",
             "click #sendEmailBtn"           : "sendForgotPasswordEmail",
-            "keyup #forgottenPasswordEmail" : "toggleSendEmailButton",
-            "click #resetPasswordBtn"       : "sendResetPassword"
+            "keyup #forgottenPasswordEmail" : "toggleSendEmailButton"
         },
 
         initialize: function () {
@@ -269,38 +268,6 @@ define(function (require, exports, module) {
                 self.createAccount();
             }
             return this;
-        },
-
-        sendResetPassword: function() {
-            var self = this;
-            self.model = new UserModel({});
-            var password = "";
-            var hash = getUrl.pathname.split('/')[1];
-            self.model.url = '/api/resetPassword';
-            if ($("#newPasswordReset").val() === $("#confirmNewPasswordReset").val()) {
-                password = sha256($("#newPasswordReset").val());
-            }
-            else {
-                bootbox.alert("Passwords do not match.");
-            }
-
-            self.model.fetch({
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "hash": hash,
-                    "password": password
-                },
-                success: function () {
-                    new LandingView();
-                },
-                error: function(model, response, options){
-                    bootbox.alerts("Error resetting password.");
-                }
-            });
-            return this;
-
         },
         sendForgotPasswordEmail: function() {
             var self = this;
