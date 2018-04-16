@@ -270,7 +270,7 @@ define(function (require, exports, module) {
             if(self.model.get('isAdmin')) {
                 self.$('#searchBarDiv').html(orgFeedAdminTemplate);
             }else if(self.model.get('orgId') > 0 ) {
-                self.$('#homeContainer').html(orgFeedOrgTemplate);
+                self.$('#searchBarDiv').html(orgFeedOrgTemplate);
             }else{
                 self.$('#searchBarDiv').html(orgFeedTemplate);
             }
