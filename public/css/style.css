@@ -227,10 +227,6 @@
     mas-height: 200px;
 }
 
-.input-group-btn {
-    width: 0%;
-}
-
 
 /*hover over checkmark*/
 /*span[data-title]:hover:after {*/
@@ -468,7 +464,7 @@
 }
 
 .roundminitext{
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 1%;
     margin: 1%;
     width: 75px;
@@ -1199,7 +1195,7 @@
 }
 
 .bio {
-    border-radius: 25px;
+    border-radius: 5px;
     margin-bottom: 1%;
     padding: 2%;
     height: 150px;
@@ -1296,9 +1292,9 @@
 
 
 .choosetags {
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 2%;
-    border: 2px solid dimgray;
+    border: 1px solid dimgray;
     width: 445px;
     font-size: 14pt;
 }

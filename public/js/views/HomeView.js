@@ -53,7 +53,7 @@ define(function (require, exports, module) {
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
-    var notificationTemplate = require("jade!templates/jade_templates/notificationTemplate");
+    var notificationItemTemplate = require("jade!templates/jade_templates/notificationItemTemplate");
     var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
     // var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
 
@@ -277,7 +277,6 @@ define(function (require, exports, module) {
             }else{
                 self.$('#searchBarDiv').html(orgFeedTemplate);
             }
-            self.$('#centerSearchBarDiv').html(orgSearchBar);
 
             $('#orgSpinner').css('display', 'block');
 
