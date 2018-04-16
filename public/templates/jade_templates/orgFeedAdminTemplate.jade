@@ -1,7 +1,9 @@
-.row.bottom-row-org
+.row(style='height:40px')
+.row
     .col-md-12
         .orgscroll
             #orgAdminDiv
+                br
                 ul.nav.nav-tabs
                     li.nav-item.active
                         a.nav-link.active(href='#orgColTab', data-toggle='tab') Approved Orgs
@@ -11,6 +13,16 @@
                     i#homeLoginSpineer(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
                 .tab-content
                     #orgColTab.tab-pane.active
+                        br
+                        .row
+                            .col-md-8.col-md-offset-2
+                                .container-fluid
+                                    .row
+                                        .input-group
+                                            input#searchOrgs.form-control(type='text', placeholder='search orgs...')
+                                            span.input-group-btn
+                                                button#goSearchOrgs.btn.btn-default(type='button')
+                                                    span.glyphicon.glyphicon-search
                         br
                         #orgCol.activeTabDiv
                     #pendingOrgTab.tab-pane

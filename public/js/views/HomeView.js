@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
     var NewOrgModalView = require("views/NewOrgModalView");
@@ -24,13 +23,11 @@ define(function (require, exports, module) {
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var CreateAvatarModalView = require("views/CreateAvatarModalView");
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
-    var LandingView = require("views/LandingView");
 
     var UserModel = require("models/UserModel");
     var UserCollection = require("models/UserCollection");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
-    var NotificationModel = require("models/NotificationModel");
     var NotificationCollection = require("models/NotificationCollection");
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
@@ -58,7 +55,8 @@ define(function (require, exports, module) {
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
     var notificationTemplate = require("jade!templates/jade_templates/notificationTemplate");
     var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
-    var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
+    // var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
+
 
 
     var HomeView = Backbone.View.extend({
@@ -103,6 +101,7 @@ define(function (require, exports, module) {
             "click #otherProfileLink"           : "otherProfile",
             "click #sayThankYouBtn"             : "sayThankYou",
             "click #viewThankYouBtn"            : "viewThankYou",
+            "click #notificationItem a"         : "viewNotification",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -167,6 +166,7 @@ define(function (require, exports, module) {
 
         renderHome: function () {
             var self = this;
+            self.renderMyNotifications();
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
@@ -270,16 +270,12 @@ define(function (require, exports, module) {
             var self = this;
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
-            $("#orgsBtn").addClass("active");
-            // $('<div class="fa-5x">\n' +
-            //     '  <i class="fas fa-spinner fa-spin"></i>\n' +
-            //     '</div>').insertBefore('#homeContainer');
             if(self.model.get('isAdmin')) {
-                self.$('#homeContainer').html(orgFeedAdminTemplate);
+                self.$('#searchBarDiv').html(orgFeedAdminTemplate);
             }else if(self.model.get('orgId') > 0 ) {
-                self.$('#homeContainer').html(orgFeedOrgTemplate);
+                self.$('#searchBarDiv').html(orgFeedOrgTemplate);
             }else{
-                self.$('#homeContainer').html(orgFeedTemplate);
+                self.$('#searchBarDiv').html(orgFeedTemplate);
             }
             self.$('#centerSearchBarDiv').html(orgSearchBar);
 
@@ -373,8 +369,6 @@ define(function (require, exports, module) {
             $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderMyRequests();
             self.renderMyDonations();
-            self.renderMyNotifications();
-
             return this;
         },
 
@@ -714,9 +708,9 @@ define(function (require, exports, module) {
                     console.log("My notifications: ");
                     console.log(collection.models);
                     if(collection.models.length > 0){
-                        self.$('#notifications').html(notificationTemplate(collection));
+                        self.$('#notificationsNavItem').html(notificationItemTemplate(collection));
                     }else{
-                        self.$('#notifications').html("You have no notifications at this time.");
+                        self.$('#notificationsNavItem').html("You have no notifications at this time.");
                     }
 
                 },
@@ -1220,6 +1214,13 @@ define(function (require, exports, module) {
                 self.goSearchUsers();
             }
             return this;
+        },
+
+        viewNotification: function(event) {
+            var target = $(event.currentTarget);
+            console.log("IN NOTIFICATION")
+            console.log(target.attr( 'data-message' ));
+            console.log(target.attr( 'data-date' ));
         },
 
         logout: function () {

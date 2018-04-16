@@ -1,13 +1,13 @@
-for user in locals.models
-    .row
-        .col-md-12
-            .panel.roundrequest
-                .form-inline
-                    .container
-                        .requestmargin
+.container-fluid
+    for user in locals.models
+        .row
+            .col-md-10.col-md-offset-1
+                .panel.panel-default
+                    .panel-body
+                        .container-fluid
                             .row
                                 .col-md-1
-                                    img.requestuserimage(src='#{user.get("image")}')
+                                    img.img-circle.requestuserimage(src='#{user.get("image")}')
                                 .col-md-11
                                     .row.form-inline
                                         .col-md-4
@@ -23,21 +23,22 @@ for user in locals.models
                                                     .verifytag
                                                         | ##{tag.tagname}
                                                     //button#updateVerifiedTagsBtn.verifybtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
-                                                    button#unverifyTagBtn(type='submit', style='border: 0; background: transparent', data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}')
-                                                        img(src='/img/marooncheckmark.png', width='40', height='40', alt='submit')
+                                                    button#unverifyTagBtn.btn.btn-danger(type='submit', data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
+                                                        //img(src='/img/marooncheckmark.png', width='40', height='40', alt='submit')
                                                     //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
                                                     //    input#verifyTag(type='checkbox', name='verifiedtag', checked="checked")
                                                     //    label(for='verifiedtag')
                                                 else
                                                     .verifytag
                                                         | ##{tag.tagname}
-                                                    button#verifyTagBtn.verifybtn.purplebtn(data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') verify
+                                                    button#verifyTagBtn.btn.turquoise.whitetext(data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') verify
                                                     //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
                                                     //    input#verifyTag(type='checkbox')
                                                     //    label(for='verifiedtag')
                             .row.topborder
                                 .col-md-12
-                                    .userbiodiv.text-center
+                                    .text-center
+                                        br
                                         | #{user.get("bio")}
 
 

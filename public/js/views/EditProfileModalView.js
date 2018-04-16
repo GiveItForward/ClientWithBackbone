@@ -178,6 +178,8 @@ define(function (require, exports, module) {
             console.log("user model to update: ");
             console.log(updatedUserModel);
 
+            // checkBioWithNLP(self.model.get('bio'));
+
             updatedUserModel.save(null, {
                 wait: true,
                 success: function(model, response) {
@@ -196,6 +198,24 @@ define(function (require, exports, module) {
 
             return this;
         },
+
+        checkBioWithNLP: function (bio) {
+            var nlpModel = new NLPModel({
+                stringToCheck: bio
+            });
+            nlpModel.fetch({
+                success: function(model, response) {
+                    console.log(model);
+                    console.log('success in fetch of NLP model');
+                    //check booleans in model to allow save of request, or show warning
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem with the NLP model.');
+                }});
+        },
+
 
         destroyEditProfileModal: function () {
             var self = this;
