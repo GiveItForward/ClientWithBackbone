@@ -158,7 +158,8 @@ block content
                             label(for='password') Password:
                             input#password.form-control(type='password', placeholder='Enter password', name='password')
                     .modal-footer
-                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal') Log in
+                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit') Log in
+                        label#loginErrorLabel(style="float:left; color: red")
                         span.psw
                             a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
 

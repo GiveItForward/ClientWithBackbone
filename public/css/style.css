@@ -10,6 +10,9 @@
   /*color: skyblue !important;*/
 /*}*/
 
+.ui-tabs-hide { display: none; }
+
+
 /* COLORS */
 .whitetext {
     color: white !important;
@@ -36,6 +39,9 @@
 }
 
 
+.white{
+    background-color: white;
+}
 .off-white {
     background-color: #F8F8F8;
 }
@@ -221,7 +227,9 @@
     mas-height: 200px;
 }
 
-
+.input-group-btn {
+    width: 0%;
+}
 
 
 /*hover over checkmark*/
@@ -422,20 +430,6 @@
     padding: 5px;
     width: 175px;
     margin: 5px;
-}
-
-.searchtagsbtn{
-    border-radius: 25px;
-    /*padding: 5%;*/
-    width: 250px;
-    margin: 3%;
-}
-
-.orderbybtn{
-    border-radius: 25px;
-    /*padding: 5%;*/
-    width: 160px;
-    margin-left: 15%;
 }
 
 .changeimagebtn{

@@ -10,43 +10,7 @@
                     i.fas.fa-angle-double-right.fa-2x
                     #donateCount
         .col-md-8
-            .row(style='height:40px;')
-            .row
-                .input-group
-                    .input-group-btn.search-panel
-                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                            span#search_concept Filter by
-                            span.caret
-                        ul#searchByTags.dropdown-menu(role='menu')
-                            // dynamically load tags into the filter box.
-                    // TODO - this is the order by stuff for the request feed
-                    .input-group-btn.search-panel
-                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                            | order by
-                            span.caret
-                        ul#orderBy.dropdown-menu(role="menu")
-                            li
-                                a(href='#', data-value='new', data-tid=1, data-group='requesttags', tabindex='-1')
-                                    input#new(type='checkbox')
-                                | &nbsp;new to old
-                            li
-                                a(href='#', data-value='old', data-tid=2, data-group='requesttags', tabindex='-1')
-                                    input#old(type='checkbox')
-                                | &nbsp;old to new
-                            li.divider
-                            li
-                                a(href='#', data-value='low', data-tid=3, data-group='requesttags', tabindex='-1')
-                                    input#low(type='checkbox')
-                                | &nbsp;low to high
-                            li
-                                a(href='#', data-value='high', data-tid=4, data-group='requesttags', tabindex='-1')
-                                    input#high(type='checkbox')
-                                | &nbsp;high to low
-                    input#search_param(type='hidden', name='search_param', value='all')
-                    input#searchByTerm.form-control(type='text', name='x', placeholder='Search term...')
-                    span.input-group-btn
-                        button#goFilterRequests.btn.btn-default(type='button')
-                            span.glyphicon.glyphicon-search
+            #centerSearchBarDiv
         .col-md-2
             .span(align="center")
                 button#newRequestBtn.iconbox.turquoise.whitetext(data-toggle='modal', data-target='#newRequestModal')

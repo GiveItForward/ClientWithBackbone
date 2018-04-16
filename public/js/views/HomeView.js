@@ -57,6 +57,8 @@ define(function (require, exports, module) {
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
     var notificationTemplate = require("jade!templates/jade_templates/notificationTemplate");
+    var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
+    var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
 
 
     var HomeView = Backbone.View.extend({
@@ -169,6 +171,7 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
+            self.$('#centerSearchBarDiv').html(requestSearchBar);
 
             var requestCollection = new RequestCollection();
 
@@ -278,6 +281,8 @@ define(function (require, exports, module) {
             }else{
                 self.$('#homeContainer').html(orgFeedTemplate);
             }
+            self.$('#centerSearchBarDiv').html(orgSearchBar);
+
             $('#orgSpinner').css('display', 'block');
 
             var orgCollection = new OrgCollection();

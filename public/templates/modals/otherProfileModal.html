@@ -1,38 +1,35 @@
 <div class="modal fade" id="otherProfileModal" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content off-white">
-            <div class="modal-header dimgreytext">
+            <div class="modal-header">
+                <!--Header information-->
                 <button id="exitOtherProfileModal" type="button" class="close" data-dismiss="modal">&times;</button>
-                <span>
-                    <div class="requestuserimage">
-                        <img id="otherProfileImage" class="requestuserimage" src="/img/profile/grey_default.png">
-                    </div>
-                    <h4 id="otherProfileModalTitle" class="modal-title">View Profile</h4>
-                </span>
             </div>
             <div class="modal-body">
-                <div class="row text-center">
-                    <!--<div class="col-md-4"></div>-->
-                    <!--<div class="col-md-4 text-center">-->
-
-                        <!--&lt;!&ndash;<label id="otherProfileUserName" class="requestusername"></label>&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--<div class="col-md-4"></div>-->
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <div id="otherProfileTags"></div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>
+                            <div class="requestuserimage">
+                                <img id="otherProfileImage" class="requestuserimage" src="/img/profile/grey_default.png">
+                            </div>
+                            <h4 id="otherProfileModalTitle" class="modal-title">View Profile</h4>
+                        </span>
                     </div>
-                </div>
-                <Br>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <div class="otherProfileBioDiv text-center">
-                            <div id="otherProfileBio"></div>
+                    <div class="col-md-9">
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <div id="otherProfileTags" class="blacktext"></div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <div class="otherProfileBioDiv white text-center">
+                                    <div id="otherProfileBio"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <br>
                 <div class="row text-center">
                     <div class="col-md-12">
                         <div id="exTab2" class="row">
@@ -64,7 +61,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="closeOtherProfileBtn" class="btn greybtn" data-dismiss="modal">Close</button>
+                <button id="closeOtherProfileBtn" class="horizontal-iconbox turquoise whitetext" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

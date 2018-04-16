@@ -1,11 +1,9 @@
 for request in locals.models
     .row
         .col-md-12
-            .panel.otherroundrequest
-                .form-inline
-                    .container.text-center
-                        .requestmargin
-                            .row
+            .request-panel.form-inline
+                    .container-fluid(style='margin:2%;')
+                            .row.text-center
                                 .col-md-12
                                     | Requested on #{request.get("requestTime")}
                                     if request.get("duid") > 0
@@ -21,14 +19,16 @@ for request in locals.models
                                         img.otherrequestimage(src='#{request.get("image")}')
                             .row.text-center
                                 .col-md-12
-                                    .requestmessagediv
+                                    .requestdescriptiondiv
                                         #requestDescription.requestmessage #{request.get("description")}
                             .row
-                                .col-md-12.text-center
+                                .col-md-12(align="center")
                                     if request.get("duid") > 0
                                         if request.get("thankYou") !== ''
-                                            a#viewThankYouBtn.otherthankyoubtn.btn.purplebtn.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+                                            //a#editOrgBtn.horizontal-iconbox.orange.whitetext(href='#', data-toggle='modal', data-target='#editOrgModal', data-backdrop='static', style='margin-top: 6%;') update info
+                                            a#viewThankYouBtn.horizontal-iconbox.yellow.whitetext(data-rUsername='#{request.get("rUser").username}', data-note='#{request.get("thankYou").note}', data-date='#{request.get("thankYou").date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
                                     else
-                                        button#giveBtn.otherroundgivebtn.btn(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}') $#{request.get("amount")}
-
+                                       button#giveBtn.iconbox.orange.whitetext(data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}')
+                                            i.fas.fa-angle-double-right.fa-2x(style='width:100%;top-padding:-1%;')
+                                            | $#{request.get("amount")}
 

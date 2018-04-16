@@ -178,7 +178,8 @@ define(function (require, exports, module) {
                          model: self.model
                     });
                     $('#loginSpinner').css('display', 'none');
-                    $('#loginModal').modal("hide");
+                    $('#loginModal').modal().hide();
+                    $('.modal-backdrop').remove();
                 },
                 error: function(model, response, options){
                     $('#loginSpinner').css('display', 'none');
