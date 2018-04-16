@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     var $ = require("jquery");
     var _ = require("underscore");
     var Backbone = require("backbone");
-    var bootstrap = require("bootstrap");
     var bootbox = require("bootbox");
 
     var NewOrgModalView = require("views/NewOrgModalView");
@@ -24,13 +23,11 @@ define(function (require, exports, module) {
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var CreateAvatarModalView = require("views/CreateAvatarModalView");
     var ViewThankYouModalView = require("views/ViewThankYouModalView");
-    var LandingView = require("views/LandingView");
 
     var UserModel = require("models/UserModel");
     var UserCollection = require("models/UserCollection");
     var RequestModel = require("models/RequestModel");
     var RequestCollection = require("models/RequestCollection");
-    var NotificationModel = require("models/NotificationModel");
     var NotificationCollection = require("models/NotificationCollection");
     var TagCollection = require("models/TagCollection");
     var OrgModel = require("models/OrgModel");
@@ -56,7 +53,7 @@ define(function (require, exports, module) {
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
-    var notificationTemplate = require("jade!templates/jade_templates/notificationTemplate");
+    var notificationItemTemplate = require("jade!templates/jade_templates/notificationItemTemplate");
 
 
     var HomeView = Backbone.View.extend({
@@ -101,6 +98,7 @@ define(function (require, exports, module) {
             "click #otherProfileLink"           : "otherProfile",
             "click #sayThankYouBtn"             : "sayThankYou",
             "click #viewThankYouBtn"            : "viewThankYou",
+            "click #notificationItem a"         : "viewNotification",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -165,6 +163,7 @@ define(function (require, exports, module) {
 
         renderHome: function () {
             var self = this;
+            self.renderMyNotifications();
             self.renderTopHomeBar();
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
@@ -364,8 +363,6 @@ define(function (require, exports, module) {
             $("#receiveCount").html(self.model.get("receiveCount"));
             self.renderMyRequests();
             self.renderMyDonations();
-            self.renderMyNotifications();
-
             return this;
         },
 
@@ -705,9 +702,9 @@ define(function (require, exports, module) {
                     console.log("My notifications: ");
                     console.log(collection.models);
                     if(collection.models.length > 0){
-                        self.$('#notifications').html(notificationTemplate(collection));
+                        self.$('#notificationsNavItem').html(notificationItemTemplate(collection));
                     }else{
-                        self.$('#notifications').html("You have no notifications at this time.");
+                        self.$('#notificationsNavItem').html("You have no notifications at this time.");
                     }
 
                 },
@@ -1211,6 +1208,12 @@ define(function (require, exports, module) {
                 self.goSearchUsers();
             }
             return this;
+        },
+
+        viewNotification: function(event) {
+            var target = $(event.currentTarget);
+            console.log("IN NOTIFICATION")
+            console.log(target.attr( 'data-message' ));
         },
 
         logout: function () {

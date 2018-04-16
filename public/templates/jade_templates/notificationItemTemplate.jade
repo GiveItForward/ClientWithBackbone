@@ -1,0 +1,37 @@
+#notificationItem
+    for note in locals.models
+        li
+            a#notificationLink(href='#', data-message='#{note.get("message")}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') #{note.get("message")}
+
+
+
+//    .col-md-12.myprofilebottom
+//        .row
+//            .col-md-4
+//                .notificationsPanel.scroll
+//                    .row.notificationrow
+//                        .h4 Notifications
+//                    #notifications
+//                        .row.notificationrow
+//                            | userX fulfilled your request!
+//                            br
+//                            a(href='#') Say &quot;Thank You&quot;
+//                        .row.notificationrow
+//                            | some notification
+//                        .row.notificationrow
+//                            | some notification
+//            .col-md-8
+//                .myHistoryPanel.scroll
+//                    #myHistory.container
+//                        ul.nav.nav-tabs.justify-content-center
+//                            li.nav-item.active
+//                                a.nav-link.active(href='#myRequests', data-toggle='tab') Request History
+//                            li.nav-item
+//                                a.nav-link(href='#myDonations', data-toggle='tab') Donation History
+//                        .tab-content
+//                            #myRequests.tab-pane.active
+//                                br
+//                                #myRequestHistory There is no request history available.
+//                            #myDonations.tab-pane
+//                                br
+//                                #myDonationHistory There is no donation history available.
