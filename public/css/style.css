@@ -134,11 +134,15 @@
     width: 100%;
 }
 
-.nav.navbar-nav.navbar-right.whitetext li a {
-    color: white;
-}
+/*.nav.navbar-nav.navbar-right.whitetext li a {*/
+    /*color: white;*/
+/*}*/
 .nav.navbar-nav.whitetext li a {
     color: white;
+}
+
+.dropdown-menu .nav.navbar-nav.whitetext li a {
+    color: black;
 }
 
 .titlebutton{
@@ -207,12 +211,12 @@
 
 .label{
     background: red;
-    font-size: 14px;
+    font-size: 9px;
     padding: 4px;
-    line-height: 10px;
+    line-height: 8px;
     position: absolute;
     display: block;
-    right: 10px;
+    right: 8px;
 }
 
 .profile-header > div {
