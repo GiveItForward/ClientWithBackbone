@@ -146,7 +146,7 @@ define(function (require, exports, module) {
 
             console.log(self.model);
 
-            // checkDescriptionWithNLP(self.model.get('description'));
+            // self.checkDescriptionWithNLP(self.model.get('description'));
 
             self.model.save(null, {
                 wait: true,
@@ -161,21 +161,44 @@ define(function (require, exports, module) {
                     console.log(response);
                     $('#requestErrorLabel').html('There was a problem saving your request.');
                 }});
-
-            // return this;
         },
 
         checkDescriptionWithNLP: function (description) {
-            var nlpModel = new NLPModel({
-                stringToCheck: description
-            });
+            console.log('in checkDescriptionWithNLP');
+            var self = this;
+            var nlpModel = new NLPModel({});
             nlpModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "stringToCheck": description
+                },
                 success: function(model, response) {
-                    console.log(model);
                     console.log('success in fetch of NLP model');
+                    console.log(model);
                     //check booleans in model to allow save of request, or show warning
+                    if(model.get('person') || model.get('city')){
+                        bootbox.confirm({
+                            message: "We suspect you may have used the real name of a city or person in your request description. We recommend against this in order to protect your anonymity.",
+                            buttons: {
+                                confirm: {
+                                    label: 'use description anyway'
+                                },
+                                cancel: {
+                                    label: 'back to edit'
+                                }
+                            },
+                            callback: function (result) {
+                                if(result){
+                                    //todo saving description will happen here
+                                }
+                            }
+                        });
+                    }
                 },
                 error: function(model, response) {
+                    console.log('There was a problem with the NLP model.');
                     console.log(model);
                     console.log(response);
                     $('#requestErrorLabel').html('There was a problem with the NLP model.');

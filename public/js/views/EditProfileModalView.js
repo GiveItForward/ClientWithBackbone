@@ -179,23 +179,23 @@ define(function (require, exports, module) {
             console.log("user model to update: ");
             console.log(updatedUserModel);
 
-            self.checkBioWithNLP();
+            // self.checkBioWithNLP();
 
-            // updatedUserModel.save(null, {
-            //     wait: true,
-            //     success: function(model, response) {
-            //         console.log('success in saving updated request');
-            //         console.log(model);
-            //         self.parent.model = model;
-            //         self.parent.renderMyProfile();
-            //         self.destroyEditProfileModal();
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //         $('#requestErrorLabel').html('There was a problem updating your profile.');
-            //     }
-            // });
+            updatedUserModel.save(null, {
+                wait: true,
+                success: function(model, response) {
+                    console.log('success in saving updated request');
+                    console.log(model);
+                    self.parent.model = model;
+                    self.parent.renderMyProfile();
+                    self.destroyEditProfileModal();
+                },
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem updating your profile.');
+                }
+            });
 
             return this;
         },
@@ -212,11 +212,27 @@ define(function (require, exports, module) {
                     "stringToCheck": self.model.get('bio')
                 },
                 success: function(model, response) {
-
                     console.log('success in fetch of NLP model');
                     console.log(model);
                     //check booleans in model to allow save of request, or show warning
-
+                    if(model.get('person') || model.get('city')){
+                        bootbox.confirm({
+                            message: "We suspect you may have used the real name of a city or person in your bio. We recommend against this in order to protect your anonymity.",
+                            buttons: {
+                                confirm: {
+                                    label: 'use bio anyway'
+                                },
+                                cancel: {
+                                    label: 'back to edit'
+                                }
+                            },
+                            callback: function (result) {
+                                if(result){
+                                    //todo saving update will happen here
+                                }
+                            }
+                        });
+                    }
                 },
                 error: function(model, response) {
                     console.log('There was a problem with the NLP model.');
