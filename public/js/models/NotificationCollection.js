@@ -10,8 +10,11 @@ define(function (require, exports, module) {
 
         model: NotificationModel,
 
-        url : "/api/notifications"
+        url : "/api/notifications",
 
+        setUrl: function(path) {
+            this.url = "/api/notifications/" + path;
+        }
     });
     return NotificationCollection;
 });

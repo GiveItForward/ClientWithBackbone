@@ -1,8 +1,8 @@
 for org in locals.models
     .row
-        .col-md-2
-        .col-md-8
-            .panel.form-inline
+        .col-md-1
+        .col-md-10
+            .org-panel.form-inline
                 .row.form-inline(style='margin:1%;')
                     #orgImage.col-md-2.text-center
                         img.orglogo(src='#{org.get("image")}')
@@ -17,4 +17,4 @@ for org in locals.models
                                 #orgEmail #{org.get("email")}
                             .col-md-6
                                 #orgAddress #{org.get("address")}
-        .col-md-2
+        .col-md-1

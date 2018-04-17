@@ -29,6 +29,10 @@ define(function (require, exports, module) {
             } else {
                 this.url = "/api/requests";
             }
+        },
+
+        setUrl: function(option){
+            this.url = '/api/requests/' + option;
         }
     });
     return RequestModel;

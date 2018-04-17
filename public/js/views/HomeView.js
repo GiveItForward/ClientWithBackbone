@@ -33,6 +33,7 @@ define(function (require, exports, module) {
     var OrgModel = require("models/OrgModel");
     var OrgCollection = require("models/OrgCollection");
     var ThankYouModel = require("models/ThankYouModel");
+    var NotificationModel = require('models/NotificationModel');
 
     var navbarTemplate = require("jade!templates/jade_templates/navbarTemplate");
     var topHomeBarTemplate = require("jade!templates/jade_templates/topHomeBarTemplate");
@@ -49,11 +50,14 @@ define(function (require, exports, module) {
     var userTemplate = require("jade!templates/jade_templates/userTemplate");
     var userAdminTemplate = require("jade!templates/jade_templates/userAdminTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
+    var myProfileTagsTemplate = require("jade!templates/jade_templates/myProfileTagsTemplate");
     var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
     var notificationItemTemplate = require("jade!templates/jade_templates/notificationItemTemplate");
+
+    var notificatonRequestTemplate = require("jade!templates/jade_templates/notificationRequestTemplate");
     var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
     // var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
 
@@ -102,6 +106,7 @@ define(function (require, exports, module) {
             "click #sayThankYouBtn"             : "sayThankYou",
             "click #viewThankYouBtn"            : "viewThankYou",
             "click #notificationItem a"         : "viewNotification",
+            "mouseover #notificationItem a"     : "quickViewNotification",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -168,10 +173,11 @@ define(function (require, exports, module) {
             var self = this;
             self.renderMyNotifications();
             self.renderTopHomeBar();
+            self.$('#centerSearchBarDiv').html(requestSearchBar);
+            self.$('#miniImage').attr("src", self.model.get('image'));
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
-            self.$('#centerSearchBarDiv').html(requestSearchBar);
 
             var requestCollection = new RequestCollection();
 
@@ -187,6 +193,8 @@ define(function (require, exports, module) {
                         myUid: self.model.get('uid')
                     };
                     $('#requestFeedSpinner').css("display", "none");
+                    $('#footerRefresh').css("display", "block");
+
                     self.$('#requestCol').html(requestTemplate(collectionWithMyID));
                     self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 }
@@ -342,27 +350,29 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("active");
-
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
-            var tagList = "";
-            _.each(tags, function(tag) {
+            var tagsCollection = new Backbone.Collection();
+            tags.forEach(function(tag) {
                 if(tag.tagname !== ''){
-                    tagList += "#" + tag.tagname;
-                    if(tag.verifiedBy !== ""){
-                        tagList += '<span data-title="Verified by "' + tag.verifiedBy + '"><img class="checkmark" src="/img/marooncheckmark.png"/></span>  ';
-                    }else{
-                        tagList += '  ';
-                    }
+                    var backboneTag = new Backbone.Model({
+                        tagname: tag.tagname,
+                        tid: tag.tid,
+                        verifiedBy: tag.verifiedBy
+                    });
+                    tagsCollection.add(backboneTag);
                 }
             });
+            if(tagsCollection.length > 0){
+                $("#myTags").html(myProfileTagsTemplate(tagsCollection));
+            }
+
             $("#myImage").attr('src', self.model.get("image"));
             $("#myUsername").text(self.model.get("username"));
             $("#myFirstName").text(self.model.get("firstname"));
             $("#myLastName").text(self.model.get("lastname"));
             $("#myEmail").text(self.model.get("email"));
-            $("#myTags").text(tagList);
             $("#myBio").text(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
@@ -640,6 +650,8 @@ define(function (require, exports, module) {
                     console.log("My requests: ");
                     console.log(collection.models);
                     if(collection.models.length > 0){
+                        console.log("COLLECTION ORIG: ");
+                        console.log(collection);
                         self.$('#myRequestCol').html(myRequestTemplate(collection));
                     }else{
                         self.$('#myRequestCol').html("There is no history available.");
@@ -707,9 +719,23 @@ define(function (require, exports, module) {
                     console.log("My notifications: ");
                     console.log(collection.models);
                     if(collection.models.length > 0){
+                        self.$('#notificationCount').text(collection.models.length.toString());
                         self.$('#notificationsNavItem').html(notificationItemTemplate(collection));
                     }else{
-                        self.$('#notificationsNavItem').html("You have no notifications at this time.");
+                        self.$('#notificationCount').text("");
+                        self.$('#notificationsNavItem').html(
+                            "<li'>" +
+                            "<div class=\"panel panel-default\">\n" +
+                            "  <div class=\"panel-body\">\n" +
+                            "    <div class=\"container-fluid\">\n" +
+                            "      <div class=\"row\">\n" +
+                            "        <div class=\"col-md-12\"></div>\n" +
+                            "You have no <b>new</b> notifications at this time." +
+                            "      </div>\n" +
+                            "    </div>\n" +
+                            "  </div>\n" +
+                            "</div>" +
+                            "</li>");
                     }
 
                 },
@@ -718,61 +744,87 @@ define(function (require, exports, module) {
                     console.log(response);
                 }
             });
-            return this;
-        },
 
-        notification: function (event) {
-            var self = this;
-            var message = $(event.currentTarget).attr('data-message');
-            console.log(message);
-
-            var requestModel = new RequestModel({ path: 'rid'});
-            requestModel.fetch({
+            var seenNotificationCollection = new NotificationCollection();
+            seenNotificationCollection.setUrl("read");
+            seenNotificationCollection.fetch({
                 xhrFields: {
                     withCredentials: true
                 },
                 headers: {
-                    "rid": 2 //113
+                    "uid": self.model.get('uid')
                 },
-                success: function (model) {
-                    console.log(model);
-                    console.log(model.get(0).thankYou);
-
-                    if(model.get(0).thankYou !== ""){
-
-                        var note = model.get(0).thankYou.note;
-                        var date = model.get(0).thankYou.date;
-                        var rUsername = model.get(0).rUser.username;
-                        var container = document.createDocumentFragment();
-                        var viewThankYouModalView = new ViewThankYouModalView({
-                            parent: self,
-                            note: note,
-                            date: date,
-                            rUsername: rUsername
-                        });
-                        container.appendChild(viewThankYouModalView.render().el);
-                        $('body').append(container);
-
+                success: function (collection) {
+                    if(collection.models.length > 0){
+                        self.$('#notificationsNavItem').append('<li class="dropdown-header" style="margin-top: 5px;">earlier</li>');
+                        self.$('#notificationsNavItem').append(notificationItemTemplate(collection));
                     }else{
-
-                        var container = document.createDocumentFragment();
-                        var notificationModalView = new NotificationModalView({
-                            parent: self,
-                            // model: new RequestModel({ path: 'rid'})
-                        });
-                        container.appendChild(notificationModalView.render().el);
-                        $('body').append(container);
-
+                        // self.$('#notificationItem').append("");
                     }
+
                 },
-                error: function(error){
-                    console.log(error);
-                    bootbox.alert("There was an error getting your notification.");
+                error: function(model, response) {
+                    console.log(model);
+                    console.log(response);
                 }
             });
 
+
             return this;
         },
+
+        // notification: function (event) {
+        //     var self = this;
+        //     var message = $(event.currentTarget).attr('data-message');
+        //     console.log(message);
+        //
+        //     var requestModel = new RequestModel({ path: 'rid'});
+        //     requestModel.fetch({
+        //         xhrFields: {
+        //             withCredentials: true
+        //         },
+        //         headers: {
+        //             "rid": 2 //113
+        //         },
+        //         success: function (model) {
+        //             console.log(model);
+        //             console.log(model.get(0).thankYou);
+        //
+        //             if(model.get(0).thankYou !== ""){
+        //
+        //                 var note = model.get(0).thankYou.note;
+        //                 var date = model.get(0).thankYou.date;
+        //                 var rUsername = model.get(0).rUser.username;
+        //                 var container = document.createDocumentFragment();
+        //                 var viewThankYouModalView = new ViewThankYouModalView({
+        //                     parent: self,
+        //                     note: note,
+        //                     date: date,
+        //                     rUsername: rUsername
+        //                 });
+        //                 container.appendChild(viewThankYouModalView.render().el);
+        //                 $('body').append(container);
+        //
+        //             }else{
+        //
+        //                 var container = document.createDocumentFragment();
+        //                 var notificationModalView = new NotificationModalView({
+        //                     parent: self
+        //                     // model: new RequestModel({ path: 'rid'})
+        //                 });
+        //                 container.appendChild(notificationModalView.render().el);
+        //                 $('body').append(container);
+        //
+        //             }
+        //         },
+        //         error: function(error){
+        //             console.log(error);
+        //             bootbox.alert("There was an error getting your notification.");
+        //         }
+        //     });
+        //
+        //     return this;
+        // },
 
         newOrg: function () {
             var self = this;
@@ -1216,10 +1268,117 @@ define(function (require, exports, module) {
         },
 
         viewNotification: function(event) {
+            var self = this;
             var target = $(event.currentTarget);
-            console.log("IN NOTIFICATION")
+            console.log("IN NOTIFICATION");
+
+            var notificationID = target.attr( 'data-nid' );
+            var notificationType = target.attr('data-type');
+            var targetRid = target.attr('data-rid');
+            var seen = target.attr('data-opened');
+
+            if (targetRid > 0) {
+                var requestModel = new RequestModel({
+                    path: 'rid'
+                });
+
+                $('#myRequestSpinner').css("display", "block");
+                requestModel.fetch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {
+                        "rid": targetRid //113
+                    },
+                    success: function (model) {
+                        $('#myRequestSpinner').css("display", "none");
+
+                        var noteType = parseInt(notificationType);
+
+                        switch (noteType) {
+                            case 1: // your request has been fulfilled
+                                self.$('#mainHomeContainer').html(myRequestFeedTemplate);
+                                self.$('#myRequestCol').html(notificatonRequestTemplate(model.get(0)));
+                                break;
+                            case 2: // You received a Thank you
+                                self.$('#mainHomeContainer').html(myDonationFeedTemplate);
+                                self.$('#myDonationCol').html(notificatonRequestTemplate(model.get(0)));
+                                break;
+                            // case 3: // your tags were verified
+                            // case 4: // your tags wer unverifed
+                            // case 5: // admin has organization waiting approval
+                            // case 6: // your oranization is currently pending approval
+                            // case 7: // your organization is approved!
+                            // case 8: // your org got denied
+                            // case 9: // you've been approved to admin
+                            default:
+                                break;
+                        }
+
+                        self.seeNotification(notificationID, seen);
+                    },
+                    error: function(error){
+                        console.log(error);
+                        $('#myRequestSpinner').css("display", "none");
+                        bootbox.alert("There was an error getting your notification: " + notificationID);
+                    }
+                });
+            } else if (seen !== "true"){
+                self.seeNotification(notificationID);
+            }
+        },
+
+        seeNotification: function(notificationID, quickMode) {
+            var self = this;
+
+            var seenNotification = new NotificationModel({
+                nid: notificationID
+            });
+            seenNotification.setUrl('see');
+
+
+            seenNotification.save(null, {
+                xhrFields: {
+                    withCredentials: true
+                },
+                wait: true,
+                success: function (model) {
+                    if (quickMode !== "true"){
+                        self.renderMyNotifications();
+                    } else {
+                        $('notificationCount').text("");
+                    }
+                },
+                error: function(error){
+
+                }
+            });
+        },
+
+        quickViewNotification: function(event) {
+
+            var self = this;
+            var target = $(event.currentTarget);
+            console.log("IN HOVER NOTIFICATION");
             console.log(target.attr( 'data-message' ));
             console.log(target.attr( 'data-date' ));
+            console.log(target.attr( 'data-rid' ));
+            console.log(target.attr( 'data-type' ));
+            console.log(target.attr( 'data-nid' ));
+
+
+            var notificationID = target.attr( 'data-nid' );
+            var notificationType = target.attr('data-type');
+            var seen = target.attr('data-opened');
+
+            // TODO - better logic here, has the note been seen?
+            if (seen === true) {
+                return;
+            }
+
+            self.seeNotification(notificationID, "true");
+            self.$('#nid' + notificationID).remove();
+            return;
         },
 
         logout: function () {

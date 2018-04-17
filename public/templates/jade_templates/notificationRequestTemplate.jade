@@ -1,0 +1,45 @@
+.container-fluid
+    .row(style='margin: 40px;')
+    .row
+        .col-md-8.col-md-offset-2
+            .panel.panel-default
+                .panel-body
+                    .container-fluid
+                        .row
+                            .col-md-12
+                                img.requestuserimage.pull-left(src='#{locals.rUser.image}')
+                                h3(href='#') #{locals.rUser.username}
+                        .row
+                            .col-md-12
+                                | Requested&nbsp
+                                em
+                                    b $#{locals.amount}
+                                |  on #{locals.requestTime}
+                                if locals.duid > 0
+                                    .fulfilled.pull-right FULFILLED
+                                        i  on #{locals.donateTime}
+                                else
+                                    .open.pull-right OPEN #{locals.duid}
+                        .row.topborder
+                            br
+                            .col-md-4
+                                img.otherrequestimage(src='#{locals.image}')
+                                if locals.tag1 !== ''
+                                    em
+                                        b #{locals.tag1.tagname}
+                            .col-md-8.text-center
+                                .requestdescriptiondiv
+                                    | #{locals.description}
+                    .container-fluid
+                        .row
+                            .col-md-12.text-right
+                                br
+                                .btn-group
+                                    if locals.duid > 0
+                                        if locals.thankYou === ''
+                                            a#sayThankYouBtn.btn.yellow.whitetext.pull-right(data-rid='#{locals.rid}', data-duid='#{locals.duid}',data-toggle='modal', data-target='#sayThankYouModal', data-backdrop='static') say<br>"Thank you"
+                                        else
+                                            a#viewThankYouBtn.btn.turquoise.whitetext.pull-right(data-rUsername='#{locals.rUser.username}', data-note='#{locals.thankYou.note}', data-date='#{locals.thankYou.date}', data-toggle='modal', data-target='#viewThankYouModal', data-backdrop='static') view<br>"Thank you"
+                                    else
+                                        button#editRequestBtn.btn.btn-info(data-rid='#{locals.rid}', data-toggle='modal', data-target='#editRequestModal', data-backdrop='static') edit
+                                        button#deleteRequestBtn.btn.btn-danger(data-rid='#{locals.rid}') delete

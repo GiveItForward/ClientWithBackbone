@@ -19,6 +19,10 @@ define(function (require, exports, module) {
             } else {
                 this.set("nid", undefined);
             }
+        },
+
+        setUrl: function(path){
+            this.url = '/api/notifications/' + path;
         }
     });
     return NotificationModel;

@@ -173,12 +173,10 @@ define(function (require, exports, module) {
                 success: function () {
                     self.model.set("password", undefined);
                     onIndex = false;
+                    $('#loginSpinner').css('display', 'none');
                      new HomeView({
                          model: self.model
                     });
-                    $('#loginSpinner').css('display', 'none');
-                    $('#loginModal').modal().hide();
-                    $('.modal-backdrop').remove();
                 },
                 error: function(model, response, options){
                     $('#loginSpinner').css('display', 'none');
