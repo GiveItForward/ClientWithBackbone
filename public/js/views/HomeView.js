@@ -350,28 +350,29 @@ define(function (require, exports, module) {
             var self = this;
             self.removeSelectedFromAll();
             $("#myProfileBtn").addClass("active");
-
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
             var tagsCollection = new Backbone.Collection();
             tags.forEach(function(tag) {
-                console.log(tag);
-                var backboneTag = new Backbone.Model({
-                    tagname: tag.tagname,
-                    tid: tag.tid,
-                    verifiedBy: tag.verifiedBy
-                });
-                tagsCollection.add(backboneTag);
+                if(tag.tagname !== ''){
+                    var backboneTag = new Backbone.Model({
+                        tagname: tag.tagname,
+                        tid: tag.tid,
+                        verifiedBy: tag.verifiedBy
+                    });
+                    tagsCollection.add(backboneTag);
+                }
             });
-
+            if(tagsCollection.length > 0){
+                $("#myTags").html(myProfileTagsTemplate(tagsCollection));
+            }
 
             $("#myImage").attr('src', self.model.get("image"));
             $("#myUsername").text(self.model.get("username"));
             $("#myFirstName").text(self.model.get("firstname"));
             $("#myLastName").text(self.model.get("lastname"));
             $("#myEmail").text(self.model.get("email"));
-            $("#myTags").html(myProfileTagsTemplate(tagsCollection));
             $("#myBio").text(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));
