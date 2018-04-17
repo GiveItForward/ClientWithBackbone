@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     var ChooseUserImageModalView = require("views/ChooseUserImageModalView");
 
     var UserModel = require("models/UserModel");
+    var NLPModel = require("models/NLPModel");
 
     var EditProfileModalView = Backbone.View.extend({
 
@@ -178,7 +179,7 @@ define(function (require, exports, module) {
             console.log("user model to update: ");
             console.log(updatedUserModel);
 
-            // checkBioWithNLP(self.model.get('bio'));
+            // self.checkBioWithNLP();
 
             updatedUserModel.save(null, {
                 wait: true,
@@ -199,17 +200,42 @@ define(function (require, exports, module) {
             return this;
         },
 
-        checkBioWithNLP: function (bio) {
-            var nlpModel = new NLPModel({
-                stringToCheck: bio
-            });
+        checkBioWithNLP: function () {
+            console.log('in checkBioWithNLP');
+            var self = this;
+            var nlpModel = new NLPModel({});
             nlpModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "stringToCheck": self.model.get('bio')
+                },
                 success: function(model, response) {
-                    console.log(model);
                     console.log('success in fetch of NLP model');
+                    console.log(model);
                     //check booleans in model to allow save of request, or show warning
+                    if(model.get('person') || model.get('city')){
+                        bootbox.confirm({
+                            message: "We suspect you may have used the real name of a city or person in your bio. We recommend against this in order to protect your anonymity.",
+                            buttons: {
+                                confirm: {
+                                    label: 'use bio anyway'
+                                },
+                                cancel: {
+                                    label: 'back to edit'
+                                }
+                            },
+                            callback: function (result) {
+                                if(result){
+                                    //todo saving update will happen here
+                                }
+                            }
+                        });
+                    }
                 },
                 error: function(model, response) {
+                    console.log('There was a problem with the NLP model.');
                     console.log(model);
                     console.log(response);
                     $('#requestErrorLabel').html('There was a problem with the NLP model.');
