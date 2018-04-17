@@ -50,6 +50,7 @@ define(function (require, exports, module) {
     var userTemplate = require("jade!templates/jade_templates/userTemplate");
     var userAdminTemplate = require("jade!templates/jade_templates/userAdminTemplate");
     var myProfileTemplate = require("jade!templates/jade_templates/myProfileTemplate");
+    var myProfileTagsTemplate = require("jade!templates/jade_templates/myProfileTagsTemplate");
     var myRequestFeedTemplate = require("jade!templates/jade_templates/myRequestFeedTemplate");
     var myRequestTemplate = require("jade!templates/jade_templates/myRequestTemplate");
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
@@ -353,23 +354,24 @@ define(function (require, exports, module) {
             self.$('#mainHomeContainer').html(myProfileTemplate);
 
             var tags = self.model.get("tags");
-            var tagList = "";
-            _.each(tags, function(tag) {
-                if(tag.tagname !== ''){
-                    tagList += "#" + tag.tagname;
-                    if(tag.verifiedBy !== ""){
-                        tagList += '<span data-title="Verified by "' + tag.verifiedBy + '"><img class="checkmark" src="/img/marooncheckmark.png"/></span>  ';
-                    }else{
-                        tagList += '  ';
-                    }
-                }
+            var tagsCollection = new Backbone.Collection();
+            tags.forEach(function(tag) {
+                console.log(tag);
+                var backboneTag = new Backbone.Model({
+                    tagname: tag.tagname,
+                    tid: tag.tid,
+                    verifiedBy: tag.verifiedBy
+                });
+                tagsCollection.add(backboneTag);
             });
+
+
             $("#myImage").attr('src', self.model.get("image"));
             $("#myUsername").text(self.model.get("username"));
             $("#myFirstName").text(self.model.get("firstname"));
             $("#myLastName").text(self.model.get("lastname"));
             $("#myEmail").text(self.model.get("email"));
-            $("#myTags").text(tagList);
+            $("#myTags").html(myProfileTagsTemplate(tagsCollection));
             $("#myBio").text(self.model.get("bio"));
             $("#donateCount").html(self.model.get("donateCount"));
             $("#receiveCount").html(self.model.get("receiveCount"));

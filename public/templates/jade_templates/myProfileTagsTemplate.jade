@@ -1,0 +1,5 @@
+for tag in locals.models
+    b &nbsp##{tag.get("tagname")}
+    span(data-title='Verified by #{tag.get("verifiedBy")}')
+        img.checkmark(src='/img/marooncheckmark.png')
+
