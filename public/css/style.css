@@ -186,6 +186,17 @@
     margin-bottom: 2%;
 }
 
+.org-panel{
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    width: 100%;
+    border-style: solid;
+    border-color: #E7E7E7;
+    padding: 1%;
+    margin-bottom: 2%;
+}
+
 .topborder {
     border-top: 1px ridge;
     border-color:  darkgray;
@@ -574,7 +585,6 @@
     /*background-color: #007F64;*/
     background: linear-gradient(to top, #002A26, #00947D);
     border: 1px solid #00947D;
-    box-shadow: 4px 4px 10px 4px dimgrey;
     color:white;
 }
 
@@ -607,7 +617,6 @@
     /*background-color: #840E8C;*/
     background: linear-gradient(to top, #3C0740, #840E8C);
     border: 1px solid #840E8C;
-    box-shadow: 4px 4px 10px 4px dimgrey;
     color:white;
 }
 
@@ -621,7 +630,6 @@
 .greybtn{
     background: linear-gradient(to top, #262626, dimgrey);
     border: 1px solid dimgrey;
-    box-shadow: 4px 4px 10px 4px dimgrey;
     color:white;
 }
 
@@ -1154,6 +1162,14 @@
     max-height: 130px;
     width: 100%;
     height: 100%;
+}
+
+.orglogopending {
+    max-width: 120px;
+    max-height: 120px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2%;
 }
 
 .orgname{
