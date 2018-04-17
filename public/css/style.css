@@ -429,7 +429,7 @@
 }
 
 .changeimagebtn{
-    border-radius: 25px;
+    border-radius: 5px;
     /*padding: 5%;*/
     width: 150px;
     margin-top: 20%;
@@ -1205,18 +1205,18 @@
 }
 
 .neworgname{
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 10px;
-    width: 445px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
 .neworgdescription {
-    border-radius: 25px;
+    border-radius: 5px;
     margin-bottom: 10px;
     padding: 2%;
     height: 150px;
-    width: 445px;
+    width: 100%;
     vertical-align: top;
     text-align: left;
 }
@@ -1308,10 +1308,11 @@
 /*}*/
 
 .imagebtn {
-    border-radius: 25px;
-    background-color: lightgrey;
-    width: 60%;
-    height: 80%;
+    border-radius: 5px;
+    background-color: #F8F8F8;
+    width: 50%;
+    height: 50%;
+    margin: 3%;
 }
 
 .imageOnImageBtn {
