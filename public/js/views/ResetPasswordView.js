@@ -68,7 +68,8 @@ define(function (require, exports, module) {
                     "password": password
                 },
                 success: function () {
-                    new LandingView();
+                    // new LandingView();
+                    window.location.href = "/home";
                 },
                 error: function(model, response, options){
                     bootbox.alert("Error resetting password.");
