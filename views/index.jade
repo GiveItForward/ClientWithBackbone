@@ -74,22 +74,27 @@ block content
             #more.row(style='margin: 5% auto;')
                 .col-md-2
                 .col-md-2
-                    button.titlebutton.yellow
+                    button.titlebutton.yellow(data-toggle='collapse', href='#tutorial')
                         i.fas.fa-lightbulb.fa-10x(style='width:100%;padding:5%;')
                         | Website Tutorial
                 .col-md-1
                 .col-md-2
-                    button.titlebutton.turquoise
+                    button.titlebutton.turquoise(data-toggle='collapse', href='#us')
                         i.fas.fa-angle-double-right.fa-10x(style='width:100%;padding:5%;')
                         | Meet the Developers
                 .col-md-1
                 .col-md-2
-                    button.titlebutton.orange
+                    a.titlebutton.orange(href='http://211utah.org/', target='_blank')
                         i.fas.fa-hands-helping.fa-10x(style='width:100%;padding:5%;')
                         | Other Resources
                 .col-md-2
         .container.background.weave(style='width:100%;')
-            #us.row
+            #tutorial.row.collapse
+                .col-md-1
+                .col-md-10.text-center
+                    iframe(style='margin:2%;', width='700', height='500', src='https://www.youtube.com/embed/tgbNymZ7vqY')
+                .col-md-1
+            #us.row.collapse
                 .col-md-1
                 .col-md-11
                     h1 Meet the Developers.
