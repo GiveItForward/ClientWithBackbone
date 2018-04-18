@@ -6,9 +6,9 @@
   /*color: white;*/
 /*}*/
 
-/*a:hover {*/
-  /*color: skyblue !important;*/
-/*}*/
+a:hover {
+  color: skyblue !important;
+}
 
 .ui-tabs-hide { display: none; }
 
@@ -37,7 +37,6 @@
     color: dimgray;
     /*color: #007F64;*/
 }
-
 
 .white{
     background-color: white;
