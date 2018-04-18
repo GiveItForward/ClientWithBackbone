@@ -179,7 +179,6 @@ define(function (require, exports, module) {
 
             self.checkBioWithNLPAndSave(updatedUserModel); //this actually saves now
 
-
             // updatedUserModel.save(null, {
             //     wait: true,
             //     success: function(model, response) {
@@ -196,7 +195,6 @@ define(function (require, exports, module) {
             //     }
             // });
 
-
             return this;
         },
 
@@ -209,15 +207,27 @@ define(function (require, exports, module) {
                     withCredentials: true
                 },
                 headers: {
-                    "stringToCheck": self.model.get('bio')
+                    "stringToCheck": updatedUserModel.get('bio')
                 },
                 success: function(model, response) {
                     console.log('success in fetch of NLP model');
                     console.log(model);
-                    //check booleans in model to allow save of request, or show warning
-                    if(model.get('person') || model.get('city')){
+                    //check booleans in model to allow save of request, or show
+                    var warningMessage = "";
+                    if(model.get('person') !== '' && model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities and people: " +
+                            model.get('city') + " " + model.get('person') + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities: " +
+                            model.get('city')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('person') !== '') {
+                        warningMessage = "We suspect the following may be the names of people: " +
+                            model.get('person')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }
+
+                    if(warningMessage !== ""){
                         bootbox.confirm({
-                            message: "We suspect you may have used the real name of a city or person in your bio. We recommend against this in order to protect your anonymity.",
+                            message: warningMessage,
                             buttons: {
                                 confirm: {
                                     label: 'use bio anyway'
