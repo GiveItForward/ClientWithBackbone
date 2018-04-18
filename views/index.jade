@@ -3,38 +3,58 @@ extend layout
 block content
     #svgAvatars(style={display: 'none'})
     #homeStuff
-        nav.navbar.navbar-default.navbar-static-top(style='margin:auto')
+        nav.navbar.navbar-default.navbar-static-top(style='margin:auto;')
             .container-fluid
                 .navbar-header
-                    a.navbar-brand(href='http://giveitforward.us')
-                        img(style='margin:-5%;', src='/img/logo.png', alt='Give It Forward')
-                ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
-                    li
-                        input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
-                        #googleSignin.g-signin2(data-onsuccess='onSignIn', style='margin-top:5%;margin-right:2%;')
-                        script.
-                            function onSignIn(googleUser) {
-                                // Useful data for your client-side scripts:
-                                console.log('inline jade function');
-                                var profile = googleUser.getBasicProfile();
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-collapse-2', aria-expanded='false', style='border-color:white;')
+                        span.sr-only Toggle navigation
+                        span.icon-bar(style='background-color: white;')
+                        span.icon-bar(style='background-color: white;')
+                        span.icon-bar(style='background-color: white;')
+                    a.navbar-brand(href='http://giveitforward.us') Give It Forward
+                        img.navbar-left(style='margin:-5%; margin-right: 5px; width: 30px; height: 30px;', src='/img/turquoise_shadow.png', alt='Give It Forward')
+                #navbar-collapse-2.collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
+                        li
+                            input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
+                            #googleSignin.g-signin2(data-onsuccess='onSignIn', style='margin-top:5%;margin-right:2%;')
+                            script.
+                                function onSignIn(googleUser) {
+                                    // Useful data for your client-side scripts:
+                                    console.log('inline jade function');
+                                    var profile = googleUser.getBasicProfile();
 
-                                // The ID token you need to pass to your backend:
-                                var id_token = googleUser.getAuthResponse().id_token;
+                                    // The ID token you need to pass to your backend:
+                                    var id_token = googleUser.getAuthResponse().id_token;
 
-                                document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
-                                document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
-                                document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
-                                document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
-                                document.getElementById("googleIn").click(event);
-                            };
-                    li
-                        a(href='#', data-toggle='modal', data-target='#signupModal')
-                            span.glyphicon.glyphicon-user
-                            |  Sign Up
-                    li
-                        a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
-                            span.glyphicon.glyphicon-log-in
-                            |  Login
+                                    document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
+                                    document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
+                                    document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
+                                    document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
+                                    document.getElementById("googleIn").click(event);
+                                }
+                                function onFailure(error) {
+                                    console.log(error);
+                                }
+                                function renderButton() {
+                                    gapi.signin2.render('googleSignin', {
+                                        'scope': 'profile email',
+                                        'width': 240,
+                                        'height': 50,
+                                        'longtitle': true,
+                                        'theme': 'dark',
+                                        'onsuccess': onSuccess,
+                                        'onfailure': onFailure
+                                    });
+                                }
+                        li
+                            a(href='#', data-toggle='modal', data-target='#signupModal')
+                                span.glyphicon.glyphicon-user
+                                |  Sign Up
+                        li
+                            a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
+                                span.glyphicon.glyphicon-log-in
+                                |  Login
         .container.background.turquoise-angles(style='width:100%;')
             .row
                 .col-md-12.text-center
