@@ -1,6 +1,6 @@
 .row(style='height:40px')
 .row
-    .col-md-12
+    .col-md-8.col-md-offset-2
         .orgscroll
             #orgOrgDiv
                 ul.nav.nav-tabs
@@ -13,15 +13,13 @@
                 .tab-content
                     #myOrgColTab.tab-pane.active
                         br
-                        .row
-                            .col-md-8.col-md-offset-2
-                                .container-fluid
-                                    .row
-                                        .input-group
-                                            input#searchOrgs.form-control(type='text', placeholder='search orgs...')
-                                            span.input-group-btn
-                                                button#goSearchOrgs.btn.btn-default(type='button')
-                                                    span.glyphicon.glyphicon-search
+                        .container-fluid
+                            .row
+                                .input-group
+                                    input#searchOrgs.form-control(type='text', placeholder='search orgs...')
+                                    span.input-group-btn
+                                        button#goSearchOrgs.btn.btn-default(type='button')
+                                            span.glyphicon.glyphicon-search
                         br
                         #orgCol.activeTabDiv
                     #myOrgTab.tab-pane

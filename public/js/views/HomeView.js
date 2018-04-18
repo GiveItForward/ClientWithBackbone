@@ -70,8 +70,7 @@ define(function (require, exports, module) {
         events: {
             "click #homeBtn"                    : "renderHome",
             "click #logoMini"                   : "renderHome",
-            "click #searchByUserTags a"         : "updateSearchUserTags",
-            "click #searchByRequestTags a"      : "updateSearchRequestTags",
+            "click #searchByTags a"             : "updateSearchUserTags",
             "click #orderBy a"                  : "updateOrderBy",
             "click #new"                        : "toggleNew",
             "click #old"                        : "toggleOld",
@@ -178,6 +177,8 @@ define(function (require, exports, module) {
             self.removeSelectedFromAll();
             $("#homeBtn").addClass("active");
             self.$('#homeContainer').html(requestFeedTemplate);
+            $("#donateCount").html(self.model.get("donateCount"));
+            $("#receiveCount").html(self.model.get("receiveCount"));
 
             var requestCollection = new RequestCollection();
 
@@ -232,9 +233,6 @@ define(function (require, exports, module) {
             var self = this;
             self.$('#mainHomeContainer').html(topHomeBarTemplate);
             // $("#usernameDisplay").html("Hi, " + self.model.get("username"));
-
-            $("#donateCount").html(self.model.get("donateCount"));
-            $("#receiveCount").html(self.model.get("receiveCount"));
             return this;
         },
 
@@ -728,9 +726,9 @@ define(function (require, exports, module) {
                             "<div class=\"panel panel-default\">\n" +
                             "  <div class=\"panel-body\">\n" +
                             "    <div class=\"container-fluid\">\n" +
-                            "      <div class=\"row\">\n" +
+                            "      <div class=\"row blacktext\">\n" +
                             "        <div class=\"col-md-12\"></div>\n" +
-                            "You have no <b>new</b> notifications at this time." +
+                            "<i>You have no <b>new</b> notifications at this time.</i>" +
                             "      </div>\n" +
                             "    </div>\n" +
                             "  </div>\n" +
@@ -738,30 +736,28 @@ define(function (require, exports, module) {
                             "</li>");
                     }
 
-                },
-                error: function(model, response) {
-                    console.log(model);
-                    console.log(response);
-                }
-            });
 
-            var seenNotificationCollection = new NotificationCollection();
-            seenNotificationCollection.setUrl("read");
-            seenNotificationCollection.fetch({
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "uid": self.model.get('uid')
-                },
-                success: function (collection) {
-                    if(collection.models.length > 0){
-                        self.$('#notificationsNavItem').append('<li class="dropdown-header" style="margin-top: 5px;">earlier</li>');
-                        self.$('#notificationsNavItem').append(notificationItemTemplate(collection));
-                    }else{
-                        // self.$('#notificationItem').append("");
-                    }
+                    var seenNotificationCollection = new NotificationCollection();
+                    seenNotificationCollection.setUrl("read");
+                    seenNotificationCollection.fetch({
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        headers: {
+                            "uid": self.model.get('uid')
+                        },
+                        success: function (collection) {
+                            if(collection.models.length > 0){
+                                self.$('#notificationsNavItem').append('<li class="dropdown-header" style="margin-top: 5px;">earlier</li>');
+                                self.$('#notificationsNavItem').append(notificationItemTemplate(collection));
+                            }
 
+                        },
+                        error: function(model, response) {
+                            console.log(model);
+                            console.log(response);
+                        }
+                    });
                 },
                 error: function(model, response) {
                     console.log(model);
@@ -772,59 +768,6 @@ define(function (require, exports, module) {
 
             return this;
         },
-
-        // notification: function (event) {
-        //     var self = this;
-        //     var message = $(event.currentTarget).attr('data-message');
-        //     console.log(message);
-        //
-        //     var requestModel = new RequestModel({ path: 'rid'});
-        //     requestModel.fetch({
-        //         xhrFields: {
-        //             withCredentials: true
-        //         },
-        //         headers: {
-        //             "rid": 2 //113
-        //         },
-        //         success: function (model) {
-        //             console.log(model);
-        //             console.log(model.get(0).thankYou);
-        //
-        //             if(model.get(0).thankYou !== ""){
-        //
-        //                 var note = model.get(0).thankYou.note;
-        //                 var date = model.get(0).thankYou.date;
-        //                 var rUsername = model.get(0).rUser.username;
-        //                 var container = document.createDocumentFragment();
-        //                 var viewThankYouModalView = new ViewThankYouModalView({
-        //                     parent: self,
-        //                     note: note,
-        //                     date: date,
-        //                     rUsername: rUsername
-        //                 });
-        //                 container.appendChild(viewThankYouModalView.render().el);
-        //                 $('body').append(container);
-        //
-        //             }else{
-        //
-        //                 var container = document.createDocumentFragment();
-        //                 var notificationModalView = new NotificationModalView({
-        //                     parent: self
-        //                     // model: new RequestModel({ path: 'rid'})
-        //                 });
-        //                 container.appendChild(notificationModalView.render().el);
-        //                 $('body').append(container);
-        //
-        //             }
-        //         },
-        //         error: function(error){
-        //             console.log(error);
-        //             bootbox.alert("There was an error getting your notification.");
-        //         }
-        //     });
-        //
-        //     return this;
-        // },
 
         newOrg: function () {
             var self = this;
@@ -1058,41 +1001,39 @@ define(function (require, exports, module) {
         },
 
         updateSearchUserTags: function (event) {
-            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
-            var $target = $(event.currentTarget),
-                name = $target.attr( 'data-name' ),
-                utid = parseInt($target.attr( 'data-tid' )),
-                $inp = $target.find( 'input' ),
-                idx;
-            if ( ( idx = searchUserTagsList.indexOf( utid ) ) > -1 ) {
-                searchUserTagsList.splice( idx, 1 );
-                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-            } else {
-                searchUserTagsList.push( utid );
-                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
-            }
-            $( event.target ).blur();
-            console.log( searchUserTagsList );
-            return this;
-        },
 
-        updateSearchRequestTags: function (event) {
             // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
             var $target = $(event.currentTarget),
                 name = $target.attr( 'data-name' ),
-                rtid = parseInt($target.attr( 'data-tid' )),
+                tid = parseInt($target.attr( 'data-tid' )),
                 $inp = $target.find( 'input' ),
                 idx;
-            if ( ( idx = searchRequestTagsList.indexOf( rtid ) ) > -1 ) {
-                searchRequestTagsList.splice( idx, 1 );
-                setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-            } else {
-                searchRequestTagsList.push( rtid );
-                setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            var group = $target.attr('data-group');
+
+            if (group === "usertag") {
+                if ( ( idx = searchUserTagsList.indexOf( tid ) ) > -1 ) {
+                    searchUserTagsList.splice( idx, 1 );
+                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+                } else {
+                    searchUserTagsList.push( tid );
+                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+                }
+                $( event.target ).blur();
+                console.log( searchUserTagsList );
+                return this;
+            } else if (group === "requesttag") {
+                if ( ( idx = searchRequestTagsList.indexOf( tid ) ) > -1 ) {
+                    searchRequestTagsList.splice( idx, 1 );
+                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+                } else {
+                    searchRequestTagsList.push( tid );
+                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+                }
+                $( event.target ).blur();
+                console.log( searchRequestTagsList );
+                return this;
             }
-            $( event.target ).blur();
-            console.log( searchRequestTagsList );
-            return this;
+
         },
 
         updateOrderBy: function (event) {
@@ -1315,7 +1256,7 @@ define(function (require, exports, module) {
                                 break;
                         }
 
-                        self.seeNotification(notificationID, seen);
+                        self.seeNotification(notificationID, false, seen);
                     },
                     error: function(error){
                         console.log(error);
@@ -1324,12 +1265,16 @@ define(function (require, exports, module) {
                     }
                 });
             } else if (seen !== "true"){
-                self.seeNotification(notificationID);
+                self.seeNotification(notificationID, false, seen);
             }
         },
 
-        seeNotification: function(notificationID, quickMode) {
+        seeNotification: function(notificationID, quickMode, seen) {
             var self = this;
+
+            if (seen == true) {
+                return;
+            }
 
             var seenNotification = new NotificationModel({
                 nid: notificationID
@@ -1343,10 +1288,8 @@ define(function (require, exports, module) {
                 },
                 wait: true,
                 success: function (model) {
-                    if (quickMode !== "true"){
+                    if (quickMode !== true){
                         self.renderMyNotifications();
-                    } else {
-                        $('notificationCount').text("");
                     }
                 },
                 error: function(error){
@@ -1371,13 +1314,8 @@ define(function (require, exports, module) {
             var notificationType = target.attr('data-type');
             var seen = target.attr('data-opened');
 
-            // TODO - better logic here, has the note been seen?
-            if (seen === true) {
-                return;
-            }
-
-            self.seeNotification(notificationID, "true");
-            self.$('#nid' + notificationID).remove();
+            self.seeNotification(notificationID, true);
+            self.$('#nid' + notificationID).remove(); // removed the read icon from the notification
             return;
         },
 

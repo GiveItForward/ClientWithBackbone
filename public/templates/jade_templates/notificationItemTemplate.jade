@@ -6,42 +6,9 @@
                     .container-fluid
                         .row
                             .col-md-3
-                                i #{note.get("date")}
+                                i(style='color: gray') #{note.get("date")}
                             .col-md-8
                                 a#notificationLink.blacktext(href='#', data-nid='#{note.get("nid")}', data-rid='#{note.get("rid")}', data-message='#{note.get("message")}', data-date='#{note.get("date")}', data-type='#{note.get("note_type")}', data-opened='#{note.get("opened")}') #{note.get("message")}
                             if !note.get('opened')
                                 .col-md-1
                                     i.fas.fa-circle.pull-right(id='nid#{note.get("nid")}')
-
-
-
-//    .col-md-12.myprofilebottom
-//        .row
-//            .col-md-4
-//                .notificationsPanel.scroll
-//                    .row.notificationrow
-//                        .h4 Notifications
-//                    #notifications
-//                        .row.notificationrow
-//                            | userX fulfilled your request!
-//                            br
-//                            a(href='#') Say &quot;Thank You&quot;
-//                        .row.notificationrow
-//                            | some notification
-//                        .row.notificationrow
-//                            | some notification
-//            .col-md-8
-//                .myHistoryPanel.scroll
-//                    #myHistory.container
-//                        ul.nav.nav-tabs.justify-content-center
-//                            li.nav-item.active
-//                                a.nav-link.active(href='#myRequests', data-toggle='tab') Request History
-//                            li.nav-item
-//                                a.nav-link(href='#myDonations', data-toggle='tab') Donation History
-//                        .tab-content
-//                            #myRequests.tab-pane.active
-//                                br
-//                                #myRequestHistory There is no request history available.
-//                            #myDonations.tab-pane
-//                                br
-//                                #myDonationHistory There is no donation history available.

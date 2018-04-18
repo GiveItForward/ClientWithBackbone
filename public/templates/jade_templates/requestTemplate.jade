@@ -1,26 +1,28 @@
 for request in locals.collection.models
     .container-fluid
         .row
-            .col-md-10
-                .request-panel.form-inline
+            .panel.panel-default
+                .panel-body
                     .container-fluid
-                        .row.form-inline(style='margin:1%;')
-                            img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
-                            a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
-                            #requestTags.tags(style="display: inline-block;")
-                                for tag in request.get("rUser").tags
-                                    if tag.tagname !== ''
-                                        b &nbsp##{tag.tagname}
-                                    if tag.verifiedBy !== ''
-                                        span(data-title='Verified by #{tag.verifiedBy}')
-                                            img.checkmark(src='/img/marooncheckmark.png')
-                                    else
-                                        | &nbsp
-                            .row
-                                .col-md-8
-                                .col-md-4
-                                    #requestDate(style='font-size:14pt;') posted on #{request.get("requestTime")}
+                        .row
+                            .col-md-2
+                                img#requestUserImage.requestuserimage(src='#{request.get("rUser").image}')
+                            .col-md-10
+                                .form-inline
+                                    .form-group
+                                        a#otherProfileLink.requestusername.btn(data-uid='#{request.get("rUser").uid}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{request.get("rUser").username}
+                                    #requestTags.tags.form-group
+                                        for tag in request.get("rUser").tags
+                                            if tag.tagname !== ''
+                                                b &nbsp##{tag.tagname}
+                                            if tag.verifiedBy !== ''
+                                                span(data-title='Verified by #{tag.verifiedBy}')
+                                                    img.checkmark(src='/img/marooncheckmark.png')
+                                            else
+                                                | &nbsp
+                                #requestDate.pull-right(style='font-size:14pt;') posted on #{request.get("requestTime")}
                         .row.topborder
+                            br
                             .col-md-2
                                 if request.get("tag1") !== ''
                                     .tags

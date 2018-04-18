@@ -1,7 +1,6 @@
-for org in locals.models
-    .row
-        .col-md-1
-        .col-md-10
+.container-fluid
+    for org in locals.models
+        .row
             .org-panel.form-inline
                 .row.form-inline(style='margin:1%;')
                     #orgImage.col-md-2.text-center
@@ -17,4 +16,3 @@ for org in locals.models
                                 #orgEmail #{org.get("email")}
                             .col-md-6
                                 #orgAddress #{org.get("address")}
-        .col-md-1

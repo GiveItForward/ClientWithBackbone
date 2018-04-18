@@ -1,36 +1,31 @@
-.row(style='height:40px;')
-.row
-    .input-group
-        .input-group-btn.search-panel(style='width:0%;')
-            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                span#search_concept Filter by
-                span.caret
-            ul#searchByTags.dropdown-menu(role='menu')
-                // dynamically load tags into the filter box.
-        .input-group-btn.search-panel(style='width:0%;')
-            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', style='border-radius: 0px;')
-                | order by
-                span.caret
-            ul#orderBy.dropdown-menu(role="menu")
-                li
-                    a(href='#', data-value='new', data-tid=1, data-group='requesttags', tabindex='-1')
-                        input#new(type='checkbox')
-                    | &nbsp;new to old
-                li
-                    a(href='#', data-value='old', data-tid=2, data-group='requesttags', tabindex='-1')
-                        input#old(type='checkbox')
-                    | &nbsp;old to new
-                li.divider
-                li
-                    a(href='#', data-value='low', data-tid=3, data-group='requesttags', tabindex='-1')
-                        input#low(type='checkbox')
-                    | &nbsp;low to high
-                li
-                    a(href='#', data-value='high', data-tid=4, data-group='requesttags', tabindex='-1')
-                        input#high(type='checkbox')
-                    | &nbsp;high to low
-        //input#search_param(type='hidden', name='search_param', value='all')
-        //input#searchByTerm.form-control(type='text', name='x', placeholder='Search term...')
-        span.input-group-btn(style='width:0%;')
-            button#goFilterRequests.btn.btn-default(type='button')
-                span.glyphicon.glyphicon-search
+.container-fluid
+    .row(style='margin:30px;')
+    .row
+        .col-md-10.no-padding
+            .input-group
+                .input-group-btn
+                    .btn-group(role='group')
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                            | Filter
+                            span.caret(style='margin-left:5px;')
+                        ul#searchByTags.dropdown-menu
+                    .btn-group(role='group')
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                            | Order by
+                            span.caret(style='margin-left:5px;')
+                        ul#orderBy.dropdown-menu
+                            li
+                                a(href='#', data-value='new', data-tid=1, data-group='requesttags', tabindex='-1') new to old
+                            li
+                                a(href='#', data-value='old', data-tid=2, data-group='requesttags', tabindex='-1') old to new
+                            li.divider
+                            li
+                                a(href='#', data-value='low', data-tid=3, data-group='requesttags', tabindex='-1') low to high
+                            li
+                                a(href='#', data-value='high', data-tid=4, data-group='requesttags', tabindex='-1') high to low
+                input#searchByTerm.form-control(type='text', name='x', placeholder='Search tags...')
+                span#goFilterRequests.input-group-addon.btn
+                    span.glyphicon.glyphicon-search
+        .col-md-2.no-padding(style='padding-left:20px;')
+            button#newRequestBtn.btn.turquoise.whitetext(data-toggle='modal', data-target='#newRequestModal')
+                i.fas.fa-plus(style='width:100%;top-padding:-1%;')

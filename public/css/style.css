@@ -61,10 +61,21 @@ a:hover {
     background-color: #F7882F;
 }
 
+.orangetext {
+    color: #F7882F;
+}
+
 .yellow {
     background-color: #FFCE0C;
 }
 
+.yellowtext {
+    color: #FFCE0C;
+}
+
+.transparent {
+    background-color: transparent;
+}
 /* color for disabled request button */
 #giveBtn:disabled {
     background-color: lightgray;
@@ -203,10 +214,11 @@ a:hover {
 }
 
 .requestuserimage{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: #F8F8F8;
+    width: 100px;
+    height: 100px;
+    /*border-radius: 50%;*/
+    border-radius: 6px;
+    background-color: rgba(248, 248, 248, 0);
 }
 
 .requestdescriptiondiv{
@@ -240,6 +252,7 @@ a:hover {
     max-width: 200px;
     mas-height: 200px;
 }
+
 
 
 /*hover over checkmark*/
@@ -867,8 +880,8 @@ a:hover {
 }
 
 .requestimage {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     /*margin-left: 30%;*/
     margin-top: 5%;
 }
@@ -1185,7 +1198,7 @@ a:hover {
 }
 
 .no-padding {
-    padding: 0;
+    padding: 0; !important;
 }
 
 .padding-left {
@@ -1247,11 +1260,11 @@ a:hover {
     overflow-x: scroll;
 }
 
-.open {
-    color: #00ae93;
-    /*font-weight: bold;*/
-    font-size: 14pt;
-}
+/*.open {*/
+    /*color: #00ae93;*/
+    /*!*font-weight: bold;*!*/
+    /*font-size: 14pt;*/
+/*}*/
 
 .fulfilled {
     color: green;

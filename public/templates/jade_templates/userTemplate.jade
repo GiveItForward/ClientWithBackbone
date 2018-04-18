@@ -1,22 +1,19 @@
-.container-fluid
-    for user in locals.models
+for user in locals.models
+    .container-fluid
         .row
-            .col-md-10.col-md-offset-1
-                .panel.panel-default
-                    .panel-body
-                        .container-fluid
-                            .row
-                                .col-md-1
-                                    img.img-circle.requestuserimage(src='#{user.get("image")}')
-                                .col-md-11
-                                    .row.form-inline
-                                        .col-md-4
-                                            a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
-                                        .col-md-4
-                                        .col-md-4.text-right
-                                            .username #{user.get("firstname")} #{user.get("lastname")}
-                                            .username #{user.get("email")}
-                                    .form-inline.tags
+            .panel.panel-default
+                .panel-body
+                    .container-fluid
+                        .row
+                            .col-md-2
+                                img.img-circle.requestuserimage(src='#{user.get("image")}')
+                            .col-md-10
+                                .form-inline
+                                    .form-group
+                                        a#otherProfileLink.requestusername(data-uid='#{user.get("uid")}', data-toggle='modal', data-target='#otherProfileModal', data-backdrop='static') #{user.get("username")}
+                                        .username #{user.get("firstname")} #{user.get("lastname")}
+                                        .username #{user.get("email")}
+                                    .tags
                                         for tag in user.get("tags")
                                             if tag.tagname !== ''
                                                 if tag.verifiedBy !== ''
@@ -35,15 +32,15 @@
                                                     //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
                                                     //    input#verifyTag(type='checkbox')
                                                     //    label(for='verifiedtag')
-                            .row.topborder
-                                .col-md-12
-                                    .text-center
-                                        br
-                                        | #{user.get("bio")}
+                        .row.topborder
+                            .col-md-12
+                                .text-center
+                                    br
+                                    | #{user.get("bio")}
 
 
 
-                                        //a.requestusername(target="_blank", href='#') @#{user.get("username")}
-                            //.row
-                            //    .col-md-12.text-center
-                            //        button#updateVerifiedTagsBtn.thankyoubtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') update tags
+                                    //a.requestusername(target="_blank", href='#') @#{user.get("username")}
+                        //.row
+                        //    .col-md-12.text-center
+                        //        button#updateVerifiedTagsBtn.thankyoubtn.purplebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') update tags

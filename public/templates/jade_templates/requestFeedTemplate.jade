@@ -1,5 +1,15 @@
-.row
-    .fa-5x
-        i#requestFeedSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
-    #paypalSpinner(style='display: none').loading
-    #requestCol.col-md-10.col-md-offset-1.scroll Loading...
+.col-md-2.text-center
+    .panel.panel-default(style='display: inline-block;')
+        .panel-body
+            .iconbox.yellowtext.transparent(style='display: inline-block;')
+                i.fas.fa-gift.fa-2x
+                #receiveCount
+            .iconbox.orangetext.transparent(style='display: inline-block;')
+                i.fas.fa-angle-double-right.fa-2x
+                #donateCount
+.col-md-8
+    #requestCol.scroll
+.fa-5x
+    i#requestFeedSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
+#paypalSpinner(style='display: none').loading
+

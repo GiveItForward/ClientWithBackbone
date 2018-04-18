@@ -1,39 +1,21 @@
-#searchByUserTags
-    for tag in locals.models
-        li
-            a(href='#', data-name='#{tag.get("tagname")}', data-tid='#{tag.get("tid")}', data-group='usertags', tabindex='-1')
-                input(type='checkbox')
-            | &nbsp;##{tag.get("tagname")}
+for tag in locals.models
+    li
+        a(href='#', data-name='#{tag.get("tagname")}', data-tid='#{tag.get("tid")}', data-group='usertag', tabindex='-1') #{tag.get("tagname")}
 li.divider
-#searchByRequestTags
     li
-        a(href='#', data-name='bills', data-tid=1, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#bills
+        a(href='#', data-name='bills', data-tid=1, data-group='requesttag', tabindex='-1') bills
     li
-        a(href='#', data-name='carRepairs', data-tid=2, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#carRepair
+        a(href='#', data-name='carRepairs', data-tid=2, data-group='requesttag', tabindex='-1') carRepair
     li
-        a(href='#', data-name='clothing', data-tid=3, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#clothing
+        a(href='#', data-name='clothing', data-tid=3, data-group='requesttag', tabindex='-1') clothing
     li
-        a(href='#', data-name='forAChild', data-tid=4, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#forAChild
+        a(href='#', data-name='forAChild', data-tid=4, data-group='requesttag', tabindex='-1') forAChild
     li
-        a(href='#', data-name='groceries', data-tid=5, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#groceries
+        a(href='#', data-name='groceries', data-tid=5, data-group='requesttag', tabindex='-1') groceries
     li
-        a(href='#', data-name='rent', data-tid=6, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#rent
+        a(href='#', data-name='rent', data-tid=6, data-group='requesttag', tabindex='-1') rent
     li
-        a(href='#', data-name='schoolRelated', data-tid=7, data-group='requesttags', tabindex='-1')
-            input(type='checkbox')
-        | &nbsp;#schoolRelated
+        a(href='#', data-name='schoolRelated', data-tid=7, data-group='requesttag', tabindex='-1') schoolRelated
     //li.divider
     //li
     //    a(href='#', data-name='all', data-tid=7, data-group='requesttags', tabindex='-1')

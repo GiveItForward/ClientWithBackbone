@@ -1,7 +1,6 @@
 for org in locals.models
-    .row
-        .col-md-2
-        .col-md-8
+    .container-fluid
+        .row
             .panel.form-inline
                 .row.form-inline(style='margin:1%;')
                     #orgImage.col-md-2.text-center
@@ -21,4 +20,3 @@ for org in locals.models
                 .row
                     .col-md-12
                         #pendingMessage.errorLabel
-        .col-md-2
