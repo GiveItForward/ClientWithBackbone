@@ -33,21 +33,6 @@ block content
                                     document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
                                     document.getElementById("googleIn").click(event);
                                 }
-                                function onFailure(error) {
-                                    console.log(error);
-                                }
-                                function renderButton() {
-                                    gapi.signin2.render('googleSignin', {
-                                        'scope': 'profile email',
-                                        'width': 240,
-                                        'height': 50,
-                                        'longtitle': true,
-                                        'theme': 'dark',
-                                        'onsuccess': onSuccess,
-                                        'onfailure': onFailure
-                                    });
-                                }
-                            script(src = 'https://apis.google.com/js/platform.js?onload=renderButton', async = '', defer = '')
                         li
                             a(href='#', data-toggle='modal', data-target='#signupModal')
                                 span.glyphicon.glyphicon-user
