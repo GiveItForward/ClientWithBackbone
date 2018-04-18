@@ -19,9 +19,8 @@ block content
                             .gSignInWrapper
                                 input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
                                 #googleSignin.customGPlusSignIn
-                                    span.icon
+                                    span.fab.fa-google(style='margin-right: 5px;')
                                     span.buttonText Google
-                            #name
                             script.
                                 var googleUser = {};
                                 var startApp = function () {
@@ -56,15 +55,15 @@ block content
                                     auth2.attachClickHandler(element, {},
                                         function (googleUser) {
                                             document.getElementById('name').innerText = "Signed in: " +
-                                                googleUser.getBasicProfile().getName();
+                                            googleUser.getBasicProfile().getName();
 
-                                                var profile = googleUser.getBasicProfile();
+                                            var profile = googleUser.getBasicProfile();
 
-                                                document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
-                                                document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
-                                                document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
-                                                document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
-                                                document.getElementById("googleIn").click(event);
+                                            document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
+                                            document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
+                                            document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
+                                            document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
+                                            document.getElementById("googleIn").click(event);
                                         }, function (error) {
                                             alert(JSON.stringify(error, undefined, 2));
                                         });
