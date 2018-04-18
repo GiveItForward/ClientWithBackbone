@@ -36,7 +36,7 @@ block content
                                         attachSignin(document.getElementById('customBtn'));
                                     });
                                 };
-                                function onSignIn(googleUser) {
+                                function onSignIn() {
                                     // Useful data for your client-side scripts:
                                     console.log('inline jade function');
                                     var profile = googleUser.getBasicProfile();
@@ -51,7 +51,7 @@ block content
                                     document.getElementById("googleIn").click(event);
                                 };
                                 function attachSignin(element) {
-                                    console.log(element.id);
+                                    console.log(element);
                                     auth2.attachClickHandler(element, {},
                                         function (googleUser) {
                                             document.getElementById('name').innerText = "Signed in: " +
