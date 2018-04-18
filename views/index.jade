@@ -54,7 +54,6 @@ block content
                                     console.log(element);
                                     auth2.attachClickHandler(element, {},
                                         function (googleUser) {
-                                            document.getElementById('name').innerText = "Signed in: " +
                                             googleUser.getBasicProfile().getName();
 
                                             var profile = googleUser.getBasicProfile();
