@@ -1,4 +1,5 @@
 var editProfileTagList = [];
+var saveMe = false;
 
 define(function (require, exports, module) {
 
@@ -150,9 +151,6 @@ define(function (require, exports, module) {
             console.log("in createRequest function");
             self.updateEditProfileModel();
 
-            // bootbox.alert("update profile is almost ready, but not quite. Please be patient.");
-
-            //todo something weird with the tags coming back
             var updatedUserModel = new UserModel({
                 path: 'update',
                 uid: self.model.get('uid'),
@@ -179,28 +177,28 @@ define(function (require, exports, module) {
             console.log("user model to update: ");
             console.log(updatedUserModel);
 
-            // self.checkBioWithNLP();
+            self.checkBioWithNLPAndSave(updatedUserModel); //this actually saves now
 
-            updatedUserModel.save(null, {
-                wait: true,
-                success: function(model, response) {
-                    console.log('success in saving updated request');
-                    console.log(model);
-                    self.parent.model = model;
-                    self.parent.renderMyProfile();
-                    self.destroyEditProfileModal();
-                },
-                error: function(model, response) {
-                    console.log(model);
-                    console.log(response);
-                    $('#requestErrorLabel').html('There was a problem updating your profile.');
-                }
-            });
+            // updatedUserModel.save(null, {
+            //     wait: true,
+            //     success: function(model, response) {
+            //         console.log('success in saving updated request');
+            //         console.log(model);
+            //         self.parent.model = model;
+            //         self.parent.renderMyProfile();
+            //         self.destroyEditProfileModal();
+            //     },
+            //     error: function(model, response) {
+            //         console.log(model);
+            //         console.log(response);
+            //         $('#requestErrorLabel').html('There was a problem updating your profile.');
+            //     }
+            // });
 
             return this;
         },
 
-        checkBioWithNLP: function () {
+        checkBioWithNLPAndSave: function (updatedUserModel) {
             console.log('in checkBioWithNLP');
             var self = this;
             var nlpModel = new NLPModel({});
@@ -209,15 +207,27 @@ define(function (require, exports, module) {
                     withCredentials: true
                 },
                 headers: {
-                    "stringToCheck": self.model.get('bio')
+                    "stringToCheck": updatedUserModel.get('bio')
                 },
                 success: function(model, response) {
                     console.log('success in fetch of NLP model');
                     console.log(model);
-                    //check booleans in model to allow save of request, or show warning
-                    if(model.get('person') || model.get('city')){
+                    //check booleans in model to allow save of request, or show
+                    var warningMessage = "";
+                    if(model.get('person') !== '' && model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities and people: " +
+                            model.get('city') + " " + model.get('person') + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities: " +
+                            model.get('city')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('person') !== '') {
+                        warningMessage = "We suspect the following may be the names of people: " +
+                            model.get('person')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }
+
+                    if(warningMessage !== ""){
                         bootbox.confirm({
-                            message: "We suspect you may have used the real name of a city or person in your bio. We recommend against this in order to protect your anonymity.",
+                            message: warningMessage,
                             buttons: {
                                 confirm: {
                                     label: 'use bio anyway'
@@ -228,8 +238,38 @@ define(function (require, exports, module) {
                             },
                             callback: function (result) {
                                 if(result){
-                                    //todo saving update will happen here
+                                    updatedUserModel.save(null, {
+                                        wait: true,
+                                        success: function(model, response) {
+                                            console.log('success in saving updated request');
+                                            console.log(model);
+                                            self.parent.model = model;
+                                            self.parent.renderMyProfile();
+                                            self.destroyEditProfileModal();
+                                        },
+                                        error: function(model, response) {
+                                            console.log(model);
+                                            console.log(response);
+                                            $('#requestErrorLabel').html('There was a problem updating your profile.');
+                                        }
+                                    });
                                 }
+                            }
+                        });
+                    }else{
+                        updatedUserModel.save(null, {
+                            wait: true,
+                            success: function(model, response) {
+                                console.log('success in saving updated request');
+                                console.log(model);
+                                self.parent.model = model;
+                                self.parent.renderMyProfile();
+                                self.destroyEditProfileModal();
+                            },
+                            error: function(model, response) {
+                                console.log(model);
+                                console.log(response);
+                                $('#requestErrorLabel').html('There was a problem updating your profile.');
                             }
                         });
                     }

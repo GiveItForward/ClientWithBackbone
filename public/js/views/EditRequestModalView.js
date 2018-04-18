@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     var RequestTagCollection = require("models/RequestTagCollection");
 
     var editRequestModal = require("text!templates/modals/editRequestModal.html");
+    var NLPModel = require("models/NLPModel");
 
     var EditRequestModalView = Backbone.View.extend({
 
@@ -193,21 +194,105 @@ define(function (require, exports, module) {
             self.updateEditRequestModel();
 
             console.log(self.model);
-            self.model.save(null, {
-                wait: true,
-                success: function(model, response) {
-                    console.log(model);
-                    console.log('success in saving updated request');
-                    self.parent.renderMyRequests();
-                    self.destroyEditRequestModal();
-                },
-                error: function(model, response) {
-                    console.log(model);
-                    console.log(response);
-                    $('#requestErrorLabel').html('There was a problem updating your request.');
-                }});
+            self.checkDescriptionWithNLPAndSave();
+
+            // self.model.save(null, {
+            //     wait: true,
+            //     success: function(model, response) {
+            //         console.log(model);
+            //         console.log('success in saving updated request');
+            //         self.parent.renderMyRequests();
+            //         self.destroyEditRequestModal();
+            //     },
+            //     error: function(model, response) {
+            //         console.log(model);
+            //         console.log(response);
+            //         $('#requestErrorLabel').html('There was a problem updating your request.');
+            //     }});
 
             // return this;
+        },
+
+        checkDescriptionWithNLPAndSave: function () {
+            console.log('in checkDescriptionWithNLP');
+            var self = this;
+            var nlpModel = new NLPModel({});
+            nlpModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "stringToCheck": self.model.get('description')
+                },
+                success: function(model, response) {
+                    console.log('success in fetch of NLP model');
+                    console.log(model);
+                    //check booleans in model to allow save of request, or show
+                    var warningMessage = "";
+                    if(model.get('person') !== '' && model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities and people: " +
+                            model.get('city') + " " + model.get('person') + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities: " +
+                            model.get('city')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }else if(model.get('person') !== '') {
+                        warningMessage = "We suspect the following may be the names of people: " +
+                            model.get('person')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                    }
+
+                    if(warningMessage !== ""){
+                        bootbox.confirm({
+                            message: warningMessage,
+                            buttons: {
+                                confirm: {
+                                    label: 'use description anyway'
+                                },
+                                cancel: {
+                                    label: 'back to edit'
+                                }
+                            },
+                            callback: function (result) {
+                                if(result){
+                                    self.model.save(null, {
+                                        wait: true,
+                                        success: function(model, response) {
+                                            console.log(model);
+                                            console.log('success in saving new request');
+                                            self.parent.renderHome();
+                                            self.destroyNewRequestModal();
+                                        },
+                                        error: function(model, response) {
+                                            console.log(model);
+                                            console.log(response);
+                                            $('#requestErrorLabel').html('There was a problem saving your request.');
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }else{
+                        self.model.save(null, {
+                            wait: true,
+                            success: function(model, response) {
+                                console.log(model);
+                                console.log('success in saving new request');
+                                self.parent.renderHome();
+                                self.destroyNewRequestModal();
+                            },
+                            error: function(model, response) {
+                                console.log(model);
+                                console.log(response);
+                                $('#requestErrorLabel').html('There was a problem saving your request.');
+                            }
+                        });
+                    }
+                },
+                error: function(model, response) {
+                    console.log('There was a problem with the NLP model.');
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem with the NLP model.');
+                }});
         },
 
         destroyEditRequestModal: function () {
