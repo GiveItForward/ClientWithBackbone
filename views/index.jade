@@ -33,13 +33,12 @@ block content
                                             // Request scopes in addition to 'profile' and 'email'
                                             //scope: 'additional_scope'
                                         });
-                                        attachSignin(document.getElementById('customBtn'));
+                                        attachSignin(document.getElementById('googleSignin'));
                                     });
                                 };
                                 function onSignIn() {
                                     // Useful data for your client-side scripts:
                                     console.log('inline jade function');
-                                    var profile = googleUser.getBasicProfile();
 
                                     // The ID token you need to pass to your backend:
                                     var id_token = googleUser.getAuthResponse().id_token;
