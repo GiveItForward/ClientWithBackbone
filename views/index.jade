@@ -55,18 +55,19 @@ block content
                                     console.log(element);
                                     auth2.attachClickHandler(element, {},
                                         function (googleUser) {
-                                            document.getElementById('name').innerText = "Signed in: " +
+                                            document.getElementById('name').text = "Signed in: " +
                                                 googleUser.getBasicProfile().getName();
+
+                                                var profile = googleUser.getBasicProfile();
+
+                                                document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
+                                                document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
+                                                document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
+                                                document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
+                                                document.getElementById("googleIn").click(event);
                                         }, function (error) {
                                             alert(JSON.stringify(error, undefined, 2));
                                         });
-                                    var profile = googleUser.getBasicProfile();
-
-                                    document.getElementById("googleIn").setAttribute("data-firstname", profile.getGivenName());
-                                    document.getElementById("googleIn").setAttribute("data-lastname", profile.getFamilyName());
-                                    document.getElementById("googleIn").setAttribute("data-email", profile.getEmail());
-                                    document.getElementById("googleIn").setAttribute("data-idtoken", googleUser.getAuthResponse().id_token);
-                                    document.getElementById("googleIn").click(event);
                                 };
                                 startApp();
                         li
