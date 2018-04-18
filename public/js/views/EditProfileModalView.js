@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             self.el = editProfileModal;
             self.setElement(this.el);
             console.log(self.model);
-            
+
             _.each(self.model.get('tags'), function(model){
                 editProfileTagList.push(model.tagname);
             });
@@ -154,13 +154,13 @@ define(function (require, exports, module) {
                     console.log(model);
                     var warningMessage = "";
                     if(model.get('person') !== '' && model.get('city') !== '') {
-                        warningMessage = "We suspect the following may be the names of cities and people: <B>" +
+                        warningMessage = "We suspect the following may be the names of cities and people in your bio: <B>" +
                             model.get('city') + ", " + model.get('person') + "</B>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
                     }else if(model.get('city') !== '') {
-                        warningMessage = "We suspect the following may be the name of a city or cities: <b>" +
+                        warningMessage = "We suspect the following may be the name of a city or cities in your bio: <b>" +
                             model.get('city')  + "</b>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
                     }else if(model.get('person') !== '') {
-                        warningMessage = "We suspect the following may be the name of a person or people: <B>" +
+                        warningMessage = "We suspect the following may be the name of a person or people in your bio: <B>" +
                             model.get('person')  + "</B>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
                     }
 
