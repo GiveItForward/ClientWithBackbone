@@ -231,13 +231,13 @@ define(function (require, exports, module) {
                     var warningMessage = "";
                     if(model.get('person') !== '' && model.get('city') !== '') {
                         warningMessage = "We suspect the following may be the names of cities and people: " +
-                            model.get('city') + " " + model.get('person') + " <br>We strongly suggest against this in order to protect your anonymity."
+                            model.get('city') + " " + model.get('person') + ". <br>We strongly suggest against this in order to protect your anonymity."
                     }else if(model.get('city') !== '') {
                         warningMessage = "We suspect the following may be the names of cities: " +
-                            model.get('city')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                            model.get('city')  + ". <br>We strongly suggest against this in order to protect your anonymity."
                     }else if(model.get('person') !== '') {
                         warningMessage = "We suspect the following may be the names of people: " +
-                            model.get('person')  + " <br>We strongly suggest against this in order to protect your anonymity."
+                            model.get('person')  + ". <br>We strongly suggest against this in order to protect your anonymity."
                     }
 
                     if(warningMessage !== ""){
