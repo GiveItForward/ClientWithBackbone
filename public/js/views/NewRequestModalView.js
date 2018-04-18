@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         events: {
             "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
             "click #exitNewRequestModal"     : "destroyNewRequestModal",
-            "click #createRequestBtn"        : "save",
+            "click #createRequestBtn"        : "checkDescriptionWithNLPAndSave",
             "change input[type=radio]"       : "updateRequestTags",
             "keyup"                          : "updateModel",
             "change"                         : "updateModel"
@@ -128,6 +128,60 @@ define(function (require, exports, module) {
             }
         },
 
+        checkDescriptionWithNLPAndSave: function () {
+            var self = this;
+            var nlpModel = new NLPModel({});
+            nlpModel.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "stringToCheck": $("#newRequestDescription").val()
+                },
+                success: function(model) {
+                    console.log('success in fetch of NLP model');
+                    console.log(model);
+                    var warningMessage = "";
+                    if(model.get('person') !== '' && model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the names of cities and people in your request description: <B>" +
+                            model.get('city') + ", " + model.get('person') + "</B>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
+                    }else if(model.get('city') !== '') {
+                        warningMessage = "We suspect the following may be the name of a city or cities in your request description: <b>" +
+                            model.get('city')  + "</b>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
+                    }else if(model.get('person') !== '') {
+                        warningMessage = "We suspect the following may be the name of a person or people in your request description: <B>" +
+                            model.get('person')  + "</B>. <br>We strongly suggest against using this potentially personal information in order to protect your anonymity."
+                    }
+
+                    if(warningMessage !== ""){
+                        bootbox.confirm({
+                            message: warningMessage,
+                            buttons: {
+                                confirm: {
+                                    label: 'use description anyway'
+                                },
+                                cancel: {
+                                    label: 'back to edit'
+                                }
+                            },
+                            callback: function (result) {
+                                if(result){
+                                    self.save()
+                                }
+                            }
+                        });
+                    }else{
+                        self.save()
+                    }
+                },
+                error: function(model, response) {
+                    console.log('There was a problem with the NLP model.');
+                    console.log(model);
+                    console.log(response);
+                    $('#requestErrorLabel').html('There was a problem with the NLP model.');
+                }});
+        },
+
         save: function () {
             var self = this;
             console.log("in createRequest function");
@@ -147,102 +201,18 @@ define(function (require, exports, module) {
 
             console.log(self.model);
 
-            self.checkDescriptionWithNLPAndSave();
-
-            // self.model.save(null, {
-            //     wait: true,
-            //     success: function(model, response) {
-            //         console.log(model);
-            //         console.log('success in saving new request');
-            //         self.parent.renderHome();
-            //         self.destroyNewRequestModal();
-            //     },
-            //     error: function(model, response) {
-            //         console.log(model);
-            //         console.log(response);
-            //         $('#requestErrorLabel').html('There was a problem saving your request.');
-            //     }});
-        },
-
-        checkDescriptionWithNLPAndSave: function () {
-            console.log('in checkDescriptionWithNLP');
-            var self = this;
-            var nlpModel = new NLPModel({});
-            nlpModel.fetch({
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "stringToCheck": self.model.get('description')
-                },
+            self.model.save(null, {
+                wait: true,
                 success: function(model, response) {
-                    console.log('success in fetch of NLP model');
                     console.log(model);
-                    //check booleans in model to allow save of request, or show
-                    var warningMessage = "";
-                    if(model.get('person') !== '' && model.get('city') !== '') {
-                        warningMessage = "We suspect the following may be the names of cities and people: " +
-                            model.get('city') + " " + model.get('person') + " <br>We strongly suggest against this in order to protect your anonymity."
-                    }else if(model.get('city') !== '') {
-                        warningMessage = "We suspect the following may be the names of cities: " +
-                            model.get('city')  + " <br>We strongly suggest against this in order to protect your anonymity."
-                    }else if(model.get('person') !== '') {
-                        warningMessage = "We suspect the following may be the names of people: " +
-                            model.get('person')  + " <br>We strongly suggest against this in order to protect your anonymity."
-                    }
-
-                    if(warningMessage !== ""){
-                        bootbox.confirm({
-                            message: warningMessage,
-                            buttons: {
-                                confirm: {
-                                    label: 'use description anyway'
-                                },
-                                cancel: {
-                                    label: 'back to edit'
-                                }
-                            },
-                            callback: function (result) {
-                                if(result){
-                                    self.model.save(null, {
-                                        wait: true,
-                                        success: function(model, response) {
-                                            console.log(model);
-                                            console.log('success in saving new request');
-                                            self.parent.renderHome();
-                                            self.destroyNewRequestModal();
-                                        },
-                                        error: function(model, response) {
-                                            console.log(model);
-                                            console.log(response);
-                                            $('#requestErrorLabel').html('There was a problem saving your request.');
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }else{
-                        self.model.save(null, {
-                            wait: true,
-                            success: function(model, response) {
-                                console.log(model);
-                                console.log('success in saving new request');
-                                self.parent.renderHome();
-                                self.destroyNewRequestModal();
-                            },
-                            error: function(model, response) {
-                                console.log(model);
-                                console.log(response);
-                                $('#requestErrorLabel').html('There was a problem saving your request.');
-                            }
-                        });
-                    }
+                    console.log('success in saving new request');
+                    self.parent.renderHome();
+                    self.destroyNewRequestModal();
                 },
                 error: function(model, response) {
-                    console.log('There was a problem with the NLP model.');
                     console.log(model);
                     console.log(response);
-                    $('#requestErrorLabel').html('There was a problem with the NLP model.');
+                    $('#requestErrorLabel').html('There was a problem saving your request.');
                 }});
         },
 
