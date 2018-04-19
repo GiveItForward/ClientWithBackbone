@@ -1,12 +1,12 @@
 - console.log("IN SEARCH CRITERIA")
 - console.log(locals);
-.row(style='margin-bottom: 5px;')
+.row
     if locals.btnColor === 'yellow'
-        button.btn.yellow.whitetext #{locals.tagname}
+        button.btn.yellow.whitetext(id='#{locals.tid}', style='margin-bottom:5px;') #{locals.tagname}
             span.img-circle(aria-hidden="true", style='margin-left:5px;') &times;
     else if locals.btnColor === 'orange'
-        button.btn.orange.whitetext #{locals.tagname}
+        button.btn.orange.whitetext(id='#{locals.tid}', style='margin-bottom:5px;') #{locals.tagname}
             span(aria-hidden="true", style='margin-left:5px;') &times;
     else
-        button.btn.turquoise.whitetext #{locals.tagname}
+        button.btn.turquoise.whitetext(id='#{locals.tid}#{locals.tagname}', data-value='#{locals.tagname}', style='margin-bottom:5px;') #{locals.tagname}
             span(aria-hidden="true", style='margin-left:5px;') &times;

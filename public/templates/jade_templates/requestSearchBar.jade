@@ -15,14 +15,14 @@
                             span.caret(style='margin-left:5px;')
                         ul#orderBy.dropdown-menu
                             li
-                                a(href='#', data-value='new', data-tid=1, data-group='requesttags', tabindex='-1') new to old
+                                a(href='#', data-value='new', data-tid=1, data-group='newold', tabindex='-1') new to old
                             li
-                                a(href='#', data-value='old', data-tid=2, data-group='requesttags', tabindex='-1') old to new
+                                a(href='#', data-value='old', data-tid=2, data-group='newold', tabindex='-1') old to new
                             li.divider
                             li
-                                a(href='#', data-value='low', data-tid=3, data-group='requesttags', tabindex='-1') low to high
+                                a(href='#', data-value='low', data-tid=3, data-group='lowhigh', tabindex='-1') low to high
                             li
-                                a(href='#', data-value='high', data-tid=4, data-group='requesttags', tabindex='-1') high to low
+                                a(href='#', data-value='high', data-tid=4, data-group='lowhigh', tabindex='-1') high to low
                 input#searchByTerm.form-control(type='text', name='x', placeholder='Search tags...')
                 span#goFilterRequests.input-group-addon.btn
                     span.glyphicon.glyphicon-search
