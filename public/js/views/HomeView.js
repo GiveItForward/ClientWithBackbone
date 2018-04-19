@@ -1292,14 +1292,10 @@ define(function (require, exports, module) {
             var target = $(event.currentTarget);
             var tid = target.attr('id');
             var value = target.attr('data-value');
-            console.log('IN EVENT');
             target.remove();
             self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
 
-
             var idx;
-
-            console.log("TID: " + tid);
 
             if ( ( idx = searchUserTagsList.indexOf( parseInt(tid) ) ) > -1 ) {
                 searchUserTagsList.splice( idx, 1 );
@@ -1315,8 +1311,6 @@ define(function (require, exports, module) {
                 price = '';
             }
 
-            console.log(searchUserTagsList.length);
-            console.log(searchRequestTagsList.length);
 
             if (searchRequestTagsList.length === 0 && searchUserTagsList.length === 0 && value !== ""){
 
@@ -1340,12 +1334,7 @@ define(function (require, exports, module) {
                 });
             }
 
-
-
             self.goFilterRequests();
-            //Clear these lists for the next search.
-            // searchRequestTagsList =[];
-            // searchUserTagsList = [];
         },
 
         logout: function () {
