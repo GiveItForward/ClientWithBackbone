@@ -142,6 +142,7 @@ define(function (require, exports, module) {
             console.log('in checkBioWithNLP');
             var self = this;
             var nlpModel = new NLPModel({});
+            self.$('#updateProfileBtn').prop("disabled", true);
             nlpModel.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -178,6 +179,8 @@ define(function (require, exports, module) {
                             callback: function (result) {
                                 if(result){
                                    self.save();
+                                } else {
+                                    self.$('#updateProfileBtn').prop("disabled", false);
                                 }
                             }
                         });

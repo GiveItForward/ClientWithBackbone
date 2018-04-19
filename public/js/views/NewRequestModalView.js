@@ -131,6 +131,7 @@ define(function (require, exports, module) {
         checkDescriptionWithNLPAndSave: function () {
             var self = this;
             var nlpModel = new NLPModel({});
+            self.$('#createRequestBtn').prop("disabled", true);
             nlpModel.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -167,6 +168,8 @@ define(function (require, exports, module) {
                             callback: function (result) {
                                 if(result){
                                     self.save()
+                                } else {
+                                    self.$('#createRequestBtn').prop("disabled", false);
                                 }
                             }
                         });

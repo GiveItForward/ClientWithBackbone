@@ -6,10 +6,16 @@
                 <h4 class="modal-title">New Request</h4>
             </div>
             <div class="modal-body">
-                <label>Describe the reason for your request:</label><br>
-                <textarea id="newRequestDescription" class="bio" rows="4" cols="60"></textarea>
-                <label>Enter the dollar amount you are requesting: <b>$</b></label>
-                <input id="newRequestAmount" class="roundminitext" type="text">
+                <div class="form-group">
+                    <label>Describe the reason for your request:</label><br>
+                    <textarea id="newRequestDescription" class="form-control" rows="5"></textarea>
+                </div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label>Enter the dollar amount you are requesting: <b>$</b></label>
+                        <input id="newRequestAmount" class="form-control" type="text">
+                    </div>
+                </form>
                 <label id="requestAmountErrorLabel" style="color: red"></label>
                 <div class="dropup">
                     <button class="btn horizontal-iconbox yellow whitetext dropdown-toggle" type="button" data-toggle="dropdown">choose a request tag<span class="caret"></span></button>
