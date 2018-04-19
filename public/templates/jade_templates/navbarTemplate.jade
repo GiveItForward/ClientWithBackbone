@@ -17,11 +17,11 @@ nav.navbar.navbar-default.turquoise.navbar-static-top(style='margin:auto; paddin
                 li
                     a#orgsBtn(type='button', href='#') organizations
             ul.nav.navbar-nav.navbar-right.whitetext(style='font-size: 1.2em;')
-                li.dropdown
+                li#notificationDropdown.dropdown
                     a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false', style='font-size:1.6em;')
                         span#notificationCount.label
                         i.far.fa-bell
-                    ul.dropdown-menu(style='width: 500px; overflow: scroll; height: auto; background-color: #f6f7f9;')
+                    ul.dropdown-menu(style='width: 500px; overflow: scroll; height: auto; background-color: #f6f7f9; font-size: 14pt;')
                         li.dropdown-header new
                         #notificationsNavItem
                 li.dropdown
@@ -30,7 +30,7 @@ nav.navbar.navbar-default.turquoise.navbar-static-top(style='margin:auto; paddin
                         img#miniImage.img-circle(src="http://www.giveitforward.us/default_profile_pic.png", style='width: 27px; height: 27px; margin-right:5px;')
                         | me
                         span.caret
-                    ul.dropdown-menu.blacktext(style='font-size: 0.8em;')
+                    ul.dropdown-menu.blacktext(style='font-size: 14pt;')
                         li
                             a#myProfileBtn(href='#', style='color:black;') profile
                         li

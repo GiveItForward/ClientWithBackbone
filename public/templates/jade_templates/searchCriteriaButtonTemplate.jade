@@ -2,11 +2,11 @@
 - console.log(locals);
 .row
     if locals.btnColor === 'yellow'
-        button.btn.yellow.whitetext(id='#{locals.tid}', style='margin-bottom:5px;') #{locals.tagname}
+        button.btn.yellow.whitetext(id='#{locals.tid}', style='margin-bottom:5px; font-size: 14pt;') #{locals.tagname}
             span.img-circle(aria-hidden="true", style='margin-left:5px;') &times;
     else if locals.btnColor === 'orange'
-        button.btn.orange.whitetext(id='#{locals.tid}', style='margin-bottom:5px;') #{locals.tagname}
+        button.btn.orange.whitetext(id='#{locals.tid}', style='margin-bottom:5px; font-size: 14pt;') #{locals.tagname}
             span(aria-hidden="true", style='margin-left:5px;') &times;
     else
-        button.btn.turquoise.whitetext(id='#{locals.tid}#{locals.tagname}', data-value='#{locals.tagname}', style='margin-bottom:5px;') #{locals.tagname}
+        button.btn.turquoise.whitetext(id='#{locals.tid}#{locals.tagname}', data-value='#{locals.tagname}', style='margin-bottom:5px; font-size: 14pt;') #{locals.tagname}
             span(aria-hidden="true", style='margin-left:5px;') &times;
