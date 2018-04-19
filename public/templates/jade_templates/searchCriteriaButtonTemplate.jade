@@ -1,0 +1,12 @@
+- console.log("IN SEARCH CRITERIA")
+- console.log(locals);
+.row(style='margin-bottom: 5px;')
+    if locals.btnColor === 'yellow'
+        button.btn.yellow.whitetext #{locals.tagname}
+            span.img-circle(aria-hidden="true", style='margin-left:5px;') &times;
+    else if locals.btnColor === 'orange'
+        button.btn.orange.whitetext #{locals.tagname}
+            span(aria-hidden="true", style='margin-left:5px;') &times;
+    else
+        button.btn.turquoise.whitetext #{locals.tagname}
+            span(aria-hidden="true", style='margin-left:5px;') &times;

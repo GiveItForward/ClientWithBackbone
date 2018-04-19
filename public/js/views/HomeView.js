@@ -56,6 +56,7 @@ define(function (require, exports, module) {
     var myDonationFeedTemplate = require("jade!templates/jade_templates/myDonationFeedTemplate");
     var myDonationTemplate = require("jade!templates/jade_templates/myDonationTemplate");
     var notificationItemTemplate = require("jade!templates/jade_templates/notificationItemTemplate");
+    var searchCriteriaButtonTemplate = require("jade!templates/jade_templates/searchCriteriaButtonTemplate");
 
     var notificatonRequestTemplate = require("jade!templates/jade_templates/notificationRequestTemplate");
     var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
@@ -106,6 +107,7 @@ define(function (require, exports, module) {
             "click #viewThankYouBtn"            : "viewThankYou",
             "click #notificationItem a"         : "viewNotification",
             "mouseover #notificationItem a"     : "quickViewNotification",
+            "click #searchByTerm"               : "dropdownSearchList",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -1020,6 +1022,12 @@ define(function (require, exports, module) {
                 }
                 $( event.target ).blur();
                 console.log( searchUserTagsList );
+                var locals = {
+                    id: tid,
+                    tagname: name,
+                    btnColor: "yellow"
+                };
+                $('#searchCriteriaUserTags').append(searchCriteriaButtonTemplate(locals));
                 return this;
             } else if (group === "requesttag") {
                 if ( ( idx = searchRequestTagsList.indexOf( tid ) ) > -1 ) {
@@ -1031,60 +1039,47 @@ define(function (require, exports, module) {
                 }
                 $( event.target ).blur();
                 console.log( searchRequestTagsList );
+                var locals = {
+                    id: tid,
+                    tagname: name,
+                    btnColor: "orange"
+                };
+                $('#searchCriteriaRequestTags').append(searchCriteriaButtonTemplate(locals));
                 return this;
             }
 
         },
 
         updateOrderBy: function (event) {
-            return this;
-        },
+            var target = $(event.currentTarget);
+            var val = target.attr('data-value');
+            var id = 0;
 
-        toggleNew: function () {
-            if($("#new").prop('checked') === true){
-                $("#old").prop('checked', false);
-                age = 'new';
-            }else{
-                $("#new").prop('checked', false);
-                age = '';
+            switch (val) {
+                case "new":
+                    age = 'new';
+                    break;
+                case "old":
+                    age = 'old';
+                    break;
+                case "high":
+                    price = 'high';
+                    break;
+                case "low":
+                    price = 'low';
+                    break;
+                default:
+                    console.log(val);
+                    break;
             }
-            console.log(age);
-            return this;
-        },
 
-        toggleOld: function () {
-            if($("#old").prop('checked') === true){
-                $("#new").prop('checked', false);
-                age = 'old';
-            }else{
-                $("#old").prop('checked', false);
-                age = '';
-            }
-            console.log(age);
-            return this;
-        },
+            var locals = {
+                id: id,
+                tagname: val,
+                btnColor: "turquoise"
+            };
+            $('#searchCriteriaOrderBy').append(searchCriteriaButtonTemplate(locals));
 
-        toggleLow: function () {
-            if($("#low").prop('checked') === true){
-                $("#high").prop('checked', false);
-                price = 'low';
-            }else{
-                $("#low").prop('checked', false);
-                price = '';
-            }
-            console.log(price);
-            return this;
-        },
-
-        toggleHigh: function () {
-            if($("#high").prop('checked') === true){
-                $("#low").prop('checked', false);
-                price = 'high';
-            }else{
-                $("#high").prop('checked', false);
-                price = '';
-            }
-            console.log(price);
             return this;
         },
 
@@ -1293,7 +1288,8 @@ define(function (require, exports, module) {
                     }
                 },
                 error: function(error){
-
+                    console.log('error in saving notification as seen.');
+                    console.log(error.message);
                 }
             });
         },
@@ -1302,21 +1298,22 @@ define(function (require, exports, module) {
 
             var self = this;
             var target = $(event.currentTarget);
-            console.log("IN HOVER NOTIFICATION");
-            console.log(target.attr( 'data-message' ));
-            console.log(target.attr( 'data-date' ));
-            console.log(target.attr( 'data-rid' ));
-            console.log(target.attr( 'data-type' ));
-            console.log(target.attr( 'data-nid' ));
-
 
             var notificationID = target.attr( 'data-nid' );
-            var notificationType = target.attr('data-type');
-            var seen = target.attr('data-opened');
 
             self.seeNotification(notificationID, true);
             self.$('#nid' + notificationID).remove(); // removed the read icon from the notification
             return;
+        },
+
+
+        dropdownSearchList: function(event) {
+            var self = this;
+            console.log('SEARCH LIST CLICK');
+
+            self.$("#filterBtnDropdown").dropdown();
+            // $("#filterBtnGroup").addClass('open');
+            // $("#filterBtnDropdown").attr('aria-expanded', true);
         },
 
         logout: function () {

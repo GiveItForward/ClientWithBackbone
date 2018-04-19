@@ -6,6 +6,11 @@
   /*color: white;*/
 /*}*/
 
+
+#searchCriteria button {
+    border-radius: 15px;
+}
+
 a:hover {
   color: skyblue !important;
 }

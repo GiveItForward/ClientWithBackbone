@@ -27,7 +27,7 @@ block content
                                     gapi.load('auth2', function () {
                                         // Retrieve the singleton for the GoogleAuth library and set up the client.
                                         auth2 = gapi.auth2.init({
-                                            client_id: process.env.GOOGLE_CLIENT_ID,
+                                            client_id: "516734440147-59sb0ckq0i826f0s3bquv96v858v86m3.apps.googleusercontent.com",//process.env.GOOGLE_CLIENT_ID,
                                             cookiepolicy: 'single_host_origin'
                                             // Request scopes in addition to 'profile' and 'email'
                                             //scope: 'additional_scope'
@@ -70,11 +70,11 @@ block content
                                 startApp();
                         li
                             a(href='#', data-toggle='modal', data-target='#signupModal')
-                                span.glyphicon.glyphicon-user
+                                span.far.fa-s
                                 |  Sign Up
                         li
                             a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
-                                span.glyphicon.glyphicon-log-in
+                                i.fas.fa-sign-in-alt
                                 |  Login
         .container.background.turquoise-angles(style='width:100%;')
             .row
