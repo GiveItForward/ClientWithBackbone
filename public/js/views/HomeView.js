@@ -961,23 +961,20 @@ define(function (require, exports, module) {
         updateSearchUserTags: function (event) {
 
             var self = this;
-            // this function from https://codepen.io/bseth99/pen/fboKH?editors=1010
-            var $target = $(event.currentTarget),
-                name = $target.attr( 'data-name' ),
-                tid = parseInt($target.attr( 'data-tid' )),
-                $inp = $target.find( 'input' ),
+            var target = $(event.currentTarget),
+                name = target.attr( 'data-name' ),
+                tid = parseInt(target.attr( 'data-tid' )),
                 idx;
 
-
-            var group = $target.attr('data-group');
+            var addBtn = true;
+            var group = target.attr('data-group');
 
             if (group === "usertag") {
                 if ( ( idx = searchUserTagsList.indexOf( tid ) ) > -1 ) {
-                    searchUserTagsList.splice( idx, 1 );
-                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+                    addBtn = false;
+                    // searchUserTagsList.splice( idx, 1 );
                 } else {
                     searchUserTagsList.push( tid );
-                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
                 }
                 $( event.target ).blur();
                 var locals = {
@@ -985,14 +982,16 @@ define(function (require, exports, module) {
                     tagname: name,
                     btnColor: "yellow"
                 };
-                $('#searchCriteriaUserTags').append(searchCriteriaButtonTemplate(locals));
+                if (addBtn === true) {
+                    $('#searchCriteriaUserTags').append(searchCriteriaButtonTemplate(locals));
+                    self.goFilterRequests();
+                }
             } else if (group === "requesttag") {
                 if ( ( idx = searchRequestTagsList.indexOf( tid ) ) > -1 ) {
-                    searchRequestTagsList.splice( idx, 1 );
-                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+                    addBtn = false;
+                    // searchRequestTagsList.splice( idx, 1 );
                 } else {
                     searchRequestTagsList.push( tid );
-                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
                 }
                 $( event.target ).blur();
                 var locals = {
@@ -1000,11 +999,11 @@ define(function (require, exports, module) {
                     tagname: name,
                     btnColor: "orange"
                 };
-                $('#searchCriteriaRequestTags').append(searchCriteriaButtonTemplate(locals));
+                if (addBtn === true) {
+                    $('#searchCriteriaRequestTags').append(searchCriteriaButtonTemplate(locals));
+                    self.goFilterRequests();
+                }
             }
-
-            self.goFilterRequests();
-
             return this;
 
         },

@@ -1,18 +1,19 @@
 .container-fluid
     for org in locals.models
         .row
-            .org-panel.form-inline
-                .row.form-inline(style='margin:1%;')
-                    #orgImage.col-md-2.text-center
-                        img.orglogo(src='#{org.get("image")}')
-                    .col-md-10.text-center
-                        a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
-                        .orgDescriptionDiv.off-white
-                            #orgBio.panel-body #{org.get("description")}
-                        .row.topborder
-                            .col-md-6
-                                a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}
-                                #orgPhone #{org.get("phone")}
-                                #orgEmail #{org.get("email")}
-                            .col-md-6
-                                #orgAddress #{org.get("address")}
+            .col-md-8.col-md-offset-2
+                .org-panel.form-inline
+                    .row.form-inline(style='margin:1%;')
+                        #orgImage.col-md-2.text-center
+                            img.orglogo(src='#{org.get("image")}')
+                        .col-md-10.text-center
+                            a#orgName.col-md-12.orgname(target="_blank", href='#{org.get("website")}') #{org.get("name")}
+                            .orgDescriptionDiv.off-white
+                                #orgBio.panel-body #{org.get("description")}
+                            .row.topborder
+                                .col-md-6
+                                    a#orgWebsite(target="_blank", href='#{org.get("website")}') #{org.get("website")}
+                                    #orgPhone #{org.get("phone")}
+                                    #orgEmail #{org.get("email")}
+                                .col-md-6
+                                    #orgAddress #{org.get("address")}
