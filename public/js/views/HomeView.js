@@ -1065,7 +1065,7 @@ define(function (require, exports, module) {
         clearSearchOrgs: function() {
             var self = this;
             $('#orgSpinner').css('display', 'block');
-
+            $('#searchOrgs').val("");
             var orgCollection = new OrgCollection();
             orgCollection.fetch({
                 xhrFields: {
