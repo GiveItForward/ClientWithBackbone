@@ -1342,7 +1342,10 @@ span[data-title]:hover:after {
     /*border: 0;*/
 /*}*/
 
-
+.requestImg {
+    max-height: 256px;
+    max-width: 256px;
+}
 .choosetags {
     border-radius: 5px;
     padding: 2%;

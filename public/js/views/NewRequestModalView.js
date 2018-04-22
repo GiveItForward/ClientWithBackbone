@@ -95,6 +95,10 @@ define(function (require, exports, module) {
                 self.model.set("image", '/img/rent_icon.png');
             } else if('schoolRelated' === currTag){
                 self.model.set("image", '/img/purple_school.png');
+            }  else if('medicalExpense' === currTag){
+                self.model.set("image", '/img/medical.png');
+            } else if('houseRepair' === currTag){
+                self.model.set("image", '/img/home.png');
             }
 
             $('#newRequestImage').attr('src', self.model.get('image'));
