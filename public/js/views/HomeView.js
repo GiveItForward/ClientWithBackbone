@@ -89,7 +89,7 @@ define(function (require, exports, module) {
             "click #changePasswordBtn"          : "changePassword",
             "click #createAvatarBtn"            : "createAvatar",
             "click #deleteAccountBtn"           : "deleteAccount",
-            "click #usersBtn"                   : "renderUsers",
+            // "click #usersBtn"                   : "renderUsers",
             "click #unverifyTagBtn"             : "unverifyTag",
             "click #verifyTagBtn"               : "verifyTag",
             "click #elevateUserAdminBtn"        : "elevateUserAdmin",
@@ -1358,11 +1358,16 @@ define(function (require, exports, module) {
             var self = this;
             var li = $("<li></li>");
             var a  = $("<a></a>");
-            a.attr("id", "usrsBtn").text("users");
+            a.attr("id", "usersBtn").text("users");
             a.attr("style", "color:black;");
             a.attr("href", "#");
             li.append(a);
             $("#userBthPlaceholder").replaceWith(li);
+
+            $('#usersBtn').click(function(){
+                self.renderUsers();
+            });
+
         }
     });
     return HomeView;
