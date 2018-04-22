@@ -21,14 +21,18 @@ router.get('/', function(req, res, next) {
         };
 
         request(options, function(error, response, body){
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 var user = parser.parse(body);
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.expires = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 res.render("home", { user: session.userObject}); // i need the user object
             } else {
-                res.send(response);
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
             }
         });
     } else {

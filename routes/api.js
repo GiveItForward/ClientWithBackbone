@@ -30,14 +30,21 @@ router.get('/users/login', function(req, res, next) {
         };
 
         request(options, function(error, response, body){
-            if(response.statusCode === 200){
+            console.log(response);
+            console.log(error);
+            if(response !== undefined && response.statusCode === 200){
                 var user = parser.parse(body);
                 session.email = user.email;
                 session.userObject = user;
                 session.cookie.maxAge = new Date(Date.now() + (60000 * 30)); // 30 minute session
                 res.send(body);
             } else {
-                res.status(response.statusCode).send(body);
+                if (response === undefined){
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
+
             }
         });
     }
@@ -117,7 +124,7 @@ router.post('/paypal/verify/*', function(req, res, next) {
 //
 //         // request for the requester email
 //         request(options, function(error, response, body){
-//             if(response.statusCode === 200){
+//             if(response !== undefined && response.statusCode === 200){
 //                 var userBody = parser.parse(body);
 //                 var requestorsEmail = userBody.email;
 //                 var amount = req.header('amt');
@@ -234,7 +241,7 @@ router.get('/requests/paypal', function(req, res, next) {
         // request for the requester email
         request(options, function(error, response, body){
 
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 var userBody = parser.parse(body);
                 var requestorsEmail = userBody.email;
                 var amount = req.header('amt');
@@ -264,7 +271,7 @@ router.get('/requests/paypal', function(req, res, next) {
 
                 paypalSdk.pay(payload, function (err, paypalResponse) {
                     if (err) {
-                        res.end(err); // TODO - better error handling here
+                        res.end(err); // TODO - better error handling here, but what is to be expected from paypal?
                     } else {
                         if(paypalResponse.responseEnvelope.ack === 'Success') {
                             var requestBody;
@@ -275,23 +282,32 @@ router.get('/requests/paypal', function(req, res, next) {
                                 headers: req.headers
                             };
 
-                            request(options, function(error, response, body){
-                                if(response.statusCode === 200){
-                                    requestBody = parser.parse(body);
+                            request(options, function(error, fulfilResponse, fulfilBody){
+                                if(fulfilResponse !== undefined && fulfilResponse.statusCode === 200){
+                                    requestBody = parser.parse(fulfilBody);
                                     req.session.userObject.donateCount += 1;
                                     var responseObj = {
                                         redirectUrl: paypalResponse.paymentApprovalUrl
                                     };
                                     res.status(200).send(JSON.stringify(responseObj));
                                 } else {
-                                    res.status(500).send("Error redirecting to Paypal.");
+                                    if (fulfilResponse === undefined) {
+                                        res.status(404).send(error.message);
+                                    } else {
+                                        res.status(500).send(fulfilBody);
+                                    }
                                 }
                             });
                         }
                     }
                 });
             } else {
-                res.status(response.statusCode).send(body);
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
+
             }
         });
     } else {
@@ -328,10 +344,14 @@ router.get('/tags', function(req, res, next) {
     };
 
     request(options, function(error, response, body){
-        if(response.statusCode === 200){
+        if(response !== undefined && response.statusCode === 200){
             res.send(body);
         } else {
-            res.status(response.statusCode).send(body);
+            if (response === undefined) {
+                res.status(404).send(error.message);
+            } else {
+                res.status(response.statusCode).send(body);
+            }
         }
     });
 });
@@ -347,13 +367,17 @@ router.get('/resetpassword', function(req, res, next) {
     };
 
     request(options, function (error, response, body) {
-        if(response.statusCode === 200){
+        if(response !== undefined && response.statusCode === 200){
             var responseObj = {
                 message: "SUCCESS"
             };
             res.status(200).send(JSON.stringify(responseObj));
         } else {
-            res.status(response.statusCode).send(body);
+            if (response === undefined) {
+                res.status(404).send(error.message);
+            } else {
+                res.status(response.statusCode).send(body);
+            }
         }
     });
 
@@ -370,13 +394,17 @@ router.get('/forgotpassword', function(req, res, next) {
     };
 
     request(options, function (error, response, body) {
-        if(response.statusCode === 200){
+        if(response !== undefined && response.statusCode === 200){
             var responseObj = {
                 message: "SUCCESS"
             };
             res.status(200).send(JSON.stringify(responseObj));
         } else {
-            res.status(response.statusCode).send(body);
+            if (response === undefined) {
+                res.status(404).send(error.message);
+            } else {
+                res.status(response.statusCode).send(body);
+            }
         }
     });
 
@@ -396,10 +424,14 @@ router.get('/*', function(req, res, next) {
         };
 
         request(options, function (error, response, body) {
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 res.send(body);
             } else {
-                res.status(response.statusCode).send(body);
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
             }
         });
     } else {
@@ -426,7 +458,7 @@ router.post('/users/create', function(req, res, next) {
     };
 
     request(options, function(error, response, body){
-        if(response.statusCode === 200){
+        if(response !== undefined && response.statusCode === 200){
 
             if (req.header('google') === "true") {
                 var user = body;
@@ -436,7 +468,11 @@ router.post('/users/create', function(req, res, next) {
             }
             res.send(body);
         } else {
-            res.status(response.statusCode).send(body);
+            if (response === undefined) {
+                res.status(404).send(error.message);
+            } else {
+                res.status(response.statusCode).send(body);
+            }
         }
     });
 
@@ -458,10 +494,14 @@ router.post('/*', function(req, res, next) {
         };
 
         request(options, function (error, response, body) {
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 res.send(body);
             } else {
-                res.status(response.statusCode).send(body);
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
             }
         });
     } else {
@@ -485,11 +525,14 @@ router.put('/*', function(req, res, next) {
         };
 
         request(options, function (error, response, body) {
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 res.send(body);
             } else {
-                res.status(response.statusCode).send(body);
-
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
             }
         });
     } else {
@@ -511,11 +554,14 @@ router.delete('/*', function(req, res, next) {
         };
 
         request(options, function (error, response, body) {
-            if(response.statusCode === 200){
+            if(response !== undefined && response.statusCode === 200){
                 res.send(body);
             } else {
-                res.status(response.statusCode).send(body);
-
+                if (response === undefined) {
+                    res.status(404).send(error.message);
+                } else {
+                    res.status(response.statusCode).send(body);
+                }
             }
         });
     } else {

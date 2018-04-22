@@ -14,10 +14,14 @@ router.get('/*', function(req, res, next) {
     };
 
     request(options, function (error, response, body) {
-        if(response.statusCode === 200){
+        if(response !== undefined && response.statusCode === 200){
             res.redirect("/home");
         } else {
-            res.status(response.statusCode).send(body);
+            if (response === undefined) {
+                res.status(404).send(error.message);
+            } else {
+                res.status(response.statusCode).send(body);
+            }
         }
     });
 

@@ -154,6 +154,10 @@ a:hover {
 .weave{
     background-image: url("../img/landing/weave.png");
 }
+
+.doiley {
+    background-image: url("../img/turquoiseDoileys.jpg");
+}
 .background{
     height: 100%;
     width: 100%;
