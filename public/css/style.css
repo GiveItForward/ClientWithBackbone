@@ -6,6 +6,11 @@
   /*color: white;*/
 /*}*/
 
+
+#searchCriteria button {
+    border-radius: 15px;
+}
+
 a:hover {
   color: skyblue !important;
 }
@@ -91,6 +96,16 @@ a:hover {
     color: white;
 }
 
+/* Define style for tabs */
+.nav-tabs>li>a, .nav-tabs>li>a:focus, .nav-tabs>li>a:hover {
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-color: darkgray;
+    background-color: darkgray !important;
+    color: white;
+}
+
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background-color: #00ae93;
     color: dimgray;
@@ -138,6 +153,10 @@ a:hover {
 }
 .weave{
     background-image: url("../img/landing/weave.png");
+}
+
+.doiley {
+    background-image: url("../img/turquoiseDoileys.jpg");
 }
 .background{
     height: 100%;
@@ -1663,4 +1682,25 @@ input[type=checkbox]:checked + label
         -o-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+
+#searchOrgClear:hover {
+    cursor: pointer;
+    color: skyblue;
+}
+
+#goSearchOrgs:hover {
+    cursor: pointer;
+    color: skyblue;
+}
+
+#searchUsersClear:hover {
+    cursor: pointer;
+    color: skyblue;
+}
+
+#goSearchUsers:hover {
+    cursor: pointer;
+    color: skyblue;
 }

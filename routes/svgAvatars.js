@@ -26,9 +26,8 @@ router.post('/*', function(req, res, next) {
                 };
 
                 request(options, function (error, response, body) {
-                    if (response.statusCode === 200) {
+                    if (response !== undefined && response.statusCode === 200) {
                         var user = parser.parse(body);
-
                         session.userObject = user;
                         console.log(user);
                         res.status(200).send("saved");

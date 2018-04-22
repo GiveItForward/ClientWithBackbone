@@ -41,3 +41,13 @@ for request in locals.collection.models
                                     button#giveBtn.iconbox.orange.whitetext(disabled='', data-rid='#{request.get("rid")}', data-amount='#{request.get("amount")}', data-username='#{request.get("rUser").username}', data-ruser-uid='#{request.get("rUser").uid}', style='margin-top: 1%;')
                                         i.fas.fa-angle-double-right.fa-2x(style='width:100%;top-padding:-1%;')
                                         | $#{request.get("amount")}
+//nav(aria-label='...')
+//    ul.pager
+//        li.previous
+//            a(href='#')
+//                span(aria-hidden='true') ←
+//                | Prev
+//        li.next
+//            a(href='#')
+//                | Next
+//                span(aria-hidden='true') →

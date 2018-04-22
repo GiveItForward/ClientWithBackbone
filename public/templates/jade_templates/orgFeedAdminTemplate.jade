@@ -15,12 +15,13 @@
                     #orgColTab.tab-pane.active
                         br
                         .container-fluid
-                            .row
+                            .row(style='float:right')
                                 .input-group
                                     input#searchOrgs.form-control(type='text', placeholder='search orgs...')
-                                    span.input-group-btn
-                                        button#goSearchOrgs.btn.btn-default(type='button')
-                                            span.glyphicon.glyphicon-search
+                                    #searchOrgClear.input-group-addon
+                                        i.glyphicon.glyphicon-remove-circle
+                                    #goSearchOrgs.input-group-addon
+                                        i.glyphicon.glyphicon-search
                         br
                         #orgCol.activeTabDiv
                     #pendingOrgTab.tab-pane

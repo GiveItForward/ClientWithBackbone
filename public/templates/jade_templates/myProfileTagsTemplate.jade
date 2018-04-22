@@ -1,5 +1,10 @@
 for tag in locals.models
     b &nbsp##{tag.get("tagname")}
-    span(data-title='Verified by #{tag.get("verifiedBy")}')
-        img.checkmark(src='/img/marooncheckmark.png')
+    if tag.get('verifiedBy') !== ''
+        span(data-title='Verified by #{tag.get("verifiedBy")}')
+            img.checkmark(src='/img/marooncheckmark.png')
+    else
+        | &nbsp
+
+
 

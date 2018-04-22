@@ -3,15 +3,18 @@ for request in locals.models
         .panel-body
             .container-fluid
                 .row
-                    .col-md-12
+                    .col-md-6
                         img.requestuserimage.pull-left(src='#{request.get("rUser").image}')
-                        h3(href='#') #{request.get("rUser").username}
+                        h3.pull-left(href='#', style='margin-left: 10px;') #{request.get("rUser").username}
+                    .col-md-6
+                        .container-fluid
+                            .row.pull-right
+                                | Requested&nbsp
+                                em
+                                    b $#{request.get("amount")}
+                                |  on #{request.get("requestTime")}
                 .row
-                    .col-md-12
-                        | Requested&nbsp
-                        em
-                            b $#{request.get("amount")}
-                        |  on #{request.get("requestTime")}
+                    .col-md-6.pull-right
                         if request.get("duid") > 0
                             .fulfilled.pull-right FULFILLED
                                 i  on #{request.get("donateTime")}

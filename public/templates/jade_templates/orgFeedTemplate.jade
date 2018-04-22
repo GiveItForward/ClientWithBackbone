@@ -2,16 +2,18 @@
 .row
     .col-md-8.col-md-offset-2
         .container-fluid
-            .row
+            .row(style='float:right')
                 .input-group
                     input#searchOrgs.form-control(type='text', placeholder='search orgs...')
-                    span.input-group-btn
-                        button#goSearchOrgs.btn.btn-default(type='button')
-                            span.glyphicon.glyphicon-search
+                    #searchOrgClear.input-group-addon
+                        i.glyphicon.glyphicon-remove-circle
+                    #goSearchOrgs.input-group-addon
+                        i.glyphicon.glyphicon-search
     .col-sm-2
         a#newOrgBtn.btn.turquoise.whitetext(data-toggle='modal', data-target='#newOrgModal', data-backdrop='static') add your org
-.row.off-white
+.row.off-white.background.weave
     .fa-5x
         i#orgSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
     br
-    #orgCol.scroll
+    .col-md-8.col-md-offset-2
+        #orgCol.scroll

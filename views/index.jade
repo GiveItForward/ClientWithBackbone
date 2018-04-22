@@ -3,23 +3,23 @@ extend layout
 block content
     #svgAvatars(style={display: 'none'})
     #homeStuff
-        nav.navbar.navbar-default.navbar-static-top(style='margin:auto;')
+        nav.navbar.navbar-default.navbar-static-top(style='margin: auto;')
             .container-fluid
                 .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-collapse-2', aria-expanded='false', style='border-color:white;')
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-collapse-2', aria-expanded='false')
                         span.sr-only Toggle navigation
-                        span.icon-bar(style='background-color: white;')
-                        span.icon-bar(style='background-color: white;')
-                        span.icon-bar(style='background-color: white;')
-                    a.navbar-brand(href='http://giveitforward.us') Give It Forward
-                        img.navbar-left(style='margin:-5%; margin-right: 5px; width: 30px; height: 30px;', src='/img/turquoise_shadow.png', alt='Give It Forward')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='#') Give It Forward
+                        img.pull-left(style='margin:-5%; margin-right: 5px; width: 30px; height: 30px;', src='/img/turquoise_shadow.png', alt='Give It Forward')
                 #navbar-collapse-2.collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
                         li
                             .gSignInWrapper
                                 input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
                                 #googleSignin.customGPlusSignIn
-                                    span.fab.fa-google(style='margin-right: 5px;')
+                                    span.fab.fa-google(style='margin-right: 5px; margin-left: 12px;')
                                     span.buttonText Google
                             script.
                                 var googleUser = {};
@@ -27,7 +27,7 @@ block content
                                     gapi.load('auth2', function () {
                                         // Retrieve the singleton for the GoogleAuth library and set up the client.
                                         auth2 = gapi.auth2.init({
-                                            client_id: process.env.GOOGLE_CLIENT_ID,
+                                            client_id: "516734440147-59sb0ckq0i826f0s3bquv96v858v86m3.apps.googleusercontent.com",//process.env.GOOGLE_CLIENT_ID,
                                             cookiepolicy: 'single_host_origin'
                                             // Request scopes in addition to 'profile' and 'email'
                                             //scope: 'additional_scope'
@@ -70,11 +70,11 @@ block content
                                 startApp();
                         li
                             a(href='#', data-toggle='modal', data-target='#signupModal')
-                                span.glyphicon.glyphicon-user
+                                span.far.fa-user
                                 |  Sign Up
                         li
                             a(href='#loginModal', data-toggle='modal', data-target='#loginModal')
-                                span.glyphicon.glyphicon-log-in
+                                i.fas.fa-sign-in-alt
                                 |  Login
         .container.background.turquoise-angles(style='width:100%;')
             .row
@@ -111,6 +111,7 @@ block content
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Next
                 .col-md-3
+                    #signupColumn
         .container(style='width:100%;')
             #more.row(style='margin: 5% auto;')
                 .col-md-2
@@ -161,7 +162,7 @@ block content
                         img.img-circle.maxwidth(src='/img/landing/kenzie.jpeg', alt='Makenzie Elliott', style='width:100%;')
                     .col-md-8
                         h4 Makenzie Elliott
-                        p Lectus dis vehicula hendrerit ridiculus nec luctus erat taciti orci hendrerit felis eu hac condimentum eros montes curabitur nam sapien. Donec posuere lacus, nulla nostra class ac fames libero accumsan magna viverra. Posuere sed luctus gravida ante dis elementum pretium gravida parturient inceptos penatibus curabitur, molestie. Nunc tempus, nascetur. Penatibus, tortor. Venenatis nullam commodo mattis turpis nibh sagittis gravida fames placerat ornare feugiat primis non. Mollis. Nulla libero et duis aliquam praesent amet montes etiam vulputate diam fusce. Dictumst consequat volutpat condimentum pretium ipsum lectus placerat nascetur sociis venenatis mattis vulputate etiam nonummy. Placerat suscipit odio auctor nonummy. Dui sapien.
+                        p I have always been interested in technology. It feels like I've been sitting in front of a computer playing games and surfing the web my whole life. When I was homeschooled I learned math from playing computer games. It made learning easy and so much fun. This is what inspired me to pursue my degree in Computer Science. In the future I would love to make high quality education video games. I love solving problems, writing code, watching Hulu, and swimming in the ocean.
                     .col-md-1
                 .row(style='margin:5% auto;')
                     .col-md-1
@@ -204,11 +205,10 @@ block content
                             label(for='password') Password:
                             input#password.form-control(type='password', placeholder='Enter password', name='password')
                     .modal-footer
-                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal', data-target='loginModal') Log in
-                        label#loginErrorLabel(style="float:left; color: red")
+                        button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit') Log in
+                        label#loginErrorLabel(style="margin: 5px; float:left; color: red")
                         span.psw
                             a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
-
         #signupModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby="loginModal")
             .modal-dialog
                 // Modal content
@@ -236,6 +236,6 @@ block content
                             label(for='newVerifyPassword') Confirm password:
                             input#newVerifyPassword.form-control(type='password', placeholder='Re-enter password', name='confirm password')
                         button#createAccountBtn.btn.btn-default(type='submit', data-dismiss='modal', data-target='signupModal') Sign up
-    #footer
+    #landingFooter
         .footer.turquoise.whitetext
             p Give It Forward &copy; 2018
