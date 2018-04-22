@@ -18,7 +18,6 @@ define(function (require, exports, module) {
     var EditRequestModalView = require("views/EditRequestModalView");
     var OtherProfileModalView = require("views/OtherProfileModalView");
     var EditProfileModalView = require("views/EditProfileModalView");
-    var NotificationModalView = require("views/NotificationModalView");
     var ChangePasswordModalView = require("views/ChangePasswordModalView");
     var SayThankYouModalView = require("views/SayThankYouModalView");
     var CreateAvatarModalView = require("views/CreateAvatarModalView");
@@ -60,7 +59,6 @@ define(function (require, exports, module) {
 
     var notificatonRequestTemplate = require("jade!templates/jade_templates/notificationRequestTemplate");
     var requestSearchBar = require("jade!templates/jade_templates/requestSearchBar");
-    // var orgSearchBar = require("jade!templates/jade_templates/orgSearchBar");
 
 
 
@@ -905,28 +903,6 @@ define(function (require, exports, module) {
             var currentRid = $(event.currentTarget).attr('data-rid');
             var duid = $(event.currentTarget).attr('data-duid');
 
-            // var donateUserModel = new UserModel({
-            //     path: 'byuid',
-            //     uid: duid
-            // });
-            // donateUserModel.fetch({
-            //     xhrFields: {
-            //         withCredentials: true
-            //     },
-            //     headers: {
-            //         "uid": duid
-            //     },
-            //     success: function (model) {
-            //
-            //         donateUserModel = model;
-            //         console.log(model);
-            //
-            //     },
-            //     error: function(err){
-            //         console.log("error occurred in getting the donate username");
-            //     }
-            // });
-
             var container = document.createDocumentFragment();
             var sayThankYouModalView = new SayThankYouModalView({
                 parent: self,
@@ -972,7 +948,6 @@ define(function (require, exports, module) {
             if (group === "usertag") {
                 if ( ( idx = searchUserTagsList.indexOf( tid ) ) > -1 ) {
                     addBtn = false;
-                    // searchUserTagsList.splice( idx, 1 );
                 } else {
                     searchUserTagsList.push( tid );
                 }
@@ -984,12 +959,10 @@ define(function (require, exports, module) {
                 };
                 if (addBtn === true) {
                     $('#searchCriteriaUserTags').append(searchCriteriaButtonTemplate(locals));
-                    self.goFilterRequests();
                 }
             } else if (group === "requesttag") {
                 if ( ( idx = searchRequestTagsList.indexOf( tid ) ) > -1 ) {
                     addBtn = false;
-                    // searchRequestTagsList.splice( idx, 1 );
                 } else {
                     searchRequestTagsList.push( tid );
                 }
@@ -1001,7 +974,6 @@ define(function (require, exports, module) {
                 };
                 if (addBtn === true) {
                     $('#searchCriteriaRequestTags').append(searchCriteriaButtonTemplate(locals));
-                    self.goFilterRequests();
                 }
             }
             return this;
@@ -1061,14 +1033,13 @@ define(function (require, exports, module) {
             if (addSearchCriteriaBtn === true){
                 $('#searchCriteriaOrderBy').append(searchCriteriaButtonTemplate(locals));
             }
-            self.goFilterRequests();
-
             return this;
         },
 
         goFilterRequests: function () {
             var self = this;
 
+            console.log("FILTER OPTIONS");
             console.log(age);
             console.log(price);
             console.log(searchUserTagsList);
@@ -1292,7 +1263,6 @@ define(function (require, exports, module) {
             var tid = target.attr('id');
             var value = target.attr('data-value');
             target.remove();
-            self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
 
             var idx;
 
@@ -1311,7 +1281,7 @@ define(function (require, exports, module) {
             }
 
 
-            if (searchRequestTagsList.length === 0 && searchUserTagsList.length === 0 && value !== ""){
+            if (searchRequestTagsList.length === 0 && searchUserTagsList.length === 0 && value === ""){
 
                 var requestCollection = new RequestCollection();
 
@@ -1332,8 +1302,6 @@ define(function (require, exports, module) {
                     }
                 });
             }
-
-            self.goFilterRequests();
         },
 
         logout: function () {
