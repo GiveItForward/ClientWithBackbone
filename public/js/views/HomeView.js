@@ -212,16 +212,18 @@ define(function (require, exports, module) {
                     success: function (model) {
                         self.orgModel = model;
                         if(self.orgModel.get('approved')){
-                            $("#usersBtn").attr("href", "#");
-                            $("#usersBtn").text("users");
+                            self.addUsersButton();
+                            // $("#usersBtn").attr("href", "#");
+                            // $("#usersBtn").text("users");
                         }
                     }
                 });
             }
 
             if(self.model.get('isAdmin')){
-                $("#usersBtn").attr("href", "#");
-                $("#usersBtn").text("users");
+                // $("#usersBtn").attr("href", "#");
+                // $("#usersBtn").text("users");
+                self.addUsersButton();
             }
             return this;
         },
@@ -1350,6 +1352,17 @@ define(function (require, exports, module) {
                     }
                 }
             });
+        },
+
+        addUsersButton: function () {
+            var self = this;
+            var li = $("<li></li>");
+            var a  = $("<a></a>");
+            a.attr("id", "usrsBtn").text("users");
+            a.attr("style", "color:black;");
+            a.attr("href", "#");
+            li.append(a);
+            $("#userBthPlaceholder").replaceWith(li);
         }
     });
     return HomeView;
