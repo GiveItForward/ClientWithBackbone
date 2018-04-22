@@ -77,9 +77,10 @@ define(function (require, exports, module) {
             "click #high"                       : "toggleHigh",
             "click #goFilterRequests"           : "goFilterRequests",
             "click #goSearchUsers"              : "goSearchUsers",
+            "click #searchUsersClear"           : "clearSearchUsers",
             "keyup #searchUsers"                : "enterGoSearchUsers",
             "click #goSearchOrgs"               : "goSearchOrgs",
-            "click #searchOrgClear"             : "resetOrgSearch",
+            "click #searchOrgClear"             : "clearSearchOrgs",
             "keyup #searchOrgs"                 : "enterGoSearchOrgs",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
@@ -279,7 +280,8 @@ define(function (require, exports, module) {
                 self.$('#searchBarDiv').html(orgFeedTemplate);
             }
 
-            self.resetOrgSearch();
+            self.clearSearchOrgs();
+            return this;
         },
 
         renderMyProfile: function () {
@@ -395,9 +397,16 @@ define(function (require, exports, module) {
             $("#usersBtn").addClass("active");
             self.$('#searchBarDiv').html(userFeedTemplate);
 
+            self.clearSearchUsers();
+            return this;
+        },
+
+        clearSearchUsers: function() {
+            var self = this;
             var userCollection = new UserCollection();
 
             $('#homeLoginSpinner').css('display', 'block');
+            $('#searchUsers').val("");
             userCollection.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -1048,12 +1057,12 @@ define(function (require, exports, module) {
                         console.log(err.message);
                     }
                 });
-                return this;
             }
+            return this;
         },
 
 
-        resetOrgSearch: function() {
+        clearSearchOrgs: function() {
             var self = this;
             $('#orgSpinner').css('display', 'block');
 
@@ -1124,6 +1133,8 @@ define(function (require, exports, module) {
             var self = this;
             var searchUserString = $('#searchUsers').val();
 
+            $('#homeLoginSpinner').css('display', 'block');
+
             if(searchUserString.trim() !== ''){
                 var searchUserCollection = new UserCollection();
                 searchUserCollection.fetchSearch({
@@ -1134,6 +1145,8 @@ define(function (require, exports, module) {
                         "search": searchUserString
                     },
                     success: function (collection) {
+                        $('#homeLoginSpinner').css('display', 'none');
+
                         if(collection.models.length > 0){
                             if(self.model.get('isAdmin')){
                                 self.$('#usersCol').html(userAdminTemplate(collection));
@@ -1145,6 +1158,8 @@ define(function (require, exports, module) {
                         }
                     },
                     error: function(err){
+                        $('#homeLoginSpinner').css('display', 'none');
+
                         console.log("error when search users");
                         console.log(err);
                     }

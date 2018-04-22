@@ -5,11 +5,12 @@
             .row
                 .input-group
                     input#searchUsers.form-control(type='text', name='x', placeholder='search users...')
-                    span.input-group-btn
-                        button#goSearchUsers.btn.btn-default(type='button')
-                            span.glyphicon.glyphicon-search
-                .fa-5x
-                i#homeLoginSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
+                    #searchUsersClear.input-group-addon
+                        i.glyphicon.glyphicon-remove-circle
+                    #goSearchUsers.input-group-addon
+                        i.glyphicon.glyphicon-search
 .row(style='margin: 40px;')
     .col-md-8.col-md-offset-2
+        .fa-5x
+            i#homeLoginSpinner(style="display: none").loading-spinner.fas.fa-spinner.fa-spin
         #usersCol.scroll

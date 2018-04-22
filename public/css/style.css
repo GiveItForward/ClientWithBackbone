@@ -1693,3 +1693,13 @@ input[type=checkbox]:checked + label
     cursor: pointer;
     color: skyblue;
 }
+
+#searchUsersClear:hover {
+    cursor: pointer;
+    color: skyblue;
+}
+
+#goSearchUsers:hover {
+    cursor: pointer;
+    color: skyblue;
+}
