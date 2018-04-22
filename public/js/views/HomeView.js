@@ -79,6 +79,7 @@ define(function (require, exports, module) {
             "click #goSearchUsers"              : "goSearchUsers",
             "keyup #searchUsers"                : "enterGoSearchUsers",
             "click #goSearchOrgs"               : "goSearchOrgs",
+            "click #searchOrgClear"             : "resetOrgSearch",
             "keyup #searchOrgs"                 : "enterGoSearchOrgs",
             "click #giveBtn"                    : "paypal",
             "click #orgsBtn"                    : "renderOrgs",
@@ -278,61 +279,7 @@ define(function (require, exports, module) {
                 self.$('#searchBarDiv').html(orgFeedTemplate);
             }
 
-            $('#orgSpinner').css('display', 'block');
-
-            var orgCollection = new OrgCollection();
-            orgCollection.fetch({
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (collection) {
-                    if(collection.models.length > 0){
-                        self.$('#orgCol').html(orgTemplate(collection));
-                    }else{
-                        self.$('#orgCol').html("There are no approved orgs at this time.");
-                    }
-                    $('#orgSpinner').css('display', 'none');
-                }
-            });
-
-            if(self.model.get('isAdmin')){
-                var pendingOrgCollection = new OrgCollection();
-                pendingOrgCollection.fetchPending({
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (collection) {
-                        if(collection.models.length > 0){
-                            self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
-                        }else{
-                            self.$('#pendingOrgCol').html("There are no pending orgs at this time.");
-                        }
-                    }
-                });
-            }
-
-            var myOid = self.model.get('orgId');
-            if(myOid > 0){
-                var myOrgModel = new OrgModel({
-                    path: 'byoid',
-                    oid: myOid
-                });
-                myOrgModel.fetch({
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    headers: {"oid": myOid},
-                    success: function (model) {
-                        var collect = new Backbone.Collection();
-                        collect.add(model);
-                        self.$('#myOrgCol').html(orgMyOrgTemplate(collect));
-                        if(!self.orgModel.get('approved')){
-                            self.$('#pendingMessage').html("Your organization is pending approval.");
-                        }
-                    }
-                });
-            }
-            return this;
+            self.resetOrgSearch();
         },
 
         renderMyProfile: function () {
@@ -1103,6 +1050,66 @@ define(function (require, exports, module) {
                 });
                 return this;
             }
+        },
+
+
+        resetOrgSearch: function() {
+            var self = this;
+            $('#orgSpinner').css('display', 'block');
+
+            var orgCollection = new OrgCollection();
+            orgCollection.fetch({
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (collection) {
+                    if(collection.models.length > 0){
+                        self.$('#orgCol').html(orgTemplate(collection));
+                    }else{
+                        self.$('#orgCol').html("There are no approved orgs at this time.");
+                    }
+                    $('#orgSpinner').css('display', 'none');
+                }
+            });
+
+            if(self.model.get('isAdmin')){
+                var pendingOrgCollection = new OrgCollection();
+                pendingOrgCollection.fetchPending({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (collection) {
+                        if(collection.models.length > 0){
+                            self.$('#pendingOrgCol').html(orgPendingTemplate(collection));
+                        }else{
+                            self.$('#pendingOrgCol').html("There are no pending orgs at this time.");
+                        }
+                    }
+                });
+            }
+
+            var myOid = self.model.get('orgId');
+            if(myOid > 0){
+                var myOrgModel = new OrgModel({
+                    path: 'byoid',
+                    oid: myOid
+                });
+                myOrgModel.fetch({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {"oid": myOid},
+                    success: function (model) {
+                        var collect = new Backbone.Collection();
+                        collect.add(model);
+                        self.$('#myOrgCol').html(orgMyOrgTemplate(collect));
+                        if(!self.orgModel.get('approved')){
+                            self.$('#pendingMessage').html("Your organization is pending approval.");
+                        }
+                    }
+                });
+            }
+            return this;
         },
 
         enterGoSearchOrgs: function (e) {

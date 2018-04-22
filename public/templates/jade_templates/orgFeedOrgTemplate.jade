@@ -3,6 +3,7 @@
     .col-md-8.col-md-offset-2
         .orgscroll
             #orgOrgDiv
+                br
                 ul.nav.nav-tabs
                     li.nav-item.active
                         a.nav-link.active(href='#myOrgColTab', data-toggle='tab') All Orgs
@@ -14,12 +15,13 @@
                     #myOrgColTab.tab-pane.active
                         br
                         .container-fluid
-                            .row
+                            .row(style='float:right')
                                 .input-group
                                     input#searchOrgs.form-control(type='text', placeholder='search orgs...')
-                                    span.input-group-btn
-                                        button#goSearchOrgs.btn.btn-default(type='button')
-                                            span.glyphicon.glyphicon-search
+                                    #searchOrgClear.input-group-addon
+                                        i.glyphicon.glyphicon-remove-circle
+                                    #goSearchOrgs.input-group-addon
+                                        i.glyphicon.glyphicon-search
                         br
                         #orgCol.activeTabDiv
                     #myOrgTab.tab-pane

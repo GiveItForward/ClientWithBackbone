@@ -1682,3 +1682,14 @@ input[type=checkbox]:checked + label
         transform: rotate(360deg);
     }
 }
+
+
+#searchOrgClear:hover {
+    cursor: pointer;
+    color: skyblue;
+}
+
+#goSearchOrgs:hover {
+    cursor: pointer;
+    color: skyblue;
+}
