@@ -209,8 +209,16 @@ define(function (require, exports, module) {
                 self.signupModel.set("lastname", $("#newLastname").val());
                 self.signupModel.set("email", $("#newEmail").val());
 
-                if (($("#newPassword").val() !== '') && $("#newPassword").val() === $("#newVerifyPassword").val()) {
-                    self.signupModel.set("password", sha256($("#newPassword").val()));
+                if ($("#newPassword").val() !== '') {
+
+                    if ($("#newPassword").val() === $("#newVerifyPassword").val()) {
+                        self.signupModel.set("password", sha256($("#newPassword").val()));
+                        self.$('#signupErrorLabel').html("");
+                    }
+                    else if ($("#newVerifyPassword").val() !== '') {
+
+                        self.$('#signupErrorLabel').html("Passwords do not match.");
+                    }
                 }
 
                 if (!self.signupModel.get("username") || !self.signupModel.get("email") || !self.signupModel.get("password")) {

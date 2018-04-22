@@ -235,7 +235,9 @@ block content
                         .form-group
                             label(for='newVerifyPassword') Confirm password:
                             input#newVerifyPassword.form-control(type='password', placeholder='Re-enter password', name='confirm password')
-                        button#createAccountBtn.btn.btn-default(type='submit', data-dismiss='modal', data-target='signupModal') Sign up
+                    .modal-footer
+                        button#createAccountBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal', data-target='signupModal') Sign up
+                        label#signupErrorLabel(style="margin: 5px; float:left; color: red")
     #landingFooter
         .footer.turquoise.whitetext
             p Give It Forward &copy; 2018
