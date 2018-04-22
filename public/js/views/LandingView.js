@@ -174,7 +174,13 @@ define(function (require, exports, module) {
                     self.model.set("password", undefined);
                     onIndex = false;
                     $('#loginSpinner').css('display', 'none');
-                     new HomeView({
+
+                    // kill the login modal
+                    $('#loginModal').remove();
+                    $('.modal-backdrop').remove();
+                    $( 'body' ).removeClass( "modal-open" );
+
+                    new HomeView({
                          model: self.model
                     });
                 },
