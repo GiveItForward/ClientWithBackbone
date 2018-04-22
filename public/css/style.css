@@ -256,15 +256,16 @@ a:hover {
 
 
 /*hover over checkmark*/
-/*span[data-title]:hover:after {*/
-  /*content: attr(data-title);*/
-  /*padding: 5px ;*/
-  /*background-color: #3C0740;*/
-  /*color: white;*/
-  /*border-radius: 25px;*/
-  /*position: absolute;*/
-  /*opacity: 1.0;*/
-/*}*/
+span[data-title]:hover:after {
+    content: attr(data-title);
+    padding: 5px ;
+    background-color: white;
+    color: #00947D;
+    border-radius: 4px;
+    position: absolute;
+    opacity: 1.0;
+    border: solid 1px lightgrey;
+}
 
 /*body{*/
   /*height: 100%;*/
