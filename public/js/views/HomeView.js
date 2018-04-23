@@ -241,29 +241,37 @@ define(function (require, exports, module) {
             var rid = element.attr("data-rid");
             var ruseruid = element.attr("data-ruser-uid");
             var amount = element.attr("data-amount");
-            $('#paypalSpinner').css('display', "block");
 
-            var currRequest = new RequestModel({
-                path: 'paypal'
-            });
+            bootbox.confirm({
+                message: "Be aware, the amount you will pay will include both the donation and PayPal fees.",
+                callback: function (result) {
+                    if(result){
+                        $('#paypalSpinner').css('display', "block");
 
-            currRequest.fetch({
-                reset: true,
-                headers: {
-                    "rid": rid,
-                    "duid": self.model.get("uid"),
-                    "uid": ruseruid,
-                    "amt": amount
-                },
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (model, response, options) {
-                    window.location.href = model.get('redirectUrl');
+                        var currRequest = new RequestModel({
+                            path: 'paypal'
+                        });
 
-                },
-                error: function (model, response, options){
-                    bootbox.alert('There was a problem donating. Try again later.');
+                        currRequest.fetch({
+                            reset: true,
+                            headers: {
+                                "rid": rid,
+                                "duid": self.model.get("uid"),
+                                "uid": ruseruid,
+                                "amt": amount
+                            },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function (model, response, options) {
+                                window.location.href = model.get('redirectUrl');
+
+                            },
+                            error: function (model, response, options){
+                                bootbox.alert('There was a problem donating. Try again later.');
+                            }
+                        });
+                    }
                 }
             });
 
