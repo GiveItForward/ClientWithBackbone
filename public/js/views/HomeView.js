@@ -1069,6 +1069,8 @@ define(function (require, exports, module) {
                         console.log(err.message);
                     }
                 });
+            } else {
+                self.clearSearchOrgs();
             }
             return this;
         },
@@ -1176,6 +1178,8 @@ define(function (require, exports, module) {
                         console.log(err);
                     }
                 });
+            } else {
+                self.clearSearchUsers();
             }
             return this;
         },
