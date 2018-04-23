@@ -277,10 +277,15 @@ define(function (require, exports, module) {
             var self = this;
             self.updateSignupModel();
             if ( e.keyCode === 13 ) { // 13 is enter key
-                self.createAccount();
+                // self.createAccount();
+                if(self.$('#createAccountBtn').prop("disabled") === false)
+                {
+                    $("#createAccountBtn").click();
+                }
             }
             return this;
         },
+
         sendForgotPasswordEmail: function() {
             var self = this;
             self.model = new UserModel({});
