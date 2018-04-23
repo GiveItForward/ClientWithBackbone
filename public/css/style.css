@@ -606,26 +606,26 @@ span[data-title]:hover:after {
     color:white;
 }
 
-.winebtn:hover {
-    /*background: #B74343;*/
-    text-decoration: none;
-    font-size: 14pt;
-    filter: none;
-}
+/*.winebtn:hover {*/
+    /*!*background: #B74343;*!*/
+    /*text-decoration: none;*/
+    /*font-size: 14pt;*/
+    /*filter: none;*/
+/*}*/
 
 .turquoisebtn {
     /*background-color: #007F64;*/
-    background: linear-gradient(to top, #002A26, #00947D);
+    background-color: #00ae93;
     border: 1px solid #00947D;
     color:white;
 }
 
-.turquoisebtn:hover {
-    /*background: #00947D;*/
-    text-decoration: none;
-    font-size: 14pt;
-    filter: none;
-}
+/*.turquoisebtn:hover {*/
+    /*!*background: #00947D;*!*/
+    /*text-decoration: none;*/
+    /*font-size: 14pt;*/
+    /*filter: none;*/
+/*}*/
 
 .orangebtn {
     background-color: #F7882F;
@@ -639,11 +639,11 @@ span[data-title]:hover:after {
     color:white;
 }
 
-.loginbtn:hover {
-    text-decoration: none;
-    font-size: 14pt;
-    filter: none;
-}
+/*.loginbtn:hover {*/
+    /*text-decoration: none;*/
+    /*font-size: 14pt;*/
+    /*filter: none;*/
+/*}*/
 
 .purplebtn {
     /*background-color: #840E8C;*/
@@ -652,12 +652,12 @@ span[data-title]:hover:after {
     color:white;
 }
 
-.purplebtn:hover {
-    /*background: #840E8C;*/
-    text-decoration: none;
-    font-size: 14pt;
-    filter: none;
-}
+/*.purplebtn:hover {*/
+    /*!*background: #840E8C;*!*/
+    /*text-decoration: none;*/
+    /*font-size: 14pt;*/
+    /*filter: none;*/
+/*}*/
 
 .greybtn{
     background: linear-gradient(to top, #262626, dimgrey);
@@ -665,11 +665,11 @@ span[data-title]:hover:after {
     color:white;
 }
 
-.greybtn:hover {
-    background: dimgrey;
-    text-decoration: none;
-    filter: none;
-}
+/*.greybtn:hover {*/
+    /*background: dimgrey;*/
+    /*text-decoration: none;*/
+    /*filter: none;*/
+/*}*/
 
 .greybtncol{
     background-color: dimgrey;
@@ -694,13 +694,13 @@ span[data-title]:hover:after {
     padding: 5%;
 }
 
-.turquoisebtncol:hover {
-    font-size: 24pt;
-    font-weight:bold;
-    color:white;
-    text-shadow: 6px 6px 6px #002A26;
-    filter: none;
-}
+/*.turquoisebtncol:hover {*/
+    /*font-size: 24pt;*/
+    /*font-weight:bold;*/
+    /*color:white;*/
+    /*text-shadow: 6px 6px 6px #002A26;*/
+    /*filter: none;*/
+/*}*/
 
 .mainbtn{
     margin-top: 40px;
