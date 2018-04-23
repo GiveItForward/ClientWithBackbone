@@ -23,6 +23,11 @@ a:hover {
     color: white !important;
 }
 
+.whitetext-outline {
+    color: white !important;
+    text-shadow: -0.7px 0 black, 0 0.7px black, 0.7px 0 black, 0 -0.7px black;
+}
+
 .blacktext {
     color: black !important;
 }
