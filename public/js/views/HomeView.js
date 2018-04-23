@@ -902,6 +902,7 @@ define(function (require, exports, module) {
 
         updateSearchUserTags: function (event) {
 
+            event.stopPropagation();
             var self = this;
             var target = $(event.currentTarget),
                 name = target.attr( 'data-name' ),
@@ -947,6 +948,7 @@ define(function (require, exports, module) {
         },
 
         updateOrderBy: function (event) {
+            event.stopPropagation();
             var self = this;
             var target = $(event.currentTarget);
             var val = target.attr('data-value');
