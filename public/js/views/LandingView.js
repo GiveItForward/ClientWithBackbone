@@ -83,7 +83,7 @@ define(function (require, exports, module) {
             var googleUserModel = new UserModel({
                 path: "login"
             });
-            $('#googleSpinner').css('display', 'inline-block');
+            $('#googleSpinner').css('display', 'block');
             googleUserModel.fetch({
                 xhrFields: {
                     withCredentials: true
