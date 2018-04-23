@@ -20,7 +20,7 @@ for user in locals.models
                                                     .verifytag
                                                         | ##{tag.tagname}
                                                     //button#updateVerifiedTagsBtn.verifybtn.winebtn(data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
-                                                    button#unverifyTagBtn.btn.btn-danger(type='submit', data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
+                                                    button#unverifyTagBtn.btn.btn-default.btn-danger(type='submit', data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') unverify
                                                         //img(src='/img/marooncheckmark.png', width='40', height='40', alt='submit')
                                                     //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
                                                     //    input#verifyTag(type='checkbox', name='verifiedtag', checked="checked")
@@ -28,7 +28,7 @@ for user in locals.models
                                                 else
                                                     .verifytag
                                                         | ##{tag.tagname}
-                                                    button#verifyTagBtn.btn.turquoise.whitetext(data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') verify
+                                                    button#verifyTagBtn.btn.btn-info.whitetext(data-tid='#{tag.tid}', data-tagname='#{tag.tagname}', data-uid='#{user.get("uid")}', data-username='#{user.get("username")}') verify
                                                     //a(href='#', data-tag='#{tag.tid}', data-uid='#{user.get("uid")}', tabindex='-1')
                                                     //    input#verifyTag(type='checkbox')
                                                     //    label(for='verifiedtag')
