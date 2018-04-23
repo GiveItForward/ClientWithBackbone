@@ -1712,3 +1712,8 @@ input[type=checkbox]:checked + label
     cursor: pointer;
     color: skyblue;
 }
+
+.fourteen-font
+{
+    font-size:14pt;
+}
