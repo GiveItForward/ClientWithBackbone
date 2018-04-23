@@ -16,6 +16,8 @@ block content
                 #navbar-collapse-2.collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right(style='font-size: 1.2em;')
                         li
+                            .fa-2x
+                                i#googleSpinner(style="display: none").fas.fa-spinner.fa-spin
                             .gSignInWrapper
                                 input#googleIn(type='checkbox', style='display:none', data-firstname='', data-lastname='', data-email='', data-idtoken='')
                                 #googleSignin.customGPlusSignIn
@@ -206,6 +208,8 @@ block content
                             input#password.form-control(type='password', placeholder='Enter password', name='password')
                     .modal-footer
                         button#loginSubmitBtn.btn.btn-default(style='float:left;', type='submit') Log in
+                        .fa-2x
+                            i#loginSpinner(style="display: none").fas.fa-spinner.fa-spin
                         label#loginErrorLabel(style="margin: 5px; float:left; color: red")
                         span.psw
                             a(href='#', data-toggle='modal', data-target='#forgotPasswordModal', data-dismiss='modal') Forgot password?
@@ -237,6 +241,8 @@ block content
                             input#newVerifyPassword.form-control(type='password', placeholder='Re-enter password', name='confirm password')
                     .modal-footer
                         button#createAccountBtn.btn.btn-default(style='float:left;', type='submit', data-dismiss='modal', data-target='signupModal') Sign up
+                        .fa-2x
+                            i#signupSpinner(style="display: none").fas.fa-spinner.fa-spin
                         label#signupErrorLabel(style="margin: 5px; float:left; color: red")
     #landingFooter
         .footer.turquoise.whitetext

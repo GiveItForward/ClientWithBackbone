@@ -595,7 +595,12 @@ define(function (require, exports, module) {
                     if(collection.models.length > 0){
                         self.$('#myRequestCol').html(myRequestTemplate(collection));
                     }else{
-                        self.$('#myRequestCol').html("There is no history available.");
+                        self.$('#myRequestCol').html(
+                        "<div class=\"panel panel-default\">\n" +
+                            "  <div class=\"panel-body\">\n" +
+                            "    <p>There is no request history available.</p>\n" +
+                            "  </div>\n" +
+                            "</div>");
                     }
 
                 },
@@ -629,7 +634,12 @@ define(function (require, exports, module) {
                     if(collection.models.length > 0){
                         self.$('#myDonationCol').html(myDonationTemplate(collection));
                     }else{
-                        self.$('#myDonationCol').html("There is no history available.");
+                        self.$('#myDonationCol').html(
+                            "<div class=\"panel panel-default\">\n" +
+                            "  <div class=\"panel-body\">\n" +
+                            "    <p>There is no donation history available.</p>\n" +
+                            "  </div>\n" +
+                            "</div>");
                     }
                     // self.$('#myDonationsSearchByTags').html(selectTagsTemplate(self.tagCollection));
                 },

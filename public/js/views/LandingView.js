@@ -67,6 +67,7 @@ define(function (require, exports, module) {
         },
 
         googleIn: function (event) { //google signin
+
             console.log("in landing view googleIn");
             // console.log(event);
             var firstname = $(event.currentTarget).attr('data-firstname');
@@ -82,7 +83,7 @@ define(function (require, exports, module) {
             var googleUserModel = new UserModel({
                 path: "login"
             });
-            $('#loginSpinner').css('display', 'block');
+            $('#googleSpinner').css('display', 'block');
             googleUserModel.fetch({
                 xhrFields: {
                     withCredentials: true
@@ -97,10 +98,10 @@ define(function (require, exports, module) {
                     new HomeView({
                         model: model
                     });
-                    $('#loginSpinner').css('display', 'none');
+                    $('#googleSpinner').css('display', 'none');
                 },
                 error: function(model, response, options){
-                    $('#loginSpinner').css('display', 'none');
+                    $('#googleSpinner').css('display', 'none');
 
                     var googleUserSignupModel = new UserModel({
                         path: "create",
@@ -233,6 +234,8 @@ define(function (require, exports, module) {
             var self = this;
             self.updateSignupModel();
             console.log("creating account...");
+            $('#signupSpinner').css('display', 'block');
+
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
                 self.signupModel.set("username", $("#newUsername").val());
@@ -255,12 +258,14 @@ define(function (require, exports, module) {
                     },
                     wait: true,
                     success: function(model, response) {
+                        $('#signupSpinner').css('display', 'none');
                         $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
                             "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
                             "</div>");
                         onIndex = false;
                     },
                     error: function(model, response) {
+                        $('#signupSpinner').css('display', 'none');
                         $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
                             "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
                             "<p>Message from server: " + response.responseText +"</p>" +
