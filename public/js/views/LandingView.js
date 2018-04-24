@@ -234,7 +234,7 @@ define(function (require, exports, module) {
             var self = this;
             self.updateSignupModel();
             console.log("creating account...");
-            $('#signupSpinner').css('display', 'block');
+            $('#googleSpinner').css('display', 'block');
 
 
             if($("#newPassword").val() === $("#newVerifyPassword").val()){
@@ -258,14 +258,14 @@ define(function (require, exports, module) {
                     },
                     wait: true,
                     success: function(model, response) {
-                        $('#signupSpinner').css('display', 'none');
+                        $('#googleSpinner').css('display', 'none');
                         $('#signupColumn').html("<div class=\"alert alert-success\">\n" +
                             "  <strong>Success!</strong> Email confirmation has been sent. Please confirm email before logging in.\n" +
                             "</div>");
                         onIndex = false;
                     },
                     error: function(model, response) {
-                        $('#signupSpinner').css('display', 'none');
+                        $('#googleSpinner').css('display', 'none');
                         $('#signupColumn').html("<div class=\"alert alert-danger\">\n" +
                             "  <strong>Error!</strong> <p>Email confirmation was not sent.<br></p>" +
                             "<p>Message from server: " + response.responseText +"</p>" +
