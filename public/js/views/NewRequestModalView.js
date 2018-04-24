@@ -134,14 +134,14 @@ define(function (require, exports, module) {
 
         checkDescriptionWithNLPAndSave: function () {
             var self = this;
-            var nlpModel = new NLPModel({});
+            var nlpModel = new NLPModel({
+                string: $("#newRequestDescription").val()
+            });
             self.$('#createRequestBtn').prop("disabled", true);
-            nlpModel.fetch({
+            nlpModel.save(null, {
+                type: 'POST',
                 xhrFields: {
                     withCredentials: true
-                },
-                headers: {
-                    "stringToCheck": $("#newRequestDescription").val()
                 },
                 success: function(model) {
                     console.log('success in fetch of NLP model');

@@ -935,7 +935,7 @@ define(function (require, exports, module) {
                     btnColor: "yellow"
                 };
                 if (addBtn === true) {
-                    $('#searchCriteriaUserTags').append(searchCriteriaButtonTemplate(locals));
+                    $('#searchCriteria').append(searchCriteriaButtonTemplate(locals));
                 }
             } else if (group === "requesttag") {
                 if ( ( idx = searchRequestTagsList.indexOf( tid ) ) > -1 ) {
@@ -950,7 +950,7 @@ define(function (require, exports, module) {
                     btnColor: "orange"
                 };
                 if (addBtn === true) {
-                    $('#searchCriteriaRequestTags').append(searchCriteriaButtonTemplate(locals));
+                    $('#searchCriteria').append(searchCriteriaButtonTemplate(locals));
                 }
             }
             return this;
@@ -1009,7 +1009,7 @@ define(function (require, exports, module) {
                 btnColor: "turquoise"
             };
             if (addSearchCriteriaBtn === true){
-                $('#searchCriteriaOrderBy').append(searchCriteriaButtonTemplate(locals));
+                $('#searchCriteria').append(searchCriteriaButtonTemplate(locals));
             }
             return this;
         },
@@ -1023,6 +1023,8 @@ define(function (require, exports, module) {
             console.log(searchUserTagsList);
             console.log(searchRequestTagsList);
 
+            $('#requestFeedSpinner').css("display", "block");
+            self.$('#requestCol').html("");
             var filteredRequestCollection = new RequestCollection();
             filteredRequestCollection.fetchByFilter({
                 xhrFields: {
@@ -1035,14 +1037,26 @@ define(function (require, exports, module) {
                     "utags": searchUserTagsList
                 },
                 success: function (collection) {
+                    $('#requestFeedSpinner').css("display", "none");
                     var collectionWithMyID = {
                         collection: collection,
                         myUid: self.model.get('uid')
                     };
-                    self.$('#requestCol').html(requestTemplate(collectionWithMyID));
+                    if (collection.length > 0){
+                        self.$('#requestCol').html(requestTemplate(collectionWithMyID));
+                    } else {
+                        self.$('#requestCol').html(
+                            "<div class=\"panel panel-default\">\n" +
+                            "  <div class=\"panel-body\">\n" +
+                            "    <p style='font-size: 14pt;'>There are no requests with this search criteria.</p>\n" +
+                            "  </div>\n" +
+                            "</div>");
+                    }
+
                     // self.$('#searchByTags').html(selectTagsTemplate(self.tagCollection));
                 },
                 error: function(err){
+                    $('#requestFeedSpinner').css("display", "none");
                     console.log("error when filtering");
                     console.log(err.message);
                 }

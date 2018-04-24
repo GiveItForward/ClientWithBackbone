@@ -183,13 +183,13 @@ define(function (require, exports, module) {
         checkDescriptionWithNLPAndSave: function () {
             console.log('in checkDescriptionWithNLP');
             var self = this;
-            var nlpModel = new NLPModel({});
-            nlpModel.fetch({
+            var nlpModel = new NLPModel({
+                string: $("#editRequestDescription").val()
+            });
+            nlpModel.save(null, {
+                type: 'POST',
                 xhrFields: {
                     withCredentials: true
-                },
-                headers: {
-                    "stringToCheck": $("#editRequestDescription").val()
                 },
                 success: function(model, response) {
                     console.log('success in fetch of NLP model');

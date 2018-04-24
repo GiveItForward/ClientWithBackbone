@@ -84,7 +84,7 @@ router.post('/paypal/verify/*', function(req, res, next) {
 
 
     // fulfill request
-    // todo - i cannot fulfill the request unless i have the rid and duid. I have the duid, but i don't have the ruid
+    // todo - i cannot fulfill the request unlfess i have the rid and duid. I have the duid, but i don't have the ruid
 
 //     var requestBody;
 //

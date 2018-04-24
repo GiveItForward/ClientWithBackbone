@@ -141,14 +141,14 @@ define(function (require, exports, module) {
         checkBioWithNLPAndSave: function () {
             console.log('in checkBioWithNLP');
             var self = this;
-            var nlpModel = new NLPModel({});
+            var nlpModel = new NLPModel({
+                string: $("#editBio").val()
+            });
             self.$('#updateProfileBtn').prop("disabled", true);
-            nlpModel.fetch({
+            nlpModel.save(null, {
+                type: 'POST',
                 xhrFields: {
                     withCredentials: true
-                },
-                headers: {
-                    "stringToCheck": $("#editBio").val()
                 },
                 success: function(model, response) {
                     console.log('success in fetch of NLP model');
