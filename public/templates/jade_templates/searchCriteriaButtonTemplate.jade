@@ -1,9 +1,9 @@
 if locals.btnColor === 'yellow'
-    button.btn.btn-default.yellow.whitetext-outline(id='#{locals.tid}', style='font-size: 14pt') #{locals.tagname}
+    button.btn.yellow.whitetext-outline(id='#{locals.tid}', style='font-size: 14pt') #{locals.tagname}
         span.img-circle(aria-hidden="true", style='margin-left:5px;') &times;
 else if locals.btnColor === 'orange'
-    button.btn.btn-default.orange.whitetext-outline(id='#{locals.tid}', style='font-size: 14pt') #{locals.tagname}
+    button.btn.orange.whitetext-outline(id='#{locals.tid}', style='font-size: 14pt') #{locals.tagname}
         span(aria-hidden="true", style='margin-left:5px;') &times;
 else
-    button.btn.btn-default.turquoise.whitetext-outline(id='#{locals.tid}#{locals.tagname}', data-value='#{locals.tagname}', style='font-size: 14pt') #{locals.tagname}
+    button.btn.turquoise.whitetext-outline(id='#{locals.tid}#{locals.tagname}', data-value='#{locals.tagname}', style='font-size: 14pt') #{locals.tagname}
         span(aria-hidden="true", style='margin-left:5px;') &times;

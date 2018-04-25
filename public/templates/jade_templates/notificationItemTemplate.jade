@@ -5,10 +5,10 @@
                 .panel-body
                     .container-fluid
                         .row
-                            .col-md-3
-                                i(style='color: gray') #{note.get("date")}
-                            .col-md-8
+                            i(style='color: gray') #{note.get("date")}
+                        .row
+                            .col-md-10
                                 a#notificationLink.blacktext(href='#', data-nid='#{note.get("nid")}', data-rid='#{note.get("rid")}', data-message='#{note.get("message")}', data-date='#{note.get("date")}', data-type='#{note.get("note_type")}', data-opened='#{note.get("opened")}') #{note.get("message")}
                             if !note.get('opened')
-                                .col-md-1
+                                .col-md-2
                                     i.fas.fa-circle.pull-right(id='nid#{note.get("nid")}', style='color: #00ae93;')
