@@ -108,6 +108,7 @@ define(function (require, exports, module) {
             "click #notificationItem a"         : "viewNotification",
             "mouseover #notificationItem a"     : "quickViewNotification",
             "click #searchCriteria button"      : "removedSearchCriteria",
+            "click #notificationDropdown"       : "clearNotificationCount",
             "click #logoutBtn"                  : "logout"
         },
 
@@ -281,6 +282,7 @@ define(function (require, exports, module) {
         renderOrgs: function () {
             var self = this;
             self.renderTopHomeBar();
+            self.renderMyNotifications();
             self.removeSelectedFromAll();
             if(self.model.get('isAdmin')) {
                 self.$('#searchBarDiv').html(orgFeedAdminTemplate);
@@ -403,6 +405,7 @@ define(function (require, exports, module) {
         renderUsers: function () {
             var self = this;
             self.renderTopHomeBar();
+            self.renderMyNotifications();
             self.removeSelectedFromAll();
             $("#usersBtn").addClass("active");
             self.$('#searchBarDiv').html(userFeedTemplate);
@@ -577,6 +580,7 @@ define(function (require, exports, module) {
             var self = this;
             self.$('#myRequestHistory').html(myRequestFeedTemplate);
             var requestCollection = new RequestCollection();
+            self.renderMyNotifications();
 
 
             $('#myRequestSpinner').css("display", "block");
@@ -615,6 +619,8 @@ define(function (require, exports, module) {
         renderMyDonations: function () {
             var self = this;
             self.$('#myDonationHistory').html(myDonationFeedTemplate);
+
+            self.renderMyNotifications();
 
             var requestCollection = new RequestCollection();
 
@@ -1023,6 +1029,8 @@ define(function (require, exports, module) {
             console.log(searchUserTagsList);
             console.log(searchRequestTagsList);
 
+            self.renderMyNotifications();
+
             $('#requestFeedSpinner').css("display", "block");
             self.$('#requestCol').html("");
             var filteredRequestCollection = new RequestCollection();
@@ -1071,6 +1079,8 @@ define(function (require, exports, module) {
         goSearchOrgs: function () {
             var self = this;
             var searchOrgString = $('#searchOrgs').val();
+
+            self.renderMyNotifications();
 
             if(searchOrgString.trim() !== ''){
                 var searchOrgCollection = new OrgCollection();
@@ -1170,6 +1180,8 @@ define(function (require, exports, module) {
         goSearchUsers: function () {
             var self = this;
             var searchUserString = $('#searchUsers').val();
+
+            self.renderMyNotifications();
 
             $('#homeLoginSpinner').css('display', 'block');
 
@@ -1390,6 +1402,11 @@ define(function (require, exports, module) {
                     }
                 }
             });
+        },
+
+        clearNotificationCount: function() {
+            var self = this;
+            self.$('#notificationCount').text("");
         },
 
         addUsersButton: function () {
