@@ -47,11 +47,11 @@ Setup Instructions (Client):
 5. Add the following to Environment Variables:
 
 NODE_ENV=development
-USER_ID=supersar-facilitator_api1.comcast.net
-PASSWORD=977W5KA3GDXFQQSS
-SIGNATURE=A5zG5jYJZJ8MEnJ5wJFm5.L6E4ZsAOkgA5aiUsyxefcKQxXvuXctI.X9
-GOOGLE_CLIENT_ID=516734440147-59sb0ckq0i826f0s3bquv96v858v86m3.apps.googleusercontent.com
-SERVER_IP=http://localhost:8080
+USER_ID=
+PASSWORD=
+SIGNATURE=
+GOOGLE_CLIENT_ID=
+SERVER_IP=
 
 6. Click ok
 
