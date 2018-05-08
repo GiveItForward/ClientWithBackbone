@@ -23,7 +23,7 @@ define(function (require, exports, module) {
         events: {
             "click #cancelEditProfileBtn"   : "destroyEditProfileModal",
             "click #exitEditProfileModal"   : "destroyEditProfileModal",
-            "click #updateProfileBtn"       : "checkBioWithNLPAndSave",
+            "click #updateProfileBtn"       : "save",
             "click #editProfileImage"       : "changeImage",
             "click .dropdown-menu a"        : "updateEditProfileTags",
             "click .deleteTag"              : "deleteTag",

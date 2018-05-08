@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         events: {
             "click #cancelNewRequestBtn"     : "destroyNewRequestModal",
             "click #exitNewRequestModal"     : "destroyNewRequestModal",
-            "click #createRequestBtn"        : "checkDescriptionWithNLPAndSave",
+            "click #createRequestBtn"        : "save",
             "change input[type=radio]"       : "updateRequestTags",
             "keyup"                          : "updateModel",
             "change"                         : "updateModel"
